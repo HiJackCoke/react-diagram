@@ -1,5 +1,7 @@
+import Node from 'components/Node';
+
 function Index() {
-   return <div>react</div>;
+   return <Node />;
 }
 
 export default Index;
