@@ -1,11 +1,15 @@
 import Viewport from 'container/Viewport';
-import Node from 'components/Node';
+
+import NodeRenderer from 'container/NodeRenderer';
+import ReactDiagramProvider from 'components/ReactDiagramProvider';
 
 function Index() {
    return (
-      <Viewport>
-         <Node />
-      </Viewport>
+      <ReactDiagramProvider>
+         <Viewport>
+            <NodeRenderer />
+         </Viewport>
+      </ReactDiagramProvider>
    );
 }
 

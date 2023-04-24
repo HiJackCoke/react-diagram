@@ -1,0 +1,22 @@
+export enum Position {
+   Left = 'left',
+   Top = 'top',
+   Right = 'right',
+   Bottom = 'bottom',
+}
+
+export interface XYPosition {
+   x: number;
+   y: number;
+}
+
+export type XYZPosition = XYPosition & { z: number };
+
+export interface Dimensions {
+   width: number;
+   height: number;
+}
+
+export type CoordinateExtent = [[number, number], [number, number]];
+
+export type Transform = [number, number, number];
