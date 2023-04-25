@@ -7,7 +7,15 @@ function Index() {
    return (
       <ReactDiagramProvider>
          <Viewport>
-            <NodeRenderer />
+            <NodeRenderer
+               // nodeTypes={}
+               onlyRenderVisibleElements
+               disableKeyboardA11y={false}
+               selectNodesOnDrag
+               nodeOrigin={[0, 0]}
+               onNodeClick={console.log}
+               rfId="1"
+            />
          </Viewport>
       </ReactDiagramProvider>
    );

@@ -3,7 +3,38 @@ import { ComponentType } from 'react';
 import wrapNode from 'components/Node/wrapNode';
 import Nodes from 'components/Node';
 
-import { NodeProps, NodeTypes, NodeTypesWrapped, Position } from 'types';
+import {
+   NodeProps,
+   NodeTypes,
+   NodeTypesWrapped,
+   Position,
+   ReactDiagramProps,
+} from 'types';
+
+type RequiredProps = Required<
+   Pick<
+      ReactDiagramProps,
+      | 'onlyRenderVisibleElements'
+      | 'selectNodesOnDrag'
+      | 'disableKeyboardA11y'
+      | 'nodeOrigin'
+   >
+>;
+
+type NodeRendererProps = Pick<
+   ReactDiagramProps,
+   | 'onNodeClick'
+   | 'onNodeDoubleClick'
+   | 'onNodeMouseEnter'
+   | 'onNodeMouseMove'
+   | 'onNodeMouseLeave'
+   | 'onNodeContextMenu'
+   | 'nodeExtent'
+> &
+   RequiredProps & {
+      // nodeTypes: NodeTypesWrapped;
+      rfId: string;
+   };
 
 export type CreateNodeTypes = (nodeTypes: NodeTypes) => NodeTypesWrapped;
 export function createNodeTypes(nodeTypes: NodeTypes): NodeTypesWrapped {
@@ -43,7 +74,7 @@ const defaultNodeTypes: NodeTypes = {
    default: Nodes,
 };
 
-function NodeRenderer(props: any) {
+function NodeRenderer(props: NodeRendererProps) {
    return (
       <div className="react-diagram__nodes">
          {nodes.map((node) => {
@@ -54,10 +85,18 @@ function NodeRenderer(props: any) {
 
             return (
                <NodeComponent
+                  {...props}
                   key={node.id}
                   id={node.id}
                   // className={node.className}
                   // style={node.style}
+
+                  onClick={props.onNodeClick}
+                  onMouseEnter={props.onNodeMouseEnter}
+                  onMouseMove={props.onNodeMouseMove}
+                  onMouseLeave={props.onNodeMouseLeave}
+                  onContextMenu={props.onNodeContextMenu}
+                  onDoubleClick={props.onNodeDoubleClick}
                   type="default"
                   data={node.data}
                   sourcePosition={Position.Bottom}
@@ -67,17 +106,9 @@ function NodeRenderer(props: any) {
                   yPos={posY}
                   xPosOrigin={posX}
                   yPosOrigin={posY}
-                  onClick={console.log}
-                  onMouseEnter={console.log}
-                  onMouseMove={console.log}
-                  onMouseLeave={console.log}
-                  onContextMenu={console.log}
-                  onDoubleClick={console.log}
                   zIndex={0}
                   isParent={true}
                   initialized={true}
-                  rfId={props.rfId}
-                  disableKeyboardA11y={props.disableKeyboardA11y}
                   ariaLabel="label"
                />
             );
