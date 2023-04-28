@@ -2,12 +2,13 @@ import { createStore } from 'zustand';
 
 import { getDimensions, internalsSymbol } from '../utils';
 
-import { updateAbsoluteNodePositions } from './utils';
+import { updateAbsoluteNodePositions, createNodeInternals } from './utils';
 
 import { getPortBounds } from '../components/Node/utils';
 
 import initialState from './initialState';
 import type {
+   Node,
    ReactDiagramState,
    NodeDimensionUpdate,
    NodeDimensionChange,
@@ -17,6 +18,22 @@ import type {
 const createRFStore = () =>
    createStore<ReactDiagramState>((set, get) => ({
       ...initialState,
+      setNodes: (nodes: Node[]) => {
+         const { nodeInternals, nodeOrigin, elevateNodesOnSelect } = get();
+         set({
+            nodeInternals: createNodeInternals(
+               nodes,
+               nodeInternals,
+               nodeOrigin,
+               elevateNodesOnSelect,
+            ),
+         });
+      },
+
+      getNodes: () => {
+         return Array.from(get().nodeInternals.values());
+      },
+
       updateNodeDimensions: (updates: NodeDimensionUpdate[]) => {
          const { onNodesChange, nodeInternals, domNode, nodeOrigin } = get();
          const viewportNode = domNode?.querySelector(

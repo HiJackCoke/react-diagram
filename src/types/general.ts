@@ -28,11 +28,12 @@ export type ReactDiagramStore = {
    domNode: HTMLDivElement | null;
    nodeOrigin: NodeOrigin;
    nodesSelectionActive: boolean;
+   elevateNodesOnSelect: boolean;
 };
 
 export type ReactDiagramActions = {
-   //    setNodes: (nodes: Node[]) => void;
-   //    getNodes: () => Node[];
+   setNodes: (nodes: Node[]) => void;
+   getNodes: () => Node[];
    addSelectedNodes: (nodeIds: string[]) => void;
    unselectNodes: (params?: UnselectNodesParams) => void;
 

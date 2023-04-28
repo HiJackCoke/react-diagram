@@ -11,6 +11,7 @@ const initialState: ReactDiagramStore = {
    domNode: null,
    nodeOrigin: [0, 0],
    nodesSelectionActive: false,
+   elevateNodesOnSelect: true,
 };
 
 export default initialState;

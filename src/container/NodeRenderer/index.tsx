@@ -3,6 +3,8 @@ import { ComponentType } from 'react';
 import wrapNode from 'components/Node/wrapNode';
 import Nodes from 'components/Node';
 
+import useVisibleNodes from 'hooks/useVisibleNodes';
+
 import {
    NodeProps,
    NodeTypes,
@@ -47,34 +49,13 @@ export function createNodeTypes(nodeTypes: NodeTypes): NodeTypesWrapped {
    return standardTypes;
 }
 
-const nodes = [
-   {
-      id: '1',
-      data: { label: 'An input node' },
-      position: { x: 0, y: 50 },
-   },
-   {
-      id: '2',
-      data: { label: 'Output A' },
-      position: { x: 300, y: 50 },
-   },
-   {
-      id: '3',
-      data: { label: 'Output A' },
-      position: { x: 650, y: 25 },
-   },
-   {
-      id: '4',
-      data: { label: 'Output B' },
-      position: { x: 650, y: 100 },
-   },
-];
-
 const defaultNodeTypes: NodeTypes = {
    default: Nodes,
 };
 
 function NodeRenderer(props: NodeRendererProps) {
+   const nodes = useVisibleNodes();
+
    return (
       <div className="react-diagram__nodes">
          {nodes.map((node) => {
@@ -90,7 +71,6 @@ function NodeRenderer(props: NodeRendererProps) {
                   id={node.id}
                   // className={node.className}
                   // style={node.style}
-
                   onClick={props.onNodeClick}
                   onMouseEnter={props.onNodeMouseEnter}
                   onMouseMove={props.onNodeMouseMove}

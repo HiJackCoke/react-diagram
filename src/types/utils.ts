@@ -20,3 +20,5 @@ export interface Dimensions {
 export type CoordinateExtent = [[number, number], [number, number]];
 
 export type Transform = [number, number, number];
+
+export interface Rect extends Dimensions, XYPosition {}
