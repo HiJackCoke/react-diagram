@@ -2,12 +2,24 @@ import { useEffect, useRef, memo } from 'react';
 import type { ComponentType, MouseEvent } from 'react';
 import cc from 'classcat';
 
+import { select } from 'd3-selection';
+import { drag } from 'd3-drag';
+
 import { Provider } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';
+import useGetPointerPosition from 'hooks/useGetPointerPosition';
 
 import { getMouseHandler } from './utils';
 
-import type { NodeProps, WrapNodeProps, XYPosition } from '../../types';
+import type {
+   NodeProps,
+   WrapNodeProps,
+   XYPosition,
+   NodeDragItem,
+   UseDragEvent,
+   NodeInternals,
+   Node,
+} from '../../types';
 
 const ARIA_NODE_DESC_KEY = 'react-diagram__node-desc';
 
@@ -17,6 +29,60 @@ export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowLeft: { x: -1, y: 0 },
    ArrowRight: { x: 1, y: 0 },
 };
+
+export function isParentSelected(
+   node: Node,
+   nodeInternals: NodeInternals,
+): boolean {
+   if (!node.parentNode) {
+      return false;
+   }
+
+   const parentNode = nodeInternals.get(node.parentNode);
+
+   if (!parentNode) {
+      return false;
+   }
+
+   if (parentNode.selected) {
+      return true;
+   }
+
+   return isParentSelected(parentNode, nodeInternals);
+}
+
+export function getDragItems(
+   nodeInternals: NodeInternals,
+   nodesDraggable: boolean,
+   mousePos: XYPosition,
+   nodeId?: string,
+): NodeDragItem[] {
+   return Array.from(nodeInternals.values())
+      .filter(
+         (n) =>
+            (n.selected || n.id === nodeId) &&
+            (!n.parentNode || !isParentSelected(n, nodeInternals)) &&
+            (n.draggable ||
+               (nodesDraggable && typeof n.draggable === 'undefined')),
+      )
+      .map((n) => ({
+         id: n.id,
+         position: n.position || { x: 0, y: 0 },
+         positionAbsolute: n.positionAbsolute || { x: 0, y: 0 },
+         distance: {
+            x: mousePos.x - (n.positionAbsolute?.x ?? 0),
+            y: mousePos.y - (n.positionAbsolute?.y ?? 0),
+         },
+         delta: {
+            x: 0,
+            y: 0,
+         },
+         extent: n.extent,
+         parentNode: n.parentNode,
+         width: n.width,
+         height: n.height,
+      }));
+}
 
 export default (NodeComponent: ComponentType<NodeProps>) => {
    const NodeWrapper = ({
@@ -51,6 +117,8 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
       rfId,
    }: WrapNodeProps) => {
       const store = useStoreApi();
+      const getPointerPosition = useGetPointerPosition();
+
       const nodeRef = useRef<HTMLDivElement>(null);
       const prevSourcePosition = useRef(sourcePosition);
       const prevTargetPosition = useRef(targetPosition);
@@ -119,6 +187,20 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
                ]);
          }
       }, [id, type, sourcePosition, targetPosition]);
+
+      useEffect(() => {
+         if (nodeRef?.current) {
+            const selection = select(nodeRef.current);
+
+            const dragHandle = drag().on('start', (e: UseDragEvent) => {
+               const pointerPos = getPointerPosition(e);
+
+               console.log(pointerPos);
+            });
+
+            selection.call(dragHandle);
+         }
+      }, [nodeRef, id, store]);
 
       if (hidden) {
          return null;

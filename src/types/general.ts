@@ -1,4 +1,6 @@
 import { ComponentType, MemoExoticComponent } from 'react';
+import { D3DragEvent, SubjectPosition } from 'd3';
+
 import {
    Transform,
    Node,
@@ -6,8 +8,8 @@ import {
    NodeInternals,
    NodeOrigin,
    NodeDimensionUpdate,
-   NodeChange,
    WrapNodeProps,
+   NodeChange,
 } from '.';
 
 export type OnNodesChange = (changes: NodeChange[]) => void;
@@ -22,13 +24,15 @@ export type ReactDiagramStore = {
    height: number;
    transform: Transform;
    nodeInternals: NodeInternals;
-   onNodesChange: OnNodesChange | null;
 
    hasDefaultNodes: boolean;
    domNode: HTMLDivElement | null;
    nodeOrigin: NodeOrigin;
    nodesSelectionActive: boolean;
    elevateNodesOnSelect: boolean;
+   nodesDraggable: boolean;
+
+   onNodesChange: OnNodesChange | null;
 };
 
 export type ReactDiagramActions = {
@@ -46,3 +50,5 @@ export type NodeTypes = { [key: string]: ComponentType<NodeProps> };
 export type NodeTypesWrapped = {
    [key: string]: MemoExoticComponent<ComponentType<WrapNodeProps>>;
 };
+
+export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
