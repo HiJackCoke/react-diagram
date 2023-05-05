@@ -2,12 +2,8 @@ import { useEffect, useRef, memo } from 'react';
 import type { ComponentType, MouseEvent } from 'react';
 import cc from 'classcat';
 
-import { select } from 'd3-selection';
-import { drag } from 'd3-drag';
-
 import { Provider } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';
-import useGetPointerPosition from 'hooks/useGetPointerPosition';
 
 import { getMouseHandler } from './utils';
 
@@ -16,10 +12,10 @@ import type {
    WrapNodeProps,
    XYPosition,
    NodeDragItem,
-   UseDragEvent,
    NodeInternals,
    Node,
 } from '../../types';
+import useDrag from 'hooks/useDrag';
 
 const ARIA_NODE_DESC_KEY = 'react-diagram__node-desc';
 
@@ -117,7 +113,6 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
       rfId,
    }: WrapNodeProps) => {
       const store = useStoreApi();
-      const getPointerPosition = useGetPointerPosition();
 
       const nodeRef = useRef<HTMLDivElement>(null);
       const prevSourcePosition = useRef(sourcePosition);
@@ -125,7 +120,6 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
       const prevType = useRef(type);
       const hasPointerEvents =
          onClick || onMouseEnter || onMouseMove || onMouseLeave;
-      // const updatePositions = useUpdateNodePositions();
 
       const onMouseEnterHandler = getMouseHandler(
          id,
@@ -188,19 +182,7 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
          }
       }, [id, type, sourcePosition, targetPosition]);
 
-      useEffect(() => {
-         if (nodeRef?.current) {
-            const selection = select(nodeRef.current);
-
-            const dragHandle = drag().on('start', (e: UseDragEvent) => {
-               const pointerPos = getPointerPosition(e);
-
-               console.log(pointerPos);
-            });
-
-            selection.call(dragHandle);
-         }
-      }, [nodeRef, id, store]);
+      useDrag({ nodeRef, nodeId: id });
 
       if (hidden) {
          return null;

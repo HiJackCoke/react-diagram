@@ -1,11 +1,19 @@
 import { useEffect } from 'react';
 
+import { StoreApi } from 'zustand';
 import { shallow } from 'zustand/shallow';
 
-import { useStore } from '../../hooks/useStore';
-import type { Node, ReactDiagramState, ReactDiagramProps } from '../../types';
+import { useStore, useStoreApi } from '../../hooks/useStore';
+import {
+   Node,
+   ReactDiagramState,
+   ReactDiagramProps,
+   ReactDiagramStore,
+} from '../../types';
 
-type StoreUpdaterProps = Pick<ReactDiagramProps, 'nodes'> & { rfId: string };
+type StoreUpdaterProps = Pick<ReactDiagramProps, 'nodes' | 'onNodesChange'> & {
+   rfId: string;
+};
 
 const selector = (s: ReactDiagramState) => ({
    setNodes: s.setNodes,
@@ -22,8 +30,24 @@ function useStoreUpdater<T>(
    }, [value]);
 }
 
-const StoreUpdater = ({ nodes }: StoreUpdaterProps) => {
+// updates with values in store that don't have a dedicated setter function
+function useDirectStoreUpdater(
+   key: keyof ReactDiagramStore,
+   value: unknown,
+   setState: StoreApi<ReactDiagramState>['setState'],
+) {
+   useEffect(() => {
+      if (typeof value !== 'undefined') {
+         setState({ [key]: value });
+      }
+   }, [value]);
+}
+
+const StoreUpdater = ({ nodes, onNodesChange }: StoreUpdaterProps) => {
    const { setNodes } = useStore(selector, shallow);
+   const store = useStoreApi();
+
+   useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
 
    useStoreUpdater<Node[]>(nodes, setNodes);
 

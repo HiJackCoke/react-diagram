@@ -6,6 +6,8 @@ import type {
    CoordinateExtent,
    NodeMouseHandler,
    NodeOrigin,
+   NodeDragHandler,
+   OnNodesChange,
 } from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
@@ -24,6 +26,9 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onNodeMouseMove?: NodeMouseHandler;
    onNodeMouseLeave?: NodeMouseHandler;
    onNodeContextMenu?: NodeMouseHandler;
+   onNodesChange?: OnNodesChange;
+   onNodeDragStart?: NodeDragHandler;
+   onNodeDrag?: NodeDragHandler;
    selectNodesOnDrag?: boolean;
 };
 

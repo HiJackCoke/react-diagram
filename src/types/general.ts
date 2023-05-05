@@ -10,6 +10,9 @@ import {
    NodeDimensionUpdate,
    WrapNodeProps,
    NodeChange,
+   NodeDragHandler,
+   NodeDragItem,
+   CoordinateExtent,
 } from '.';
 
 export type OnNodesChange = (changes: NodeChange[]) => void;
@@ -17,6 +20,8 @@ export type OnNodesChange = (changes: NodeChange[]) => void;
 export type UnselectNodesParams = {
    nodes?: Node[];
 };
+
+export type OnError = (id: string, message: string) => void;
 
 export type ReactDiagramStore = {
    rfId: string;
@@ -31,8 +36,13 @@ export type ReactDiagramStore = {
    nodesSelectionActive: boolean;
    elevateNodesOnSelect: boolean;
    nodesDraggable: boolean;
+   nodeExtent: CoordinateExtent;
+
+   onError?: OnError;
 
    onNodesChange: OnNodesChange | null;
+   onNodeDragStart?: NodeDragHandler;
+   onNodeDrag?: NodeDragHandler;
 };
 
 export type ReactDiagramActions = {
@@ -42,6 +52,12 @@ export type ReactDiagramActions = {
    unselectNodes: (params?: UnselectNodesParams) => void;
 
    updateNodeDimensions: (updates: NodeDimensionUpdate[]) => void;
+   updateNodePositions: (
+      nodeDragItems: NodeDragItem[] | Node[],
+      positionChanged: boolean,
+      dragging: boolean,
+   ) => void;
+   triggerNodeChanges: (changes: NodeChange[]) => void;
 };
 
 export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;

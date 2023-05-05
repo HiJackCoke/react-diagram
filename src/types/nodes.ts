@@ -53,6 +53,7 @@ export type NodeDimensionUpdate = {
    forceUpdate?: boolean;
 };
 
+// event
 export type NodeMouseHandler = (event: ReactMouseEvent, node: Node) => void;
 
 export type WrapNodeProps<T = any> = Pick<
@@ -93,3 +94,22 @@ export type NodeProps<T = any> = Pick<
    targetPosition?: Position;
    sourcePosition?: Position;
 };
+
+export type NodeDragItem = {
+   id: string;
+   position: XYPosition;
+   positionAbsolute: XYPosition;
+   // distance from the mouse cursor to the node when start dragging
+   distance: XYPosition;
+   width?: number | null;
+   height?: number | null;
+   extent?: 'parent' | CoordinateExtent;
+   parentNode?: string;
+   dragging?: boolean;
+};
+
+export type NodeDragHandler = (
+   event: ReactMouseEvent,
+   node: Node,
+   nodes: Node[],
+) => void;

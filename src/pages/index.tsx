@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import Viewport from 'container/Viewport';
 
 import NodeRenderer from 'container/NodeRenderer';
 import ReactDiagramProvider from 'components/ReactDiagramProvider';
 import StoreUpdater from 'components/StoreUpdater';
+import { applyNodeChanges } from 'utils/changes';
 
-const nodes = [
+const initialNodes = [
    {
       id: '1',
       data: { label: 'An input node' },
@@ -28,9 +30,17 @@ const nodes = [
 ];
 
 function Index() {
+   const [nodes, setNodes] = useState(initialNodes);
+
    return (
       <ReactDiagramProvider>
-         <StoreUpdater rfId="1" nodes={nodes} />
+         <StoreUpdater
+            rfId="1"
+            nodes={nodes}
+            onNodesChange={(changes) =>
+               setNodes(applyNodeChanges(changes, nodes))
+            }
+         />
 
          <Viewport>
             <NodeRenderer

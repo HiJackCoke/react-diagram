@@ -1,4 +1,9 @@
-import type { ReactDiagramStore } from '../types';
+import type { ReactDiagramStore, CoordinateExtent } from '../types';
+
+export const infiniteExtent: CoordinateExtent = [
+   [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
+   [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
+];
 
 const initialState: ReactDiagramStore = {
    rfId: '1',
@@ -12,6 +17,9 @@ const initialState: ReactDiagramStore = {
    nodeOrigin: [0, 0],
    nodesSelectionActive: false,
    elevateNodesOnSelect: true,
+
+   nodesDraggable: true,
+   nodeExtent: infiniteExtent,
 };
 
 export default initialState;

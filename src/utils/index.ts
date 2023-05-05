@@ -1,4 +1,4 @@
-import { Dimensions, Rect } from 'types';
+import { Dimensions, Rect, XYPosition, CoordinateExtent } from 'types';
 
 export const internalsSymbol = Symbol.for('internals');
 
@@ -23,3 +23,14 @@ export const getOverlappingArea = (rectA: Rect, rectB: Rect): number => {
 
    return Math.ceil(xOverlap * yOverlap);
 };
+
+export const clamp = (val: number, min = 0, max = 1): number =>
+   Math.min(Math.max(val, min), max);
+
+export const clampPosition = (
+   position: XYPosition = { x: 0, y: 0 },
+   extent: CoordinateExtent,
+) => ({
+   x: clamp(position.x, extent[0][0], extent[1][0]),
+   y: clamp(position.y, extent[0][1], extent[1][1]),
+});

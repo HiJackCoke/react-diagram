@@ -1,6 +1,7 @@
 import { createStore } from 'zustand';
 
 import { getDimensions, internalsSymbol } from '../utils';
+import { applyNodeChanges } from 'utils/changes';
 
 import { updateAbsoluteNodePositions, createNodeInternals } from './utils';
 
@@ -13,6 +14,9 @@ import type {
    NodeDimensionUpdate,
    NodeDimensionChange,
    UnselectNodesParams,
+   NodeDragItem,
+   NodePositionChange,
+   NodeChange,
 } from '../types';
 
 const createRFStore = () =>
@@ -99,6 +103,56 @@ const createRFStore = () =>
          updateAbsoluteNodePositions(nodeInternals, nodeOrigin);
 
          if (changes?.length > 0) {
+            onNodesChange?.(changes);
+         }
+      },
+      updateNodePositions: (
+         nodeDragItems: NodeDragItem[] | Node[],
+         positionChanged = true,
+         dragging = false,
+      ) => {
+         const { triggerNodeChanges } = get();
+
+         const changes = nodeDragItems.map((node) => {
+            const change: NodePositionChange = {
+               id: node.id,
+               type: 'position',
+               dragging,
+            };
+
+            if (positionChanged) {
+               change.positionAbsolute = node.positionAbsolute;
+               change.position = node.position;
+            }
+
+            return change;
+         });
+
+         triggerNodeChanges(changes);
+      },
+
+      triggerNodeChanges: (changes: NodeChange[]) => {
+         const {
+            onNodesChange,
+            nodeInternals,
+            hasDefaultNodes,
+            nodeOrigin,
+            getNodes,
+            elevateNodesOnSelect,
+         } = get();
+
+         if (changes?.length) {
+            if (hasDefaultNodes) {
+               const nodes = applyNodeChanges(changes, getNodes());
+               const nextNodeInternals = createNodeInternals(
+                  nodes,
+                  nodeInternals,
+                  nodeOrigin,
+                  elevateNodesOnSelect,
+               );
+               set({ nodeInternals: nextNodeInternals });
+            }
+
             onNodesChange?.(changes);
          }
       },
