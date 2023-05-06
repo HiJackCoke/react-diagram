@@ -34,9 +34,7 @@ const createRFStore = () =>
          });
       },
 
-      getNodes: () => {
-         return Array.from(get().nodeInternals.values());
-      },
+      getNodes: () => Array.from(get().nodeInternals.values()),
 
       updateNodeDimensions: (updates: NodeDimensionUpdate[]) => {
          const { onNodesChange, nodeInternals, domNode, nodeOrigin } = get();
@@ -157,9 +155,13 @@ const createRFStore = () =>
          }
       },
 
-      addSelectedNodes: (_selectedNodeIds: string[]) => {},
+      addSelectedNodes: (selectedNodeIds: string[]) => {
+         console.log(selectedNodeIds);
+      },
 
-      unselectNodes: ({ nodes }: UnselectNodesParams = {}) => {},
+      unselectNodes: ({ nodes }: UnselectNodesParams = {}) => {
+         console.log(nodes);
+      },
    }));
 
 export { createRFStore };
