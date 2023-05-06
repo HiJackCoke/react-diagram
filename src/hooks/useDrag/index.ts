@@ -114,12 +114,12 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
                   onNodeDragStart,
                } = store.getState();
 
-               const PointerPosition = getPointerPosition(e);
+               const pointerPosition = getPointerPosition(e);
 
                dragItems.current = getDragItems(
                   nodeInternals,
                   nodesDraggable,
-                  PointerPosition,
+                  pointerPosition,
                   nodeId,
                );
 
@@ -145,11 +145,11 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
                );
             })
             .on('drag', (e: UseDragEvent) => {
-               const PointerPosition = getPointerPosition(e);
+               const pointerPosition = getPointerPosition(e);
 
                if (
-                  (lastPosition.current.x !== PointerPosition.xSnapped ||
-                     lastPosition.current.y !== PointerPosition.ySnapped) &&
+                  (lastPosition.current.x !== pointerPosition.xSnapped ||
+                     lastPosition.current.y !== pointerPosition.ySnapped) &&
                   dragItems.current
                ) {
                   dragEvent.current = e.sourceEvent as MouseEvent;
@@ -158,7 +158,7 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
                      containerBounds.current!,
                   );
 
-                  updateNodes(PointerPosition);
+                  updateNodes(pointerPosition);
                }
             });
 
