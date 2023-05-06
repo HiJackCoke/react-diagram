@@ -23,6 +23,8 @@ export type UnselectNodesParams = {
 
 export type OnError = (id: string, message: string) => void;
 
+export type GridStep = [number, number];
+
 export type ReactDiagramStore = {
    rfId: string;
    width: number;
@@ -33,6 +35,7 @@ export type ReactDiagramStore = {
    hasDefaultNodes: boolean;
    domNode: HTMLDivElement | null;
    nodeOrigin: NodeOrigin;
+   gridStep?: GridStep;
    nodesSelectionActive: boolean;
    elevateNodesOnSelect: boolean;
    nodesDraggable: boolean;

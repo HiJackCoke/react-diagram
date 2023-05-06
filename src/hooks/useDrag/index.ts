@@ -43,11 +43,10 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
             const {
                nodeInternals,
                onNodeDrag,
-
                updateNodePositions,
                nodeExtent,
-
                nodeOrigin,
+               gridStep,
                onError,
             } = store.getState();
 
@@ -60,6 +59,13 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
                   x: x - n.distance.x,
                   y: y - n.distance.y,
                };
+
+               if (gridStep) {
+                  nextPosition.x =
+                     gridStep[0] * Math.round(nextPosition.x / gridStep[0]);
+                  nextPosition.y =
+                     gridStep[1] * Math.round(nextPosition.y / gridStep[1]);
+               }
 
                const updatedPos = calcNextPosition(
                   n,

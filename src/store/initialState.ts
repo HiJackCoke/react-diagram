@@ -15,6 +15,7 @@ const initialState: ReactDiagramStore = {
    hasDefaultNodes: false,
    domNode: null,
    nodeOrigin: [0, 0],
+   gridStep: undefined,
    nodesSelectionActive: false,
    elevateNodesOnSelect: true,
 

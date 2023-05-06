@@ -8,6 +8,7 @@ import type {
    NodeOrigin,
    NodeDragHandler,
    OnNodesChange,
+   GridStep,
 } from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
@@ -16,6 +17,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    nodeExtent?: CoordinateExtent;
    nodeOrigin?: NodeOrigin;
+   gridStep?: GridStep;
    nodes?: Node[];
    defaultNodes?: Node[];
    nodeTypes?: NodeTypes;

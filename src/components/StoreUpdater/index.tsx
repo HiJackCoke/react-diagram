@@ -11,7 +11,10 @@ import {
    ReactDiagramStore,
 } from '../../types';
 
-type StoreUpdaterProps = Pick<ReactDiagramProps, 'nodes' | 'onNodesChange'> & {
+type StoreUpdaterProps = Pick<
+   ReactDiagramProps,
+   'nodes' | 'onNodesChange' | 'gridStep'
+> & {
    rfId: string;
 };
 
@@ -43,11 +46,16 @@ function useDirectStoreUpdater(
    }, [value]);
 }
 
-const StoreUpdater = ({ nodes, onNodesChange }: StoreUpdaterProps) => {
+const StoreUpdater = ({
+   nodes,
+   gridStep,
+   onNodesChange,
+}: StoreUpdaterProps) => {
    const { setNodes } = useStore(selector, shallow);
    const store = useStoreApi();
 
    useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
+   useDirectStoreUpdater('gridStep', gridStep, store.setState);
 
    useStoreUpdater<Node[]>(nodes, setNodes);
 

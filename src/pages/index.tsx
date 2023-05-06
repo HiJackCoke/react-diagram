@@ -37,6 +37,7 @@ function Index() {
          <StoreUpdater
             rfId="1"
             nodes={nodes}
+            gridStep={[100, 100]}
             onNodesChange={(changes) =>
                setNodes(applyNodeChanges(changes, nodes))
             }
