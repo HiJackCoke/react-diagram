@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const prettierOptions = JSON.parse(
    fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'),
@@ -29,6 +29,7 @@ module.exports = {
       '@typescript-eslint',
    ],
    rules: {
+      '@typescript-eslint/default-param-last': 0,
       'jsx-no-lambda': 0,
       semi: 0,
       '@typescript-eslint/interface-name-prefix': 0,
