@@ -21,6 +21,8 @@ const initialState: ReactDiagramStore = {
 
    nodesDraggable: true,
    nodeExtent: infiniteExtent,
+
+   d3Zoom: null,
 };
 
 export default initialState;

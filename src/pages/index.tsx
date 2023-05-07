@@ -4,6 +4,8 @@ import Viewport from 'container/Viewport';
 import NodeRenderer from 'container/NodeRenderer';
 import ReactDiagramProvider from 'components/ReactDiagramProvider';
 import StoreUpdater from 'components/StoreUpdater';
+import ZoomPane from 'container/ZoomPane';
+
 import { applyNodeChanges } from 'utils/changes';
 
 const initialNodes = [
@@ -43,17 +45,19 @@ function Index() {
             }
          />
 
-         <Viewport>
-            <NodeRenderer
-               // nodeTypes={}
-               onlyRenderVisibleElements={false}
-               disableKeyboardA11y={false}
-               selectNodesOnDrag
-               nodeOrigin={[0, 0]}
-               onNodeClick={console.log}
-               rfId="1"
-            />
-         </Viewport>
+         <ZoomPane>
+            <Viewport>
+               <NodeRenderer
+                  // nodeTypes={}
+                  onlyRenderVisibleElements={false}
+                  disableKeyboardA11y={false}
+                  selectNodesOnDrag
+                  nodeOrigin={[0, 0]}
+                  onNodeClick={console.log}
+                  rfId="1"
+               />
+            </Viewport>
+         </ZoomPane>
       </ReactDiagramProvider>
    );
 }
