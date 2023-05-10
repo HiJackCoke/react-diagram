@@ -8,6 +8,8 @@ import ZoomPane from 'container/ZoomPane';
 
 import { applyNodeChanges } from 'utils/changes';
 
+import { CoordinateExtent } from 'types';
+
 const initialNodes = [
    {
       id: '1',
@@ -31,6 +33,18 @@ const initialNodes = [
    },
 ];
 
+const minZoom = 0.5;
+const maxZoom = 2;
+const translateExtent: CoordinateExtent = [
+   [-Infinity, -Infinity],
+   [Infinity, Infinity],
+];
+const defaultViewport = {
+   x: 0,
+   y: 0,
+   zoom: 1,
+};
+
 function Index() {
    const [nodes, setNodes] = useState(initialNodes);
 
@@ -45,7 +59,12 @@ function Index() {
             }
          />
 
-         <ZoomPane>
+         <ZoomPane
+            minZoom={minZoom}
+            maxZoom={maxZoom}
+            translateExtent={translateExtent}
+            defaultViewport={defaultViewport}
+         >
             <Viewport>
                <NodeRenderer
                   // nodeTypes={}
