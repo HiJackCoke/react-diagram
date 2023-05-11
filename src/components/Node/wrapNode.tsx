@@ -17,7 +17,7 @@ import type {
 } from '../../types';
 import useDrag from 'hooks/useDrag';
 
-const ARIA_NODE_DESC_KEY = 'react-diagram__node-desc';
+import { ARIA_NODE_DESC_KEY } from 'components/A11yDescriptions';
 
 export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowUp: { x: 0, y: -1 },
