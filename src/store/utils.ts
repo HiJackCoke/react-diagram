@@ -6,53 +6,6 @@ import { Node, XYZPosition, NodeInternals, NodeOrigin } from 'types';
 
 type ParentNodes = Record<string, boolean>;
 
-export function createNodeInternals(
-   nodes: Node[],
-   nodeInternals: NodeInternals,
-   nodeOrigin: NodeOrigin,
-   elevateNodesOnSelect: boolean,
-): NodeInternals {
-   const nextNodeInternals = new Map<string, Node>();
-   const parentNodes: ParentNodes = {};
-   const selectedNodeZ: number = elevateNodesOnSelect ? 1000 : 0;
-
-   nodes.forEach((node) => {
-      const z =
-         (isNumeric(node.zIndex) ? node.zIndex : 0) +
-         (node.selected ? selectedNodeZ : 0);
-      const currInternals = nodeInternals.get(node.id);
-
-      const internals: Node = {
-         width: currInternals?.width,
-         height: currInternals?.height,
-         ...node,
-         positionAbsolute: {
-            x: node.position.x,
-            y: node.position.y,
-         },
-      };
-
-      if (node.parentNode) {
-         internals.parentNode = node.parentNode;
-         parentNodes[node.parentNode] = true;
-      }
-
-      Object.defineProperty(internals, internalsSymbol, {
-         enumerable: false,
-         value: {
-            handleBounds: currInternals?.[internalsSymbol]?.handleBounds,
-            z,
-         },
-      });
-
-      nextNodeInternals.set(node.id, internals);
-   });
-
-   updateAbsoluteNodePositions(nextNodeInternals, nodeOrigin, parentNodes);
-
-   return nextNodeInternals;
-}
-
 function calculateXYZPosition(
    node: Node,
    nodeInternals: NodeInternals,
@@ -113,4 +66,51 @@ export function updateAbsoluteNodePositions(
          }
       }
    });
+}
+
+export function createNodeInternals(
+   nodes: Node[],
+   nodeInternals: NodeInternals,
+   nodeOrigin: NodeOrigin,
+   elevateNodesOnSelect: boolean,
+): NodeInternals {
+   const nextNodeInternals = new Map<string, Node>();
+   const parentNodes: ParentNodes = {};
+   const selectedNodeZ: number = elevateNodesOnSelect ? 1000 : 0;
+
+   nodes.forEach((node) => {
+      const z =
+         (isNumeric(node.zIndex) ? node.zIndex : 0) +
+         (node.selected ? selectedNodeZ : 0);
+      const currInternals = nodeInternals.get(node.id);
+
+      const internals: Node = {
+         width: currInternals?.width,
+         height: currInternals?.height,
+         ...node,
+         positionAbsolute: {
+            x: node.position.x,
+            y: node.position.y,
+         },
+      };
+
+      if (node.parentNode) {
+         internals.parentNode = node.parentNode;
+         parentNodes[node.parentNode] = true;
+      }
+
+      Object.defineProperty(internals, internalsSymbol, {
+         enumerable: false,
+         value: {
+            handleBounds: currInternals?.[internalsSymbol]?.handleBounds,
+            z,
+         },
+      });
+
+      nextNodeInternals.set(node.id, internals);
+   });
+
+   updateAbsoluteNodePositions(nextNodeInternals, nodeOrigin, parentNodes);
+
+   return nextNodeInternals;
 }

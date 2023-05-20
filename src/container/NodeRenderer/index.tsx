@@ -1,16 +1,17 @@
-import { ComponentType } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
+import type { ComponentType } from 'react';
 
-import wrapNode from 'components/Node/wrapNode';
-import Nodes from 'components/Node';
+import { shallow } from 'zustand/shallow';
 
+import { useStore } from 'hooks/useStore';
 import useVisibleNodes from 'hooks/useVisibleNodes';
 
 import {
-   NodeProps,
-   NodeTypes,
    NodeTypesWrapped,
+   WrapNodeProps,
    Position,
    ReactDiagramProps,
+   ReactDiagramState,
 } from 'types';
 
 type RequiredProps = Required<
@@ -34,32 +35,54 @@ type NodeRendererProps = Pick<
    | 'nodeExtent'
 > &
    RequiredProps & {
-      // nodeTypes: NodeTypesWrapped;
+      nodeTypes: NodeTypesWrapped;
       rfId: string;
    };
 
-export type CreateNodeTypes = (nodeTypes: NodeTypes) => NodeTypesWrapped;
-export function createNodeTypes(nodeTypes: NodeTypes): NodeTypesWrapped {
-   const standardTypes: NodeTypesWrapped = {
-      default: wrapNode(
-         (nodeTypes.default || Nodes) as ComponentType<NodeProps>,
-      ),
-   };
-
-   return standardTypes;
-}
-
-const defaultNodeTypes: NodeTypes = {
-   default: Nodes,
-};
+const selector = (s: ReactDiagramState) => ({
+   updateNodeDimensions: s.updateNodeDimensions,
+});
 
 function NodeRenderer(props: NodeRendererProps) {
+   const { updateNodeDimensions } = useStore(selector, shallow);
    const nodes = useVisibleNodes();
+
+   const resizeObserverRef = useRef<ResizeObserver>();
+
+   const resizeObserver = useMemo(() => {
+      if (typeof ResizeObserver === 'undefined') {
+         return null;
+      }
+
+      const observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+         const updates = entries.map((entry: ResizeObserverEntry) => ({
+            id: entry.target.getAttribute('data-id') as string,
+            nodeElement: entry.target as HTMLDivElement,
+            forceUpdate: true,
+         }));
+
+         updateNodeDimensions(updates);
+      });
+
+      resizeObserverRef.current = observer;
+
+      return observer;
+   }, []);
+
+   useEffect(
+      () => () => {
+         resizeObserverRef?.current?.disconnect();
+      },
+      [],
+   );
 
    return (
       <div className="react-diagram__nodes">
          {nodes.map((node) => {
-            const NodeComponent = createNodeTypes(defaultNodeTypes).default;
+            let nodeType = node.type || 'default';
+
+            const NodeComponent = (props.nodeTypes[nodeType] ||
+               props.nodeTypes.default) as ComponentType<WrapNodeProps>;
 
             const posX = node.position?.x ?? 0;
             const posY = node.position?.y ?? 0;
@@ -69,8 +92,8 @@ function NodeRenderer(props: NodeRendererProps) {
                   {...props}
                   key={node.id}
                   id={node.id}
-                  // className={node.className}
-                  // style={node.style}
+                  className={node.className}
+                  style={node.style}
                   onClick={props.onNodeClick}
                   onMouseEnter={props.onNodeMouseEnter}
                   onMouseMove={props.onNodeMouseMove}
@@ -87,6 +110,7 @@ function NodeRenderer(props: NodeRendererProps) {
                   xPosOrigin={posX}
                   yPosOrigin={posY}
                   zIndex={0}
+                  resizeObserver={resizeObserver}
                   isParent={true}
                   initialized={true}
                   ariaLabel="label"
@@ -97,4 +121,6 @@ function NodeRenderer(props: NodeRendererProps) {
    );
 }
 
-export default NodeRenderer;
+NodeRenderer.displayName = 'NodeRenderer';
+
+export default memo(NodeRenderer);

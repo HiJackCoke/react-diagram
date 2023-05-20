@@ -81,7 +81,7 @@ export function getDragItems(
 }
 
 export default (NodeComponent: ComponentType<NodeProps>) => {
-   const NodeWrapper = ({
+   function NodeWrapper({
       id,
       type,
       data,
@@ -103,6 +103,8 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
       targetPosition,
       hidden,
 
+      resizeObserver,
+
       dragHandle,
       zIndex,
       isParent,
@@ -111,7 +113,7 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
       disableKeyboardA11y,
       ariaLabel,
       rfId,
-   }: WrapNodeProps) => {
+   }: WrapNodeProps) {
       const store = useStoreApi();
 
       const nodeRef = useRef<HTMLDivElement>(null);
@@ -154,6 +156,15 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
             onClick(event, { ...node });
          }
       };
+
+      useEffect(() => {
+         if (nodeRef.current && !hidden) {
+            const currNode = nodeRef.current;
+            resizeObserver?.observe(currNode);
+
+            return () => resizeObserver?.unobserve(currNode);
+         }
+      }, [hidden]);
 
       useEffect(() => {
          // when the user programmatically changes the source or handle position, we re-initialize the node
@@ -237,7 +248,7 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
             </Provider>
          </div>
       );
-   };
+   }
 
    NodeWrapper.displayName = 'NodeWrapper';
 

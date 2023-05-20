@@ -76,6 +76,9 @@ const ZoomPane = ({
                constrainedTransform.y,
                constrainedTransform.k,
             ],
+            domNode: zoomPane.current.closest(
+               '.react-diagram',
+            ) as HTMLDivElement,
          });
       }
    }, []);
