@@ -1,8 +1,17 @@
 import './style.css';
 
-function Port({ position }: { position: string }) {
+function Port({
+   type,
+   position,
+}: {
+   type: 'target' | 'source';
+   position: 'top' | 'bottom';
+}) {
    return (
-      <div className={`react-diagram__port react-diagram__port-${position}`} />
+      <div
+         data-portpos={position}
+         className={`react-diagram__port react-diagram__port-${position} ${type}`}
+      />
    );
 }
 

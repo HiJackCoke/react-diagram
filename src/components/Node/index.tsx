@@ -5,9 +5,9 @@ import './style.css';
 function Nodes() {
    return (
       <>
-         <Port position="top" />
+         <Port type="target" position="top" />
          Node
-         <Port position="bottom" />
+         <Port type="source" position="bottom" />
       </>
    );
 }
