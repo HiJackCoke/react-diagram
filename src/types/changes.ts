@@ -1,4 +1,4 @@
-import { Node, Dimensions, XYPosition } from '.';
+import { Node, Edge, Dimensions, XYPosition } from '.';
 
 export type NodeDimensionChange = {
    id: string;
@@ -44,3 +44,20 @@ export type NodeChange =
    | NodeRemoveChange
    | NodeAddChange
    | NodeResetChange;
+
+export type EdgeSelectionChange = NodeSelectionChange;
+export type EdgeRemoveChange = NodeRemoveChange;
+export type EdgeAddChange<EdgeData = any> = {
+   item: Edge<EdgeData>;
+   type: 'add';
+};
+export type EdgeResetChange<EdgeData = any> = {
+   item: Edge<EdgeData>;
+   type: 'reset';
+};
+
+export type EdgeChange =
+   | EdgeSelectionChange
+   | EdgeRemoveChange
+   | EdgeAddChange
+   | EdgeResetChange;

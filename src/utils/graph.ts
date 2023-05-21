@@ -7,6 +7,7 @@ import {
    NodeInternals,
    Rect,
    Transform,
+   EdgeMarkerType,
 } from 'types';
 
 export const getNodePositionWithOrigin = (
@@ -94,4 +95,24 @@ export const getNodesInside = (
    });
 
    return visibleNodes;
+};
+
+export const getMarkerId = (
+   marker: EdgeMarkerType | undefined,
+   rfId?: string,
+): string => {
+   if (typeof marker === 'undefined') {
+      return '';
+   }
+
+   if (typeof marker === 'string') {
+      return marker;
+   }
+
+   const idPrefix = rfId ? `${rfId}__` : '';
+
+   return `${idPrefix}${Object.keys(marker)
+      .sort()
+      .map((key: string) => `${key}=${(marker as any)[key]}`)
+      .join('&')}`;
 };

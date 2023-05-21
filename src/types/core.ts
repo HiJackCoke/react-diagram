@@ -3,11 +3,13 @@ import type { HTMLAttributes } from 'react';
 import type {
    NodeTypes,
    Node,
+   Edge,
    CoordinateExtent,
    NodeMouseHandler,
    NodeOrigin,
    NodeDragHandler,
    OnNodesChange,
+   OnEdgesChange,
    GridStep,
 } from '.';
 
@@ -22,6 +24,8 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    defaultNodes?: Node[];
    nodeTypes?: NodeTypes;
 
+   edges?: Edge[];
+
    onNodeClick?: NodeMouseHandler;
    onNodeDoubleClick?: NodeMouseHandler;
    onNodeMouseEnter?: NodeMouseHandler;
@@ -31,6 +35,9 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onNodesChange?: OnNodesChange;
    onNodeDragStart?: NodeDragHandler;
    onNodeDrag?: NodeDragHandler;
+
+   onEdgesChange?: OnEdgesChange;
+
    selectNodesOnDrag?: boolean;
 };
 

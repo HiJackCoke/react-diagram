@@ -5,21 +5,23 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 import {
-   Node,
    ReactDiagramState,
    ReactDiagramProps,
    ReactDiagramStore,
+   Node,
+   Edge,
 } from '../../types';
 
 type StoreUpdaterProps = Pick<
    ReactDiagramProps,
-   'nodes' | 'onNodesChange' | 'gridStep'
+   'nodes' | 'onNodesChange' | 'edges' | 'onEdgesChange' | 'gridStep'
 > & {
    rfId: string;
 };
 
 const selector = (s: ReactDiagramState) => ({
    setNodes: s.setNodes,
+   setEdges: s.setEdges,
 });
 
 function useStoreUpdater<T>(
@@ -48,16 +50,21 @@ function useDirectStoreUpdater(
 
 const StoreUpdater = ({
    nodes,
-   gridStep,
    onNodesChange,
+   edges,
+   onEdgesChange,
+   gridStep,
 }: StoreUpdaterProps) => {
-   const { setNodes } = useStore(selector, shallow);
+   const { setNodes, setEdges } = useStore(selector, shallow);
    const store = useStoreApi();
 
    useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
+   useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);
+
    useDirectStoreUpdater('gridStep', gridStep, store.setState);
 
    useStoreUpdater<Node[]>(nodes, setNodes);
+   useStoreUpdater<Edge[]>(edges, setEdges);
 
    return null;
 };

@@ -12,10 +12,16 @@ import {
    NodeChange,
    NodeDragHandler,
    NodeDragItem,
+   Edge,
+   EdgeProps,
+   WrapEdgeProps,
+   DefaultEdgeOptions,
+   EdgeChange,
    CoordinateExtent,
 } from '.';
 
 export type OnNodesChange = (changes: NodeChange[]) => void;
+export type OnEdgesChange = (changes: EdgeChange[]) => void;
 
 export type UnselectNodesParams = {
    nodes?: Node[];
@@ -37,6 +43,8 @@ export type ReactDiagramStore = {
    height: number;
    transform: Transform;
    nodeInternals: NodeInternals;
+   edges: Edge[];
+   defaultEdgeOptions?: DefaultEdgeOptions;
 
    hasDefaultNodes: boolean;
    domNode: HTMLDivElement | null;
@@ -54,6 +62,7 @@ export type ReactDiagramStore = {
    onNodesChange: OnNodesChange | null;
    onNodeDragStart?: NodeDragHandler;
    onNodeDrag?: NodeDragHandler;
+   onEdgesChange?: OnEdgesChange;
 };
 
 export type ReactDiagramActions = {
@@ -61,6 +70,8 @@ export type ReactDiagramActions = {
    getNodes: () => Node[];
    addSelectedNodes: (nodeIds: string[]) => void;
    unselectNodes: (params?: UnselectNodesParams) => void;
+
+   setEdges: (edges: Edge[]) => void;
 
    updateNodeDimensions: (updates: NodeDimensionUpdate[]) => void;
    updateNodePositions: (
@@ -76,6 +87,11 @@ export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;
 export type NodeTypes = { [key: string]: ComponentType<NodeProps> };
 export type NodeTypesWrapped = {
    [key: string]: MemoExoticComponent<ComponentType<WrapNodeProps>>;
+};
+
+export type EdgeTypes = { [key: string]: ComponentType<EdgeProps> };
+export type EdgeTypesWrapped = {
+   [key: string]: MemoExoticComponent<ComponentType<WrapEdgeProps>>;
 };
 
 export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;

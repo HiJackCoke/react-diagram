@@ -1,6 +1,12 @@
-import { Dimensions, Rect, XYPosition, CoordinateExtent } from 'types';
+import { Dimensions, Rect, XYPosition, CoordinateExtent, Box } from 'types';
 
 export const internalsSymbol = Symbol.for('internals');
+
+export const devWarn = (id: string, message: string) => {
+   if (process.env.NODE_ENV === 'development') {
+      console.warn(`[React Diagram]: ${id}-${message}`);
+   }
+};
 
 export const isNumeric = (n: any): n is number => !isNaN(n) && isFinite(n);
 
@@ -33,4 +39,11 @@ export const clampPosition = (
 ) => ({
    x: clamp(position.x, extent[0][0], extent[1][0]),
    y: clamp(position.y, extent[0][1], extent[1][1]),
+});
+
+export const rectToBox = ({ x, y, width, height }: Rect): Box => ({
+   x,
+   y,
+   x2: x + width,
+   y2: y + height,
 });

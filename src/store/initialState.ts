@@ -11,6 +11,8 @@ const initialState: ReactDiagramStore = {
    height: 0,
    transform: [0, 0, 1],
    nodeInternals: new Map(),
+   edges: [],
+
    onNodesChange: null,
    hasDefaultNodes: false,
    domNode: null,

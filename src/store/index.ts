@@ -17,6 +17,7 @@ import type {
    NodeDragItem,
    NodePositionChange,
    NodeChange,
+   Edge,
 } from '../types';
 
 const createRFStore = () =>
@@ -35,6 +36,11 @@ const createRFStore = () =>
       },
 
       getNodes: () => Array.from(get().nodeInternals.values()),
+
+      setEdges: (edges: Edge[]) => {
+         const { defaultEdgeOptions = {} } = get();
+         set({ edges: edges.map((e) => ({ ...defaultEdgeOptions, ...e })) });
+      },
 
       updateNodeDimensions: (updates: NodeDimensionUpdate[]) => {
          const { onNodesChange, nodeInternals, domNode, nodeOrigin } = get();

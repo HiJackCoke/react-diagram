@@ -11,9 +11,13 @@ import NodeRenderer from 'container/NodeRenderer';
 import { createNodeTypes } from 'container/NodeRenderer/utils';
 import Nodes from 'components/Node';
 
-import { applyNodeChanges } from 'utils/changes';
+import EdgeRenderer from 'container/EdgeRenderer';
+import { createEdgeTypes } from 'container/EdgeRenderer/utils';
+import StepEdge from 'components/Edges/StepEdge';
 
-import { CoordinateExtent, NodeTypes } from 'types';
+import { applyEdgeChanges, applyNodeChanges } from 'utils/changes';
+
+import { CoordinateExtent, NodeTypes, EdgeTypes } from 'types';
 
 const initialNodes = [
    {
@@ -38,6 +42,12 @@ const initialNodes = [
    },
 ];
 
+const initialEdges = [
+   { id: 'e-1-2', source: '1', target: '2' },
+   { id: 'e-2-3', source: '2', target: '3' },
+   { id: 'e-3-4', source: '3', target: '4' },
+];
+
 const minZoom = 0.5;
 const maxZoom = 2;
 const translateExtent: CoordinateExtent = [
@@ -54,13 +64,22 @@ const defaultNodeTypes: NodeTypes = {
    default: Nodes,
 };
 
+const defaultEdgeTypes: EdgeTypes = {
+   step: StepEdge,
+};
+
 function Index() {
    const nodeTypesWrapped = useNodeOrEdgeTypes(
       defaultNodeTypes,
       createNodeTypes,
    );
+   const edgeTypesWrapped = useNodeOrEdgeTypes(
+      defaultEdgeTypes,
+      createEdgeTypes,
+   );
 
    const [nodes, setNodes] = useState(initialNodes);
+   const [edges, setEdges] = useState(initialEdges);
 
    return (
       <ReactDiagramProvider>
@@ -68,9 +87,13 @@ function Index() {
             <StoreUpdater
                rfId="1"
                nodes={nodes}
-               gridStep={[100, 100]}
+               edges={edges}
+               // gridStep={[100, 100]}
                onNodesChange={(changes) =>
                   setNodes((nodes) => applyNodeChanges(changes, nodes))
+               }
+               onEdgesChange={(changes) =>
+                  setEdges((edges) => applyEdgeChanges(changes, edges))
                }
             />
 
@@ -90,6 +113,7 @@ function Index() {
                      onNodeClick={console.log}
                      rfId="1"
                   />
+                  <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
                </Viewport>
             </ZoomPane>
          </div>

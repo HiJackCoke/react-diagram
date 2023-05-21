@@ -60,7 +60,6 @@ export function updateAbsoluteNodePositions(
          };
 
          node[internalsSymbol]!.z = z;
-
          if (parentNodes?.[node.id]) {
             node[internalsSymbol]!.isParent = true;
          }

@@ -1,4 +1,4 @@
-import { Node, NodeChange } from '../types';
+import { Node, NodeChange, Edge, EdgeChange } from '../types';
 
 const handleParentExpand = (res: any[], updateItem: any) => {
    const parent = res.find((e) => e.id === updateItem.parentNode);
@@ -132,4 +132,11 @@ export function applyNodeChanges<NodeData = any>(
    nodes: Node<NodeData>[],
 ): Node<NodeData>[] {
    return applyChanges(changes, nodes) as Node<NodeData>[];
+}
+
+export function applyEdgeChanges<EdgeData = any>(
+   changes: EdgeChange[],
+   edges: Edge<EdgeData>[],
+): Edge<EdgeData>[] {
+   return applyChanges(changes, edges) as Edge<EdgeData>[];
 }
