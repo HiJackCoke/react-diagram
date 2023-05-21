@@ -1,5 +1,7 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import Viewport from 'container/Viewport';
+
+import { useNodeOrEdgeTypes } from 'hooks/useNodeOrEdgeTypes';
 
 import ReactDiagramProvider from 'components/ReactDiagramProvider';
 import StoreUpdater from 'components/StoreUpdater';
@@ -53,13 +55,12 @@ const defaultNodeTypes: NodeTypes = {
 };
 
 function Index() {
-   const [nodes, setNodes] = useState(initialNodes);
-
-   const onItemsChange = useCallback(
-      (changes: any[]) =>
-         setNodes((items: any) => applyNodeChanges(changes, items)),
-      [],
+   const nodeTypesWrapped = useNodeOrEdgeTypes(
+      defaultNodeTypes,
+      createNodeTypes,
    );
+
+   const [nodes, setNodes] = useState(initialNodes);
 
    return (
       <ReactDiagramProvider>
@@ -68,7 +69,9 @@ function Index() {
                rfId="1"
                nodes={nodes}
                gridStep={[100, 100]}
-               onNodesChange={onItemsChange}
+               onNodesChange={(changes) =>
+                  setNodes((nodes) => applyNodeChanges(changes, nodes))
+               }
             />
 
             <ZoomPane
@@ -79,7 +82,7 @@ function Index() {
             >
                <Viewport>
                   <NodeRenderer
-                     nodeTypes={createNodeTypes(defaultNodeTypes)}
+                     nodeTypes={nodeTypesWrapped}
                      onlyRenderVisibleElements={false}
                      disableKeyboardA11y={false}
                      selectNodesOnDrag
