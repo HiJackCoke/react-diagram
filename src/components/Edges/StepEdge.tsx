@@ -88,10 +88,9 @@ function getPoints({
          targetY: target.y,
       });
 
-   // going from the bottom of a node to the top of a node
-   // source Port position is bottom, target Port positions is top
-   const isBottomToTop = sourceDir[dirAccessor] * targetDir[dirAccessor] === -1;
-   if (isBottomToTop) {
+   const isSamePositionAsTargetAndSource =
+      sourceDir[dirAccessor] * targetDir[dirAccessor] === -1;
+   if (isSamePositionAsTargetAndSource) {
       centerX = center.x || defaultCenterX;
       centerY = center.y || defaultCenterY;
       //    --->
