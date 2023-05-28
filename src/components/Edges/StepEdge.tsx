@@ -93,27 +93,23 @@ function getPoints({
    if (isSamePositionAsTargetAndSource) {
       centerX = center.x || defaultCenterX;
       centerY = center.y || defaultCenterY;
-      //    --->
-      //    |
-      // >---
+
       const verticalSplit: XYPosition[] = [
          { x: centerX, y: sourceGapped.y },
          { x: centerX, y: targetGapped.y },
       ];
-      //    |
-      //  ---
-      //  |
+
       const horizontalSplit: XYPosition[] = [
          { x: sourceGapped.x, y: centerY },
          { x: targetGapped.x, y: centerY },
       ];
 
-      if (sourceDir[dirAccessor] === currentDirection) {
-         // when target Port position is above source Port position
-         points = dirAccessor === 'x' ? verticalSplit : horizontalSplit;
-      } else {
-         // when source Port position is above target Port position
+      const centerLineIsBent = sourceDir[dirAccessor] !== currentDirection;
+
+      if (centerLineIsBent) {
          points = dirAccessor === 'x' ? horizontalSplit : verticalSplit;
+      } else {
+         points = dirAccessor === 'x' ? verticalSplit : horizontalSplit;
       }
    }
 
@@ -179,6 +175,7 @@ export function getStepPath({
       offset,
    });
 
+   console.log(points);
    const path = points.reduce<string>((res, p, i) => {
       let segment = '';
 
