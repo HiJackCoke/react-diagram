@@ -18,7 +18,7 @@ export interface GetStepPathParams {
    offset?: number;
 }
 
-const handleDirections = {
+const HANDLE_DIRECTIONS = {
    [Position.Left]: { x: -1, y: 0 },
    [Position.Right]: { x: 1, y: 0 },
    [Position.Top]: { x: 0, y: -1 },
@@ -60,8 +60,8 @@ function getPoints({
    center: Partial<XYPosition>;
    offset: number;
 }): [XYPosition[], number, number] {
-   const sourceDir = handleDirections[sourcePosition];
-   const targetDir = handleDirections[targetPosition];
+   const sourceDir = HANDLE_DIRECTIONS[sourcePosition];
+   const targetDir = HANDLE_DIRECTIONS[targetPosition];
    const sourceGapped: XYPosition = {
       x: source.x + sourceDir.x * offset,
       y: source.y + sourceDir.y * offset,
