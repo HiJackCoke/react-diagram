@@ -17,13 +17,13 @@ import StepEdge from 'components/Edges/StepEdge';
 
 import { applyEdgeChanges, applyNodeChanges } from 'utils/changes';
 
-import { CoordinateExtent, NodeTypes, EdgeTypes } from 'types';
+import { CoordinateExtent, NodeTypes, EdgeTypes, MarkerType } from 'types';
 
 const initialNodes = [
    {
       id: '1',
       data: { label: 'An input node' },
-      position: { x: 0, y: 50 },
+      position: { x: 0, y: 0 },
    },
    {
       id: '2',
@@ -43,9 +43,30 @@ const initialNodes = [
 ];
 
 const initialEdges = [
-   { id: 'e-1-2', source: '1', target: '2' },
-   { id: 'e-2-3', source: '2', target: '3' },
-   { id: 'e-3-4', source: '3', target: '4' },
+   {
+      id: 'e-1-2',
+      source: '1',
+      target: '2',
+      markerStart: {
+         type: MarkerType.Arrow,
+      },
+   },
+   {
+      id: 'e-2-3',
+      source: '2',
+      target: '3',
+      markerEnd: {
+         type: MarkerType.Arrow,
+      },
+   },
+   {
+      id: 'e-3-4',
+      source: '3',
+      target: '4',
+      markerEnd: {
+         type: MarkerType.Arrow,
+      },
+   },
 ];
 
 const minZoom = 0.5;
@@ -93,7 +114,7 @@ function Index() {
                   setNodes((nodes) => applyNodeChanges(changes, nodes))
                }
                onEdgesChange={(changes) =>
-                  setEdges((edges) => applyEdgeChanges(changes, edges))
+                  setEdges((edges) => applyEdgeChanges(changes, edges) as any)
                }
             />
 

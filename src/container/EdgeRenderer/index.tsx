@@ -3,6 +3,8 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore } from '../../hooks/useStore';
 
+import MarkerComponent from './MarkerComponent';
+
 import { getEdgePositions, getHandle, getNodeData } from './utils';
 
 import {
@@ -37,6 +39,7 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
          height={height || '100vh'}
          className="react-diagram__edges react-diagram__container"
       >
+         <MarkerComponent defaultColor="#000000" rfId={rfId} />
          <g>
             {edges.map((edge: Edge) => {
                const [sourceNodeRect, sourceHandleBounds, sourceIsValid] =

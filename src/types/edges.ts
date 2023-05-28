@@ -4,7 +4,6 @@ import { Position } from './utils';
 
 export enum MarkerType {
    Arrow = 'arrow',
-   ArrowClosed = 'arrowclosed',
 }
 
 export type EdgeMarker = {
