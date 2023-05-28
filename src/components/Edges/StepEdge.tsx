@@ -88,9 +88,10 @@ function getPoints({
          targetY: target.y,
       });
 
-   const isSamePositionAsTargetAndSource =
+   const isSourceAndTargetPositionsParallel =
       sourceDir[dirAccessor] * targetDir[dirAccessor] === -1;
-   if (isSamePositionAsTargetAndSource) {
+
+   if (isSourceAndTargetPositionsParallel) {
       centerX = center.x || defaultCenterX;
       centerY = center.y || defaultCenterY;
 
@@ -175,7 +176,6 @@ export function getStepPath({
       offset,
    });
 
-   console.log(points);
    const path = points.reduce<string>((res, p, i) => {
       let segment = '';
 
