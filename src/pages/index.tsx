@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import Viewport from 'container/Viewport';
 
 import { useNodeOrEdgeTypes } from 'hooks/useNodeOrEdgeTypes';
+import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
 import ReactDiagramProvider from 'components/ReactDiagramProvider';
 import StoreUpdater from 'components/StoreUpdater';
@@ -14,8 +14,6 @@ import Nodes from 'components/Node';
 import EdgeRenderer from 'container/EdgeRenderer';
 import { createEdgeTypes } from 'container/EdgeRenderer/utils';
 import StepEdge from 'components/Edges/StepEdge';
-
-import { applyEdgeChanges, applyNodeChanges } from 'utils/changes';
 
 import { CoordinateExtent, NodeTypes, EdgeTypes, MarkerType } from 'types';
 
@@ -99,8 +97,10 @@ function Index() {
       createEdgeTypes,
    );
 
-   const [nodes, setNodes] = useState(initialNodes);
-   const [edges, setEdges] = useState(initialEdges);
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   const [nodes, _setNodes, onNodesChange] = useNodesState(initialNodes);
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
    return (
       <ReactDiagramProvider>
@@ -110,12 +110,8 @@ function Index() {
                nodes={nodes}
                edges={edges}
                // gridStep={[100, 100]}
-               onNodesChange={(changes) =>
-                  setNodes((nodes) => applyNodeChanges(changes, nodes))
-               }
-               onEdgesChange={(changes) =>
-                  setEdges((edges) => applyEdgeChanges(changes, edges) as any)
-               }
+               onNodesChange={onNodesChange}
+               onEdgesChange={onEdgesChange}
             />
 
             <ZoomPane
