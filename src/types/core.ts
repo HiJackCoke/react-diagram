@@ -11,6 +11,7 @@ import type {
    OnNodesChange,
    OnEdgesChange,
    GridStep,
+   Viewport,
 } from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
@@ -39,6 +40,11 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onEdgesChange?: OnEdgesChange;
 
    selectNodesOnDrag?: boolean;
+
+   minZoom?: number;
+   maxZoom?: number;
+   defaultViewport?: Viewport;
+   translateExtent?: CoordinateExtent;
 };
 
 export type ReactDiagramRefType = HTMLDivElement;

@@ -3,16 +3,16 @@ import Viewport from 'container/Viewport';
 import { useNodeOrEdgeTypes } from 'hooks/useNodeOrEdgeTypes';
 import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
-import ReactDiagramProvider from 'components/ReactDiagramProvider';
-import StoreUpdater from 'components/StoreUpdater';
-import ZoomPane from 'container/ZoomPane';
+import DiagramRenderer from 'container/DiagramRenderer';
+import { createNodeTypes } from 'container/NodeRenderer/utils';
+import { createEdgeTypes } from 'container/EdgeRenderer/utils';
 
 import NodeRenderer from 'container/NodeRenderer';
-import { createNodeTypes } from 'container/NodeRenderer/utils';
-import Nodes from 'components/Node';
-
 import EdgeRenderer from 'container/EdgeRenderer';
-import { createEdgeTypes } from 'container/EdgeRenderer/utils';
+
+import ReactDiagramProvider from 'components/ReactDiagramProvider';
+import StoreUpdater from 'components/StoreUpdater';
+import Nodes from 'components/Node';
 import StepEdge from 'components/Edges/StepEdge';
 
 import { CoordinateExtent, NodeTypes, EdgeTypes, MarkerType } from 'types';
@@ -114,7 +114,7 @@ function Index() {
                onEdgesChange={onEdgesChange}
             />
 
-            <ZoomPane
+            <DiagramRenderer
                minZoom={minZoom}
                maxZoom={maxZoom}
                translateExtent={translateExtent}
@@ -132,7 +132,7 @@ function Index() {
                   />
                   <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
                </Viewport>
-            </ZoomPane>
+            </DiagramRenderer>
          </div>
       </ReactDiagramProvider>
    );
