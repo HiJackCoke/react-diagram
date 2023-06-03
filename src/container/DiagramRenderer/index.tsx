@@ -1,18 +1,10 @@
 import { memo } from 'react';
-import type { ReactNode } from 'react';
 
-import ZoomPane from '../ZoomPane';
+import ZoomPane, { ZoomPaneProps } from '../ZoomPane';
 
-import { ReactDiagramProps } from '../../types';
+type RequiredProps = ZoomPaneProps;
 
-type RequiredProps = Required<
-   Pick<
-      ReactDiagramProps,
-      'minZoom' | 'maxZoom' | 'defaultViewport' | 'translateExtent'
-   >
->;
-
-export type DiagramRendererProps = RequiredProps & { children: ReactNode };
+export type DiagramRendererProps = RequiredProps;
 
 const DiagramRenderer = ({
    children,

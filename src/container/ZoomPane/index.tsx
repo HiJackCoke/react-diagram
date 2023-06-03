@@ -11,19 +11,20 @@ import { useStore, useStoreApi } from '../../hooks/useStore';
 
 import { clamp } from 'utils';
 
-import { CoordinateExtent, ReactDiagramState, Viewport } from 'types';
+import { CoordinateExtent, ReactDiagramState, ReactDiagramProps } from 'types';
 
 import { containerStyle } from 'container/style';
 
 import './style.css';
 
-interface ZoomPaneProps {
-   children: ReactNode;
-   minZoom: number;
-   maxZoom: number;
-   defaultViewport: Viewport;
-   translateExtent: CoordinateExtent;
-}
+export type ZoomPaneProps = Required<
+   Pick<
+      ReactDiagramProps,
+      'minZoom' | 'maxZoom' | 'defaultViewport' | 'translateExtent'
+   > & {
+      children: ReactNode;
+   }
+>;
 
 const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,
