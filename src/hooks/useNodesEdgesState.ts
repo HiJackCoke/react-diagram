@@ -3,8 +3,9 @@ import type { SetStateAction, Dispatch } from 'react';
 
 import { applyNodeChanges, applyEdgeChanges } from '../utils/changes';
 
+import { NodeChange, EdgeChange } from '../types';
 import { Edge } from 'components/Edges/type';
-import type { Node, NodeChange, EdgeChange } from '../types';
+import { Node } from 'components/Node/type';
 
 type ApplyChanges<ItemType, ChangesType> = (
    changes: ChangesType[],

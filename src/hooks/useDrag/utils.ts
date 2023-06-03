@@ -6,15 +6,14 @@ import {
 import { getNodePositionWithOrigin } from 'utils/graph';
 import { isNumeric, clampPosition } from 'utils';
 
+import { XYPosition, CoordinateExtent, OnError } from 'types';
+
 import {
    Node,
-   NodeInternals,
-   XYPosition,
-   NodeDragItem,
-   CoordinateExtent,
    NodeOrigin,
-   OnError,
-} from 'types';
+   NodeInternals,
+   NodeDragItem,
+} from 'components/Node/type';
 
 const errorMessages = 'Only child nodes can use a parent extent';
 

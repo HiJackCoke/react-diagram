@@ -2,18 +2,19 @@ import type { ComponentType } from 'react';
 
 import StepEdge from 'components/Edges/StepEdge';
 import wrapEdge from 'components/Edges/wrapEdge';
-import { internalsSymbol, rectToBox } from '../../utils';
-import { Position } from '../../types';
-import type {
+import { internalsSymbol, rectToBox } from 'utils';
+
+import {
    EdgeTypes,
    EdgeTypesWrapped,
    PortElement,
-   NodePortBounds,
-   Node,
    Rect,
    Transform,
+   Position,
    XYPosition,
-} from '../../types';
+} from 'types';
+
+import { Node, NodePortBounds } from 'components/Node/type';
 import { EdgeProps } from 'components/Edges/type';
 
 export type CreateEdgeTypes = (edgeTypes: EdgeTypes) => EdgeTypesWrapped;

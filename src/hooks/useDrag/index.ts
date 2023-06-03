@@ -13,7 +13,8 @@ import {
    getEventHandlerParams,
 } from './utils';
 
-import { NodeDragItem, UseDragEvent, XYPosition } from 'types';
+import { UseDragEvent, XYPosition } from 'types';
+import { NodeDragItem } from 'components/Node/type';
 
 type UseDragParams = {
    nodeRef: RefObject<Element>;

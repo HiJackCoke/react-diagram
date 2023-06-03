@@ -1,4 +1,5 @@
-import { Node, NodeChange, EdgeChange } from '../types';
+import { NodeChange, EdgeChange } from '../types';
+import { Node } from 'components/Node/type';
 import { Edge } from 'components/Edges/type';
 
 const handleParentExpand = (res: any[], updateItem: any) => {

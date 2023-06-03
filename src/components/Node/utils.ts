@@ -2,13 +2,9 @@ import { MouseEvent } from 'react';
 import { StoreApi } from 'zustand';
 
 import { getDimensions } from '../../utils';
-import { Position } from '../../types';
-import type {
-   PortElement,
-   Node,
-   NodeOrigin,
-   ReactDiagramState,
-} from '../../types';
+
+import { ReactDiagramState, PortElement, Position } from 'types';
+import { Node, NodeOrigin } from './type';
 
 export const getPortBounds = (
    selector: string,

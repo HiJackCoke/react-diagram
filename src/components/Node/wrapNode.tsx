@@ -2,22 +2,23 @@ import { useEffect, useRef, memo } from 'react';
 import type { ComponentType, MouseEvent } from 'react';
 import cc from 'classcat';
 
-import { Provider } from '../../contexts/NodeIdContext';
-import { useStoreApi } from '../../hooks/useStore';
+import useDrag from 'hooks/useDrag';
+import { useStoreApi } from 'hooks/useStore';
+
+import { Provider } from 'contexts/NodeIdContext';
+
+import { ARIA_NODE_DESC_KEY } from 'components/A11yDescriptions';
 
 import { getMouseHandler } from './utils';
 
-import type {
-   NodeProps,
-   WrapNodeProps,
-   XYPosition,
-   NodeDragItem,
-   NodeInternals,
+import type { XYPosition } from 'types';
+import {
    Node,
-} from '../../types';
-import useDrag from 'hooks/useDrag';
-
-import { ARIA_NODE_DESC_KEY } from 'components/A11yDescriptions';
+   NodeInternals,
+   WrapNodeProps,
+   NodeProps,
+   NodeDragItem,
+} from './type';
 
 export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowUp: { x: 0, y: -1 },

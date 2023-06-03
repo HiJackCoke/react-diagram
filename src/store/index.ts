@@ -8,16 +8,14 @@ import { updateAbsoluteNodePositions, createNodeInternals } from './utils';
 import { getPortBounds } from '../components/Node/utils';
 
 import initialState from './initialState';
-import type {
-   Node,
+import {
    ReactDiagramState,
-   NodeDimensionUpdate,
    NodeDimensionChange,
    UnselectNodesParams,
-   NodeDragItem,
    NodePositionChange,
    NodeChange,
 } from '../types';
+import { Node, NodeDimensionUpdate, NodeDragItem } from 'components/Node/type';
 import { Edge } from 'components/Edges/type';
 
 const createRFStore = () =>

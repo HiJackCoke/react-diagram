@@ -1,15 +1,8 @@
 import { getOverlappingArea } from 'utils';
 
+import { XYPosition, Rect, Transform } from 'types';
+import { Node, NodeOrigin, NodeInternals } from 'components/Node/type';
 import { EdgeMarkerType } from 'components/Edges/type';
-
-import {
-   Node,
-   NodeOrigin,
-   XYPosition,
-   NodeInternals,
-   Rect,
-   Transform,
-} from 'types';
 
 export const getNodePositionWithOrigin = (
    node: Node | undefined,

@@ -1,20 +1,17 @@
 import { ComponentType, MemoExoticComponent } from 'react';
 import { D3DragEvent, SubjectPosition, ZoomBehavior } from 'd3';
 
+import { Transform, NodeChange, EdgeChange, CoordinateExtent } from '.';
 import {
-   Transform,
    Node,
-   NodeProps,
-   NodeInternals,
    NodeOrigin,
+   NodeInternals,
    NodeDimensionUpdate,
    WrapNodeProps,
-   NodeChange,
-   NodeDragHandler,
+   NodeProps,
    NodeDragItem,
-   EdgeChange,
-   CoordinateExtent,
-} from '.';
+   NodeDragHandler,
+} from 'components/Node/type';
 import {
    Edge,
    WrapEdgeProps,

@@ -2,16 +2,18 @@ import type { HTMLAttributes } from 'react';
 
 import type {
    NodeTypes,
-   Node,
    CoordinateExtent,
-   NodeMouseHandler,
-   NodeOrigin,
-   NodeDragHandler,
    OnNodesChange,
    OnEdgesChange,
    GridStep,
    Viewport,
 } from '.';
+import {
+   Node,
+   NodeOrigin,
+   NodeMouseHandler,
+   NodeDragHandler,
+} from 'components/Node/type';
 import { Edge } from 'components/Edges/type';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {

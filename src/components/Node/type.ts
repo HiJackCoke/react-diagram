@@ -1,7 +1,8 @@
 import { CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
 
 import { internalsSymbol } from 'utils';
-import { XYPosition, Position, CoordinateExtent, PortElement } from '.';
+
+import { PortElement, Position, XYPosition, CoordinateExtent } from 'types';
 
 export type NodePortBounds = {
    source: PortElement[] | null;

@@ -8,11 +8,11 @@ import useVisibleNodes from 'hooks/useVisibleNodes';
 
 import {
    NodeTypesWrapped,
-   WrapNodeProps,
    Position,
    ReactDiagramProps,
    ReactDiagramState,
 } from 'types';
+import { WrapNodeProps } from 'components/Node/type';
 
 type RequiredProps = Required<
    Pick<

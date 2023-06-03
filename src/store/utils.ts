@@ -2,7 +2,8 @@ import { internalsSymbol, isNumeric } from 'utils';
 
 import { getNodePositionWithOrigin } from 'utils/graph';
 
-import { Node, XYZPosition, NodeInternals, NodeOrigin } from 'types';
+import { XYZPosition } from 'types';
+import { Node, NodeOrigin, NodeInternals } from 'components/Node/type';
 
 type ParentNodes = Record<string, boolean>;
 
