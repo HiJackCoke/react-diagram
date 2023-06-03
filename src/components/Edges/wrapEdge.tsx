@@ -6,7 +6,7 @@ import { ARIA_EDGE_DESC_KEY } from '../A11yDescriptions';
 
 import { getMarkerId } from '../../utils/graph';
 
-import type { EdgeProps, WrapEdgeProps } from 'types';
+import { EdgeProps, WrapEdgeProps } from './type';
 
 export default (EdgeComponent: ComponentType<EdgeProps>) => {
    const EdgeWrapper = ({

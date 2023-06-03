@@ -1,4 +1,4 @@
-import { BaseEdgeProps } from 'types/edges';
+import { BaseEdgeProps } from './type';
 
 import './style.css';
 

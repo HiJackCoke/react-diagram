@@ -12,13 +12,15 @@ import {
    NodeChange,
    NodeDragHandler,
    NodeDragItem,
-   Edge,
-   EdgeProps,
-   WrapEdgeProps,
-   DefaultEdgeOptions,
    EdgeChange,
    CoordinateExtent,
 } from '.';
+import {
+   Edge,
+   WrapEdgeProps,
+   EdgeProps,
+   DefaultEdgeOptions,
+} from 'components/Edges/type';
 
 export type OnNodesChange = (changes: NodeChange[]) => void;
 export type OnEdgesChange = (changes: EdgeChange[]) => void;

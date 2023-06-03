@@ -5,7 +5,6 @@ import wrapEdge from 'components/Edges/wrapEdge';
 import { internalsSymbol, rectToBox } from '../../utils';
 import { Position } from '../../types';
 import type {
-   EdgeProps,
    EdgeTypes,
    EdgeTypesWrapped,
    PortElement,
@@ -15,6 +14,7 @@ import type {
    Transform,
    XYPosition,
 } from '../../types';
+import { EdgeProps } from 'components/Edges/type';
 
 export type CreateEdgeTypes = (edgeTypes: EdgeTypes) => EdgeTypesWrapped;
 

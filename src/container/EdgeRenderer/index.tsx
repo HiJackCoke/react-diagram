@@ -7,12 +7,8 @@ import MarkerComponent from './MarkerComponent';
 
 import { getEdgePositions, getHandle, getNodeData } from './utils';
 
-import {
-   Position,
-   EdgeTypesWrapped,
-   Edge,
-   ReactDiagramState,
-} from '../../types';
+import { Edge } from 'components/Edges/type';
+import { Position, EdgeTypesWrapped, ReactDiagramState } from '../../types';
 
 import './style.css';
 

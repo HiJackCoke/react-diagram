@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 
-import { Position } from './utils';
+import { Position } from 'types';
 
 export enum MarkerType {
    Arrow = 'arrow',

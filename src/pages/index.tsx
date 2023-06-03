@@ -15,7 +15,9 @@ import StoreUpdater from 'components/StoreUpdater';
 import Nodes from 'components/Node';
 import StepEdge from 'components/Edges/StepEdge';
 
-import { CoordinateExtent, NodeTypes, EdgeTypes, MarkerType } from 'types';
+import { MarkerType } from 'components/Edges/type';
+
+import { CoordinateExtent, NodeTypes, EdgeTypes } from 'types';
 
 const initialNodes = [
    {

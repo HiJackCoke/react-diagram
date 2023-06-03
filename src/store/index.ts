@@ -17,8 +17,8 @@ import type {
    NodeDragItem,
    NodePositionChange,
    NodeChange,
-   Edge,
 } from '../types';
+import { Edge } from 'components/Edges/type';
 
 const createRFStore = () =>
    createStore<ReactDiagramState>((set, get) => ({

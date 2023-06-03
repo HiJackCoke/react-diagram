@@ -1,4 +1,5 @@
-import { Node, Edge, Dimensions, XYPosition } from '.';
+import { Node, Dimensions, XYPosition } from '.';
+import { Edge } from 'components/Edges/type';
 
 export type NodeDimensionChange = {
    id: string;

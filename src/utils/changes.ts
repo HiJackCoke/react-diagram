@@ -1,4 +1,5 @@
-import { Node, NodeChange, Edge, EdgeChange } from '../types';
+import { Node, NodeChange, EdgeChange } from '../types';
+import { Edge } from 'components/Edges/type';
 
 const handleParentExpand = (res: any[], updateItem: any) => {
    const parent = res.find((e) => e.id === updateItem.parentNode);

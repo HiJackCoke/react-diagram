@@ -2,8 +2,9 @@ import { memo } from 'react';
 
 import BaseEdge from './BaseEdge';
 import { getEdgeCenter } from './utils';
-import { Position } from '../../types';
-import type { StepEdgeProps, XYPosition } from '../../types';
+
+import { StepEdgeProps } from './type';
+import { Position, XYPosition } from 'types';
 
 export interface GetStepPathParams {
    sourceX: number;

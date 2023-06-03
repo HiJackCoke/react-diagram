@@ -3,7 +3,6 @@ import type { HTMLAttributes } from 'react';
 import type {
    NodeTypes,
    Node,
-   Edge,
    CoordinateExtent,
    NodeMouseHandler,
    NodeOrigin,
@@ -13,6 +12,7 @@ import type {
    GridStep,
    Viewport,
 } from '.';
+import { Edge } from 'components/Edges/type';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;
