@@ -8,7 +8,8 @@ import MarkerComponent from './MarkerComponent';
 import { getEdgePositions, getHandle, getNodeData } from './utils';
 
 import { Edge } from 'components/Edges/type';
-import { Position, EdgeTypesWrapped, ReactDiagramState } from '../../types';
+import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
+import { Position, EdgeTypesWrapped } from '../../types';
 
 import './style.css';
 

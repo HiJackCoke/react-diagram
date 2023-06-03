@@ -5,9 +5,13 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 
-import { ReactDiagramState, ReactDiagramProps, ReactDiagramStore } from 'types';
+import { ReactDiagramProps } from 'types';
 import { Edge } from 'components/Edges/type';
 import { Node } from 'components/Node/type';
+import {
+   ReactDiagramStore,
+   ReactDiagramState,
+} from 'components/ReactDiagramProvider/type';
 
 type StoreUpdaterProps = Pick<
    ReactDiagramProps,

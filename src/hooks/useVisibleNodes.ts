@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { useStore } from '../hooks/useStore';
 
-import type { ReactDiagramState } from '../types';
+import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
 function useVisibleNodes() {
    const nodes = useStore(

@@ -4,7 +4,7 @@ import cc from 'classcat';
 
 import { ARIA_EDGE_DESC_KEY } from '../A11yDescriptions';
 
-import { getMarkerId } from '../../utils/graph';
+import { getMarkerId } from 'utils/graph';
 
 import { EdgeProps, WrapEdgeProps } from './type';
 

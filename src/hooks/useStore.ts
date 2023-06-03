@@ -3,7 +3,8 @@ import { useStore as useZustandStore } from 'zustand';
 import type { StoreApi } from 'zustand';
 
 import StoreContext from '../contexts/RFStoreContext';
-import type { ReactDiagramState } from '../types';
+
+import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
 const zustandErrorMessage =
    '[React Diagram]: Seems like you have not used zustand provider as an ancestor';

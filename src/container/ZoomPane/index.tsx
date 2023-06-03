@@ -7,14 +7,14 @@ import { select } from 'd3-selection';
 
 import { shallow } from 'zustand/shallow';
 
-import { useStore, useStoreApi } from '../../hooks/useStore';
+import { useStore, useStoreApi } from 'hooks/useStore';
 
 import { clamp } from 'utils';
 
-import { CoordinateExtent, ReactDiagramState, ReactDiagramProps } from 'types';
+import { CoordinateExtent, ReactDiagramProps } from 'types';
+import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
 import { containerStyle } from 'container/style';
-
 import './style.css';
 
 export type ZoomPaneProps = Required<

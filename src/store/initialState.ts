@@ -1,4 +1,5 @@
-import type { ReactDiagramStore, CoordinateExtent } from '../types';
+import { CoordinateExtent } from '../types';
+import { ReactDiagramStore } from 'components/ReactDiagramProvider/type';
 
 export const infiniteExtent: CoordinateExtent = [
    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],

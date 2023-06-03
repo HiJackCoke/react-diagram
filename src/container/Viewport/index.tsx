@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 
 import { useStore } from 'hooks/useStore';
-import { ReactDiagramState } from 'types';
+
+import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
 const selector = (s: ReactDiagramState) =>
    `translate(${s.transform[0]}px,${s.transform[1]}px) scale(${s.transform[2]})`;

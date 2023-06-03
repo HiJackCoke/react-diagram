@@ -6,12 +6,8 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from 'hooks/useStore';
 import useVisibleNodes from 'hooks/useVisibleNodes';
 
-import {
-   NodeTypesWrapped,
-   Position,
-   ReactDiagramProps,
-   ReactDiagramState,
-} from 'types';
+import { NodeTypesWrapped, Position, ReactDiagramProps } from 'types';
+import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 import { WrapNodeProps } from 'components/Node/type';
 
 type RequiredProps = Required<
