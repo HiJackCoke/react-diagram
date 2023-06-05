@@ -86,6 +86,12 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
                      type={edgeType}
                      data={edge.data}
                      style={edge.style}
+                     label={edge.label}
+                     labelStyle={edge.labelStyle}
+                     labelShowBg={edge.labelShowBg}
+                     labelBgStyle={edge.labelBgStyle}
+                     labelBgPadding={edge.labelBgPadding}
+                     labelBgBorderRadius={edge.labelBgBorderRadius}
                      source={edge.source}
                      target={edge.target}
                      sourceHandleId={edge.sourceHandle}

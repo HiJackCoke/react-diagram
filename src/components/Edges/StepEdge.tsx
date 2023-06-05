@@ -60,7 +60,7 @@ function getPoints({
    targetPosition: Position;
    center: Partial<XYPosition>;
    offset: number;
-}): [XYPosition[], number, number] {
+}): [XYPosition[], number, number, number, number] {
    const sourceDir = HANDLE_DIRECTIONS[sourcePosition];
    const targetDir = HANDLE_DIRECTIONS[targetPosition];
    const sourceGapped: XYPosition = {
@@ -80,7 +80,8 @@ function getPoints({
    const currentDirection = direction[dirAccessor];
 
    let points: XYPosition[] = [];
-   let centerX, centerY;
+   let centerX = 0,
+      centerY = 0;
    const [defaultCenterX, defaultCenterY, defaultOffsetX, defaultOffsetY] =
       getEdgeCenter({
          sourceX: source.x,
@@ -117,13 +118,7 @@ function getPoints({
 
    const pathPoints = [source, sourceGapped, ...points, targetGapped, target];
 
-   return [
-      pathPoints,
-      //  centerX,
-      //   centerY,
-      defaultOffsetX,
-      defaultOffsetY,
-   ];
+   return [pathPoints, centerX, centerY, defaultOffsetX, defaultOffsetY];
 }
 
 function getBend(
@@ -167,8 +162,14 @@ export function getStepPath({
    centerX,
    centerY,
    offset = 20,
-}: GetStepPathParams): [path: string, offsetX: number, offsetY: number] {
-   const [points, offsetX, offsetY] = getPoints({
+}: GetStepPathParams): [
+   path: string,
+   labelX: number,
+   labelY: number,
+   offsetX: number,
+   offsetY: number,
+] {
+   const [points, labelX, labelY, offsetX, offsetY] = getPoints({
       source: { x: sourceX, y: sourceY },
       sourcePosition,
       target: { x: targetX, y: targetY },
@@ -191,7 +192,7 @@ export function getStepPath({
       return res;
    }, '');
 
-   return [path, offsetX, offsetY];
+   return [path, labelX, labelY, offsetX, offsetY];
 }
 
 const StepEdge = memo(
@@ -200,7 +201,12 @@ const StepEdge = memo(
       sourceY,
       targetX,
       targetY,
-
+      label,
+      labelStyle,
+      labelShowBg,
+      labelBgStyle,
+      labelBgPadding,
+      labelBgBorderRadius,
       style,
       sourcePosition = Position.Bottom,
       targetPosition = Position.Top,
@@ -208,7 +214,7 @@ const StepEdge = memo(
       markerStart,
       pathOptions,
    }: StepEdgeProps) => {
-      const [path] = getStepPath({
+      const [path, labelX, labelY] = getStepPath({
          sourceX,
          sourceY,
          sourcePosition,
@@ -218,10 +224,17 @@ const StepEdge = memo(
          borderRadius: pathOptions?.borderRadius,
          offset: pathOptions?.offset,
       });
-
       return (
          <BaseEdge
             path={path}
+            labelX={labelX}
+            labelY={labelY}
+            label={label}
+            labelStyle={labelStyle}
+            labelShowBg={labelShowBg}
+            labelBgStyle={labelBgStyle}
+            labelBgPadding={labelBgPadding}
+            labelBgBorderRadius={labelBgBorderRadius}
             style={style}
             markerEnd={markerEnd}
             markerStart={markerStart}

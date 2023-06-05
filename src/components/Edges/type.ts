@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { ReactNode, HTMLAttributes, CSSProperties } from 'react';
 
 import { Position } from 'types';
 
@@ -17,6 +17,21 @@ export type EdgeMarker = {
 };
 
 export type EdgeMarkerType = string | EdgeMarker;
+
+type EdgeLabelOptions = {
+   label?: string | ReactNode;
+   labelStyle?: CSSProperties;
+   labelShowBg?: boolean;
+   labelBgStyle?: CSSProperties;
+   labelBgPadding?: [number, number];
+   labelBgBorderRadius?: number;
+};
+
+export type EdgeLabelProps = HTMLAttributes<SVGElement> &
+   EdgeLabelOptions & {
+      x: number;
+      y: number;
+   };
 
 export type DefaultEdge<T = any> = {
    id: string;
@@ -42,7 +57,7 @@ export type DefaultEdge<T = any> = {
    deletable?: boolean;
 };
 
-export type Edge<T = any> = DefaultEdge<T>;
+export type Edge<T = any> = DefaultEdge<T> & EdgeLabelOptions;
 
 export type WrapEdgeProps<T = any> = Omit<
    Edge<T>,
@@ -76,17 +91,23 @@ export type EdgeProps<T = any> = Pick<
       | 'targetPosition'
       | 'sourceHandleId'
       | 'targetHandleId'
-   > & {
+   > &
+   EdgeLabelOptions & {
       markerStart?: string;
       markerEnd?: string;
+      // @TODO: how can we get better types for pathOptions?
+      pathOptions?: any;
    };
 
 export type BaseEdgeProps = Pick<
    EdgeProps,
    'style' | 'markerStart' | 'markerEnd'
-> & {
-   path: string;
-};
+> &
+   EdgeLabelOptions & {
+      labelX?: number;
+      labelY?: number;
+      path: string;
+   };
 
 export type StepPathOptions = {
    offset?: number;

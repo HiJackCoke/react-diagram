@@ -21,6 +21,8 @@ import { CoordinateExtent } from 'types';
 import { NodeTypes } from 'container/NodeRenderer/type';
 import { EdgeTypes } from 'container/EdgeRenderer/type';
 
+import './style.css';
+
 const initialNodes = [
    {
       id: '1',
@@ -60,6 +62,8 @@ const initialEdges = [
       markerEnd: {
          type: MarkerType.Arrow,
       },
+
+      label: 'label',
    },
    {
       id: 'e-3-4',
@@ -67,6 +71,9 @@ const initialEdges = [
       target: '4',
       markerEnd: {
          type: MarkerType.Arrow,
+      },
+      data: {
+         label: 'label',
       },
    },
 ];
@@ -135,6 +142,7 @@ function Index() {
                      rfId="1"
                   />
                   <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
+                  <div className="react-diagram__edgelabel-renderer" />
                </Viewport>
             </DiagramRenderer>
          </div>

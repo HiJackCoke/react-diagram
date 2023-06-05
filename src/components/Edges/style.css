@@ -4,3 +4,20 @@
    stroke-width: 1;
    fill: none;
 }
+
+.react-diagram__edge-textbg {
+   fill: white;
+}
+
+.react-diagram__edge-textwrapper {
+   pointer-events: all;
+}
+
+.react-diagram__edge .react-diagram__edge-text {
+   pointer-events: none;
+   user-select: none;
+}
+
+.react-diagram__edge-text {
+   font-size: 10px;
+}

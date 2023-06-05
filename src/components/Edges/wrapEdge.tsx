@@ -14,9 +14,13 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
       className,
       type,
       data,
-
       selected,
-
+      label,
+      labelStyle,
+      labelShowBg,
+      labelBgStyle,
+      labelBgPadding,
+      labelBgBorderRadius,
       style,
       source,
       target,
@@ -82,6 +86,12 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
                source={source}
                target={target}
                selected={selected}
+               label={label}
+               labelStyle={labelStyle}
+               labelShowBg={labelShowBg}
+               labelBgStyle={labelBgStyle}
+               labelBgPadding={labelBgPadding}
+               labelBgBorderRadius={labelBgBorderRadius}
                data={data}
                style={style}
                sourceX={sourceX}
