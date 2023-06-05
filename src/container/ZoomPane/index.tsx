@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 
 import { zoom, zoomIdentity } from 'd3-zoom';
 import type { D3ZoomEvent } from 'd3-zoom';
@@ -10,13 +11,20 @@ import { useStore, useStoreApi } from 'hooks/useStore';
 
 import { clamp } from 'utils';
 
-import { CoordinateExtent } from 'types';
+import { ReactDiagramProps, CoordinateExtent } from 'types';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
-
-import { ZoomPaneProps } from './type';
 
 import { containerStyle } from 'container/style';
 import './style.css';
+
+export type ZoomPaneProps = Required<
+   Pick<
+      ReactDiagramProps,
+      'minZoom' | 'maxZoom' | 'defaultViewport' | 'translateExtent'
+   > & {
+      children: ReactNode;
+   }
+>;
 
 const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,

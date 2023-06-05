@@ -1,4 +1,4 @@
-import { ZoomPaneProps } from '../ZoomPane/type';
+import { ZoomPaneProps } from 'container/ZoomPane';
 
 type RequiredProps = ZoomPaneProps;
 

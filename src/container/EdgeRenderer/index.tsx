@@ -10,10 +10,15 @@ import { getEdgePositions, getHandle, getNodeData } from './utils';
 import { Edge } from 'components/Edges/type';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 import { Position } from 'types';
-
-import { EdgeRendererProps } from './type';
+import { EdgeTypesWrapped } from './type';
 
 import './style.css';
+
+type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'>;
+
+type EdgeRendererProps = GraphViewEdgeProps & {
+   edgeTypes: EdgeTypesWrapped;
+};
 
 const selector = (s: ReactDiagramState) => ({
    edges: s.edges,
