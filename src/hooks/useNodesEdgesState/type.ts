@@ -1,4 +1,4 @@
-import { Dimensions, XYPosition } from '.';
+import { Dimensions, XYPosition } from 'types';
 import { Node } from 'components/Node/type';
 import { Edge } from 'components/Edges/type';
 
@@ -63,3 +63,6 @@ export type EdgeChange =
    | EdgeRemoveChange
    | EdgeAddChange
    | EdgeResetChange;
+
+export type OnNodesChange = (changes: NodeChange[]) => void;
+export type OnEdgesChange = (changes: EdgeChange[]) => void;

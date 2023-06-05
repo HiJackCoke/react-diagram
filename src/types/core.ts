@@ -1,12 +1,8 @@
 import type { HTMLAttributes } from 'react';
 
-import type {
-   CoordinateExtent,
-   OnNodesChange,
-   OnEdgesChange,
-   GridStep,
-   Viewport,
-} from '.';
+import { CoordinateExtent, GridStep, Viewport } from '.';
+
+import { OnNodesChange, OnEdgesChange } from 'hooks/useNodesEdgesState/type';
 import {
    Node,
    NodeOrigin,

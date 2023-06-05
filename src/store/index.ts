@@ -8,7 +8,11 @@ import { updateAbsoluteNodePositions, createNodeInternals } from './utils';
 import { getPortBounds } from '../components/Node/utils';
 
 import initialState from './initialState';
-import { NodeDimensionChange, NodePositionChange, NodeChange } from '../types';
+import {
+   NodeDimensionChange,
+   NodePositionChange,
+   NodeChange,
+} from 'hooks/useNodesEdgesState/type';
 import { Node, NodeDimensionUpdate, NodeDragItem } from 'components/Node/type';
 import { Edge } from 'components/Edges/type';
 import {

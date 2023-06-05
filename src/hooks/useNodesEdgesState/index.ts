@@ -1,17 +1,17 @@
 import { useState, useCallback } from 'react';
 import type { SetStateAction, Dispatch } from 'react';
 
-import { applyNodeChanges, applyEdgeChanges } from '../utils/changes';
+import { applyNodeChanges, applyEdgeChanges } from 'utils/changes';
 
-import { NodeChange, EdgeChange } from '../types';
 import { Edge } from 'components/Edges/type';
 import { Node } from 'components/Node/type';
+import { NodeChange, EdgeChange } from './type';
 
-type ApplyChanges<ItemType, ChangesType> = (
+export type ApplyChanges<ItemType, ChangesType> = (
    changes: ChangesType[],
    items: ItemType[],
 ) => ItemType[];
-type OnChange<ChangesType> = (changes: ChangesType[]) => void;
+export type OnChange<ChangesType> = (changes: ChangesType[]) => void;
 
 function createUseItemsState(
    applyChanges: ApplyChanges<Node, NodeChange>,

@@ -1,14 +1,12 @@
 import { ZoomBehavior } from 'd3';
 
+import { Transform, GridStep, CoordinateExtent, OnError } from 'types';
+
 import {
-   Transform,
-   GridStep,
-   CoordinateExtent,
-   OnError,
+   NodeChange,
    OnNodesChange,
    OnEdgesChange,
-   NodeChange,
-} from 'types';
+} from 'hooks/useNodesEdgesState/type';
 import {
    Node,
    NodeInternals,
