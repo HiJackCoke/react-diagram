@@ -6,34 +6,11 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from 'hooks/useStore';
 import useVisibleNodes from 'hooks/useVisibleNodes';
 
-import { NodeTypesWrapped, Position, ReactDiagramProps } from 'types';
+import { Position } from 'types';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 import { WrapNodeProps } from 'components/Node/type';
 
-type RequiredProps = Required<
-   Pick<
-      ReactDiagramProps,
-      | 'onlyRenderVisibleElements'
-      | 'selectNodesOnDrag'
-      | 'disableKeyboardA11y'
-      | 'nodeOrigin'
-   >
->;
-
-type NodeRendererProps = Pick<
-   ReactDiagramProps,
-   | 'onNodeClick'
-   | 'onNodeDoubleClick'
-   | 'onNodeMouseEnter'
-   | 'onNodeMouseMove'
-   | 'onNodeMouseLeave'
-   | 'onNodeContextMenu'
-   | 'nodeExtent'
-> &
-   RequiredProps & {
-      nodeTypes: NodeTypesWrapped;
-      rfId: string;
-   };
+import { NodeRendererProps } from './type';
 
 const selector = (s: ReactDiagramState) => ({
    updateNodeDimensions: s.updateNodeDimensions,
