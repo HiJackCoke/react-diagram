@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useStoreApi } from './useStore';
-import type { UseDragEvent } from '../types';
+import { UseDragEvent } from './useDrag/type';
 
 function useGetPointerPosition() {
    const store = useStoreApi();

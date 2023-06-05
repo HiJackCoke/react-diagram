@@ -1,5 +1,4 @@
 import { ComponentType, MemoExoticComponent } from 'react';
-import { D3DragEvent, SubjectPosition } from 'd3';
 
 import { NodeChange, EdgeChange } from '.';
 import { WrapNodeProps, NodeProps } from 'components/Node/type';
@@ -27,5 +26,3 @@ export type EdgeTypes = { [key: string]: ComponentType<EdgeProps> };
 export type EdgeTypesWrapped = {
    [key: string]: MemoExoticComponent<ComponentType<WrapEdgeProps>>;
 };
-
-export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;

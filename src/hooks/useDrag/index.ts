@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import type { RefObject, MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
 
-import { useStoreApi } from '../../hooks/useStore';
+import { useStoreApi } from 'hooks/useStore';
 import useGetPointerPosition from 'hooks/useGetPointerPosition';
 
 import {
@@ -13,13 +13,9 @@ import {
    getEventHandlerParams,
 } from './utils';
 
-import { UseDragEvent, XYPosition } from 'types';
+import { XYPosition } from 'types';
 import { NodeDragItem } from 'components/Node/type';
-
-type UseDragParams = {
-   nodeRef: RefObject<Element>;
-   nodeId?: string;
-};
+import { UseDragParams, UseDragEvent } from './type';
 
 function useDrag({ nodeRef, nodeId }: UseDragParams) {
    const store = useStoreApi();
