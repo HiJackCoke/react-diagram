@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useStore } from '../../hooks/useStore';
+import { useStore } from 'hooks/useStore';
 
 import MarkerComponent from './MarkerComponent';
 
@@ -9,15 +9,11 @@ import { getEdgePositions, getHandle, getNodeData } from './utils';
 
 import { Edge } from 'components/Edges/type';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
-import { Position, EdgeTypesWrapped } from '../../types';
+import { Position } from 'types';
+
+import { EdgeRendererProps } from './type';
 
 import './style.css';
-
-type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'>;
-
-type EdgeRendererProps = GraphViewEdgeProps & {
-   edgeTypes: EdgeTypesWrapped;
-};
 
 const selector = (s: ReactDiagramState) => ({
    edges: s.edges,
