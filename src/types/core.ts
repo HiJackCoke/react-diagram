@@ -1,7 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
 import type {
-   NodeTypes,
    CoordinateExtent,
    OnNodesChange,
    OnEdgesChange,
@@ -15,6 +14,7 @@ import {
    NodeDragHandler,
 } from 'components/Node/type';
 import { Edge } from 'components/Edges/type';
+import { NodeTypes } from 'container/NodeRenderer/type';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;

@@ -3,13 +3,12 @@ import { shallow } from 'zustand/shallow';
 
 import { devWarn } from 'utils';
 import { CreateEdgeTypes } from 'container/EdgeRenderer/utils';
-import { CreateNodeTypes } from 'container/NodeRenderer/utils';
-import type {
-   EdgeTypes,
-   EdgeTypesWrapped,
+import {
    NodeTypes,
    NodeTypesWrapped,
-} from 'types';
+   CreateNodeTypes,
+} from 'container/NodeRenderer/type';
+import { EdgeTypes, EdgeTypesWrapped } from 'types';
 
 export function useNodeOrEdgeTypes(
    nodeOrEdgeTypes: NodeTypes,

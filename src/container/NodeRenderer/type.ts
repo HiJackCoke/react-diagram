@@ -1,4 +1,7 @@
-import { ReactDiagramProps, NodeTypesWrapped } from 'types';
+import { ComponentType, MemoExoticComponent } from 'react';
+
+import { WrapNodeProps, NodeProps } from 'components/Node/type';
+import { ReactDiagramProps } from 'types';
 
 type RequiredProps = Required<
    Pick<
@@ -24,3 +27,9 @@ export type NodeRendererProps = Pick<
       nodeTypes: NodeTypesWrapped;
       rfId: string;
    };
+
+export type NodeTypes = { [key: string]: ComponentType<NodeProps> };
+export type NodeTypesWrapped = {
+   [key: string]: MemoExoticComponent<ComponentType<WrapNodeProps>>;
+};
+export type CreateNodeTypes = (nodeTypes: NodeTypes) => NodeTypesWrapped;
