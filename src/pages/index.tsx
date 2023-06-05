@@ -17,8 +17,9 @@ import StepEdge from 'components/Edges/StepEdge';
 
 import { MarkerType } from 'components/Edges/type';
 
-import { CoordinateExtent, EdgeTypes } from 'types';
+import { CoordinateExtent } from 'types';
 import { NodeTypes } from 'container/NodeRenderer/type';
+import { EdgeTypes } from 'container/EdgeRenderer/type';
 
 const initialNodes = [
    {

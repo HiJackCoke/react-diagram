@@ -4,20 +4,11 @@ import StepEdge from 'components/Edges/StepEdge';
 import wrapEdge from 'components/Edges/wrapEdge';
 import { internalsSymbol, rectToBox } from 'utils';
 
-import {
-   EdgeTypes,
-   EdgeTypesWrapped,
-   PortElement,
-   Rect,
-   Transform,
-   Position,
-   XYPosition,
-} from 'types';
+import { PortElement, Rect, Transform, Position, XYPosition } from 'types';
 
 import { Node, NodePortBounds } from 'components/Node/type';
 import { EdgeProps } from 'components/Edges/type';
-
-export type CreateEdgeTypes = (edgeTypes: EdgeTypes) => EdgeTypesWrapped;
+import { EdgeTypes, EdgeTypesWrapped } from './type';
 
 export function createEdgeTypes(edgeTypes: EdgeTypes): EdgeTypesWrapped {
    const standardTypes: EdgeTypesWrapped = {
