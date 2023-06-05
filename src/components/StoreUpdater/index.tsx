@@ -5,6 +5,7 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 
+import { ReactDiagramProps } from 'types';
 import { Edge } from 'components/Edges/type';
 import { Node } from 'components/Node/type';
 import {
@@ -12,7 +13,12 @@ import {
    ReactDiagramState,
 } from 'components/ReactDiagramProvider/type';
 
-import { StoreUpdaterProps } from './type';
+export type StoreUpdaterProps = Pick<
+   ReactDiagramProps,
+   'nodes' | 'onNodesChange' | 'edges' | 'onEdgesChange' | 'gridStep'
+> & {
+   rfId: string;
+};
 
 const selector = (s: ReactDiagramState) => ({
    setNodes: s.setNodes,
