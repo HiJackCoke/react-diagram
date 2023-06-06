@@ -1,6 +1,7 @@
 import { memo } from 'react';
 
-import ZoomPane from '../ZoomPane';
+import ZoomPane from 'container/ZoomPane';
+import Viewport from 'container/Viewport';
 
 import { DiagramRendererProps } from './type';
 
@@ -18,7 +19,7 @@ const DiagramRenderer = ({
       translateExtent={translateExtent}
       defaultViewport={defaultViewport}
    >
-      {children}
+      <Viewport>{children}</Viewport>
    </ZoomPane>
 );
 

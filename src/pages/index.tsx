@@ -1,5 +1,3 @@
-import Viewport from 'container/Viewport';
-
 import { useNodeOrEdgeTypes } from 'hooks/useNodeOrEdgeTypes';
 import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
@@ -131,19 +129,17 @@ function Index() {
                translateExtent={translateExtent}
                defaultViewport={defaultViewport}
             >
-               <Viewport>
-                  <NodeRenderer
-                     nodeTypes={nodeTypesWrapped}
-                     onlyRenderVisibleElements={false}
-                     disableKeyboardA11y={false}
-                     selectNodesOnDrag
-                     nodeOrigin={[0, 0]}
-                     onNodeClick={console.log}
-                     rfId="1"
-                  />
-                  <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
-                  <div className="react-diagram__edgelabel-renderer" />
-               </Viewport>
+               <NodeRenderer
+                  nodeTypes={nodeTypesWrapped}
+                  onlyRenderVisibleElements={false}
+                  disableKeyboardA11y={false}
+                  selectNodesOnDrag
+                  nodeOrigin={[0, 0]}
+                  onNodeClick={console.log}
+                  rfId="1"
+               />
+               <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
+               <div className="react-diagram__edgelabel-renderer" />
             </DiagramRenderer>
          </div>
       </ReactDiagramProvider>
