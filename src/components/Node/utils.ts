@@ -68,7 +68,7 @@ export function handleNodeClick({
 }) {
    const {
       addSelectedNodes,
-      unSelectNodes,
+      unselectNodes,
       multiSelectionActive,
       nodeInternals,
    } = store.getState();
@@ -79,7 +79,7 @@ export function handleNodeClick({
    if (!node.selected) {
       addSelectedNodes([id]);
    } else if (unselect || (node.selected && multiSelectionActive)) {
-      unSelectNodes({ nodes: [node] });
+      unselectNodes({ nodes: [node] });
 
       requestAnimationFrame(() => nodeRef?.current?.blur());
    }

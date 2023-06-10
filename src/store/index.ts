@@ -191,7 +191,7 @@ const createRFStore = () =>
          });
       },
 
-      unSelectNodes: ({ nodes }: UnSelectNodesParams = {}) => {
+      unselectNodes: ({ nodes }: UnSelectNodesParams = {}) => {
          const { getNodes } = get();
          const nodesToUnselect = nodes ? nodes : getNodes();
 
