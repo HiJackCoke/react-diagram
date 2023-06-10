@@ -16,6 +16,8 @@ const initialState: ReactDiagramStore = {
 
    onNodesChange: null,
    hasDefaultNodes: false,
+   hasDefaultEdges: false,
+
    domNode: null,
    nodeOrigin: [0, 0],
    gridStep: undefined,
@@ -24,6 +26,7 @@ const initialState: ReactDiagramStore = {
 
    nodesDraggable: true,
    nodeExtent: infiniteExtent,
+   multiSelectionActive: false,
 
    d3Zoom: null,
 };

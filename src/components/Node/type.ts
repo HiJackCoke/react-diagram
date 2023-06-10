@@ -63,6 +63,7 @@ export type WrapNodeProps<T = any> = Pick<
    | 'data'
    | 'style'
    | 'className'
+   | 'selected'
    | 'dragHandle'
    | 'sourcePosition'
    | 'targetPosition'
@@ -90,7 +91,14 @@ export type WrapNodeProps<T = any> = Pick<
 
 export type NodeProps<T = any> = Pick<
    WrapNodeProps<T>,
-   'id' | 'data' | 'dragHandle' | 'type' | 'xPos' | 'yPos' | 'zIndex'
+   | 'id'
+   | 'data'
+   | 'dragHandle'
+   | 'type'
+   | 'selected'
+   | 'xPos'
+   | 'yPos'
+   | 'zIndex'
 > & {
    targetPosition?: Position;
    sourcePosition?: Position;

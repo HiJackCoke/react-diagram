@@ -9,7 +9,7 @@ import { Provider } from 'contexts/NodeIdContext';
 
 import { ARIA_NODE_DESC_KEY } from 'components/A11yDescriptions';
 
-import { getMouseHandler } from './utils';
+import { getMouseHandler, handleNodeClick } from './utils';
 
 import type { XYPosition } from 'types';
 import {
@@ -99,7 +99,7 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
       onDoubleClick,
       style,
       className,
-
+      selected,
       sourcePosition,
       targetPosition,
       hidden,
@@ -150,7 +150,11 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
          onDoubleClick,
       );
       const onSelectNodeHandler = (event: MouseEvent) => {
-         // this handler gets called within the drag start event when selectNodesOnDrag=true
+         handleNodeClick({
+            id,
+            store,
+            nodeRef,
+         });
 
          if (onClick) {
             const node = store.getState().nodeInternals.get(id)!;
@@ -208,6 +212,7 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
 
                className,
                {
+                  selected,
                   parent: isParent,
                   // dragging,
                },

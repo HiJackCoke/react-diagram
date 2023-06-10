@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, RefObject } from 'react';
 import { StoreApi } from 'zustand';
 
 import { getDimensions } from 'utils';
@@ -50,4 +50,37 @@ export function getMouseHandler(
            const node = getState().nodeInternals.get(id)!;
            handler(event, { ...node });
         };
+}
+
+export function handleNodeClick({
+   id,
+   store,
+   unselect = false,
+   nodeRef,
+}: {
+   id: string;
+   store: {
+      getState: StoreApi<ReactDiagramState>['getState'];
+      setState: StoreApi<ReactDiagramState>['setState'];
+   };
+   unselect?: boolean;
+   nodeRef?: RefObject<HTMLDivElement>;
+}) {
+   const {
+      addSelectedNodes,
+      unSelectNodes,
+      multiSelectionActive,
+      nodeInternals,
+   } = store.getState();
+   const node = nodeInternals.get(id)!;
+
+   store.setState({ nodesSelectionActive: false });
+
+   if (!node.selected) {
+      addSelectedNodes([id]);
+   } else if (unselect || (node.selected && multiSelectionActive)) {
+      unSelectNodes({ nodes: [node] });
+
+      requestAnimationFrame(() => nodeRef?.current?.blur());
+   }
 }

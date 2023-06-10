@@ -119,6 +119,7 @@ function Index() {
                nodes={nodes}
                edges={edges}
                // gridStep={[100, 100]}
+               elevateNodesOnSelect={true}
                onNodesChange={onNodesChange}
                onEdgesChange={onEdgesChange}
             />

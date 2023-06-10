@@ -6,6 +6,8 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from 'hooks/useStore';
 import useVisibleNodes from 'hooks/useVisibleNodes';
 
+import { internalsSymbol } from 'utils';
+
 import { Position, ReactDiagramProps } from 'types';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 import { WrapNodeProps } from 'components/Node/type';
@@ -91,6 +93,7 @@ function NodeRenderer(props: NodeRendererProps) {
                   id={node.id}
                   className={node.className}
                   style={node.style}
+                  selected={!!node.selected}
                   onClick={props.onNodeClick}
                   onMouseEnter={props.onNodeMouseEnter}
                   onMouseMove={props.onNodeMouseMove}
@@ -106,7 +109,7 @@ function NodeRenderer(props: NodeRendererProps) {
                   yPos={posY}
                   xPosOrigin={posX}
                   yPosOrigin={posY}
-                  zIndex={0}
+                  zIndex={node[internalsSymbol]?.z ?? 0}
                   resizeObserver={resizeObserver}
                   isParent={true}
                   initialized={true}

@@ -1,11 +1,26 @@
+import { StoreApi } from 'zustand';
+
 import { internalsSymbol, isNumeric } from 'utils';
 
 import { getNodePositionWithOrigin } from 'utils/graph';
 
 import { XYZPosition } from 'types';
+import {
+   NodeSelectionChange,
+   EdgeSelectionChange,
+} from 'hooks/useNodesEdgesState/type';
+
+import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 import { Node, NodeOrigin, NodeInternals } from 'components/Node/type';
+import { Edge } from 'components/Edges/type';
 
 type ParentNodes = Record<string, boolean>;
+
+type UpdateNodesParams = {
+   changedNodes: NodeSelectionChange[] | null;
+   get: StoreApi<ReactDiagramState>['getState'];
+   set: StoreApi<ReactDiagramState>['setState'];
+};
 
 function calculateXYZPosition(
    node: Node,
@@ -113,4 +128,56 @@ export function createNodeInternals(
    updateAbsoluteNodePositions(nextNodeInternals, nodeOrigin, parentNodes);
 
    return nextNodeInternals;
+}
+
+export function handleControlledNodeSelectionChange(
+   nodeChanges: NodeSelectionChange[],
+   nodeInternals: NodeInternals,
+) {
+   nodeChanges.forEach((change) => {
+      const node = nodeInternals.get(change.id);
+      if (node) {
+         nodeInternals.set(node.id, {
+            ...node,
+            [internalsSymbol]: node[internalsSymbol],
+            selected: change.selected,
+         });
+      }
+   });
+
+   return new Map(nodeInternals);
+}
+
+export function handleControlledEdgeSelectionChange(
+   edgeChanges: EdgeSelectionChange[],
+   edges: Edge[],
+) {
+   return edges.map((e) => {
+      const change = edgeChanges.find((change) => change.id === e.id);
+      if (change) {
+         e.selected = change.selected;
+      }
+      return e;
+   });
+}
+
+export function updateNodesSelections({
+   changedNodes,
+   get,
+   set,
+}: UpdateNodesParams) {
+   const { nodeInternals, onNodesChange, hasDefaultNodes } = get();
+
+   if (changedNodes?.length) {
+      if (hasDefaultNodes) {
+         set({
+            nodeInternals: handleControlledNodeSelectionChange(
+               changedNodes,
+               nodeInternals,
+            ),
+         });
+      }
+
+      onNodesChange?.(changedNodes);
+   }
 }

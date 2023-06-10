@@ -17,7 +17,7 @@ import {
 } from 'components/Node/type';
 import { DefaultEdgeOptions, Edge } from 'components/Edges/type';
 
-export type UnselectNodesParams = {
+export type UnSelectNodesParams = {
    nodes?: Node[];
 };
 
@@ -31,6 +31,8 @@ export type ReactDiagramStore = {
    defaultEdgeOptions?: DefaultEdgeOptions;
 
    hasDefaultNodes: boolean;
+   hasDefaultEdges: boolean;
+
    domNode: HTMLDivElement | null;
    nodeOrigin: NodeOrigin;
    gridStep?: GridStep;
@@ -38,6 +40,7 @@ export type ReactDiagramStore = {
    elevateNodesOnSelect: boolean;
    nodesDraggable: boolean;
    nodeExtent: CoordinateExtent;
+   multiSelectionActive: boolean;
 
    d3Zoom: ZoomBehavior<Element, unknown> | null;
 
@@ -53,7 +56,7 @@ export type ReactDiagramActions = {
    setNodes: (nodes: Node[]) => void;
    getNodes: () => Node[];
    addSelectedNodes: (nodeIds: string[]) => void;
-   unselectNodes: (params?: UnselectNodesParams) => void;
+   unSelectNodes: (params?: UnSelectNodesParams) => void;
 
    setEdges: (edges: Edge[]) => void;
 

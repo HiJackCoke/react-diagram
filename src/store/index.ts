@@ -1,9 +1,17 @@
 import { createStore } from 'zustand';
 
-import { getDimensions, internalsSymbol } from '../utils';
-import { applyNodeChanges } from 'utils/changes';
+import {
+   updateAbsoluteNodePositions,
+   createNodeInternals,
+   updateNodesSelections,
+} from './utils';
 
-import { updateAbsoluteNodePositions, createNodeInternals } from './utils';
+import { getDimensions, internalsSymbol } from 'utils';
+import {
+   applyNodeChanges,
+   createSelectionChange,
+   getSelectionChanges,
+} from 'utils/changes';
 
 import { getPortBounds } from '../components/Node/utils';
 
@@ -13,11 +21,13 @@ import {
    NodePositionChange,
    NodeChange,
 } from 'hooks/useNodesEdgesState/type';
+import { NodeSelectionChange } from 'hooks/useNodesEdgesState/type';
+
 import { Node, NodeDimensionUpdate, NodeDragItem } from 'components/Node/type';
 import { Edge } from 'components/Edges/type';
 import {
    ReactDiagramState,
-   UnselectNodesParams,
+   UnSelectNodesParams,
 } from 'components/ReactDiagramProvider/type';
 
 const createRFStore = () =>
@@ -162,11 +172,39 @@ const createRFStore = () =>
       },
 
       addSelectedNodes: (selectedNodeIds: string[]) => {
-         console.log(selectedNodeIds);
+         const { multiSelectionActive, getNodes } = get();
+         let changedNodes: NodeSelectionChange[];
+
+         if (multiSelectionActive) {
+            changedNodes = selectedNodeIds.map((nodeId) =>
+               createSelectionChange(nodeId, true),
+            ) as NodeSelectionChange[];
+         } else {
+            changedNodes = getSelectionChanges(getNodes(), selectedNodeIds);
+         }
+
+         updateNodesSelections({
+            changedNodes,
+
+            get,
+            set,
+         });
       },
 
-      unselectNodes: ({ nodes }: UnselectNodesParams = {}) => {
-         console.log(nodes);
+      unSelectNodes: ({ nodes }: UnSelectNodesParams = {}) => {
+         const { getNodes } = get();
+         const nodesToUnselect = nodes ? nodes : getNodes();
+
+         const changedNodes = nodesToUnselect.map((n) => {
+            n.selected = false;
+            return createSelectionChange(n.id, false);
+         }) as NodeSelectionChange[];
+
+         updateNodesSelections({
+            changedNodes,
+            get,
+            set,
+         });
       },
    }));
 

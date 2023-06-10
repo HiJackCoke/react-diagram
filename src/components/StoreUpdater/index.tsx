@@ -15,7 +15,12 @@ import {
 
 export type StoreUpdaterProps = Pick<
    ReactDiagramProps,
-   'nodes' | 'onNodesChange' | 'edges' | 'onEdgesChange' | 'gridStep'
+   | 'nodes'
+   | 'onNodesChange'
+   | 'edges'
+   | 'onEdgesChange'
+   | 'gridStep'
+   | 'elevateNodesOnSelect'
 > & {
    rfId: string;
 };
@@ -55,6 +60,7 @@ const StoreUpdater = ({
    edges,
    onEdgesChange,
    gridStep,
+   elevateNodesOnSelect,
 }: StoreUpdaterProps) => {
    const { setNodes, setEdges } = useStore(selector, shallow);
    const store = useStoreApi();
@@ -66,6 +72,12 @@ const StoreUpdater = ({
 
    useStoreUpdater<Node[]>(nodes, setNodes);
    useStoreUpdater<Edge[]>(edges, setEdges);
+
+   useDirectStoreUpdater(
+      'elevateNodesOnSelect',
+      elevateNodesOnSelect,
+      store.setState,
+   );
 
    return null;
 };
