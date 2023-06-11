@@ -57,6 +57,7 @@ export type ReactDiagramActions = {
    getNodes: () => Node[];
    addSelectedNodes: (nodeIds: string[]) => void;
    unselectNodes: (params?: UnSelectNodesParams) => void;
+   resetSelectedElements: () => void;
 
    setEdges: (edges: Edge[]) => void;
 

@@ -206,6 +206,23 @@ const createRFStore = () =>
             set,
          });
       },
+
+      resetSelectedElements: () => {
+         const { getNodes } = get();
+         const nodes = getNodes();
+
+         const nodesToUnselect = nodes
+            .filter((e) => e.selected)
+            .map((n) =>
+               createSelectionChange(n.id, false),
+            ) as NodeSelectionChange[];
+
+         updateNodesSelections({
+            changedNodes: nodesToUnselect,
+            get,
+            set,
+         });
+      },
    }));
 
 export { createRFStore };

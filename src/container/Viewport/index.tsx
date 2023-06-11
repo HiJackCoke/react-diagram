@@ -4,6 +4,8 @@ import { useStore } from 'hooks/useStore';
 
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
+import './style.css';
+
 const selector = (s: ReactDiagramState) =>
    `translate(${s.transform[0]}px,${s.transform[1]}px) scale(${s.transform[2]})`;
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import type { ReactNode } from 'react';
+import type { ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 
 import { zoom, zoomIdentity } from 'd3-zoom';
 import type { D3ZoomEvent } from 'd3-zoom';
@@ -116,11 +116,18 @@ const ZoomPane = ({
       }
    }, [d3Zoom]);
 
+   const onClick = (e: ReactMouseEvent) => {
+      if (e.target === zoomPane.current) {
+         store.getState().resetSelectedElements();
+      }
+   };
+
    return (
       <div
          className="react-diagram__zoompane"
          ref={zoomPane}
          style={containerStyle}
+         onClick={onClick}
       >
          {children}
       </div>
