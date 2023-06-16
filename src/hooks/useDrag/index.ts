@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
 
 import { useStoreApi } from 'hooks/useStore';
 import useGetPointerPosition from 'hooks/useGetPointerPosition';
+
+import { handleNodeClick } from 'components/Node/utils';
 
 import {
    getDragItems,
@@ -111,6 +113,14 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
                   onNodeDragStart,
                } = store.getState();
 
+               if (nodeId) {
+                  handleNodeClick({
+                     id: nodeId,
+                     store,
+                     nodeRef: nodeRef as RefObject<HTMLDivElement>,
+                  });
+               }
+
                const pointerPosition = getPointerPosition(e);
 
                dragItems.current = getDragItems(
@@ -164,7 +174,7 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
             selection.on('.drag', null);
          };
       }
-   }, [nodeRef, nodeId, store]);
+   }, [store, nodeRef, nodeId]);
 
    return dragging;
 }

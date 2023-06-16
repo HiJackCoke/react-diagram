@@ -185,7 +185,6 @@ const createRFStore = () =>
 
          updateNodesSelections({
             changedNodes,
-
             get,
             set,
          });
