@@ -38,8 +38,6 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    onEdgesChange?: OnEdgesChange;
 
-   selectNodesOnDrag?: boolean;
-
    minZoom?: number;
    maxZoom?: number;
    defaultViewport?: Viewport;

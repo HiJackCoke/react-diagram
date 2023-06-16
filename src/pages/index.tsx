@@ -134,7 +134,6 @@ function Index() {
                   nodeTypes={nodeTypesWrapped}
                   onlyRenderVisibleElements={false}
                   disableKeyboardA11y={false}
-                  selectNodesOnDrag
                   nodeOrigin={[0, 0]}
                   onNodeClick={console.log}
                   rfId="1"
