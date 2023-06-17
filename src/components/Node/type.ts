@@ -76,6 +76,8 @@ export type WrapNodeProps<T = any> = Pick<
       xPosOrigin: number;
       yPosOrigin: number;
       initialized: boolean;
+      isSelectable: boolean;
+      isDraggable: boolean;
 
       onClick?: NodeMouseHandler;
       onDoubleClick?: NodeMouseHandler;

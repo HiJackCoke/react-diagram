@@ -41,6 +41,7 @@ export type ReactDiagramStore = {
    nodesDraggable: boolean;
    nodeExtent: CoordinateExtent;
    multiSelectionActive: boolean;
+   elementsSelectable: boolean;
 
    d3Zoom: ZoomBehavior<Element, unknown> | null;
 

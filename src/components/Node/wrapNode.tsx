@@ -100,6 +100,8 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
       style,
       className,
       selected,
+      isSelectable,
+      isDraggable,
       sourcePosition,
       targetPosition,
       hidden,
@@ -150,11 +152,13 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
          onDoubleClick,
       );
       const onSelectNodeHandler = (event: MouseEvent) => {
-         handleNodeClick({
-            id,
-            store,
-            nodeRef,
-         });
+         if (isSelectable && !isDraggable) {
+            handleNodeClick({
+               id,
+               store,
+               nodeRef,
+            });
+         }
 
          if (onClick) {
             const node = store.getState().nodeInternals.get(id)!;
@@ -198,7 +202,7 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
          }
       }, [id, type, sourcePosition, targetPosition]);
 
-      useDrag({ nodeRef, nodeId: id });
+      useDrag({ nodeRef, nodeId: id, isSelectable });
 
       if (hidden) {
          return null;

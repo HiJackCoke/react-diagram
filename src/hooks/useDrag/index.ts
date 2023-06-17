@@ -19,7 +19,7 @@ import { XYPosition } from 'types';
 import { NodeDragItem } from 'components/Node/type';
 import { UseDragParams, UseDragEvent } from './type';
 
-function useDrag({ nodeRef, nodeId }: UseDragParams) {
+function useDrag({ nodeRef, nodeId, isSelectable }: UseDragParams) {
    const store = useStoreApi();
    const [dragging, setDragging] = useState<boolean>(false);
 
@@ -113,7 +113,7 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
                   onNodeDragStart,
                } = store.getState();
 
-               if (nodeId) {
+               if (nodeId && isSelectable) {
                   handleNodeClick({
                      id: nodeId,
                      store,
@@ -174,7 +174,7 @@ function useDrag({ nodeRef, nodeId }: UseDragParams) {
             selection.on('.drag', null);
          };
       }
-   }, [store, nodeRef, nodeId]);
+   }, [store, nodeRef, nodeId, isSelectable]);
 
    return dragging;
 }

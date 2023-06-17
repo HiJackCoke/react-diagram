@@ -37,10 +37,13 @@ type NodeRendererProps = Pick<
 
 const selector = (s: ReactDiagramState) => ({
    updateNodeDimensions: s.updateNodeDimensions,
+   nodesDraggable: s.nodesDraggable,
+   elementsSelectable: s.elementsSelectable,
 });
 
 function NodeRenderer(props: NodeRendererProps) {
-   const { updateNodeDimensions } = useStore(selector, shallow);
+   const { nodesDraggable, elementsSelectable, updateNodeDimensions } =
+      useStore(selector, shallow);
    const nodes = useVisibleNodes();
 
    const resizeObserverRef = useRef<ResizeObserver>();
@@ -80,6 +83,15 @@ function NodeRenderer(props: NodeRendererProps) {
             const NodeComponent = (props.nodeTypes[nodeType] ||
                props.nodeTypes.default) as ComponentType<WrapNodeProps>;
 
+            const isDraggable = !!(
+               node.draggable ||
+               (nodesDraggable && typeof node.draggable === 'undefined')
+            );
+            const isSelectable = !!(
+               node.selectable ||
+               (elementsSelectable && typeof node.selectable === 'undefined')
+            );
+
             const posX = node.position?.x ?? 0;
             const posY = node.position?.y ?? 0;
 
@@ -91,6 +103,8 @@ function NodeRenderer(props: NodeRendererProps) {
                   className={node.className}
                   style={node.style}
                   selected={!!node.selected}
+                  isSelectable={isSelectable}
+                  isDraggable={isDraggable}
                   onClick={props.onNodeClick}
                   onMouseEnter={props.onNodeMouseEnter}
                   onMouseMove={props.onNodeMouseMove}

@@ -6,4 +6,5 @@ export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
 export type UseDragParams = {
    nodeRef: RefObject<Element>;
    nodeId?: string;
+   isSelectable?: boolean;
 };
