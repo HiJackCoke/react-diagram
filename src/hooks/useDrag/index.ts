@@ -113,7 +113,7 @@ function useDrag({ nodeRef, nodeId, isSelectable }: UseDragParams) {
                   onNodeDragStart,
                } = store.getState();
 
-               if (nodeId && isSelectable) {
+               if (nodeId) {
                   handleNodeClick({
                      id: nodeId,
                      store,

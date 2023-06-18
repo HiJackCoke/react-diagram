@@ -55,6 +55,7 @@ export function getMouseHandler(
 export function handleNodeClick({
    id,
    store,
+   isSelectable,
    unselect = false,
    nodeRef,
 }: {
@@ -63,9 +64,12 @@ export function handleNodeClick({
       getState: StoreApi<ReactDiagramState>['getState'];
       setState: StoreApi<ReactDiagramState>['setState'];
    };
+   isSelectable?: boolean;
    unselect?: boolean;
    nodeRef?: RefObject<HTMLDivElement>;
 }) {
+   if (isSelectable) return;
+
    const {
       addSelectedNodes,
       unselectNodes,

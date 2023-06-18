@@ -152,7 +152,7 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
          onDoubleClick,
       );
       const onSelectNodeHandler = (event: MouseEvent) => {
-         if (isSelectable && !isDraggable) {
+         if (!isDraggable) {
             handleNodeClick({
                id,
                store,
