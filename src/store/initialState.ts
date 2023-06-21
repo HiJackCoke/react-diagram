@@ -13,7 +13,7 @@ const initialState: ReactDiagramStore = {
    transform: [0, 0, 1],
    nodeInternals: new Map(),
    edges: [],
-
+   elementsSelectable: true,
    onNodesChange: null,
    hasDefaultNodes: false,
    hasDefaultEdges: false,
