@@ -6,6 +6,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
    plugins: react(),
+
    resolve: {
       alias: {
          components: path.resolve(__dirname, 'src/components'),
@@ -15,5 +16,15 @@ export default defineConfig({
          hooks: path.resolve(__dirname, 'src/hooks'),
          contexts: path.resolve(__dirname, 'src/contexts'),
       },
+   },
+
+   build: {
+      minify: 'terser',
+      terserOptions: {
+         compress: {
+            drop_console: true,
+         },
+      },
+      outDir: path.resolve(__dirname, 'dist'),
    },
 });
