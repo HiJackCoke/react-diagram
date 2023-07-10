@@ -1,12 +1,14 @@
 import Port from 'components/Port';
 
+import { NodeProps } from './type';
+
 import './style.css';
 
-function Nodes() {
+function Nodes({ data }: NodeProps) {
    return (
       <>
          <Port type="target" position="top" />
-         Node
+         {data.label}
          <Port type="source" position="bottom" />
       </>
    );

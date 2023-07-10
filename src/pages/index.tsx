@@ -24,22 +24,22 @@ import './style.css';
 const initialNodes = [
    {
       id: '1',
-      data: { label: 'An input node' },
+      data: { label: 'Node1' },
       position: { x: 100, y: 100 },
    },
    {
       id: '2',
-      data: { label: 'Output A' },
+      data: { label: 'Node2' },
       position: { x: 300, y: 50 },
    },
    {
       id: '3',
-      data: { label: 'Output A' },
+      data: { label: 'Node3' },
       position: { x: 650, y: 25 },
    },
    {
       id: '4',
-      data: { label: 'Output B' },
+      data: { label: 'Node4' },
       position: { x: 650, y: 100 },
    },
 ];
@@ -115,7 +115,7 @@ function Index() {
    const addNode = () => {
       const newNode = {
          id: `${idIndex}`,
-         data: { label: 'Output A' },
+         data: { label: `node${idIndex}` },
          position: { x: Math.random() * 1000, y: Math.random() * 1000 },
       };
 
