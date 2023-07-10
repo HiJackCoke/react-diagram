@@ -25,7 +25,7 @@ const initialNodes = [
    {
       id: '1',
       data: { label: 'An input node' },
-      position: { x: 0, y: 0 },
+      position: { x: 100, y: 100 },
    },
    {
       id: '2',
@@ -96,6 +96,8 @@ const defaultEdgeTypes: EdgeTypes = {
    step: StepEdge,
 };
 
+let idIndex = 5;
+
 function Index() {
    const nodeTypesWrapped = useNodeOrEdgeTypes(
       defaultNodeTypes,
@@ -106,43 +108,62 @@ function Index() {
       createEdgeTypes,
    );
 
-   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const [nodes, _setNodes, onNodesChange] = useNodesState(initialNodes);
+   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-   return (
-      <ReactDiagramProvider>
-         <div className="react-diagram">
-            <StoreUpdater
-               rfId="1"
-               nodes={nodes}
-               edges={edges}
-               // gridStep={[100, 100]}
-               elevateNodesOnSelect={true}
-               onNodesChange={onNodesChange}
-               onEdgesChange={onEdgesChange}
-            />
+   const addNode = () => {
+      const newNode = {
+         id: `${idIndex}`,
+         data: { label: 'Output A' },
+         position: { x: Math.random() * 1000, y: Math.random() * 1000 },
+      };
 
-            <DiagramRenderer
-               minZoom={minZoom}
-               maxZoom={maxZoom}
-               translateExtent={translateExtent}
-               defaultViewport={defaultViewport}
-            >
-               <NodeRenderer
-                  nodeTypes={nodeTypesWrapped}
-                  onlyRenderVisibleElements={false}
-                  disableKeyboardA11y={false}
-                  nodeOrigin={[0, 0]}
-                  onNodeClick={console.log}
+      setNodes((nodes) => [...nodes, newNode]);
+
+      idIndex++;
+   };
+
+   return (
+      <>
+         <button
+            style={{ position: 'fixed', zIndex: '9999' }}
+            onClick={addNode}
+         >
+            Add Node
+         </button>
+         <ReactDiagramProvider>
+            <div className="react-diagram">
+               <StoreUpdater
                   rfId="1"
+                  nodes={nodes}
+                  edges={edges}
+                  // gridStep={[100, 100]}
+                  elevateNodesOnSelect={true}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
                />
-               <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
-               <div className="react-diagram__edgelabel-renderer" />
-            </DiagramRenderer>
-         </div>
-      </ReactDiagramProvider>
+
+               <DiagramRenderer
+                  minZoom={minZoom}
+                  maxZoom={maxZoom}
+                  translateExtent={translateExtent}
+                  defaultViewport={defaultViewport}
+               >
+                  <NodeRenderer
+                     nodeTypes={nodeTypesWrapped}
+                     onlyRenderVisibleElements={false}
+                     disableKeyboardA11y={false}
+                     nodeOrigin={[0, 0]}
+                     onNodeClick={console.log}
+                     rfId="1"
+                  />
+                  <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
+                  <div className="react-diagram__edgelabel-renderer" />
+               </DiagramRenderer>
+            </div>
+         </ReactDiagramProvider>
+      </>
    );
 }
 
