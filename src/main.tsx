@@ -7,6 +7,14 @@ import { App } from './routes';
 
 import ErrorBoundary from 'components/ErrorBoundary';
 
+function Error() {
+   return <h1 style={{ color: 'black' }}>Application Error</h1>;
+}
+
+function Loading() {
+   return <h1 style={{ color: 'black' }}>Loading...</h1>;
+}
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
    <BrowserRouter>
       <Suspense fallback={<Loading />}>
@@ -16,11 +24,3 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       </Suspense>
    </BrowserRouter>,
 );
-
-function Error() {
-   return <h1 style={{ color: 'black' }}>Application Error</h1>;
-}
-
-function Loading() {
-   return <h1 style={{ color: 'black' }}>Loading...</h1>;
-}
