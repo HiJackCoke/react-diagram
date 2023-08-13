@@ -32,8 +32,8 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
       targetPosition,
       elementsSelectable,
       hidden,
-      sourceHandleId,
-      targetHandleId,
+      sourceHandle,
+      targetHandle,
 
       markerEnd,
       markerStart,
@@ -100,8 +100,8 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
                targetY={targetY}
                sourcePosition={sourcePosition}
                targetPosition={targetPosition}
-               sourceHandleId={sourceHandleId}
-               targetHandleId={targetHandleId}
+               sourceHandle={sourceHandle}
+               targetHandle={targetHandle}
                markerStart={markerStartUrl}
                markerEnd={markerEndUrl}
             />

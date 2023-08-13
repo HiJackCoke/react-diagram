@@ -94,8 +94,8 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
                      labelBgBorderRadius={edge.labelBgBorderRadius}
                      source={edge.source}
                      target={edge.target}
-                     sourceHandleId={edge.sourceHandle}
-                     targetHandleId={edge.targetHandle}
+                     sourceHandle={edge.sourceHandle}
+                     targetHandle={edge.targetHandle}
                      markerEnd={edge.markerEnd}
                      markerStart={edge.markerStart}
                      sourceX={sourceX}

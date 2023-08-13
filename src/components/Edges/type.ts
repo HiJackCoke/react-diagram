@@ -59,12 +59,7 @@ export type DefaultEdge<T = any> = {
 
 export type Edge<T = any> = DefaultEdge<T> & EdgeLabelOptions;
 
-export type WrapEdgeProps<T = any> = Omit<
-   Edge<T>,
-   'sourceHandle' | 'targetHandle'
-> & {
-   sourceHandleId?: string | null;
-   targetHandleId?: string | null;
+export type WrapEdgeProps<T = any> = Edge<T> & {
    sourceX: number;
    sourceY: number;
    targetX: number;
@@ -89,8 +84,8 @@ export type EdgeProps<T = any> = Pick<
       | 'targetY'
       | 'sourcePosition'
       | 'targetPosition'
-      | 'sourceHandleId'
-      | 'targetHandleId'
+      | 'sourceHandle'
+      | 'targetHandle'
    > &
    EdgeLabelOptions & {
       markerStart?: string;
