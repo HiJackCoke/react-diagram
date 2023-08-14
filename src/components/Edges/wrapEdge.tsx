@@ -8,7 +8,7 @@ import { getMarkerId } from 'utils/graph';
 
 import { EdgeProps, WrapEdgeProps } from './type';
 
-export default (EdgeComponent: ComponentType<EdgeProps>) => {
+const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
    const EdgeWrapper = ({
       id,
       className,
@@ -113,3 +113,5 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
 
    return memo(EdgeWrapper);
 };
+
+export default wrapEdge;
