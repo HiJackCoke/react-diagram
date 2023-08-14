@@ -81,7 +81,7 @@ export function getDragItems(
       }));
 }
 
-export default (NodeComponent: ComponentType<NodeProps>) => {
+const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
    function NodeWrapper({
       id,
       type,
@@ -264,3 +264,5 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
 
    return memo(NodeWrapper);
 };
+
+export default wrapNode;
