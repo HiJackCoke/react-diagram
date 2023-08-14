@@ -12,35 +12,68 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
    const EdgeWrapper = ({
       id,
       className,
+      style,
       type,
       data,
-      selected,
+      rfId,
+      ariaLabel,
+
+      // sourceAndTargetIds
+      source,
+      sourceHandle,
+      target,
+      targetHandle,
+
+      // marker
+      markerEnd,
+      markerStart,
+
+      // labelProps
       label,
       labelStyle,
       labelShowBg,
       labelBgStyle,
       labelBgPadding,
       labelBgBorderRadius,
-      style,
-      source,
-      target,
+
+      // position
       sourceX,
       sourceY,
       targetX,
       targetY,
       sourcePosition,
       targetPosition,
+
+      selected,
       elementsSelectable,
       hidden,
-      sourceHandle,
-      targetHandle,
-
-      markerEnd,
-      markerStart,
-      rfId,
-      ariaLabel,
       isFocusable,
    }: WrapEdgeProps): JSX.Element | null => {
+      const sourceAndTargetIds = {
+         source,
+         sourceHandle,
+         target,
+         targetHandle,
+      };
+
+      const labelProps = {
+         label,
+         labelStyle,
+         labelShowBg,
+         labelBgStyle,
+         labelBgPadding,
+         labelBgBorderRadius,
+      };
+
+      const position = {
+         sourceX,
+         sourceY,
+         targetX,
+         targetY,
+         sourcePosition,
+         targetPosition,
+      };
+
       const edgeRef = useRef<SVGGElement>(null);
 
       const markerStartUrl = useMemo(
@@ -51,6 +84,8 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          () => `url(#${getMarkerId(markerEnd, rfId)})`,
          [markerEnd, rfId],
       );
+
+      const marker = { markerStart: markerStartUrl, markerEnd: markerEndUrl };
 
       if (hidden) {
          return null;
@@ -83,27 +118,13 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          >
             <EdgeComponent
                id={id}
-               source={source}
-               target={target}
-               selected={selected}
-               label={label}
-               labelStyle={labelStyle}
-               labelShowBg={labelShowBg}
-               labelBgStyle={labelBgStyle}
-               labelBgPadding={labelBgPadding}
-               labelBgBorderRadius={labelBgBorderRadius}
                data={data}
                style={style}
-               sourceX={sourceX}
-               sourceY={sourceY}
-               targetX={targetX}
-               targetY={targetY}
-               sourcePosition={sourcePosition}
-               targetPosition={targetPosition}
-               sourceHandle={sourceHandle}
-               targetHandle={targetHandle}
-               markerStart={markerStartUrl}
-               markerEnd={markerEndUrl}
+               {...sourceAndTargetIds}
+               {...marker}
+               {...labelProps}
+               {...position}
+               selected={selected}
             />
          </g>
       );
