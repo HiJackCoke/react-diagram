@@ -40,10 +40,64 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
          <MarkerComponent defaultColor="#000000" rfId={rfId} />
          <g>
             {edges.map((edge: Edge) => {
+               const {
+                  // elProps
+                  id,
+                  className,
+                  style,
+                  ariaLabel,
+
+                  // sourceAndTargetIds
+                  source,
+                  sourceHandle,
+                  target,
+                  targetHandle,
+
+                  // marker
+                  markerEnd,
+                  markerStart,
+
+                  // labelProps
+                  label,
+                  labelStyle,
+                  labelShowBg,
+                  labelBgStyle,
+                  labelBgPadding,
+                  labelBgBorderRadius,
+               } = edge;
+
+               const elProps = {
+                  id,
+                  className,
+                  style,
+                  ariaLabel,
+               };
+
+               const sourceAndTargetIds = {
+                  source,
+                  sourceHandle,
+                  target,
+                  targetHandle,
+               };
+
+               const marker = {
+                  markerEnd,
+                  markerStart,
+               };
+
+               const labelProps = {
+                  label,
+                  labelStyle,
+                  labelShowBg,
+                  labelBgStyle,
+                  labelBgPadding,
+                  labelBgBorderRadius,
+               };
+
                const [sourceNodeRect, sourceHandleBounds, sourceIsValid] =
-                  getNodeData(nodeInternals.get(edge.source));
+                  getNodeData(nodeInternals.get(source));
                const [targetNodeRect, targetHandleBounds, targetIsValid] =
-                  getNodeData(nodeInternals.get(edge.target));
+                  getNodeData(nodeInternals.get(target));
 
                if (!sourceIsValid || !targetIsValid) {
                   return null;
@@ -53,59 +107,50 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
 
                const EdgeComponent = edgeTypes[edgeType] || edgeTypes.default;
                const targetNodeHandles = targetHandleBounds!.target;
-               const sourceHandle = getHandle(
+               const sourceHandleInfo = getHandle(
                   sourceHandleBounds!.source!,
-                  edge.sourceHandle,
+                  sourceHandle,
                );
-               const targetHandle = getHandle(
+               const targetHandleInfo = getHandle(
                   targetNodeHandles!,
-                  edge.targetHandle,
+                  targetHandle,
                );
-               const sourcePosition = sourceHandle?.position || Position.Bottom;
-               const targetPosition = targetHandle?.position || Position.Top;
+               const sourcePosition =
+                  sourceHandleInfo?.position || Position.Bottom;
+               const targetPosition =
+                  targetHandleInfo?.position || Position.Top;
                const isFocusable = !!edge.focusable;
 
-               if (!sourceHandle || !targetHandle) {
+               if (!sourceHandleInfo || !targetHandleInfo) {
                   return null;
                }
 
-               const { sourceX, sourceY, targetX, targetY } = getEdgePositions(
+               const edgePositions = getEdgePositions(
                   sourceNodeRect,
-                  sourceHandle,
+                  sourceHandleInfo,
                   sourcePosition,
                   targetNodeRect,
-                  targetHandle,
+                  targetHandleInfo,
                   targetPosition,
                );
+
+               const position = {
+                  ...edgePositions,
+                  sourcePosition,
+                  targetPosition,
+               };
 
                return (
                   <EdgeComponent
                      key={edge.id}
-                     id={edge.id}
-                     className={edge.className}
+                     rfId={rfId}
                      type={edgeType}
                      data={edge.data}
-                     style={edge.style}
-                     label={edge.label}
-                     labelStyle={edge.labelStyle}
-                     labelShowBg={edge.labelShowBg}
-                     labelBgStyle={edge.labelBgStyle}
-                     labelBgPadding={edge.labelBgPadding}
-                     labelBgBorderRadius={edge.labelBgBorderRadius}
-                     source={edge.source}
-                     target={edge.target}
-                     sourceHandle={edge.sourceHandle}
-                     targetHandle={edge.targetHandle}
-                     markerEnd={edge.markerEnd}
-                     markerStart={edge.markerStart}
-                     sourceX={sourceX}
-                     sourceY={sourceY}
-                     targetX={targetX}
-                     targetY={targetY}
-                     sourcePosition={sourcePosition}
-                     targetPosition={targetPosition}
-                     rfId={rfId}
-                     ariaLabel={edge.ariaLabel}
+                     {...elProps}
+                     {...sourceAndTargetIds}
+                     {...marker}
+                     {...labelProps}
+                     {...position}
                      isFocusable={isFocusable}
                   />
                );
