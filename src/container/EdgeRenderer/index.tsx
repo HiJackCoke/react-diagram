@@ -41,6 +41,8 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
          <g>
             {edges.map((edge: Edge) => {
                const {
+                  data,
+                  type,
                   // elProps
                   id,
                   className,
@@ -67,6 +69,7 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
                } = edge;
 
                const elProps = {
+                  key: id,
                   id,
                   className,
                   style,
@@ -103,7 +106,7 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
                   return null;
                }
 
-               let edgeType = edge.type || 'step';
+               let edgeType = type || 'step';
 
                const EdgeComponent = edgeTypes[edgeType] || edgeTypes.default;
                const targetNodeHandles = targetHandleBounds!.target;
@@ -142,15 +145,14 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
 
                return (
                   <EdgeComponent
-                     key={edge.id}
-                     rfId={rfId}
-                     type={edgeType}
-                     data={edge.data}
                      {...elProps}
                      {...sourceAndTargetIds}
                      {...marker}
                      {...labelProps}
                      {...position}
+                     rfId={rfId}
+                     type={edgeType}
+                     data={data}
                      isFocusable={isFocusable}
                   />
                );

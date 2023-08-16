@@ -86,10 +86,10 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       id,
       type,
       data,
-      xPos,
-      yPos,
-      xPosOrigin,
-      yPosOrigin,
+      positionX,
+      positionY,
+      OriginPositionX,
+      OriginPositionY,
 
       onClick,
       onMouseEnter,
@@ -224,7 +224,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
             ref={nodeRef}
             style={{
                zIndex,
-               transform: `translate(${xPosOrigin}px,${yPosOrigin}px)`,
+               transform: `translate(${OriginPositionX}px,${OriginPositionY}px)`,
                pointerEvents: hasPointerEvents ? 'all' : 'none',
                visibility: initialized ? 'visible' : 'hidden',
                ...style,
@@ -248,8 +248,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
                   id={id}
                   data={data}
                   type={type}
-                  xPos={xPos}
-                  yPos={yPos}
+                  positionX={positionX}
+                  positionY={positionY}
                   sourcePosition={sourcePosition}
                   targetPosition={targetPosition}
                   dragHandle={dragHandle}

@@ -71,10 +71,10 @@ export type WrapNodeProps<T = any> = Pick<
    | 'ariaLabel'
 > &
    Required<Pick<Node<T>, 'type' | 'zIndex'>> & {
-      xPos: number;
-      yPos: number;
-      xPosOrigin: number;
-      yPosOrigin: number;
+      positionX: number;
+      positionY: number;
+      OriginPositionX: number;
+      OriginPositionY: number;
       initialized: boolean;
       isSelectable: boolean;
       isDraggable: boolean;
@@ -98,8 +98,8 @@ export type NodeProps<T = any> = Pick<
    | 'dragHandle'
    | 'type'
    | 'selected'
-   | 'xPos'
-   | 'yPos'
+   | 'positionX'
+   | 'positionY'
    | 'zIndex'
 > & {
    targetPosition?: Position;

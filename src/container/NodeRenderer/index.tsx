@@ -41,7 +41,16 @@ const selector = (s: ReactDiagramState) => ({
    elementsSelectable: s.elementsSelectable,
 });
 
-function NodeRenderer(props: NodeRendererProps) {
+function NodeRenderer({
+   nodeTypes,
+   onNodeClick,
+   onNodeMouseEnter,
+   onNodeMouseMove,
+   onNodeMouseLeave,
+   onNodeContextMenu,
+   onNodeDoubleClick,
+   ...props
+}: NodeRendererProps) {
    const { nodesDraggable, elementsSelectable, updateNodeDimensions } =
       useStore(selector, shallow);
    const nodes = useVisibleNodes();
@@ -78,53 +87,80 @@ function NodeRenderer(props: NodeRendererProps) {
    return (
       <div className="react-diagram__nodes">
          {nodes.map((node) => {
-            let nodeType = node.type || 'default';
+            const {
+               data,
+               type,
+               // elProps
+               id,
+               className,
+               style,
+               ariaLabel,
+               position: nodePosition,
+               selected,
+               selectable,
+               draggable,
+            } = node;
 
-            const NodeComponent = (props.nodeTypes[nodeType] ||
-               props.nodeTypes.default) as ComponentType<WrapNodeProps>;
+            const elProps = {
+               key: id,
+               id,
+               className,
+               style,
+               ariaLabel,
+            };
+
+            const events = {
+               onNodeClick,
+               onNodeMouseEnter,
+               onNodeMouseMove,
+               onNodeMouseLeave,
+               onNodeContextMenu,
+               onNodeDoubleClick,
+            };
+
+            const position = {
+               positionX: nodePosition.x,
+               positionY: nodePosition.y,
+               OriginPositionX: nodePosition.x,
+               OriginPositionY: nodePosition.y,
+               sourcePosition: Position.Bottom,
+               targetPosition: Position.Top,
+            };
+
+            let nodeType = type || 'default';
+
+            const NodeComponent = (nodeTypes[nodeType] ||
+               nodeTypes.default) as ComponentType<WrapNodeProps>;
 
             const isDraggable = !!(
-               node.draggable ||
-               (nodesDraggable && typeof node.draggable === 'undefined')
+               draggable ||
+               (nodesDraggable && typeof draggable === 'undefined')
             );
             const isSelectable = !!(
-               node.selectable ||
-               (elementsSelectable && typeof node.selectable === 'undefined')
+               selectable ||
+               (elementsSelectable && typeof selectable === 'undefined')
             );
 
-            const posX = node.position?.x ?? 0;
-            const posY = node.position?.y ?? 0;
+            const booleanProps = {
+               selected: !!selected,
+               isSelectable,
+               isDraggable,
+               hidden: true,
+               isParent: true,
+               initialized: true,
+            };
 
             return (
                <NodeComponent
                   {...props}
-                  key={node.id}
-                  id={node.id}
-                  className={node.className}
-                  style={node.style}
-                  selected={!!node.selected}
-                  isSelectable={isSelectable}
-                  isDraggable={isDraggable}
-                  onClick={props.onNodeClick}
-                  onMouseEnter={props.onNodeMouseEnter}
-                  onMouseMove={props.onNodeMouseMove}
-                  onMouseLeave={props.onNodeMouseLeave}
-                  onContextMenu={props.onNodeContextMenu}
-                  onDoubleClick={props.onNodeDoubleClick}
-                  type="default"
-                  data={node.data}
-                  sourcePosition={Position.Bottom}
-                  targetPosition={Position.Top}
-                  hidden={false}
-                  xPos={posX}
-                  yPos={posY}
-                  xPosOrigin={posX}
-                  yPosOrigin={posY}
+                  {...elProps}
+                  {...position}
+                  {...events}
+                  {...booleanProps}
                   zIndex={node[internalsSymbol]?.z ?? 0}
+                  type={nodeType}
+                  data={data}
                   resizeObserver={resizeObserver}
-                  isParent={true}
-                  initialized={true}
-                  ariaLabel="label"
                />
             );
          })}
