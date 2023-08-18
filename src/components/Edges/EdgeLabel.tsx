@@ -59,7 +59,7 @@ function EdgeLabel({
                x={-labelBgPadding[0]}
                y={-labelBgPadding[1]}
                height={edgeLabelBox.height + 2 * labelBgPadding[1]}
-               className="react-diagram__edge-textbg"
+               className="react-diagram__edge-text-bg"
                style={labelBgStyle}
                rx={labelBgBorderRadius}
                ry={labelBgBorderRadius}
