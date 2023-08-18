@@ -31,7 +31,7 @@ export const getPortBounds = (
 
       return {
          id: port.getAttribute('data-portid'),
-         position: port.getAttribute('data-portpos') as unknown as Position,
+         position: port.dataset.portPosition as unknown as Position,
          x: (portBounds.left - nodeBounds.left - nodeOffset.x) / zoom,
          y: (portBounds.top - nodeBounds.top - nodeOffset.y) / zoom,
          ...getDimensions(port),

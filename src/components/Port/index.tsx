@@ -9,7 +9,7 @@ function Port({
 }) {
    return (
       <div
-         data-portpos={position}
+         data-port-position={position}
          className={`react-diagram__port react-diagram__port-${position} ${type}`}
       />
    );
