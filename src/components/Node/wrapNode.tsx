@@ -1,5 +1,5 @@
 import { useEffect, useRef, memo } from 'react';
-import type { ComponentType, MouseEvent } from 'react';
+import type { CSSProperties, ComponentType, MouseEvent } from 'react';
 import cc from 'classcat';
 
 import useDrag from 'hooks/useDrag';
@@ -86,10 +86,13 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       id,
       type,
       data,
+
       positionX,
       positionY,
       OriginPositionX,
       OriginPositionY,
+      sourcePosition,
+      targetPosition,
 
       onClick,
       onMouseEnter,
@@ -102,8 +105,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       selected,
       isSelectable,
       isDraggable,
-      sourcePosition,
-      targetPosition,
+
       hidden,
 
       resizeObserver,
@@ -126,31 +128,6 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       const hasPointerEvents =
          onClick || onMouseEnter || onMouseMove || onMouseLeave;
 
-      const onMouseEnterHandler = getMouseHandler(
-         id,
-         store.getState,
-         onMouseEnter,
-      );
-      const onMouseMoveHandler = getMouseHandler(
-         id,
-         store.getState,
-         onMouseMove,
-      );
-      const onMouseLeaveHandler = getMouseHandler(
-         id,
-         store.getState,
-         onMouseLeave,
-      );
-      const onContextMenuHandler = getMouseHandler(
-         id,
-         store.getState,
-         onContextMenu,
-      );
-      const onDoubleClickHandler = getMouseHandler(
-         id,
-         store.getState,
-         onDoubleClick,
-      );
       const onSelectNodeHandler = (event: MouseEvent) => {
          if (!isDraggable) {
             handleNodeClick({
@@ -208,34 +185,49 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          return null;
       }
 
+      const wrapperClassName = cc([
+         'react-diagram__node',
+         `react-diagram__node-${type}`,
+
+         className,
+         {
+            selected,
+            parent: isParent,
+            // dragging,
+         },
+      ]);
+
+      const wrapperStyle: CSSProperties = {
+         zIndex,
+         transform: `translate(${OriginPositionX}px,${OriginPositionY}px)`,
+         pointerEvents: hasPointerEvents ? 'all' : 'none',
+         visibility: initialized ? 'visible' : 'hidden',
+         ...style,
+      };
+
+      const events = {
+         onClick: onSelectNodeHandler,
+         onDoubleClick: getMouseHandler(id, store.getState, onDoubleClick),
+         onContextMenu: getMouseHandler(id, store.getState, onContextMenu),
+         onMouseEnter: getMouseHandler(id, store.getState, onMouseEnter),
+         onMouseMove: getMouseHandler(id, store.getState, onMouseMove),
+         onMouseLeave: getMouseHandler(id, store.getState, onMouseLeave),
+      };
+
+      const position = {
+         positionX,
+         positionY,
+         sourcePosition,
+         targetPosition,
+      };
+
       return (
          <div
-            className={cc([
-               'react-diagram__node',
-               `react-diagram__node-${type}`,
-
-               className,
-               {
-                  selected,
-                  parent: isParent,
-                  // dragging,
-               },
-            ])}
+            {...events}
             ref={nodeRef}
-            style={{
-               zIndex,
-               transform: `translate(${OriginPositionX}px,${OriginPositionY}px)`,
-               pointerEvents: hasPointerEvents ? 'all' : 'none',
-               visibility: initialized ? 'visible' : 'hidden',
-               ...style,
-            }}
+            className={wrapperClassName}
+            style={wrapperStyle}
             data-id={id}
-            onMouseEnter={onMouseEnterHandler}
-            onMouseMove={onMouseMoveHandler}
-            onMouseLeave={onMouseLeaveHandler}
-            onContextMenu={onContextMenuHandler}
-            onClick={onSelectNodeHandler}
-            onDoubleClick={onDoubleClickHandler}
             tabIndex={0}
             role="button"
             aria-describedby={
@@ -245,15 +237,12 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          >
             <Provider value={id}>
                <NodeComponent
+                  {...position}
                   id={id}
-                  data={data}
-                  type={type}
-                  positionX={positionX}
-                  positionY={positionY}
-                  sourcePosition={sourcePosition}
-                  targetPosition={targetPosition}
-                  dragHandle={dragHandle}
                   zIndex={zIndex}
+                  type={type}
+                  data={data}
+                  dragHandle={dragHandle}
                />
             </Provider>
          </div>

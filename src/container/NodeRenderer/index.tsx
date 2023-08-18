@@ -95,11 +95,26 @@ function NodeRenderer({
                className,
                style,
                ariaLabel,
+
                position: nodePosition,
                selected,
                selectable,
                draggable,
             } = node;
+
+            let nodeType = type || 'default';
+
+            const NodeComponent = (nodeTypes[nodeType] ||
+               nodeTypes.default) as ComponentType<WrapNodeProps>;
+
+            const isDraggable = !!(
+               draggable ||
+               (nodesDraggable && typeof draggable === 'undefined')
+            );
+            const isSelectable = !!(
+               selectable ||
+               (elementsSelectable && typeof selectable === 'undefined')
+            );
 
             const elProps = {
                key: id,
@@ -126,20 +141,6 @@ function NodeRenderer({
                sourcePosition: Position.Bottom,
                targetPosition: Position.Top,
             };
-
-            let nodeType = type || 'default';
-
-            const NodeComponent = (nodeTypes[nodeType] ||
-               nodeTypes.default) as ComponentType<WrapNodeProps>;
-
-            const isDraggable = !!(
-               draggable ||
-               (nodesDraggable && typeof draggable === 'undefined')
-            );
-            const isSelectable = !!(
-               selectable ||
-               (elementsSelectable && typeof selectable === 'undefined')
-            );
 
             const booleanProps = {
                selected: !!selected,
