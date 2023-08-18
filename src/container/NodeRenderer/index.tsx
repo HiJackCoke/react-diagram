@@ -146,7 +146,7 @@ function NodeRenderer({
                selected: !!selected,
                isSelectable,
                isDraggable,
-               hidden: true,
+               hidden: false,
                isParent: true,
                initialized: true,
             };
