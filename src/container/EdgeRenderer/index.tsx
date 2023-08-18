@@ -68,35 +68,6 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
                   labelBgBorderRadius,
                } = edge;
 
-               const elProps = {
-                  key: id,
-                  id,
-                  className,
-                  style,
-                  ariaLabel,
-               };
-
-               const sourceAndTargetIds = {
-                  source,
-                  sourceHandle,
-                  target,
-                  targetHandle,
-               };
-
-               const marker = {
-                  markerEnd,
-                  markerStart,
-               };
-
-               const labelProps = {
-                  label,
-                  labelStyle,
-                  labelShowBg,
-                  labelBgStyle,
-                  labelBgPadding,
-                  labelBgBorderRadius,
-               };
-
                const [sourceNodeRect, sourceHandleBounds, sourceIsValid] =
                   getNodeData(nodeInternals.get(source));
                const [targetNodeRect, targetHandleBounds, targetIsValid] =
@@ -127,6 +98,35 @@ function EdgeRenderer({ rfId, edgeTypes }: EdgeRendererProps) {
                if (!sourceHandleInfo || !targetHandleInfo) {
                   return null;
                }
+
+               const elProps = {
+                  key: id,
+                  id,
+                  className,
+                  style,
+                  ariaLabel,
+               };
+
+               const sourceAndTargetIds = {
+                  source,
+                  sourceHandle,
+                  target,
+                  targetHandle,
+               };
+
+               const marker = {
+                  markerEnd,
+                  markerStart,
+               };
+
+               const labelProps = {
+                  label,
+                  labelStyle,
+                  labelShowBg,
+                  labelBgStyle,
+                  labelBgPadding,
+                  labelBgBorderRadius,
+               };
 
                const edgePositions = getEdgePositions(
                   sourceNodeRect,
