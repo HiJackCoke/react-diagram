@@ -125,12 +125,12 @@ function NodeRenderer({
             };
 
             const events = {
-               onNodeClick,
-               onNodeMouseEnter,
-               onNodeMouseMove,
-               onNodeMouseLeave,
-               onNodeContextMenu,
-               onNodeDoubleClick,
+               onClick: onNodeClick,
+               onMouseEnter: onNodeMouseEnter,
+               onMouseMove: onNodeMouseMove,
+               onMouseLeave: onNodeMouseLeave,
+               onContextMenu: onNodeContextMenu,
+               onDoubleClick: onNodeDoubleClick,
             };
 
             const position = {
