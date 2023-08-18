@@ -25,7 +25,7 @@ function EdgeLabel({
       width: 0,
       height: 0,
    });
-   const edgeTextClasses = cc(['react-diagram__edge-textwrapper', className]);
+   const edgeTextClasses = cc(['react-diagram__edge-text-wrapper', className]);
 
    useEffect(() => {
       if (edgeRef.current) {
