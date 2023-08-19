@@ -29,8 +29,6 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
 
       positionX,
       positionY,
-      OriginPositionX,
-      OriginPositionY,
       sourcePosition,
       targetPosition,
 
@@ -139,7 +137,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
 
       const wrapperStyle: CSSProperties = {
          zIndex,
-         transform: `translate(${OriginPositionX}px,${OriginPositionY}px)`,
+         transform: `translate(${positionX}px,${positionY}px)`,
          pointerEvents: hasPointerEvents ? 'all' : 'none',
          visibility: initialized ? 'visible' : 'hidden',
          ...style,

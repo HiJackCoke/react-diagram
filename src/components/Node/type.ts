@@ -73,8 +73,7 @@ export type WrapNodeProps<T = any> = Pick<
    Required<Pick<Node<T>, 'type' | 'zIndex'>> & {
       positionX: number;
       positionY: number;
-      OriginPositionX: number;
-      OriginPositionY: number;
+
       initialized: boolean;
       isSelectable: boolean;
       isDraggable: boolean;

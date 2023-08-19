@@ -138,8 +138,6 @@ function NodeRenderer({
             const position = {
                positionX: positionAbsolute?.x || 0,
                positionY: positionAbsolute?.y || 0,
-               OriginPositionX: positionAbsolute?.x || 0,
-               OriginPositionY: positionAbsolute?.y || 0,
                sourcePosition: Position.Bottom,
                targetPosition: Position.Top,
             };
