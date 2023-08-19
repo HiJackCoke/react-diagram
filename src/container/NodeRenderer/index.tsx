@@ -97,6 +97,8 @@ function NodeRenderer({
                ariaLabel,
 
                position: nodePosition,
+
+               hidden,
                selected,
                selectable,
                draggable,
@@ -146,7 +148,7 @@ function NodeRenderer({
                selected: !!selected,
                isSelectable,
                isDraggable,
-               hidden: false,
+               hidden,
                isParent: true,
                initialized: true,
             };
