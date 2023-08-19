@@ -96,7 +96,7 @@ function NodeRenderer({
                style,
                ariaLabel,
 
-               position: nodePosition,
+               positionAbsolute,
 
                hidden,
                selected,
@@ -136,10 +136,10 @@ function NodeRenderer({
             };
 
             const position = {
-               positionX: nodePosition.x,
-               positionY: nodePosition.y,
-               OriginPositionX: nodePosition.x,
-               OriginPositionY: nodePosition.y,
+               positionX: positionAbsolute?.x || 0,
+               positionY: positionAbsolute?.y || 0,
+               OriginPositionX: positionAbsolute?.x || 0,
+               OriginPositionY: positionAbsolute?.y || 0,
                sourcePosition: Position.Bottom,
                targetPosition: Position.Top,
             };
@@ -149,7 +149,7 @@ function NodeRenderer({
                isSelectable,
                isDraggable,
                hidden,
-               isParent: true,
+               isParent: !!node[internalsSymbol]?.isParent,
                initialized: true,
             };
 

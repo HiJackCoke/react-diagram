@@ -24,7 +24,6 @@ import './style.css';
 const initialNodes = [
    {
       id: '1',
-      hidden: true,
       data: { label: 'Node1' },
       position: { x: 100, y: 100 },
    },
@@ -36,7 +35,8 @@ const initialNodes = [
    {
       id: '3',
       data: { label: 'Node3' },
-      position: { x: 650, y: 25 },
+      position: { x: 10, y: 10 },
+      parentNode: '1',
    },
    {
       id: '4',
