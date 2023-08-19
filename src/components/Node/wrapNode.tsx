@@ -12,13 +12,7 @@ import { ARIA_NODE_DESC_KEY } from 'components/A11yDescriptions';
 import { getMouseHandler, handleNodeClick } from './utils';
 
 import type { XYPosition } from 'types';
-import {
-   Node,
-   NodeInternals,
-   WrapNodeProps,
-   NodeProps,
-   NodeDragItem,
-} from './type';
+import { WrapNodeProps, NodeProps } from './type';
 
 export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowUp: { x: 0, y: -1 },
@@ -26,60 +20,6 @@ export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowLeft: { x: -1, y: 0 },
    ArrowRight: { x: 1, y: 0 },
 };
-
-export function isParentSelected(
-   node: Node,
-   nodeInternals: NodeInternals,
-): boolean {
-   if (!node.parentNode) {
-      return false;
-   }
-
-   const parentNode = nodeInternals.get(node.parentNode);
-
-   if (!parentNode) {
-      return false;
-   }
-
-   if (parentNode.selected) {
-      return true;
-   }
-
-   return isParentSelected(parentNode, nodeInternals);
-}
-
-export function getDragItems(
-   nodeInternals: NodeInternals,
-   nodesDraggable: boolean,
-   mousePos: XYPosition,
-   nodeId?: string,
-): NodeDragItem[] {
-   return Array.from(nodeInternals.values())
-      .filter(
-         (n) =>
-            (n.selected || n.id === nodeId) &&
-            (!n.parentNode || !isParentSelected(n, nodeInternals)) &&
-            (n.draggable ||
-               (nodesDraggable && typeof n.draggable === 'undefined')),
-      )
-      .map((n) => ({
-         id: n.id,
-         position: n.position || { x: 0, y: 0 },
-         positionAbsolute: n.positionAbsolute || { x: 0, y: 0 },
-         distance: {
-            x: mousePos.x - (n.positionAbsolute?.x ?? 0),
-            y: mousePos.y - (n.positionAbsolute?.y ?? 0),
-         },
-         delta: {
-            x: 0,
-            y: 0,
-         },
-         extent: n.extent,
-         parentNode: n.parentNode,
-         width: n.width,
-         height: n.height,
-      }));
-}
 
 const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
    function NodeWrapper({
