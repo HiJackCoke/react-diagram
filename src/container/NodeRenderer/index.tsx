@@ -148,7 +148,7 @@ function NodeRenderer({
                isDraggable,
                hidden,
                isParent: !!node[internalsSymbol]?.isParent,
-               initialized: true,
+               initialized: !!node.width && !!node.height,
             };
 
             return (
