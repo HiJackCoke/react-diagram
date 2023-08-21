@@ -167,6 +167,9 @@ function useDrag({ nodeRef, nodeId, isSelectable }: UseDragParams) {
 
                   updateNodes(pointerPosition);
                }
+            })
+            .on('end', () => {
+               setDragging(false);
             });
 
          selection.call(dragHandle);
