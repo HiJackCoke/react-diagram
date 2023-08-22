@@ -164,20 +164,10 @@ export function handleControlledEdgeSelectionChange(
 export function updateNodesSelections({
    changedNodes,
    get,
-   set,
 }: UpdateNodesParams) {
-   const { nodeInternals, onNodesChange, hasDefaultNodes } = get();
+   const { onNodesChange } = get();
 
    if (changedNodes?.length) {
-      if (hasDefaultNodes) {
-         set({
-            nodeInternals: handleControlledNodeSelectionChange(
-               changedNodes,
-               nodeInternals,
-            ),
-         });
-      }
-
       onNodesChange?.(changedNodes);
    }
 }

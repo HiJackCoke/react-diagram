@@ -7,11 +7,7 @@ import {
 } from './utils';
 
 import { getDimensions, internalsSymbol } from 'utils';
-import {
-   applyNodeChanges,
-   createSelectionChange,
-   getSelectionChanges,
-} from 'utils/changes';
+import { createSelectionChange, getSelectionChanges } from 'utils/changes';
 
 import { getPortBounds } from '../components/Node/utils';
 
@@ -146,27 +142,9 @@ const createRFStore = () =>
       },
 
       triggerNodeChanges: (changes: NodeChange[]) => {
-         const {
-            onNodesChange,
-            nodeInternals,
-            hasDefaultNodes,
-            nodeOrigin,
-            getNodes,
-            elevateNodesOnSelect,
-         } = get();
+         const { onNodesChange } = get();
 
          if (changes?.length) {
-            if (hasDefaultNodes) {
-               const nodes = applyNodeChanges(changes, getNodes());
-               const nextNodeInternals = createNodeInternals(
-                  nodes,
-                  nodeInternals,
-                  nodeOrigin,
-                  elevateNodesOnSelect,
-               );
-               set({ nodeInternals: nextNodeInternals });
-            }
-
             onNodesChange?.(changes);
          }
       },

@@ -15,7 +15,7 @@ const initialState: ReactDiagramStore = {
    edges: [],
    elementsSelectable: true,
    onNodesChange: null,
-   hasDefaultNodes: false,
+
    hasDefaultEdges: false,
 
    domNode: null,

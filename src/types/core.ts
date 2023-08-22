@@ -20,7 +20,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    nodeOrigin?: NodeOrigin;
    gridStep?: GridStep;
    nodes?: Node[];
-   defaultNodes?: Node[];
+
    nodeTypes?: NodeTypes;
    elevateNodesOnSelect?: boolean;
 
