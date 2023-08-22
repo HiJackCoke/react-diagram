@@ -30,8 +30,6 @@ export type ReactDiagramStore = {
    edges: Edge[];
    defaultEdgeOptions?: DefaultEdgeOptions;
 
-   hasDefaultEdges: boolean;
-
    domNode: HTMLDivElement | null;
    nodeOrigin: NodeOrigin;
    gridStep?: GridStep;
