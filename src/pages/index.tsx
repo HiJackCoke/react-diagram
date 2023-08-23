@@ -141,6 +141,7 @@ function Index() {
                   nodes={nodes}
                   edges={edges}
                   // gridStep={[100, 100]}
+                  nodesDraggable={false}
                   elevateNodesOnSelect={true}
                   onNodesChange={onNodesChange}
                   onEdgesChange={onEdgesChange}

@@ -42,6 +42,8 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    maxZoom?: number;
    defaultViewport?: Viewport;
    translateExtent?: CoordinateExtent;
+
+   nodesDraggable?: boolean;
 };
 
 export type ReactDiagramRefType = HTMLDivElement;
