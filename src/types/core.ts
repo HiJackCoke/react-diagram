@@ -29,7 +29,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    nodeTypes?: NodeTypes;
 
    edges?: Edge[];
-   edgeType?: EdgeTypes;
+   edgeTypes?: EdgeTypes;
 
    onNodeClick?: NodeMouseHandler;
    onNodeDoubleClick?: NodeMouseHandler;
