@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-import { CoordinateExtent, GridStep, Viewport } from '.';
+import { CoordinateExtent, EdgeTypes, GridStep, Viewport } from '.';
 
 import { OnNodesChange, OnEdgesChange } from 'hooks/useNodesEdgesState/type';
 import {
@@ -19,12 +19,14 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    nodeExtent?: CoordinateExtent;
    nodeOrigin?: NodeOrigin;
    gridStep?: GridStep;
-   nodes?: Node[];
 
-   nodeTypes?: NodeTypes;
    elevateNodesOnSelect?: boolean;
 
+   nodes?: Node[];
+   nodeTypes?: NodeTypes;
+
    edges?: Edge[];
+   edgeType?: EdgeTypes;
 
    onNodeClick?: NodeMouseHandler;
    onNodeDoubleClick?: NodeMouseHandler;

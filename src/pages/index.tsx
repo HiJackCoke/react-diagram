@@ -1,12 +1,8 @@
 import { useNodeOrEdgeTypes } from 'hooks/useNodeOrEdgeTypes';
 import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
-import DiagramRenderer from 'container/DiagramRenderer';
 import { createNodeTypes } from 'container/NodeRenderer/utils';
 import { createEdgeTypes } from 'container/EdgeRenderer/utils';
-
-import NodeRenderer from 'container/NodeRenderer';
-import EdgeRenderer from 'container/EdgeRenderer';
 
 import ReactDiagramProvider from 'components/ReactDiagramProvider';
 import StoreUpdater from 'components/StoreUpdater';
@@ -20,6 +16,7 @@ import { NodeTypes } from 'container/NodeRenderer/type';
 import { EdgeTypes } from 'container/EdgeRenderer/type';
 
 import './style.css';
+import ReactDiagram from 'container/ReactDiagram/DiagramView';
 
 const initialNodes = [
    {
@@ -141,29 +138,25 @@ function Index() {
                   nodes={nodes}
                   edges={edges}
                   // gridStep={[100, 100]}
-                  nodesDraggable={false}
+                  nodesDraggable={true}
                   elevateNodesOnSelect={true}
                   onNodesChange={onNodesChange}
                   onEdgesChange={onEdgesChange}
                />
 
-               <DiagramRenderer
+               <ReactDiagram
+                  rfId="1"
                   minZoom={minZoom}
                   maxZoom={maxZoom}
                   translateExtent={translateExtent}
                   defaultViewport={defaultViewport}
-               >
-                  <NodeRenderer
-                     nodeTypes={nodeTypesWrapped}
-                     onlyRenderVisibleElements={false}
-                     disableKeyboardA11y={false}
-                     nodeOrigin={[0, 0]}
-                     onNodeClick={console.log}
-                     rfId="1"
-                  />
-                  <EdgeRenderer edgeTypes={edgeTypesWrapped} rfId="1" />
-                  <div className="react-diagram__edgelabel-renderer" />
-               </DiagramRenderer>
+                  onlyRenderVisibleElements={false}
+                  disableKeyboardA11y={false}
+                  nodeOrigin={[0, 0]}
+                  nodeTypes={nodeTypesWrapped}
+                  edgeTypes={edgeTypesWrapped}
+                  onNodeClick={console.log}
+               />
             </div>
          </ReactDiagramProvider>
       </>
