@@ -1,16 +1,19 @@
 import type { HTMLAttributes } from 'react';
 
-import { CoordinateExtent, EdgeTypes, GridStep, Viewport } from '.';
-
-import { OnNodesChange, OnEdgesChange } from 'hooks/useNodesEdgesState/type';
 import {
+   CoordinateExtent,
+   EdgeTypes,
+   GridStep,
+   Viewport,
    Node,
    NodeOrigin,
    NodeMouseHandler,
    NodeDragHandler,
-} from 'components/Node/type';
-import { Edge } from 'components/Edges/type';
-import { NodeTypes } from 'container/NodeRenderer/type';
+   NodeTypes,
+   Edge,
+   OnNodesChange,
+   OnEdgesChange,
+} from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;
