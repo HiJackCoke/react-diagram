@@ -1,22 +1,12 @@
-import { useNodeOrEdgeTypes } from 'hooks/useNodeOrEdgeTypes';
 import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
-import { createNodeTypes } from 'container/NodeRenderer/utils';
-import { createEdgeTypes } from 'container/EdgeRenderer/utils';
-
 import ReactDiagramProvider from 'components/ReactDiagramProvider';
-import StoreUpdater from 'components/StoreUpdater';
-import Nodes from 'components/Node';
-import StepEdge from 'components/Edges/StepEdge';
+
+import ReactDiagram from 'container/ReactDiagram';
 
 import { MarkerType } from 'components/Edges/type';
 
-import { CoordinateExtent } from 'types';
-import { NodeTypes } from 'container/NodeRenderer/type';
-import { EdgeTypes } from 'container/EdgeRenderer/type';
-
 import './style.css';
-import ReactDiagram from 'container/ReactDiagram/DiagramView';
 
 const initialNodes = [
    {
@@ -75,38 +65,9 @@ const initialEdges = [
    },
 ];
 
-const minZoom = 0.5;
-const maxZoom = 2;
-const translateExtent: CoordinateExtent = [
-   [-Infinity, -Infinity],
-   [Infinity, Infinity],
-];
-const defaultViewport = {
-   x: 0,
-   y: 0,
-   zoom: 1,
-};
-
-const defaultNodeTypes: NodeTypes = {
-   default: Nodes,
-};
-
-const defaultEdgeTypes: EdgeTypes = {
-   step: StepEdge,
-};
-
 let idIndex = 5;
 
 function Index() {
-   const nodeTypesWrapped = useNodeOrEdgeTypes(
-      defaultNodeTypes,
-      createNodeTypes,
-   );
-   const edgeTypesWrapped = useNodeOrEdgeTypes(
-      defaultEdgeTypes,
-      createEdgeTypes,
-   );
-
    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -132,32 +93,15 @@ function Index() {
             Add Node
          </button>
          <ReactDiagramProvider>
-            <div className="react-diagram">
-               <StoreUpdater
-                  rfId="1"
-                  nodes={nodes}
-                  edges={edges}
-                  // gridStep={[100, 100]}
-                  nodesDraggable={true}
-                  elevateNodesOnSelect={true}
-                  onNodesChange={onNodesChange}
-                  onEdgesChange={onEdgesChange}
-               />
-
-               <ReactDiagram
-                  rfId="1"
-                  minZoom={minZoom}
-                  maxZoom={maxZoom}
-                  translateExtent={translateExtent}
-                  defaultViewport={defaultViewport}
-                  onlyRenderVisibleElements={false}
-                  disableKeyboardA11y={false}
-                  nodeOrigin={[0, 0]}
-                  nodeTypes={nodeTypesWrapped}
-                  edgeTypes={edgeTypesWrapped}
-                  onNodeClick={console.log}
-               />
-            </div>
+            <ReactDiagram
+               nodes={nodes}
+               edges={edges}
+               // minZoom={minZoom}
+               // maxZoom={maxZoom}
+               onNodeClick={console.log}
+               onNodesChange={onNodesChange}
+               onEdgesChange={onEdgesChange}
+            />
          </ReactDiagramProvider>
       </>
    );
