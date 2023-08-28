@@ -68,6 +68,7 @@ const createRFStore = () =>
 
             if (node) {
                const dimensions = getDimensions(update.nodeElement);
+
                const doUpdate = !!(
                   dimensions.width &&
                   dimensions.height &&
@@ -111,6 +112,10 @@ const createRFStore = () =>
          }, []);
 
          updateAbsoluteNodePositions(nodeInternals, nodeOrigin);
+
+         set({
+            nodeInternals: new Map(nodeInternals),
+         });
 
          if (changes?.length > 0) {
             onNodesChange?.(changes);

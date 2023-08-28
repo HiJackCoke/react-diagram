@@ -68,9 +68,9 @@ const initialEdges = [
 let idIndex = 5;
 
 function Index() {
-   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+   const [nodes, setNodes] = useNodesState(initialNodes);
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
+   const [edges, _setEdges] = useEdgesState(initialEdges);
 
    const addNode = () => {
       const newNode = {
@@ -99,8 +99,8 @@ function Index() {
                // minZoom={minZoom}
                // maxZoom={maxZoom}
                onNodeClick={console.log}
-               onNodesChange={onNodesChange}
-               onEdgesChange={onEdgesChange}
+               // onNodesChange={onNodesChange}
+               // onEdgesChange={onEdgesChange}
             />
          </ReactDiagramProvider>
       </>
