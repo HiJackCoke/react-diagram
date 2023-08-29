@@ -87,7 +87,10 @@ const ZoomPane = ({
    useEffect(() => {
       if (d3Zoom) {
          d3Zoom.on('start', (event: D3ZoomEvent<HTMLDivElement, any>) => {
-            console.log(event);
+            if (!event.sourceEvent) {
+               return null;
+            }
+
             isZoomingOrPanning.current = true;
          });
       }
