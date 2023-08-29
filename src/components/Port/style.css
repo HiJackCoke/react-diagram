@@ -6,9 +6,12 @@
    border-radius: 100%;
 
    position: absolute;
-   pointer-events: none;
+   /* pointer-events: none; */
    min-width: 5px;
    min-height: 5px;
+
+   pointer-events: all;
+   cursor: crosshair;
 }
 
 .react-diagram__port-bottom {
