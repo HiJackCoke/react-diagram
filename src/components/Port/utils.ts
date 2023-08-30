@@ -1,33 +1,18 @@
-import type {
+import {
    MouseEvent as ReactMouseEvent,
    TouchEvent as ReactTouchEvent,
 } from 'react';
+
 import { StoreApi } from 'zustand';
 
-import { ReactDiagramState } from 'types';
+import { getEventPosition } from 'utils';
 
-export const isMouseEvent = (
-   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
-): event is MouseEvent | ReactMouseEvent => 'clientX' in event;
+import { ReactDiagramState } from 'types';
 
 export const getHostForElement = (
    element: HTMLElement,
 ): Document | ShadowRoot =>
    (element.getRootNode?.() as Document | ShadowRoot) || window?.document;
-
-export const getEventPosition = (
-   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
-   bounds?: DOMRect,
-) => {
-   const isMouseTriggered = isMouseEvent(event);
-   const evtX = isMouseTriggered ? event.clientX : event.touches?.[0].clientX;
-   const evtY = isMouseTriggered ? event.clientY : event.touches?.[0].clientY;
-
-   return {
-      x: evtX - (bounds?.left ?? 0),
-      y: evtY - (bounds?.top ?? 0),
-   };
-};
 
 export function handlePointerDown({
    event,

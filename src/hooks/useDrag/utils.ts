@@ -1,8 +1,3 @@
-import {
-   MouseEvent as ReactMouseEvent,
-   TouchEvent as ReactTouchEvent,
-} from 'react';
-
 import { getNodePositionWithOrigin } from 'utils/graph';
 import { isNumeric, clampPosition } from 'utils';
 
@@ -70,24 +65,6 @@ export function getDragItems(
          height: n.height,
       }));
 }
-
-export const isMouseEvent = (
-   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
-): event is MouseEvent | ReactMouseEvent => 'clientX' in event;
-
-export const getEventPosition = (
-   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
-   bounds?: DOMRect,
-) => {
-   const isMouseTriggered = isMouseEvent(event);
-   const evtX = isMouseTriggered ? event.clientX : event.touches?.[0].clientX;
-   const evtY = isMouseTriggered ? event.clientY : event.touches?.[0].clientY;
-
-   return {
-      x: evtX - (bounds?.left ?? 0),
-      y: evtY - (bounds?.top ?? 0),
-   };
-};
 
 export function calcNextPosition(
    node: NodeDragItem | Node,

@@ -1,3 +1,7 @@
+import {
+   MouseEvent as ReactMouseEvent,
+   TouchEvent as ReactTouchEvent,
+} from 'react';
 import { Dimensions, Rect, XYPosition, CoordinateExtent, Box } from 'types';
 
 export const internalsSymbol = Symbol.for('internals');
@@ -47,3 +51,21 @@ export const rectToBox = ({ x, y, width, height }: Rect): Box => ({
    x2: x + width,
    y2: y + height,
 });
+
+export const isMouseEvent = (
+   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
+): event is MouseEvent | ReactMouseEvent => 'clientX' in event;
+
+export const getEventPosition = (
+   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
+   bounds?: DOMRect,
+) => {
+   const isMouseTriggered = isMouseEvent(event);
+   const evtX = isMouseTriggered ? event.clientX : event.touches?.[0].clientX;
+   const evtY = isMouseTriggered ? event.clientY : event.touches?.[0].clientY;
+
+   return {
+      x: evtX - (bounds?.left ?? 0),
+      y: evtY - (bounds?.top ?? 0),
+   };
+};

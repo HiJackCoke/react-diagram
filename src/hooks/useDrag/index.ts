@@ -8,12 +8,8 @@ import useGetPointerPosition from 'hooks/useGetPointerPosition';
 
 import { handleNodeClick } from 'components/Node/utils';
 
-import {
-   getDragItems,
-   getEventPosition,
-   calcNextPosition,
-   getEventHandlerParams,
-} from './utils';
+import { getDragItems, calcNextPosition, getEventHandlerParams } from './utils';
+import { getEventPosition } from 'utils';
 
 import { XYPosition } from 'types';
 import { NodeDragItem } from 'components/Node/type';

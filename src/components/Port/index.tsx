@@ -5,9 +5,11 @@ import type {
 
 import { useStoreApi } from 'hooks/useStore';
 
-import { PortProps } from './type';
+import { isMouseEvent } from 'utils';
 
-import { isMouseEvent, handlePointerDown } from './utils';
+import { handlePointerDown } from './utils';
+
+import { PortProps } from './type';
 
 import './style.css';
 
@@ -30,7 +32,7 @@ function Port({ type, position }: PortProps) {
    return (
       <div
          data-port-position={position}
-         className={`react-diagram__port react-diagram__port-${position} ${type} nodrag`}
+         className={`react-diagram__port react-diagram__port-${position} ${type}`}
          onClick={onPointerDown}
       />
    );
