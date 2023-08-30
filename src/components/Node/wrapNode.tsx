@@ -64,7 +64,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       const prevTargetPosition = useRef(targetPosition);
       const prevType = useRef(type);
       const hasPointerEvents =
-         onClick || onMouseEnter || onMouseMove || onMouseLeave;
+         isDraggable || onClick || onMouseEnter || onMouseMove || onMouseLeave;
 
       const onSelectNodeHandler = (event: MouseEvent) => {
          if (!isDraggable) {
