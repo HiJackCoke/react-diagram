@@ -8,7 +8,12 @@ import useGetPointerPosition from 'hooks/useGetPointerPosition';
 
 import { handleNodeClick } from 'components/Node/utils';
 
-import { getDragItems, calcNextPosition, getEventHandlerParams } from './utils';
+import {
+   getDragItems,
+   calcNextPosition,
+   getEventHandlerParams,
+   hasSelector,
+} from './utils';
 import { getEventPosition } from 'utils';
 
 import { XYPosition } from 'types';
@@ -19,9 +24,15 @@ type UseDragParams = {
    nodeRef: RefObject<Element>;
    nodeId?: string;
    isSelectable?: boolean;
+   noDragClassName?: string;
 };
 
-function useDrag({ nodeRef, nodeId, isSelectable }: UseDragParams) {
+function useDrag({
+   nodeRef,
+   nodeId,
+   isSelectable,
+   noDragClassName,
+}: UseDragParams) {
    const store = useStoreApi();
    const [dragging, setDragging] = useState<boolean>(false);
 
@@ -172,6 +183,15 @@ function useDrag({ nodeRef, nodeId, isSelectable }: UseDragParams) {
             })
             .on('end', () => {
                setDragging(false);
+            })
+            .filter((event: MouseEvent) => {
+               const target = event.target as HTMLDivElement;
+
+               const isDraggable =
+                  (!event.button && !noDragClassName) ||
+                  !hasSelector(target, `.${noDragClassName}`, nodeRef);
+
+               return isDraggable;
             });
 
          selection.call(dragHandle);
@@ -179,7 +199,7 @@ function useDrag({ nodeRef, nodeId, isSelectable }: UseDragParams) {
             selection.on('.drag', null);
          };
       }
-   }, [store, nodeRef, nodeId, isSelectable]);
+   }, [store, nodeRef, nodeId, isSelectable, noDragClassName]);
 
    return dragging;
 }

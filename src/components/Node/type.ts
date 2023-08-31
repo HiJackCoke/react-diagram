@@ -88,6 +88,7 @@ export type WrapNodeProps<T = any> = Pick<
       isParent: boolean;
       rfId: string;
       disableKeyboardA11y: boolean;
+      noDragClassName: string;
    };
 
 export type NodeProps<T = any> = Pick<

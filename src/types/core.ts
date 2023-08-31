@@ -49,6 +49,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    translateExtent?: CoordinateExtent;
 
    nodesDraggable?: boolean;
+   noDragClassName?: string;
 };
 
 export type ReactDiagramRefType = HTMLDivElement;

@@ -45,6 +45,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
 
          onlyRenderVisibleElements = false,
          disableKeyboardA11y = false,
+         noDragClassName = 'nodrag',
          nodeOrigin = initNodeOrigin,
          nodeTypes = defaultNodeTypes,
          onNodeClick,
@@ -75,6 +76,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                defaultViewport={defaultViewport}
                onlyRenderVisibleElements={onlyRenderVisibleElements}
                disableKeyboardA11y={disableKeyboardA11y}
+               noDragClassName={noDragClassName}
                nodeOrigin={nodeOrigin}
                nodeTypes={nodeTypesWrapped}
                edgeTypes={edgeTypesWrapped}

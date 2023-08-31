@@ -19,6 +19,7 @@ export type DiagramViewProps = ReactDiagramCommonProps &
          | 'defaultViewport'
          | 'onlyRenderVisibleElements'
          | 'disableKeyboardA11y'
+         | 'noDragClassName'
          | 'nodeOrigin'
       >
    > & {
@@ -39,6 +40,7 @@ function DiagramView({
    // NodeRenderer props
    onlyRenderVisibleElements,
    disableKeyboardA11y,
+   noDragClassName,
    nodeOrigin,
    nodeTypes,
    onNodeClick,
@@ -60,6 +62,7 @@ function DiagramView({
             disableKeyboardA11y={disableKeyboardA11y}
             nodeOrigin={nodeOrigin}
             onNodeClick={onNodeClick}
+            noDragClassName={noDragClassName}
          />
          <EdgeRenderer edgeTypes={edgeTypes} rfId={rfId} />
          <div className="react-diagram__edgelabel-renderer" />

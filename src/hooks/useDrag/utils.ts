@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { getNodePositionWithOrigin } from 'utils/graph';
 import { isNumeric, clampPosition } from 'utils';
 
@@ -171,4 +172,20 @@ export function getEventHandlerParams({
          : extentedDragItems[0],
       extentedDragItems,
    ];
+}
+
+export function hasSelector(
+   target: Element,
+   selector: string,
+   nodeRef: RefObject<Element>,
+): boolean {
+   let current = target;
+
+   do {
+      if (current?.matches(selector)) return true;
+      if (current === nodeRef.current) return false;
+      current = current.parentElement as Element;
+   } while (current);
+
+   return false;
 }

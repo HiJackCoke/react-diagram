@@ -16,7 +16,10 @@ import { NodeTypesWrapped } from './type';
 type RequiredProps = Required<
    Pick<
       ReactDiagramProps,
-      'onlyRenderVisibleElements' | 'disableKeyboardA11y' | 'nodeOrigin'
+      | 'onlyRenderVisibleElements'
+      | 'disableKeyboardA11y'
+      | 'nodeOrigin'
+      | 'noDragClassName'
    >
 >;
 
