@@ -13,7 +13,13 @@ import { getEventPosition } from 'utils';
 
 import { XYPosition } from 'types';
 import { NodeDragItem } from 'components/Node/type';
-import { UseDragParams, UseDragEvent } from './type';
+import { UseDragEvent } from './type';
+
+type UseDragParams = {
+   nodeRef: RefObject<Element>;
+   nodeId?: string;
+   isSelectable?: boolean;
+};
 
 function useDrag({ nodeRef, nodeId, isSelectable }: UseDragParams) {
    const store = useStoreApi();
