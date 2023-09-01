@@ -20,6 +20,7 @@ export type DiagramViewProps = ReactDiagramCommonProps &
          | 'onlyRenderVisibleElements'
          | 'disableKeyboardA11y'
          | 'noDragClassName'
+         | 'noPanClassName'
          | 'nodeOrigin'
       >
    > & {
@@ -41,6 +42,7 @@ function DiagramView({
    onlyRenderVisibleElements,
    disableKeyboardA11y,
    noDragClassName,
+   noPanClassName,
    nodeOrigin,
    nodeTypes,
    onNodeClick,
@@ -50,6 +52,7 @@ function DiagramView({
 }: DiagramViewProps) {
    return (
       <DiagramRenderer
+         noPanClassName={noPanClassName}
          minZoom={minZoom}
          maxZoom={maxZoom}
          translateExtent={translateExtent}
@@ -63,6 +66,7 @@ function DiagramView({
             nodeOrigin={nodeOrigin}
             onNodeClick={onNodeClick}
             noDragClassName={noDragClassName}
+            noPanClassName={noPanClassName}
          />
          <EdgeRenderer edgeTypes={edgeTypes} rfId={rfId} />
          <div className="react-diagram__edgelabel-renderer" />

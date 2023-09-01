@@ -20,7 +20,11 @@ import './style.css';
 export type ZoomPaneProps = Required<
    Pick<
       ReactDiagramProps,
-      'minZoom' | 'maxZoom' | 'defaultViewport' | 'translateExtent'
+      | 'noPanClassName'
+      | 'minZoom'
+      | 'maxZoom'
+      | 'defaultViewport'
+      | 'translateExtent'
    > & {
       children: ReactNode;
    }
@@ -30,7 +34,11 @@ const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,
 });
 
+const isWrappedWithClass = (event: any, className: string | undefined) =>
+   event.target.closest(`.${className}`);
+
 const ZoomPane = ({
+   noPanClassName,
    minZoom,
    maxZoom,
    defaultViewport,
@@ -43,6 +51,12 @@ const ZoomPane = ({
    const zoomPane = useRef<HTMLDivElement>(null);
 
    const { d3Zoom } = useStore(selector, shallow);
+
+   const onClick = (e: ReactMouseEvent) => {
+      if (e.target === zoomPane.current) {
+         store.getState().resetSelectedElements();
+      }
+   };
 
    useEffect(() => {
       if (zoomPane.current) {
@@ -119,11 +133,20 @@ const ZoomPane = ({
       }
    }, [d3Zoom]);
 
-   const onClick = (e: ReactMouseEvent) => {
-      if (e.target === zoomPane.current) {
-         store.getState().resetSelectedElements();
+   useEffect(() => {
+      if (d3Zoom) {
+         d3Zoom.filter((event: any) => {
+            if (
+               isWrappedWithClass(event, noPanClassName) &&
+               event.type !== 'wheel'
+            ) {
+               return false;
+            }
+
+            return true;
+         });
       }
-   };
+   }, [d3Zoom]);
 
    return (
       <div

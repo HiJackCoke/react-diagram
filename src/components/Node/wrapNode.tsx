@@ -58,6 +58,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       rfId,
 
       noDragClassName,
+      noPanClassName,
    }: WrapNodeProps) {
       const store = useStoreApi();
 
@@ -133,7 +134,9 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       const wrapperClassName = cc([
          'react-diagram__node',
          `react-diagram__node-${type}`,
-
+         {
+            [noPanClassName]: isDraggable,
+         },
          className,
          {
             selected,

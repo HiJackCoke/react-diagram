@@ -20,6 +20,7 @@ type RequiredProps = Required<
       | 'disableKeyboardA11y'
       | 'nodeOrigin'
       | 'noDragClassName'
+      | 'noPanClassName'
    >
 >;
 

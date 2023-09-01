@@ -10,6 +10,7 @@ import { DiagramRendererProps } from './type';
 function DiagramRenderer({
    children,
 
+   noPanClassName,
    defaultViewport,
    translateExtent,
    minZoom,
@@ -19,6 +20,7 @@ function DiagramRenderer({
 
    return (
       <ZoomPane
+         noPanClassName={noPanClassName}
          minZoom={minZoom}
          maxZoom={maxZoom}
          translateExtent={translateExtent}
