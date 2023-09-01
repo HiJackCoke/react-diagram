@@ -33,7 +33,7 @@ function Port({ type, position }: PortProps) {
       <div
          data-port-position={position}
          className={`react-diagram__port react-diagram__port-${position} ${type} nodrag`}
-         onClick={onPointerDown}
+         onMouseDown={onPointerDown}
       />
    );
 }
