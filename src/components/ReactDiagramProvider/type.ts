@@ -1,6 +1,12 @@
 import { ZoomBehavior } from 'd3';
 
-import { Transform, GridStep, CoordinateExtent, OnError } from 'types';
+import {
+   Transform,
+   GridStep,
+   CoordinateExtent,
+   OnError,
+   XYPosition,
+} from 'types';
 
 import {
    NodeChange,
@@ -48,6 +54,8 @@ export type ReactDiagramStore = {
    onNodeDragStart?: NodeDragHandler;
    onNodeDrag?: NodeDragHandler;
    onEdgesChange?: OnEdgesChange;
+
+   connectionPosition: XYPosition;
 };
 
 export type ReactDiagramActions = {

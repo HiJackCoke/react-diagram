@@ -25,6 +25,7 @@ function Port({ type, position }: PortProps) {
          handlePointerDown({
             event,
             getState: store.getState,
+            setState: store.setState,
          });
       }
    };

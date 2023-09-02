@@ -27,6 +27,8 @@ const initialState: ReactDiagramStore = {
    multiSelectionActive: false,
 
    d3Zoom: null,
+
+   connectionPosition: { x: 0, y: 0 },
 };
 
 export default initialState;

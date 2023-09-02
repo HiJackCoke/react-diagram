@@ -17,10 +17,11 @@ export const getHostForElement = (
 export function handlePointerDown({
    event,
    getState,
+   setState,
 }: {
    event: ReactMouseEvent | ReactTouchEvent;
-
    getState: StoreApi<ReactDiagramState>['getState'];
+   setState: StoreApi<ReactDiagramState>['setState'];
 }): void {
    const doc = getHostForElement(event.target as HTMLElement);
    const { domNode } = getState();
@@ -29,9 +30,15 @@ export function handlePointerDown({
 
    let connectionPosition = getEventPosition(event, containerBounds);
 
+   setState({
+      connectionPosition,
+   });
+
    function onPointerMove(event: MouseEvent | TouchEvent) {
       connectionPosition = getEventPosition(event, containerBounds);
-      console.log(connectionPosition);
+      setState({
+         connectionPosition: connectionPosition,
+      });
    }
 
    function onPointerUp() {
