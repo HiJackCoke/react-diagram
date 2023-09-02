@@ -56,6 +56,7 @@ export type ReactDiagramStore = {
    onEdgesChange?: OnEdgesChange;
 
    connectionPosition: XYPosition;
+   connectionNodeId: string | null;
 };
 
 export type ReactDiagramActions = {

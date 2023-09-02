@@ -3,6 +3,7 @@ import type {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
+import { useNodeId } from 'contexts/NodeIdContext';
 import { useStoreApi } from 'hooks/useStore';
 
 import { isMouseEvent } from 'utils';
@@ -15,6 +16,9 @@ import './style.css';
 
 function Port({ type, position }: PortProps) {
    const store = useStoreApi();
+   const nodeId = useNodeId();
+
+   if (!nodeId) return null;
 
    const onPointerDown = (
       event: ReactMouseEvent<HTMLDivElement> | ReactTouchEvent<HTMLDivElement>,
@@ -24,6 +28,7 @@ function Port({ type, position }: PortProps) {
       if ((isMouseTriggered && event.button === 0) || !isMouseTriggered) {
          handlePointerDown({
             event,
+            nodeId,
             getState: store.getState,
             setState: store.setState,
          });

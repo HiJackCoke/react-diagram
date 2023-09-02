@@ -29,6 +29,7 @@ const initialState: ReactDiagramStore = {
    d3Zoom: null,
 
    connectionPosition: { x: 0, y: 0 },
+   connectionNodeId: null,
 };
 
 export default initialState;

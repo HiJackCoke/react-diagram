@@ -16,10 +16,14 @@ export const getHostForElement = (
 
 export function handlePointerDown({
    event,
+   nodeId,
+
    getState,
    setState,
 }: {
    event: ReactMouseEvent | ReactTouchEvent;
+   nodeId: string;
+
    getState: StoreApi<ReactDiagramState>['getState'];
    setState: StoreApi<ReactDiagramState>['setState'];
 }): void {
@@ -32,6 +36,7 @@ export function handlePointerDown({
 
    setState({
       connectionPosition,
+      connectionNodeId: nodeId,
    });
 
    function onPointerMove(event: MouseEvent | TouchEvent) {
