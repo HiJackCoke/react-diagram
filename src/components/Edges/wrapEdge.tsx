@@ -20,9 +20,9 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
       // sourceAndTargetIds
       source,
-      sourceHandle,
+      sourcePort,
       target,
-      targetHandle,
+      targetPort,
 
       // marker
       markerEnd,
@@ -77,9 +77,9 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
       const sourceAndTargetIds = {
          source,
-         sourceHandle,
+         sourcePort,
          target,
-         targetHandle,
+         targetPort,
       };
 
       const labelProps = {

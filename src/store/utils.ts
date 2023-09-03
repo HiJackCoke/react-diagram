@@ -117,7 +117,7 @@ export function createNodeInternals(
       Object.defineProperty(internals, internalsSymbol, {
          enumerable: false,
          value: {
-            handleBounds: currInternals?.[internalsSymbol]?.handleBounds,
+            portBounds: currInternals?.[internalsSymbol]?.portBounds,
             z,
          },
       });

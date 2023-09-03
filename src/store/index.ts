@@ -82,7 +82,7 @@ const createRFStore = () =>
                      ...node,
                      [internalsSymbol]: {
                         ...node[internalsSymbol],
-                        handleBounds: {
+                        portBounds: {
                            source: getPortBounds(
                               '.source',
                               update.nodeElement,

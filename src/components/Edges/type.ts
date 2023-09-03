@@ -38,8 +38,8 @@ export type DefaultEdge<T = any> = {
    type?: string;
    source: string;
    target: string;
-   sourceHandle?: string | null;
-   targetHandle?: string | null;
+   sourcePort?: string | null;
+   targetPort?: string | null;
    style?: CSSProperties;
 
    data?: T;
@@ -84,8 +84,8 @@ export type EdgeProps<T = any> = Pick<
       | 'targetY'
       | 'sourcePosition'
       | 'targetPosition'
-      | 'sourceHandle'
-      | 'targetHandle'
+      | 'sourcePort'
+      | 'targetPort'
    > &
    EdgeLabelOptions & {
       markerStart?: string;
@@ -118,8 +118,8 @@ export type DefaultEdgeOptions = Omit<
    | 'id'
    | 'source'
    | 'target'
-   | 'sourceHandle'
-   | 'targetHandle'
+   | 'sourcePort'
+   | 'targetPort'
    | 'sourceNode'
    | 'targetNode'
 >;

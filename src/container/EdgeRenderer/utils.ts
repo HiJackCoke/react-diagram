@@ -32,15 +32,15 @@ export function createEdgeTypes(edgeTypes: EdgeTypes): EdgeTypesWrapped {
    };
 }
 
-export function getHandlePosition(
+export function getPortPosition(
    position: Position,
    nodeRect: Rect,
-   handle: PortElement | null = null,
+   port: PortElement | null = null,
 ): XYPosition {
-   const x = (handle?.x || 0) + nodeRect.x;
-   const y = (handle?.y || 0) + nodeRect.y;
-   const width = handle?.width || nodeRect.width;
-   const height = handle?.height || nodeRect.height;
+   const x = (port?.x || 0) + nodeRect.x;
+   const y = (port?.y || 0) + nodeRect.y;
+   const width = port?.width || nodeRect.width;
+   const height = port?.height || nodeRect.height;
 
    switch (position) {
       case Position.Top:
@@ -66,18 +66,18 @@ export function getHandlePosition(
    }
 }
 
-export function getHandle(
+export function getPort(
    bounds: PortElement[],
-   handleId?: string | null,
+   portId?: string | null,
 ): PortElement | null {
    if (!bounds) {
       return null;
    }
 
-   if (bounds.length === 1 || !handleId) {
+   if (bounds.length === 1 || !portId) {
       return bounds[0];
-   } else if (handleId) {
-      return bounds.find((d) => d.id === handleId) || null;
+   } else if (portId) {
+      return bounds.find((d) => d.id === portId) || null;
    }
 
    return null;
@@ -92,28 +92,28 @@ interface EdgePositions {
 
 export const getEdgePositions = (
    sourceNodeRect: Rect,
-   sourceHandle: PortElement,
+   sourcePort: PortElement,
    sourcePosition: Position,
    targetNodeRect: Rect,
-   targetHandle: PortElement,
+   targetPort: PortElement,
    targetPosition: Position,
 ): EdgePositions => {
-   const sourceHandlePos = getHandlePosition(
+   const sourcePortPos = getPortPosition(
       sourcePosition,
       sourceNodeRect,
-      sourceHandle,
+      sourcePort,
    );
-   const targetHandlePos = getHandlePosition(
+   const targetPortPos = getPortPosition(
       targetPosition,
       targetNodeRect,
-      targetHandle,
+      targetPort,
    );
 
    return {
-      sourceX: sourceHandlePos.x,
-      sourceY: sourceHandlePos.y,
-      targetX: targetHandlePos.x,
-      targetY: targetHandlePos.y,
+      sourceX: sourcePortPos.x,
+      sourceY: sourcePortPos.y,
+      targetX: targetPortPos.x,
+      targetY: targetPortPos.y,
    };
 };
 
@@ -178,10 +178,10 @@ export function isEdgeVisible({
 export function getNodeData(
    node?: Node,
 ): [Rect, NodePortBounds | null, boolean] {
-   const handleBounds = node?.[internalsSymbol]?.handleBounds || null;
+   const portBounds = node?.[internalsSymbol]?.portBounds || null;
 
    const isValid =
-      handleBounds &&
+      portBounds &&
       node?.width &&
       node?.height &&
       typeof node?.positionAbsolute?.x !== 'undefined' &&
@@ -194,7 +194,7 @@ export function getNodeData(
          width: node?.width || 0,
          height: node?.height || 0,
       },
-      handleBounds,
+      portBounds,
       !!isValid,
    ];
 }

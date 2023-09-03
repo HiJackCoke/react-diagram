@@ -39,7 +39,7 @@ export type Node<T = any, U extends string | undefined = string | undefined> = {
 
    [internalsSymbol]?: {
       z?: number;
-      handleBounds?: NodePortBounds;
+      portBounds?: NodePortBounds;
       isParent?: boolean;
    };
 };

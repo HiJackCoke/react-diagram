@@ -36,25 +36,25 @@ function ConnectionPath({
       ),
       shallow,
    );
-   const fromHandleBounds = fromNode?.[internalsSymbol]?.handleBounds;
-   const handleType = 'source';
+   const fromPortBounds = fromNode?.[internalsSymbol]?.portBounds;
+   const portType = 'source';
 
-   const handleBounds = fromHandleBounds?.[handleType];
+   const portBounds = fromPortBounds?.[portType];
 
-   if (!fromNode || !handleBounds) {
+   if (!fromNode || !portBounds) {
       return null;
    }
 
-   const fromHandle = handleBounds[0];
-   const fromHandleX = fromHandle
-      ? fromHandle.x + fromHandle.width / 2
+   const fromPort = portBounds[0];
+   const fromPortX = fromPort
+      ? fromPort.x + fromPort.width / 2
       : (fromNode.width ?? 0) / 2;
-   const fromHandleY = fromHandle
-      ? fromHandle.y + fromHandle.height / 2
+   const fromPortY = fromPort
+      ? fromPort.y + fromPort.height / 2
       : fromNode.height ?? 0;
-   const fromX = (fromNode.positionAbsolute?.x ?? 0) + fromHandleX;
-   const fromY = (fromNode.positionAbsolute?.y ?? 0) + fromHandleY;
-   const fromPosition = fromHandle?.position;
+   const fromX = (fromNode.positionAbsolute?.x ?? 0) + fromPortX;
+   const fromY = (fromNode.positionAbsolute?.y ?? 0) + fromPortY;
+   const fromPosition = fromPort?.position;
    const toPosition = fromPosition ? oppositePosition[fromPosition] : null;
 
    if (!fromPosition || !toPosition) {

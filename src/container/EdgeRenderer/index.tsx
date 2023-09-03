@@ -6,7 +6,7 @@ import { useStore } from 'hooks/useStore';
 
 import MarkerComponent from './MarkerComponent';
 
-import { getEdgePositions, getHandle, getNodeData } from './utils';
+import { getEdgePositions, getPort, getNodeData } from './utils';
 
 import { Edge } from 'components/Edges/type';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
@@ -54,9 +54,9 @@ function EdgeRenderer({ rfId, edgeTypes, children }: EdgeRendererProps) {
 
                      // sourceAndTargetIds
                      source,
-                     sourceHandle,
+                     sourcePort,
                      target,
-                     targetHandle,
+                     targetPort,
 
                      // marker
                      markerEnd,
@@ -71,9 +71,9 @@ function EdgeRenderer({ rfId, edgeTypes, children }: EdgeRendererProps) {
                      labelBgBorderRadius,
                   } = edge;
 
-                  const [sourceNodeRect, sourceHandleBounds, sourceIsValid] =
+                  const [sourceNodeRect, sourcePortBounds, sourceIsValid] =
                      getNodeData(nodeInternals.get(source));
-                  const [targetNodeRect, targetHandleBounds, targetIsValid] =
+                  const [targetNodeRect, targetPortBounds, targetIsValid] =
                      getNodeData(nodeInternals.get(target));
 
                   if (!sourceIsValid || !targetIsValid) {
@@ -84,22 +84,19 @@ function EdgeRenderer({ rfId, edgeTypes, children }: EdgeRendererProps) {
 
                   const EdgeComponent =
                      edgeTypes[edgeType] || edgeTypes.default;
-                  const targetNodeHandles = targetHandleBounds!.target;
-                  const sourceHandleInfo = getHandle(
-                     sourceHandleBounds!.source!,
-                     sourceHandle,
+                  const targetNodePorts = targetPortBounds!.target;
+                  const sourcePortInfo = getPort(
+                     sourcePortBounds!.source!,
+                     sourcePort,
                   );
-                  const targetHandleInfo = getHandle(
-                     targetNodeHandles!,
-                     targetHandle,
-                  );
+                  const targetPortInfo = getPort(targetNodePorts!, targetPort);
                   const sourcePosition =
-                     sourceHandleInfo?.position || Position.Bottom;
+                     sourcePortInfo?.position || Position.Bottom;
                   const targetPosition =
-                     targetHandleInfo?.position || Position.Top;
+                     targetPortInfo?.position || Position.Top;
                   const isFocusable = !!edge.focusable;
 
-                  if (!sourceHandleInfo || !targetHandleInfo) {
+                  if (!sourcePortInfo || !targetPortInfo) {
                      return null;
                   }
 
@@ -113,9 +110,9 @@ function EdgeRenderer({ rfId, edgeTypes, children }: EdgeRendererProps) {
 
                   const sourceAndTargetIds = {
                      source,
-                     sourceHandle,
+                     sourcePort,
                      target,
-                     targetHandle,
+                     targetPort,
                   };
 
                   const marker = {
@@ -134,10 +131,10 @@ function EdgeRenderer({ rfId, edgeTypes, children }: EdgeRendererProps) {
 
                   const edgePositions = getEdgePositions(
                      sourceNodeRect,
-                     sourceHandleInfo,
+                     sourcePortInfo,
                      sourcePosition,
                      targetNodeRect,
-                     targetHandleInfo,
+                     targetPortInfo,
                      targetPosition,
                   );
 
