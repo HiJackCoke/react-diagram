@@ -46,12 +46,12 @@ export function handlePointerDown({
    const clickedPort = doc?.elementFromPoint(x, y);
    const portType = getPortType(clickedPort);
 
-   console.log(portType);
    let connectionPosition = getEventPosition(event, containerBounds);
 
    setState({
       connectionPosition,
       connectionNodeId: nodeId,
+      connectionPortType: portType,
    });
 
    function onPointerMove(event: MouseEvent | TouchEvent) {

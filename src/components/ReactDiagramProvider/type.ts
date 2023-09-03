@@ -6,6 +6,7 @@ import {
    CoordinateExtent,
    OnError,
    XYPosition,
+   PortType,
 } from 'types';
 
 import {
@@ -57,6 +58,7 @@ export type ReactDiagramStore = {
 
    connectionPosition: XYPosition;
    connectionNodeId: string | null;
+   connectionPortType: PortType | null;
 };
 
 export type ReactDiagramActions = {
