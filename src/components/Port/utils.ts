@@ -7,12 +7,22 @@ import { StoreApi } from 'zustand';
 
 import { getEventPosition } from 'utils';
 
-import { ReactDiagramState } from 'types';
+import { PortType, ReactDiagramState } from 'types';
 
 export const getHostForElement = (
    element: HTMLElement,
 ): Document | ShadowRoot =>
    (element.getRootNode?.() as Document | ShadowRoot) || window?.document;
+
+const getPortType = (handleDomNode: Element | null): PortType | null => {
+   if (handleDomNode?.classList.contains('target')) {
+      return 'target';
+   } else if (handleDomNode?.classList.contains('source')) {
+      return 'source';
+   }
+
+   return null;
+};
 
 export function handlePointerDown({
    event,
@@ -32,6 +42,11 @@ export function handlePointerDown({
 
    const containerBounds = domNode?.getBoundingClientRect();
 
+   const { x, y } = getEventPosition(event);
+   const clickedPort = doc?.elementFromPoint(x, y);
+   const portType = getPortType(clickedPort);
+
+   console.log(portType);
    let connectionPosition = getEventPosition(event, containerBounds);
 
    setState({
