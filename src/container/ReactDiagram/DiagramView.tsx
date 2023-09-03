@@ -3,6 +3,7 @@ import NodeRenderer from 'container/NodeRenderer';
 import EdgeRenderer from 'container/EdgeRenderer';
 
 import { ReactDiagramProps, NodeTypesWrapped, EdgeTypesWrapped } from 'types';
+import ConnectionLineWrapper from 'components/ConnectionEdge';
 
 export type ReactDiagramCommonProps = Omit<
    ReactDiagramProps,
@@ -68,7 +69,9 @@ function DiagramView({
             noDragClassName={noDragClassName}
             noPanClassName={noPanClassName}
          />
-         <EdgeRenderer edgeTypes={edgeTypes} rfId={rfId} />
+         <EdgeRenderer edgeTypes={edgeTypes} rfId={rfId}>
+            <ConnectionLineWrapper />
+         </EdgeRenderer>
          <div className="react-diagram__edgelabel-renderer" />
       </DiagramRenderer>
    );
