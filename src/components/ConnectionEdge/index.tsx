@@ -14,11 +14,12 @@ type ConnectionEdgeProps = {
 
 const selector = (s: ReactDiagramState) => ({
    nodeId: s.connectionNodeId,
+   portType: s.connectionPortType,
 });
 
 function ConnectionEdge({ containerStyle, style }: ConnectionEdgeProps) {
-   const { nodeId } = useStore(selector, shallow);
-   const isValid = !!nodeId;
+   const { nodeId, portType } = useStore(selector, shallow);
+   const isValid = !!(nodeId && portType);
 
    if (!isValid) {
       return null;
@@ -30,7 +31,7 @@ function ConnectionEdge({ containerStyle, style }: ConnectionEdgeProps) {
          className="react-diagram__container react-diagram__edges react-diagram__connectionline"
       >
          <g className="react-diagram__connection">
-            <ConnectionPath nodeId={nodeId} style={style} />
+            <ConnectionPath style={style} nodeId={nodeId} portType={portType} />
          </g>
       </svg>
    );

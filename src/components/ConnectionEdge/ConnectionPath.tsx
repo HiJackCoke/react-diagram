@@ -4,12 +4,12 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from 'hooks/useStore';
 
 import { internalsSymbol } from 'utils';
-import { ReactDiagramStore, Position } from 'types';
+import { ReactDiagramStore, Position, PortType } from 'types';
 
 type ConnectionPathProps = {
-   nodeId: string;
-
    style?: CSSProperties;
+   nodeId: string;
+   portType: PortType;
 };
 
 const oppositePosition = {
@@ -19,11 +19,7 @@ const oppositePosition = {
    [Position.Bottom]: Position.Top,
 };
 
-function ConnectionPath({
-   nodeId,
-
-   style,
-}: ConnectionPathProps) {
+function ConnectionPath({ style, nodeId, portType }: ConnectionPathProps) {
    const { fromNode, toX, toY } = useStore(
       useCallback(
          (s: ReactDiagramStore) => ({
@@ -37,7 +33,10 @@ function ConnectionPath({
       shallow,
    );
    const fromPortBounds = fromNode?.[internalsSymbol]?.portBounds;
-   const portType = 'source';
+
+   if (portType === 'target') {
+      return null;
+   }
 
    const portBounds = fromPortBounds?.[portType];
 
