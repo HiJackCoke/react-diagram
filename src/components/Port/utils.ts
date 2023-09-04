@@ -7,7 +7,20 @@ import { StoreApi } from 'zustand';
 
 import { getEventPosition } from 'utils';
 
-import { PortType, ReactDiagramState } from 'types';
+import { Connection, PortType, ReactDiagramState } from 'types';
+
+export type ConnectionPort = {
+   id: string | null;
+   type: PortType;
+   nodeId: string;
+   x: number;
+   y: number;
+};
+
+type getConnectionResult = {
+   isValid: boolean;
+   connection: Connection;
+};
 
 export const getHostForElement = (
    element: HTMLElement,
@@ -24,16 +37,61 @@ const getPortType = (handleDomNode: Element | null): PortType | null => {
    return null;
 };
 
+const getConnection = (
+   event: MouseEvent | TouchEvent | ReactMouseEvent | ReactTouchEvent,
+   fromNodeId: string,
+   fromType: PortType,
+   doc: Document | ShadowRoot,
+) => {
+   const isTarget = fromType === 'target';
+
+   const result: getConnectionResult = {
+      isValid: false,
+      connection: {
+         source: null,
+         target: null,
+      },
+   };
+
+   if (isTarget) return result;
+
+   const { x, y } = getEventPosition(event);
+   const ElementFromPoint = doc.elementFromPoint(x, y);
+   const Port = ElementFromPoint?.classList.contains('react-diagram__port')
+      ? ElementFromPoint
+      : null;
+
+   if (Port) {
+      const portType = getPortType(Port);
+      const toNodeId = Port.getAttribute('data-nodeid');
+
+      const connection = {
+         source: fromNodeId,
+         target: toNodeId,
+      };
+
+      result.connection = connection;
+
+      const isValid = !isTarget && portType === 'target';
+
+      if (isValid) {
+         result.isValid = true;
+      }
+   }
+
+   return result;
+};
+
 export function handlePointerDown({
    event,
    nodeId,
-
+   portType,
    getState,
    setState,
 }: {
    event: ReactMouseEvent | ReactTouchEvent;
    nodeId: string;
-
+   portType: PortType;
    getState: StoreApi<ReactDiagramState>['getState'];
    setState: StoreApi<ReactDiagramState>['setState'];
 }): void {
@@ -44,18 +102,23 @@ export function handlePointerDown({
 
    const { x, y } = getEventPosition(event);
    const clickedPort = doc?.elementFromPoint(x, y);
-   const portType = getPortType(clickedPort);
+   const clickedPortType = getPortType(clickedPort);
 
    let connectionPosition = getEventPosition(event, containerBounds);
 
    setState({
       connectionPosition,
       connectionNodeId: nodeId,
-      connectionPortType: portType,
+      connectionPortType: clickedPortType,
    });
 
    function onPointerMove(event: MouseEvent | TouchEvent) {
       connectionPosition = getEventPosition(event, containerBounds);
+
+      const result = getConnection(event, nodeId, portType, doc);
+
+      console.log(result);
+
       setState({
          connectionPosition: connectionPosition,
       });
