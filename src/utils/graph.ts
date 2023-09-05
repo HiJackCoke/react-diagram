@@ -1,6 +1,6 @@
 import { getOverlappingArea } from 'utils';
 
-import { XYPosition, Rect, Transform } from 'types';
+import { XYPosition, Rect, Transform, Edge, Connection } from 'types';
 import { Node, NodeOrigin, NodeInternals } from 'components/Node/type';
 import { EdgeMarkerType } from 'components/Edges/type';
 
@@ -109,4 +109,29 @@ export const getMarkerId = (
       .sort()
       .map((key: string) => `${key}=${(marker as any)[key]}`)
       .join('&')}`;
+};
+
+const isEdge = (element: Node | Connection | Edge): element is Edge =>
+   'source' in element && 'target' in element;
+
+const getEdgeId = ({ source, target }: Connection): string =>
+   `reactdiagram__edge-${source}-${target}`;
+
+export const addEdge = (
+   edgeParams: Edge | Connection,
+   edges: Edge[],
+): Edge[] => {
+   if (!isEdge(edgeParams))
+      throw Error('Can`t create edge. An edge needs a source and a target.');
+
+   let edge: Edge;
+
+   if (edgeParams.id) edge = { ...edgeParams };
+   else
+      edge = {
+         ...edgeParams,
+         id: getEdgeId(edgeParams),
+      };
+
+   return edges.concat(edge);
 };

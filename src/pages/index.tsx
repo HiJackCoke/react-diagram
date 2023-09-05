@@ -1,10 +1,16 @@
+import { useCallback } from 'react';
+
 import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
 import ReactDiagramProvider from 'components/ReactDiagramProvider';
 
 import ReactDiagram from 'container/ReactDiagram';
 
+import { addEdge } from 'utils/graph';
+
 import { MarkerType } from 'components/Edges/type';
+
+import { Connection } from 'types';
 
 import './style.css';
 
@@ -70,7 +76,7 @@ let idIndex = 5;
 function Index() {
    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
+   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
    const addNode = () => {
       const newNode = {
@@ -83,6 +89,11 @@ function Index() {
 
       idIndex++;
    };
+
+   const onConnect = useCallback(
+      (params: Connection) => setEdges((eds) => addEdge({ ...params }, eds)),
+      [],
+   );
 
    return (
       <>
@@ -100,7 +111,7 @@ function Index() {
                // maxZoom={maxZoom}
                onNodesChange={onNodesChange}
                onEdgesChange={onEdgesChange}
-               onConnect={console.log}
+               onConnect={onConnect}
             />
          </ReactDiagramProvider>
       </>
