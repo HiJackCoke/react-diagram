@@ -22,6 +22,7 @@ export type StoreUpdaterProps = Pick<
    | 'gridStep'
    | 'elevateNodesOnSelect'
    | 'nodesDraggable'
+   | 'onConnect'
 > & {
    rfId: string;
 };
@@ -63,12 +64,10 @@ const StoreUpdater = ({
    gridStep,
    elevateNodesOnSelect,
    nodesDraggable,
+   onConnect,
 }: StoreUpdaterProps) => {
    const { setNodes, setEdges } = useStore(selector, shallow);
    const store = useStoreApi();
-
-   useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
-   useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);
 
    useDirectStoreUpdater('gridStep', gridStep, store.setState);
 
@@ -83,6 +82,9 @@ const StoreUpdater = ({
 
    useDirectStoreUpdater('nodesDraggable', nodesDraggable, store.setState);
 
+   useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
+   useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);
+   useDirectStoreUpdater('onConnect', onConnect, store.setState);
    return null;
 };
 

@@ -10,6 +10,8 @@ import { isMouseEvent } from 'utils';
 
 import { handlePointerDown } from './utils';
 
+import { Connection } from 'types';
+
 import { PortProps } from './type';
 
 import './style.css';
@@ -19,6 +21,17 @@ function Port({ type, position }: PortProps) {
    const nodeId = useNodeId();
 
    if (!nodeId) return null;
+
+   const handleOnConnect = (connection: Connection) => {
+      const { defaultEdgeOptions, onConnect } = store.getState();
+
+      const edgeParams = {
+         ...defaultEdgeOptions,
+         ...connection,
+      };
+
+      onConnect?.(edgeParams);
+   };
 
    const onPointerDown = (
       event: ReactMouseEvent<HTMLDivElement> | ReactTouchEvent<HTMLDivElement>,
@@ -32,6 +45,7 @@ function Port({ type, position }: PortProps) {
             portType: type,
             getState: store.getState,
             setState: store.setState,
+            onConnect: handleOnConnect,
          });
       }
    };

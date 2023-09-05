@@ -7,7 +7,7 @@ import { StoreApi } from 'zustand';
 
 import { getEventPosition } from 'utils';
 
-import { Connection, PortType, ReactDiagramState } from 'types';
+import { Connection, OnConnect, PortType, ReactDiagramState } from 'types';
 
 export type ConnectionPort = {
    id: string | null;
@@ -88,12 +88,14 @@ export function handlePointerDown({
    portType,
    getState,
    setState,
+   onConnect,
 }: {
    event: ReactMouseEvent | ReactTouchEvent;
    nodeId: string;
    portType: PortType;
    getState: StoreApi<ReactDiagramState>['getState'];
    setState: StoreApi<ReactDiagramState>['setState'];
+   onConnect: OnConnect;
 }): void {
    const doc = getHostForElement(event.target as HTMLElement);
    const { domNode } = getState();
@@ -115,9 +117,16 @@ export function handlePointerDown({
    function onPointerMove(event: MouseEvent | TouchEvent) {
       connectionPosition = getEventPosition(event, containerBounds);
 
-      const result = getConnection(event, nodeId, portType, doc);
+      const { isValid, connection } = getConnection(
+         event,
+         nodeId,
+         portType,
+         doc,
+      );
 
-      console.log(result);
+      if (isValid) {
+         onConnect?.(connection);
+      }
 
       setState({
          connectionPosition: connectionPosition,

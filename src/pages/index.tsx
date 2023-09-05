@@ -100,6 +100,7 @@ function Index() {
                // maxZoom={maxZoom}
                onNodesChange={onNodesChange}
                onEdgesChange={onEdgesChange}
+               onConnect={console.log}
             />
          </ReactDiagramProvider>
       </>

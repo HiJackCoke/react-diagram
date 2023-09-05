@@ -11,4 +11,6 @@ export interface Connection {
    target: string | null;
 }
 
+export type OnConnect = (connection: Connection) => void;
+
 export type GridStep = [number, number];

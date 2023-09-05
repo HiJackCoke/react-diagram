@@ -60,6 +60,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          elevateNodesOnSelect,
          onNodesChange,
          onEdgesChange,
+         onConnect,
       },
       ref,
    ) => {
@@ -92,6 +93,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                elevateNodesOnSelect={elevateNodesOnSelect}
                onNodesChange={onNodesChange}
                onEdgesChange={onEdgesChange}
+               onConnect={onConnect}
             />
          </div>
       );
