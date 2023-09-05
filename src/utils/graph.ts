@@ -117,12 +117,19 @@ const isEdge = (element: Node | Connection | Edge): element is Edge =>
 const getEdgeId = ({ source, target }: Connection): string =>
    `reactdiagram__edge-${source}-${target}`;
 
+const isExistsConnection = (edge: Edge, edges: Edge[]) =>
+   edges.some((el) => el.source === edge.source && el.target === edge.target);
+
 export const addEdge = (
    edgeParams: Edge | Connection,
    edges: Edge[],
 ): Edge[] => {
    if (!isEdge(edgeParams))
       throw Error('Can`t create edge. An edge needs a source and a target.');
+
+   if (isExistsConnection(edgeParams, edges)) {
+      return edges;
+   }
 
    let edge: Edge;
 
