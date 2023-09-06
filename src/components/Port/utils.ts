@@ -135,6 +135,10 @@ export function handlePointerDown({
       if (isValid && connection) onConnect?.(connection);
 
       cancelConnection();
+
+      isValid = false;
+      connection = null;
+
       doc.removeEventListener('mousemove', onPointerMove as EventListener);
       doc.removeEventListener('mouseup', onPointerUp as EventListener);
    }
