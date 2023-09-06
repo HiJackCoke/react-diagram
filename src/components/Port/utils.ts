@@ -107,6 +107,8 @@ export function handlePointerDown({
    const clickedPortType = getPortType(clickedPort);
 
    let connectionPosition = getEventPosition(event, containerBounds);
+   let isValid = false;
+   let connection: Connection | null = null;
 
    setState({
       connectionPosition,
@@ -117,15 +119,11 @@ export function handlePointerDown({
    function onPointerMove(event: MouseEvent | TouchEvent) {
       connectionPosition = getEventPosition(event, containerBounds);
 
-      const { isValid, connection } = getConnection(
-         event,
-         nodeId,
-         portType,
-         doc,
-      );
+      const result = getConnection(event, nodeId, portType, doc);
 
-      if (isValid) {
-         onConnect?.(connection);
+      if (result.isValid) {
+         isValid = result.isValid;
+         connection = result.connection;
       }
 
       setState({
@@ -134,6 +132,8 @@ export function handlePointerDown({
    }
 
    function onPointerUp() {
+      if (isValid && connection) onConnect?.(connection);
+
       doc.removeEventListener('mousemove', onPointerMove as EventListener);
       doc.removeEventListener('mouseup', onPointerUp as EventListener);
    }
