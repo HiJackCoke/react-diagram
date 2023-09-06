@@ -205,6 +205,12 @@ const createRFStore = () =>
             set,
          });
       },
+
+      cancelConnection: () =>
+         set({
+            connectionNodeId: initialState.connectionNodeId,
+            connectionPortType: initialState.connectionPortType,
+         }),
    }));
 
 export { createRFStore };

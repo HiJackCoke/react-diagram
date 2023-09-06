@@ -80,6 +80,8 @@ export type ReactDiagramActions = {
       dragging: boolean,
    ) => void;
    triggerNodeChanges: (changes: NodeChange[]) => void;
+
+   cancelConnection: () => void;
 };
 
 export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;

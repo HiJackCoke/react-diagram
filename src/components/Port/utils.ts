@@ -98,7 +98,7 @@ export function handlePointerDown({
    onConnect: OnConnect;
 }): void {
    const doc = getHostForElement(event.target as HTMLElement);
-   const { domNode } = getState();
+   const { domNode, cancelConnection } = getState();
 
    const containerBounds = domNode?.getBoundingClientRect();
 
@@ -134,6 +134,7 @@ export function handlePointerDown({
    function onPointerUp() {
       if (isValid && connection) onConnect?.(connection);
 
+      cancelConnection();
       doc.removeEventListener('mousemove', onPointerMove as EventListener);
       doc.removeEventListener('mouseup', onPointerUp as EventListener);
    }
