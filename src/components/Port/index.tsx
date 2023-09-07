@@ -56,6 +56,7 @@ function Port({ type, position }: PortProps) {
          data-port-position={position}
          className={`react-diagram__port react-diagram__port-${position} ${type} nodrag`}
          onMouseDown={onPointerDown}
+         onTouchStart={onPointerDown}
       />
    );
 }

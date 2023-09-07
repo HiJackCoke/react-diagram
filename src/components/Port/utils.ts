@@ -141,8 +141,14 @@ export function handlePointerDown({
 
       doc.removeEventListener('mousemove', onPointerMove as EventListener);
       doc.removeEventListener('mouseup', onPointerUp as EventListener);
+
+      doc.removeEventListener('touchmove', onPointerMove as EventListener);
+      doc.removeEventListener('touchend', onPointerUp as EventListener);
    }
 
    doc.addEventListener('mousemove', onPointerMove as EventListener);
    doc.addEventListener('mouseup', onPointerUp as EventListener);
+
+   doc.addEventListener('touchmove', onPointerMove as EventListener);
+   doc.addEventListener('touchend', onPointerUp as EventListener);
 }
