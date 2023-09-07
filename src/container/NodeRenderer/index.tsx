@@ -89,7 +89,7 @@ function NodeRenderer({
    );
 
    return (
-      <div className="react-diagram__nodes">
+      <div className="react-diagram__nodes react-diagram__container">
          {nodes.map((node) => {
             const {
                data,

@@ -5,6 +5,8 @@ import EdgeRenderer from 'container/EdgeRenderer';
 import { ReactDiagramProps, NodeTypesWrapped, EdgeTypesWrapped } from 'types';
 import ConnectionLineWrapper from 'components/ConnectionEdge';
 
+import '../style.css';
+
 export type ReactDiagramCommonProps = Omit<
    ReactDiagramProps,
    'nodes' | 'edges' | 'nodeTypes' | 'edgeTypes'

@@ -14,7 +14,6 @@ import { clamp } from 'utils';
 import { ReactDiagramProps, CoordinateExtent } from 'types';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
-import { containerStyle } from 'container/style';
 import './style.css';
 
 export type ZoomPaneProps = Required<
@@ -150,9 +149,8 @@ const ZoomPane = ({
 
    return (
       <div
-         className="react-diagram__zoompane"
+         className="react-diagram__zoompane react-diagram__container"
          ref={zoomPane}
-         style={containerStyle}
          onClick={onClick}
       >
          {children}
