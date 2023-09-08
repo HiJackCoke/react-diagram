@@ -5,12 +5,19 @@ import {
 
 import { StoreApi } from 'zustand';
 
-import { getEventPosition } from 'utils';
+import { getEventPosition, internalsSymbol } from 'utils';
 
-import { Connection, OnConnect, PortType, ReactDiagramState } from 'types';
+import {
+   Connection,
+   Node,
+   NodePortBounds,
+   OnConnect,
+   PortType,
+   ReactDiagramState,
+} from 'types';
 
 export type ConnectionPort = {
-   id: string | null;
+   // id: string | null;
    type: PortType;
    nodeId: string;
    x: number;
@@ -27,10 +34,10 @@ export const getHostForElement = (
 ): Document | ShadowRoot =>
    (element.getRootNode?.() as Document | ShadowRoot) || window?.document;
 
-const getPortType = (handleDomNode: Element | null): PortType | null => {
-   if (handleDomNode?.classList.contains('target')) {
+const getPortType = (PortDomNode: Element | null): PortType | null => {
+   if (PortDomNode?.classList.contains('target')) {
       return 'target';
-   } else if (handleDomNode?.classList.contains('source')) {
+   } else if (PortDomNode?.classList.contains('source')) {
       return 'source';
    }
 
@@ -82,7 +89,25 @@ const getConnection = (
    return result;
 };
 
-export function handlePointerDown({
+const getPorts = (
+   node: Node,
+   portBounds: NodePortBounds,
+   type: PortType,
+   currentPort: string,
+): ConnectionPort[] =>
+   (portBounds[type] || []).reduce<ConnectionPort[]>((res, h) => {
+      if (`${node.id}-${type}` !== currentPort) {
+         res.push({
+            type,
+            nodeId: node.id,
+            x: (node.positionAbsolute?.x ?? 0) + h.x + h.width / 2,
+            y: (node.positionAbsolute?.y ?? 0) + h.y + h.height / 2,
+         });
+      }
+      return res;
+   }, []);
+
+export const handlePointerDown = ({
    event,
    nodeId,
    portType,
@@ -96,9 +121,9 @@ export function handlePointerDown({
    getState: StoreApi<ReactDiagramState>['getState'];
    setState: StoreApi<ReactDiagramState>['setState'];
    onConnect: OnConnect;
-}): void {
+}): void => {
    const doc = getHostForElement(event.target as HTMLElement);
-   const { domNode, cancelConnection } = getState();
+   const { getNodes, domNode, cancelConnection } = getState();
 
    const containerBounds = domNode?.getBoundingClientRect();
 
@@ -115,6 +140,34 @@ export function handlePointerDown({
       connectionNodeId: nodeId,
       connectionPortType: clickedPortType,
    });
+
+   const allPort = getNodes().map((node) => {
+      if (node[internalsSymbol]) {
+         const { portBounds } = node[internalsSymbol];
+
+         if (portBounds) {
+            const sourceHandle = getPorts(
+               node,
+               portBounds,
+               'source',
+               `${nodeId}-${portType}`,
+            );
+            const targetHandle = getPorts(
+               node,
+               portBounds,
+               'target',
+               `${nodeId}-${portType}`,
+            );
+
+            return {
+               sourceHandle,
+               targetHandle,
+            };
+         }
+      }
+   });
+
+   console.log(allPort);
 
    function onPointerMove(event: MouseEvent | TouchEvent) {
       connectionPosition = getEventPosition(event, containerBounds);
@@ -151,4 +204,4 @@ export function handlePointerDown({
 
    doc.addEventListener('touchmove', onPointerMove as EventListener);
    doc.addEventListener('touchend', onPointerUp as EventListener);
-}
+};
