@@ -53,6 +53,7 @@ function Port({ type, position }: PortProps) {
    return (
       <div
          data-nodeid={nodeId}
+         data-id={`${nodeId}-${type}`}
          data-port-position={position}
          className={`react-diagram__port react-diagram__port-${position} ${type} nodrag`}
          onMouseDown={onPointerDown}

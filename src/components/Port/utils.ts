@@ -53,6 +53,7 @@ const getPortType = (PortDomNode: Element | null): PortType | null => {
 
 const getConnection = (
    event: MouseEvent | TouchEvent | ReactMouseEvent | ReactTouchEvent,
+   port: Pick<ConnectionPort, 'nodeId' | 'type'> | null,
    fromNodeId: string,
    fromType: PortType,
    doc: Document | ShadowRoot,
@@ -69,11 +70,15 @@ const getConnection = (
 
    if (isTarget) return result;
 
+   const PortDomNode = doc.querySelector(
+      `.react-diagram__port[data-id="${port?.nodeId}-${port?.type}"]`,
+   );
+
    const { x, y } = getEventPosition(event);
    const ElementFromPoint = doc.elementFromPoint(x, y);
    const Port = ElementFromPoint?.classList.contains('react-diagram__port')
       ? ElementFromPoint
-      : null;
+      : PortDomNode;
 
    if (Port) {
       const portType = getPortType(Port);
@@ -207,8 +212,7 @@ export const handlePointerDown = ({
 
       closestPort = getClosestPort(connectionPosition, 10, allPort);
 
-      console.log(closestPort);
-      const result = getConnection(event, nodeId, portType, doc);
+      const result = getConnection(event, closestPort, nodeId, portType, doc);
 
       if (result.isValid) {
          isValid = result.isValid;
