@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type {
    MouseEvent as ReactMouseEvent,
    TouchEvent as ReactTouchEvent,
@@ -62,4 +63,6 @@ function Port({ type, position }: PortProps) {
    );
 }
 
-export default Port;
+Port.displayName = 'Port';
+
+export default memo(Port);
