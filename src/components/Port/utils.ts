@@ -29,6 +29,12 @@ type getConnectionResult = {
    connection: Connection;
 };
 
+type GetAllPortParams = {
+   nodes: Node[];
+   nodeId: string;
+   portType: string;
+};
+
 export const getHostForElement = (
    element: HTMLElement,
 ): Document | ShadowRoot =>
@@ -107,6 +113,33 @@ const getPorts = (
       return res;
    }, []);
 
+const getAllPort = ({ nodes, nodeId, portType }: GetAllPortParams) =>
+   nodes.reduce<ConnectionPort[]>((res, node) => {
+      if (node[internalsSymbol]) {
+         const { portBounds } = node[internalsSymbol];
+         let sourcePorts: ConnectionPort[] = [];
+         let targetPorts: ConnectionPort[] = [];
+
+         if (portBounds) {
+            sourcePorts = getPorts(
+               node,
+               portBounds,
+               'source',
+               `${nodeId}-${portType}`,
+            );
+            targetPorts = getPorts(
+               node,
+               portBounds,
+               'target',
+               `${nodeId}-${portType}`,
+            );
+         }
+
+         res.push(...sourcePorts, ...targetPorts);
+      }
+      return res;
+   }, []);
+
 export const handlePointerDown = ({
    event,
    nodeId,
@@ -141,35 +174,7 @@ export const handlePointerDown = ({
       connectionPortType: clickedPortType,
    });
 
-   const allPort = getNodes().map((node) => {
-      if (node[internalsSymbol]) {
-         const { portBounds } = node[internalsSymbol];
-
-         if (portBounds) {
-            const sourceHandle = getPorts(
-               node,
-               portBounds,
-               'source',
-               `${nodeId}-${portType}`,
-            );
-            const targetHandle = getPorts(
-               node,
-               portBounds,
-               'target',
-               `${nodeId}-${portType}`,
-            );
-
-            return {
-               sourceHandle,
-               targetHandle,
-            };
-         }
-      }
-   });
-
-   console.log(allPort);
-
-   function onPointerMove(event: MouseEvent | TouchEvent) {
+   const onPointerMove = (event: MouseEvent | TouchEvent) => {
       connectionPosition = getEventPosition(event, containerBounds);
 
       const result = getConnection(event, nodeId, portType, doc);
@@ -182,9 +187,17 @@ export const handlePointerDown = ({
       setState({
          connectionPosition: connectionPosition,
       });
-   }
+   };
 
-   function onPointerUp() {
+   const allPort = getAllPort({
+      nodes: getNodes(),
+      nodeId,
+      portType,
+   });
+
+   console.log(allPort);
+
+   const onPointerUp = () => {
       if (isValid && connection) onConnect?.(connection);
 
       cancelConnection();
@@ -197,7 +210,7 @@ export const handlePointerDown = ({
 
       doc.removeEventListener('touchmove', onPointerMove as EventListener);
       doc.removeEventListener('touchend', onPointerUp as EventListener);
-   }
+   };
 
    doc.addEventListener('mousemove', onPointerMove as EventListener);
    doc.addEventListener('mouseup', onPointerUp as EventListener);
