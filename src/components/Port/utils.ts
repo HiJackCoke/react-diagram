@@ -14,6 +14,7 @@ import {
    OnConnect,
    PortType,
    ReactDiagramState,
+   XYPosition,
 } from 'types';
 
 export type ConnectionPort = {
@@ -140,6 +141,27 @@ const getAllPort = ({ nodes, nodeId, portType }: GetAllPortParams) =>
       return res;
    }, []);
 
+const getClosestPort = (
+   pos: XYPosition,
+   connectionRadius: number,
+   ports: ConnectionPort[],
+): ConnectionPort | null => {
+   let closestPort: ConnectionPort | null = null;
+   let minDistance = Infinity;
+
+   ports.forEach((port) => {
+      const distance = Math.sqrt(
+         Math.pow(port.x - pos.x, 2) + Math.pow(port.y - pos.y, 2),
+      );
+      if (distance <= connectionRadius && distance < minDistance) {
+         minDistance = distance;
+         closestPort = port;
+      }
+   });
+
+   return closestPort;
+};
+
 export const handlePointerDown = ({
    event,
    nodeId,
@@ -163,8 +185,14 @@ export const handlePointerDown = ({
    const { x, y } = getEventPosition(event);
    const clickedPort = doc?.elementFromPoint(x, y);
    const clickedPortType = getPortType(clickedPort);
+   const allPort = getAllPort({
+      nodes: getNodes(),
+      nodeId,
+      portType,
+   });
 
    let connectionPosition = getEventPosition(event, containerBounds);
+   let closestPort: ConnectionPort | null = null;
    let isValid = false;
    let connection: Connection | null = null;
 
@@ -177,6 +205,9 @@ export const handlePointerDown = ({
    const onPointerMove = (event: MouseEvent | TouchEvent) => {
       connectionPosition = getEventPosition(event, containerBounds);
 
+      closestPort = getClosestPort(connectionPosition, 10, allPort);
+
+      console.log(closestPort);
       const result = getConnection(event, nodeId, portType, doc);
 
       if (result.isValid) {
@@ -188,14 +219,6 @@ export const handlePointerDown = ({
          connectionPosition: connectionPosition,
       });
    };
-
-   const allPort = getAllPort({
-      nodes: getNodes(),
-      nodeId,
-      portType,
-   });
-
-   console.log(allPort);
 
    const onPointerUp = () => {
       if (isValid && connection) onConnect?.(connection);
