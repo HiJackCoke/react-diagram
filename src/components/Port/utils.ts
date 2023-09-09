@@ -210,7 +210,7 @@ export const handlePointerDown = ({
    const onPointerMove = (event: MouseEvent | TouchEvent) => {
       connectionPosition = getEventPosition(event, containerBounds);
 
-      closestPort = getClosestPort(connectionPosition, 10, allPort);
+      closestPort = getClosestPort(connectionPosition, 20, allPort);
 
       const result = getConnection(event, closestPort, nodeId, portType, doc);
 
@@ -219,9 +219,19 @@ export const handlePointerDown = ({
          connection = result.connection;
       }
 
-      setState({
-         connectionPosition: connectionPosition,
-      });
+      if (closestPort && isValid) {
+         const { x, y } = closestPort;
+         setState({
+            connectionPosition: {
+               x,
+               y,
+            },
+         });
+      } else {
+         setState({
+            connectionPosition,
+         });
+      }
    };
 
    const onPointerUp = () => {
