@@ -63,6 +63,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onNodesChange,
          onEdgesChange,
          onConnect,
+         onConnectStart,
          onConnectEnd,
       },
       ref,
@@ -97,6 +98,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                onNodesChange={onNodesChange}
                onEdgesChange={onEdgesChange}
                onConnect={onConnect}
+               onConnectStart={onConnectStart}
                onConnectEnd={onConnectEnd}
             />
          </div>

@@ -184,7 +184,8 @@ export const handlePointerDown = ({
 }): void => {
    const doc = getHostForElement(event.target as HTMLElement);
 
-   const { getNodes, domNode, cancelConnection, onConnectEnd } = getState();
+   const { getNodes, domNode, cancelConnection, onConnectStart, onConnectEnd } =
+      getState();
 
    const containerBounds = domNode?.getBoundingClientRect();
 
@@ -207,6 +208,8 @@ export const handlePointerDown = ({
       connectionNodeId: nodeId,
       connectionPortType: clickedPortType,
    });
+
+   onConnectStart?.(event, { nodeId, portType });
 
    const onPointerMove = (event: MouseEvent | TouchEvent) => {
       connectionPosition = getEventPosition(event, containerBounds);

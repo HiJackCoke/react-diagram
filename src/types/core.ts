@@ -14,6 +14,7 @@ import {
    OnNodesChange,
    OnEdgesChange,
    OnConnect,
+   OnConnectStart,
    OnConnectEnd,
 } from '.';
 
@@ -45,6 +46,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    onEdgesChange?: OnEdgesChange;
    onConnect?: OnConnect;
+   onConnectStart?: OnConnectStart;
    onConnectEnd?: OnConnectEnd;
 
    minZoom?: number;
