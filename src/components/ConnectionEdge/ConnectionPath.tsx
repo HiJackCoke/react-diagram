@@ -5,6 +5,7 @@ import { useStore } from 'hooks/useStore';
 
 import { internalsSymbol } from 'utils';
 import { ReactDiagramStore, Position, PortType } from 'types';
+import { getStepPath } from 'components/Edges/StepEdge';
 
 type ConnectionPathProps = {
    style?: CSSProperties;
@@ -60,7 +61,24 @@ function ConnectionPath({ style, nodeId, portType }: ConnectionPathProps) {
       return null;
    }
 
-   const dAttr = `M${fromX},${fromY} ${toX},${toY}`;
+   // // straight edge
+   // const dAttr = `M${fromX},${fromY} ${toX},${toY}`;
+
+   let dAttr = '';
+
+   const pathParams = {
+      sourceX: fromX,
+      sourceY: fromY,
+      sourcePosition: fromPosition,
+      targetX: toX,
+      targetY: toY,
+      targetPosition: toPosition,
+   };
+
+   [dAttr] = getStepPath({
+      ...pathParams,
+      borderRadius: 0,
+   });
 
    return (
       <path
