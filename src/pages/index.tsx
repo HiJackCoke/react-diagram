@@ -112,6 +112,7 @@ function Index() {
                onNodesChange={onNodesChange}
                onEdgesChange={onEdgesChange}
                onConnect={onConnect}
+               onConnectEnd={console.log}
             />
          </ReactDiagramProvider>
       </>

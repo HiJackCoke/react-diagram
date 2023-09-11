@@ -23,6 +23,7 @@ export type StoreUpdaterProps = Pick<
    | 'elevateNodesOnSelect'
    | 'nodesDraggable'
    | 'onConnect'
+   | 'onConnectEnd'
 > & {
    rfId: string;
 };
@@ -65,6 +66,7 @@ const StoreUpdater = ({
    elevateNodesOnSelect,
    nodesDraggable,
    onConnect,
+   onConnectEnd,
 }: StoreUpdaterProps) => {
    const { setNodes, setEdges } = useStore(selector, shallow);
    const store = useStoreApi();
@@ -85,6 +87,8 @@ const StoreUpdater = ({
    useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
    useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);
    useDirectStoreUpdater('onConnect', onConnect, store.setState);
+   useDirectStoreUpdater('onConnectEnd', onConnectEnd, store.setState);
+
    return null;
 };
 

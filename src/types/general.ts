@@ -12,5 +12,6 @@ export interface Connection {
 }
 
 export type OnConnect = (connection: Connection) => void;
+export type OnConnectEnd = (event: MouseEvent | TouchEvent) => void;
 
 export type GridStep = [number, number];

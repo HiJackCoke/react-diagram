@@ -8,6 +8,7 @@ import {
    XYPosition,
    PortType,
    OnConnect,
+   OnConnectEnd,
 } from 'types';
 
 import {
@@ -62,6 +63,7 @@ export type ReactDiagramStore = {
    connectionPortType: PortType | null;
 
    onConnect?: OnConnect;
+   onConnectEnd?: OnConnectEnd;
 };
 
 export type ReactDiagramActions = {
