@@ -1,4 +1,4 @@
-import { ZoomBehavior } from 'd3';
+import { ZoomBehavior, Selection as D3Selection } from 'd3';
 
 import {
    Transform,
@@ -51,6 +51,7 @@ export type ReactDiagramStore = {
    elementsSelectable: boolean;
 
    d3Zoom: ZoomBehavior<Element, unknown> | null;
+   d3Selection: D3Selection<Element, unknown, null, undefined> | null;
 
    onError?: OnError;
 

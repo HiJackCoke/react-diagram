@@ -85,6 +85,7 @@ function ZoomPane({
 
          store.setState({
             d3Zoom: d3ZoomInstance,
+            d3Selection: selection,
 
             // we need to pass transform because zoom handler is not registered when we set the initial transform
             transform: [
