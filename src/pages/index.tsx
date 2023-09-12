@@ -2,8 +2,6 @@ import { useCallback } from 'react';
 
 import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
-import ReactDiagramProvider from 'components/ReactDiagramProvider';
-
 import ReactDiagram from 'container/ReactDiagram';
 
 import { addEdge } from 'utils/graph';
@@ -103,20 +101,19 @@ function Index() {
          >
             Add Node
          </button>
-         <ReactDiagramProvider>
-            <ReactDiagram
-               nodes={nodes}
-               edges={edges}
-               // panning={false}
-               // minZoom={minZoom}
-               // maxZoom={maxZoom}
-               onNodesChange={onNodesChange}
-               onEdgesChange={onEdgesChange}
-               onConnect={onConnect}
-               onConnectStart={console.log}
-               onConnectEnd={console.log}
-            />
-         </ReactDiagramProvider>
+
+         <ReactDiagram
+            nodes={nodes}
+            edges={edges}
+            // panning={false}
+            // minZoom={minZoom}
+            // maxZoom={maxZoom}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onConnectStart={console.log}
+            onConnectEnd={console.log}
+         />
       </>
    );
 }

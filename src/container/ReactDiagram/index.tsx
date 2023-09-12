@@ -13,6 +13,8 @@ import StepEdge from 'components/Edges/StepEdge';
 import { createNodeTypes } from 'container/NodeRenderer/utils';
 import { createEdgeTypes } from 'container/EdgeRenderer/utils';
 
+import Wrapper from './Wrapper';
+
 import {
    ReactDiagramRefType,
    ReactDiagramProps,
@@ -75,34 +77,36 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
 
       return (
          <div ref={ref} className="react-diagram">
-            <DiagramView
-               rfId={rfId}
-               panning={panning}
-               minZoom={minZoom}
-               maxZoom={maxZoom}
-               translateExtent={translateExtent}
-               defaultViewport={defaultViewport}
-               onlyRenderVisibleElements={onlyRenderVisibleElements}
-               disableKeyboardA11y={disableKeyboardA11y}
-               noDragClassName={noDragClassName}
-               noPanClassName={noPanClassName}
-               nodeOrigin={nodeOrigin}
-               nodeTypes={nodeTypesWrapped}
-               edgeTypes={edgeTypesWrapped}
-               onNodeClick={onNodeClick}
-            />
-            <StoreUpdater
-               rfId={rfId}
-               nodes={nodes}
-               edges={edges}
-               nodesDraggable={nodesDraggable}
-               elevateNodesOnSelect={elevateNodesOnSelect}
-               onNodesChange={onNodesChange}
-               onEdgesChange={onEdgesChange}
-               onConnect={onConnect}
-               onConnectStart={onConnectStart}
-               onConnectEnd={onConnectEnd}
-            />
+            <Wrapper>
+               <DiagramView
+                  rfId={rfId}
+                  panning={panning}
+                  minZoom={minZoom}
+                  maxZoom={maxZoom}
+                  translateExtent={translateExtent}
+                  defaultViewport={defaultViewport}
+                  onlyRenderVisibleElements={onlyRenderVisibleElements}
+                  disableKeyboardA11y={disableKeyboardA11y}
+                  noDragClassName={noDragClassName}
+                  noPanClassName={noPanClassName}
+                  nodeOrigin={nodeOrigin}
+                  nodeTypes={nodeTypesWrapped}
+                  edgeTypes={edgeTypesWrapped}
+                  onNodeClick={onNodeClick}
+               />
+               <StoreUpdater
+                  rfId={rfId}
+                  nodes={nodes}
+                  edges={edges}
+                  nodesDraggable={nodesDraggable}
+                  elevateNodesOnSelect={elevateNodesOnSelect}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
+                  onConnect={onConnect}
+                  onConnectStart={onConnectStart}
+                  onConnectEnd={onConnectEnd}
+               />
+            </Wrapper>
          </div>
       );
    },
