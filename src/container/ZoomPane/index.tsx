@@ -32,6 +32,7 @@ export type ZoomPaneProps = Required<
 
 const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,
+   d3Selection: s.d3Selection,
 });
 
 const isWrappedWithClass = (event: any, className: string | undefined) =>
@@ -51,7 +52,7 @@ function ZoomPane({
 
    const zoomPane = useRef<HTMLDivElement>(null);
 
-   const { d3Zoom } = useStore(selector, shallow);
+   const { d3Zoom, d3Selection } = useStore(selector, shallow);
 
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === zoomPane.current) {
@@ -99,6 +100,14 @@ function ZoomPane({
          });
       }
    }, []);
+
+   useEffect(() => {
+      if (d3Zoom && d3Selection) {
+         d3Selection.on('wheel.zoom', (event) => {
+            event.preventDefault();
+         });
+      }
+   }, [d3Zoom, d3Selection, panning]);
 
    useEffect(() => {
       if (d3Zoom) {
