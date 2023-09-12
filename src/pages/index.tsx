@@ -15,7 +15,8 @@ import './style.css';
 const initialNodes = [
    {
       id: '1',
-
+      width: 50,
+      height: 100,
       data: { label: 'Node1' },
       position: { x: 100, y: 100 },
    },

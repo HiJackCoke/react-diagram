@@ -126,7 +126,11 @@ function NodeRenderer({
                key: id,
                id,
                className,
-               style,
+               style: {
+                  ...style,
+                  width: node.width,
+                  height: node.height,
+               },
                ariaLabel,
             };
 
