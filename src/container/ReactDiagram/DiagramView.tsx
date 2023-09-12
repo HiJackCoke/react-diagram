@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import DiagramRenderer from 'container/DiagramRenderer';
 import NodeRenderer from 'container/NodeRenderer';
 import EdgeRenderer from 'container/EdgeRenderer';
@@ -82,4 +84,6 @@ function DiagramView({
    );
 }
 
-export default DiagramView;
+DiagramView.displayName = 'DiagramView';
+
+export default memo(DiagramView);
