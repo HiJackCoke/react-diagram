@@ -40,6 +40,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
       {
          id,
          // DiagramView props
+         panning = true,
          minZoom = 0.5,
          maxZoom = 2,
          translateExtent = infiniteExtent,
@@ -76,6 +77,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          <div ref={ref} className="react-diagram">
             <DiagramView
                rfId={rfId}
+               panning={panning}
                minZoom={minZoom}
                maxZoom={maxZoom}
                translateExtent={translateExtent}

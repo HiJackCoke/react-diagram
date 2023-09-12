@@ -57,6 +57,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    nodesDraggable?: boolean;
    noDragClassName?: string;
    noPanClassName?: string;
+   panning?: boolean;
 };
 
 export type ReactDiagramRefType = HTMLDivElement;

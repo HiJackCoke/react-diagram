@@ -20,6 +20,7 @@ export type ZoomPaneProps = Required<
    Pick<
       ReactDiagramProps,
       | 'noPanClassName'
+      | 'panning'
       | 'minZoom'
       | 'maxZoom'
       | 'defaultViewport'
@@ -36,14 +37,15 @@ const selector = (s: ReactDiagramState) => ({
 const isWrappedWithClass = (event: any, className: string | undefined) =>
    event.target.closest(`.${className}`);
 
-const ZoomPane = ({
+function ZoomPane({
    noPanClassName,
+   panning,
    minZoom,
    maxZoom,
    defaultViewport,
    translateExtent,
    children,
-}: ZoomPaneProps) => {
+}: ZoomPaneProps) {
    const store = useStoreApi();
    const isZoomingOrPanning = useRef(false);
 
@@ -142,10 +144,12 @@ const ZoomPane = ({
                return false;
             }
 
+            if (!panning) return false;
+
             return true;
          });
       }
-   }, [d3Zoom]);
+   }, [d3Zoom, panning]);
 
    return (
       <div
@@ -156,6 +160,6 @@ const ZoomPane = ({
          {children}
       </div>
    );
-};
+}
 
 export default ZoomPane;

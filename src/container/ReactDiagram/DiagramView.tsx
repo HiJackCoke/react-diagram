@@ -16,6 +16,7 @@ export type DiagramViewProps = ReactDiagramCommonProps &
    Required<
       Pick<
          ReactDiagramProps,
+         | 'panning'
          | 'minZoom'
          | 'maxZoom'
          | 'translateExtent'
@@ -36,6 +37,8 @@ function DiagramView({
    rfId,
 
    // DiagramRenderer props
+   noPanClassName,
+   panning,
    minZoom,
    maxZoom,
    translateExtent,
@@ -45,7 +48,6 @@ function DiagramView({
    onlyRenderVisibleElements,
    disableKeyboardA11y,
    noDragClassName,
-   noPanClassName,
    nodeOrigin,
    nodeTypes,
    onNodeClick,
@@ -56,6 +58,7 @@ function DiagramView({
    return (
       <DiagramRenderer
          noPanClassName={noPanClassName}
+         panning={panning}
          minZoom={minZoom}
          maxZoom={maxZoom}
          translateExtent={translateExtent}

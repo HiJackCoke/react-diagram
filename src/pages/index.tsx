@@ -107,6 +107,7 @@ function Index() {
             <ReactDiagram
                nodes={nodes}
                edges={edges}
+               panning={false}
                // minZoom={minZoom}
                // maxZoom={maxZoom}
                onNodesChange={onNodesChange}

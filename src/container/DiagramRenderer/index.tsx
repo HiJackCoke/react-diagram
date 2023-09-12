@@ -15,16 +15,18 @@ function DiagramRenderer({
    children,
 
    noPanClassName,
-   defaultViewport,
-   translateExtent,
+   panning,
    minZoom,
    maxZoom,
+   translateExtent,
+   defaultViewport,
 }: DiagramRendererProps) {
    useGlobalKeyHandler();
 
    return (
       <ZoomPane
          noPanClassName={noPanClassName}
+         panning={panning}
          minZoom={minZoom}
          maxZoom={maxZoom}
          translateExtent={translateExtent}
