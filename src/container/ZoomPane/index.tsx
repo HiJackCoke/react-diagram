@@ -51,6 +51,8 @@ function ZoomPane({
    const isZoomingOrPanning = useRef(false);
 
    const zoomPane = useRef<HTMLDivElement>(null);
+   const d3ZoomHandler =
+      useRef<(this: Element, event: any, d: unknown) => void | undefined>();
 
    const { d3Zoom, d3Selection } = useStore(selector, shallow);
 
@@ -84,6 +86,7 @@ function ZoomPane({
          );
          d3ZoomInstance.transform(selection, constrainedTransform);
 
+         d3ZoomHandler.current = selection.on('wheel.zoom');
          store.setState({
             d3Zoom: d3ZoomInstance,
             d3Selection: selection,
@@ -105,9 +108,13 @@ function ZoomPane({
       if (d3Zoom && d3Selection) {
          d3Selection.on('wheel.zoom', (event) => {
             event.preventDefault();
+
+            if (d3ZoomHandler.current) {
+               d3ZoomHandler.current.call(zoomPane.current, event);
+            }
          });
       }
-   }, [d3Zoom, d3Selection, panning]);
+   }, [d3Zoom, d3Selection, d3ZoomHandler, panning]);
 
    useEffect(() => {
       if (d3Zoom) {
