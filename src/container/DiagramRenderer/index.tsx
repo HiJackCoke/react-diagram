@@ -5,7 +5,11 @@ import useGlobalKeyHandler from 'hooks/useGlobalKeyHandler';
 import ZoomPane from 'container/ZoomPane';
 import Viewport from 'container/Viewport';
 
-import { DiagramRendererProps } from './type';
+import { ZoomPaneProps } from 'container/ZoomPane';
+
+type RequiredProps = ZoomPaneProps;
+
+export type DiagramRendererProps = RequiredProps;
 
 function DiagramRenderer({
    children,
