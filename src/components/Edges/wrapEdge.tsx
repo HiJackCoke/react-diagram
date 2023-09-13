@@ -7,6 +7,7 @@ import { ARIA_EDGE_DESC_KEY } from '../A11yDescriptions';
 import { getMarkerId } from 'utils/graph';
 
 import { EdgeProps, WrapEdgeProps } from './type';
+import Anchor from './Anchor';
 
 const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
    const EdgeWrapper = ({
@@ -126,6 +127,28 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                data={data}
                style={style}
                selected={selected}
+            />
+
+            <Anchor
+               position={sourcePosition}
+               centerX={sourceX}
+               centerY={sourceY}
+               radius={10}
+               onMouseDown={console.log}
+               onMouseEnter={console.log}
+               onMouseOut={console.log}
+               type="source"
+            />
+
+            <Anchor
+               position={targetPosition}
+               centerX={targetX}
+               centerY={targetY}
+               radius={10}
+               onMouseDown={console.log}
+               onMouseEnter={console.log}
+               onMouseOut={console.log}
+               type="target"
             />
          </g>
       );

@@ -1,8 +1,18 @@
+.react-diagram__edge {
+   pointer-events: visibleStroke;
+   cursor: pointer;
+}
+
 .react-diagram__edge-path,
 .react-diagram__connection-path {
    stroke: #b1b1b7;
    stroke-width: 1;
    fill: none;
+}
+
+.react-diagram__edgeupdater {
+   cursor: move;
+   pointer-events: all;
 }
 
 .react-diagram__edge-text-bg {

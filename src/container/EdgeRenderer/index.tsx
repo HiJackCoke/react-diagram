@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import type { ReactNode } from 'react';
 import { shallow } from 'zustand/shallow';
+import cc from 'classcat';
 
 import { useStore } from 'hooks/useStore';
 
@@ -10,17 +11,20 @@ import { getEdgePositions, getPort, getNodeData } from './utils';
 
 import { Edge } from 'components/Edges/type';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
-import { Position } from 'types';
+import { Position, ReactDiagramProps } from 'types';
 import { EdgeTypesWrapped } from './type';
 
 import './style.css';
 
 type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'>;
 
-type EdgeRendererProps = GraphViewEdgeProps & {
-   edgeTypes: EdgeTypesWrapped;
-   children: ReactNode;
-};
+type RequiredProps = Required<Pick<ReactDiagramProps, 'noPanClassName'>>;
+
+type EdgeRendererProps = GraphViewEdgeProps &
+   RequiredProps & {
+      edgeTypes: EdgeTypesWrapped;
+      children: ReactNode;
+   };
 
 const selector = (s: ReactDiagramState) => ({
    edges: s.edges,
@@ -30,7 +34,12 @@ const selector = (s: ReactDiagramState) => ({
    onError: s.onError,
 });
 
-function EdgeRenderer({ rfId, edgeTypes, children }: EdgeRendererProps) {
+function EdgeRenderer({
+   rfId,
+   edgeTypes,
+   children,
+   noPanClassName,
+}: EdgeRendererProps) {
    const { edges, width, height, nodeInternals } = useStore(selector, shallow);
 
    return (
@@ -103,7 +112,7 @@ function EdgeRenderer({ rfId, edgeTypes, children }: EdgeRendererProps) {
                   const elProps = {
                      key: id,
                      id,
-                     className,
+                     className: cc([className, noPanClassName]),
                      style,
                      ariaLabel,
                   };

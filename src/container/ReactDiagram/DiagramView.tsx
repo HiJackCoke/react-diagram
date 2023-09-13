@@ -76,7 +76,11 @@ function DiagramView({
             noDragClassName={noDragClassName}
             noPanClassName={noPanClassName}
          />
-         <EdgeRenderer edgeTypes={edgeTypes} rfId={rfId}>
+         <EdgeRenderer
+            rfId={rfId}
+            edgeTypes={edgeTypes}
+            noPanClassName={noPanClassName}
+         >
             <ConnectionLineWrapper />
          </EdgeRenderer>
          <div className="react-diagram__edgelabel-renderer" />
