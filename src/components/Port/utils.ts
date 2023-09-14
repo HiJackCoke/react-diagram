@@ -174,6 +174,7 @@ export const handlePointerDown = ({
    getState,
    setState,
    onConnect,
+   onEdgeUpdateEnd,
 }: {
    event: ReactMouseEvent | ReactTouchEvent;
    nodeId: string;
@@ -181,6 +182,7 @@ export const handlePointerDown = ({
    getState: StoreApi<ReactDiagramState>['getState'];
    setState: StoreApi<ReactDiagramState>['setState'];
    onConnect: OnConnect;
+   onEdgeUpdateEnd?: (evt: MouseEvent | TouchEvent) => void;
 }): void => {
    const doc = getHostForElement(event.target as HTMLElement);
 
@@ -189,14 +191,23 @@ export const handlePointerDown = ({
 
    const containerBounds = domNode?.getBoundingClientRect();
 
-   const { x, y } = getEventPosition(event);
-   const clickedPort = doc?.elementFromPoint(x, y);
-   const clickedPortType = getPortType(clickedPort);
    const allPort = getAllPort({
       nodes: getNodes(),
       nodeId,
       portType,
    });
+
+   const eventPosition = getEventPosition(event);
+   const closestPortPosition = getClosestPort(eventPosition, 20, allPort);
+
+   const isClickAnchor = !!closestPortPosition;
+
+   const portPosition = isClickAnchor ? closestPortPosition : eventPosition;
+
+   const clickedPort = doc?.elementFromPoint(portPosition.x, portPosition.y);
+
+   const clickedPortType = getPortType(clickedPort);
+   const oppositePortType = clickedPortType === 'target' ? 'source' : 'target';
 
    let connectionPosition = getEventPosition(event, containerBounds);
    let closestPort: ConnectionPort | null = null;
@@ -206,7 +217,7 @@ export const handlePointerDown = ({
    setState({
       connectionPosition,
       connectionNodeId: nodeId,
-      connectionPortType: clickedPortType,
+      connectionPortType: isClickAnchor ? oppositePortType : clickedPortType,
    });
 
    onConnectStart?.(event, { nodeId, portType });
@@ -242,6 +253,10 @@ export const handlePointerDown = ({
       if (isValid && connection) onConnect?.(connection);
 
       onConnectEnd?.(event);
+
+      if (portType) {
+         onEdgeUpdateEnd?.(event);
+      }
 
       cancelConnection();
 

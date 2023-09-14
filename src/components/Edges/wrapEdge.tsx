@@ -1,56 +1,64 @@
-import { memo, useMemo, useRef } from 'react';
+import { memo, useMemo, useRef, useState } from 'react';
 import type { ComponentType } from 'react';
 import cc from 'classcat';
 
-import { ARIA_EDGE_DESC_KEY } from '../A11yDescriptions';
+import { useStoreApi } from 'hooks/useStore';
+import { ARIA_EDGE_DESC_KEY } from 'components/A11yDescriptions';
+import { handlePointerDown } from 'components/Port/utils';
+import Anchor from './Anchor';
 
 import { getMarkerId } from 'utils/graph';
 
+import { PortType } from 'types';
+
 import { EdgeProps, WrapEdgeProps } from './type';
-import Anchor from './Anchor';
 
 const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
-   const EdgeWrapper = ({
-      id,
-      className,
-      style,
-      type,
-      data,
-      rfId,
-      ariaLabel,
+   const EdgeWrapper = (props: WrapEdgeProps): JSX.Element | null => {
+      const {
+         id,
+         className,
+         style,
+         type,
+         data,
+         rfId,
+         ariaLabel,
 
-      // sourceAndTargetIds
-      source,
-      sourcePort,
-      target,
-      targetPort,
+         // sourceAndTargetIds
+         source,
+         sourcePort,
+         target,
+         targetPort,
 
-      // marker
-      markerEnd,
-      markerStart,
+         // marker
+         markerEnd,
+         markerStart,
 
-      // labelProps
-      label,
-      labelStyle,
-      labelShowBg,
-      labelBgStyle,
-      labelBgPadding,
-      labelBgBorderRadius,
+         // labelProps
+         label,
+         labelStyle,
+         labelShowBg,
+         labelBgStyle,
+         labelBgPadding,
+         labelBgBorderRadius,
 
-      // position
-      sourceX,
-      sourceY,
-      targetX,
-      targetY,
-      sourcePosition,
-      targetPosition,
+         // position
+         sourceX,
+         sourceY,
+         targetX,
+         targetY,
+         sourcePosition,
+         targetPosition,
 
-      selected,
-      elementsSelectable,
-      hidden,
-      isFocusable,
-   }: WrapEdgeProps): JSX.Element | null => {
+         selected,
+         elementsSelectable,
+         hidden,
+         isFocusable,
+      } = props;
+
       const edgeRef = useRef<SVGGElement>(null);
+      const [updating, setUpdating] = useState(false);
+      const store = useStoreApi();
 
       const markerStartUrl = useMemo(
          () => `url(#${getMarkerId(markerStart, rfId)})`,
@@ -64,6 +72,35 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
       if (hidden) {
          return null;
       }
+
+      const handleEdgeUpdater =
+         (portType: PortType) =>
+         (event: React.MouseEvent<SVGGElement, MouseEvent>) => {
+            if (event.button !== 0) {
+               return;
+            }
+
+            const oppositePortType =
+               portType === 'source' ? 'target' : 'source';
+            const nodeId = props[oppositePortType];
+
+            setUpdating(true);
+
+            const onEdgeUpdateEnd = (event: MouseEvent | TouchEvent) => {
+               setUpdating(false);
+               console.log(event);
+            };
+
+            handlePointerDown({
+               event,
+               nodeId,
+               portType: oppositePortType,
+               getState: store.getState,
+               setState: store.setState,
+               onConnect: console.log,
+               onEdgeUpdateEnd,
+            });
+         };
 
       const inactive = !elementsSelectable;
 
@@ -118,16 +155,18 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                isFocusable ? `${ARIA_EDGE_DESC_KEY}-${rfId}` : undefined
             }
          >
-            <EdgeComponent
-               {...sourceAndTargetIds}
-               {...marker}
-               {...labelProps}
-               {...position}
-               id={id}
-               data={data}
-               style={style}
-               selected={selected}
-            />
+            {!updating && (
+               <EdgeComponent
+                  {...sourceAndTargetIds}
+                  {...marker}
+                  {...labelProps}
+                  {...position}
+                  id={id}
+                  data={data}
+                  style={style}
+                  selected={selected}
+               />
+            )}
 
             <Anchor
                position={sourcePosition}
@@ -145,7 +184,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                centerX={targetX}
                centerY={targetY}
                radius={10}
-               onMouseDown={console.log}
+               onMouseDown={handleEdgeUpdater('target')}
                onMouseEnter={console.log}
                onMouseOut={console.log}
                type="target"
@@ -155,7 +194,6 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
    };
 
    EdgeWrapper.displayName = 'EdgeWrapper';
-
    return memo(EdgeWrapper);
 };
 

@@ -31,7 +31,7 @@ const initialState: ReactDiagramStore = {
 
    connectionPosition: { x: 0, y: 0 },
    connectionNodeId: null,
-   connectionPortType: null,
+   connectionPortType: 'source',
 };
 
 export default initialState;
