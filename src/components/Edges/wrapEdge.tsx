@@ -74,15 +74,13 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
       }
 
       const handleEdgeUpdater =
-         (portType: PortType) =>
+         (fromPortType: PortType) =>
          (event: React.MouseEvent<SVGGElement, MouseEvent>) => {
             if (event.button !== 0) {
                return;
             }
 
-            const oppositePortType =
-               portType === 'source' ? 'target' : 'source';
-            const nodeId = props[oppositePortType];
+            const nodeId = props[fromPortType];
 
             setUpdating(true);
 
@@ -92,9 +90,10 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
             };
 
             handlePointerDown({
+               isAnchor: true,
                event,
                nodeId,
-               portType: oppositePortType,
+               portType: fromPortType,
                getState: store.getState,
                setState: store.setState,
                onConnect: console.log,
@@ -184,7 +183,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                centerX={targetX}
                centerY={targetY}
                radius={10}
-               onMouseDown={handleEdgeUpdater('target')}
+               onMouseDown={handleEdgeUpdater('source')}
                onMouseEnter={console.log}
                onMouseOut={console.log}
                type="target"

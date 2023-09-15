@@ -168,6 +168,7 @@ const getClosestPort = (
 };
 
 export const handlePointerDown = ({
+   isAnchor = false,
    event,
    nodeId,
    portType,
@@ -176,6 +177,7 @@ export const handlePointerDown = ({
    onConnect,
    onEdgeUpdateEnd,
 }: {
+   isAnchor?: boolean;
    event: ReactMouseEvent | ReactTouchEvent;
    nodeId: string;
    portType: PortType;
@@ -191,23 +193,14 @@ export const handlePointerDown = ({
 
    const containerBounds = domNode?.getBoundingClientRect();
 
+   const { x, y } = getEventPosition(event);
+   const clickedPort = doc?.elementFromPoint(x, y);
+   const clickedPortType = isAnchor ? portType : getPortType(clickedPort);
    const allPort = getAllPort({
       nodes: getNodes(),
       nodeId,
       portType,
    });
-
-   const eventPosition = getEventPosition(event);
-   const closestPortPosition = getClosestPort(eventPosition, 20, allPort);
-
-   const isClickAnchor = !!closestPortPosition;
-
-   const portPosition = isClickAnchor ? closestPortPosition : eventPosition;
-
-   const clickedPort = doc?.elementFromPoint(portPosition.x, portPosition.y);
-
-   const clickedPortType = getPortType(clickedPort);
-   const oppositePortType = clickedPortType === 'target' ? 'source' : 'target';
 
    let connectionPosition = getEventPosition(event, containerBounds);
    let closestPort: ConnectionPort | null = null;
@@ -217,7 +210,7 @@ export const handlePointerDown = ({
    setState({
       connectionPosition,
       connectionNodeId: nodeId,
-      connectionPortType: isClickAnchor ? oppositePortType : clickedPortType,
+      connectionPortType: clickedPortType,
    });
 
    onConnectStart?.(event, { nodeId, portType });
