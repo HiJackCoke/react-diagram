@@ -35,10 +35,6 @@ function ConnectionPath({ style, nodeId, portType }: ConnectionPathProps) {
    );
    const fromPortBounds = fromNode?.[internalsSymbol]?.portBounds;
 
-   if (portType === 'target') {
-      return null;
-   }
-
    const portBounds = fromPortBounds?.[portType];
 
    if (!fromNode || !portBounds) {

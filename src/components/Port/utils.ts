@@ -68,8 +68,6 @@ const getConnection = (
       },
    };
 
-   if (isTarget) return result;
-
    const PortDomNode = doc.querySelector(
       `.react-diagram__port[data-id="${port?.nodeId}-${port?.type}"]`,
    );
@@ -85,13 +83,15 @@ const getConnection = (
       const toNodeId = Port.getAttribute('data-nodeid');
 
       const connection = {
-         source: fromNodeId,
-         target: toNodeId,
+         source: isTarget ? toNodeId : fromNodeId,
+         target: isTarget ? fromNodeId : toNodeId,
       };
 
       result.connection = connection;
 
-      const isValid = !isTarget && portType === 'target';
+      const isValid =
+         (isTarget && portType === 'source') ||
+         (!isTarget && portType === 'target');
 
       if (isValid) {
          result.isValid = true;
@@ -222,6 +222,7 @@ export const handlePointerDown = ({
 
       const result = getConnection(event, closestPort, nodeId, portType, doc);
 
+      console.log(result, connectionPosition);
       if (result.isValid) {
          isValid = result.isValid;
          connection = result.connection;
