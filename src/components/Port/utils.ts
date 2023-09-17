@@ -222,11 +222,8 @@ export const handlePointerDown = ({
 
       const result = getConnection(event, closestPort, nodeId, portType, doc);
 
-      console.log(result, connectionPosition);
-      if (result.isValid) {
-         isValid = result.isValid;
-         connection = result.connection;
-      }
+      isValid = result.isValid;
+      connection = result.connection;
 
       if (closestPort && isValid) {
          const { x, y } = closestPort;
