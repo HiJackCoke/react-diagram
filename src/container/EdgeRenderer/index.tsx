@@ -16,7 +16,11 @@ import { EdgeTypesWrapped } from './type';
 
 import './style.css';
 
-type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'>;
+type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
+   Pick<
+      ReactDiagramProps,
+      'onEdgeUpdate' | 'onEdgeUpdateStart' | 'onEdgeUpdateEnd'
+   >;
 
 type RequiredProps = Required<Pick<ReactDiagramProps, 'noPanClassName'>>;
 
@@ -39,6 +43,9 @@ function EdgeRenderer({
    edgeTypes,
    children,
    noPanClassName,
+   onEdgeUpdate,
+   onEdgeUpdateStart,
+   onEdgeUpdateEnd,
 }: EdgeRendererProps) {
    const { edges, width, height, nodeInternals } = useStore(selector, shallow);
 
@@ -153,6 +160,12 @@ function EdgeRenderer({
                      targetPosition,
                   };
 
+                  const events = {
+                     onEdgeUpdate,
+                     onEdgeUpdateStart,
+                     onEdgeUpdateEnd,
+                  };
+
                   return (
                      <EdgeComponent
                         {...elProps}
@@ -160,6 +173,7 @@ function EdgeRenderer({
                         {...marker}
                         {...labelProps}
                         {...position}
+                        {...events}
                         rfId={rfId}
                         type={edgeType}
                         data={data}

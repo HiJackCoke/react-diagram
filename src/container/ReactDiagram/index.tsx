@@ -58,6 +58,10 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
 
          edgeTypes = defaultEdgeTypes,
 
+         onEdgeUpdate,
+         onEdgeUpdateStart,
+         onEdgeUpdateEnd,
+
          // StoreUpdater props
          nodes,
          edges,
@@ -93,6 +97,9 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   nodeTypes={nodeTypesWrapped}
                   edgeTypes={edgeTypesWrapped}
                   onNodeClick={onNodeClick}
+                  onEdgeUpdate={onEdgeUpdate}
+                  onEdgeUpdateStart={onEdgeUpdateStart}
+                  onEdgeUpdateEnd={onEdgeUpdateEnd}
                />
                <StoreUpdater
                   rfId={rfId}

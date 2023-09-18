@@ -56,6 +56,9 @@ function DiagramView({
 
    // EdgeRenderer props
    edgeTypes,
+   onEdgeUpdate,
+   onEdgeUpdateStart,
+   onEdgeUpdateEnd,
 }: DiagramViewProps) {
    return (
       <DiagramRenderer
@@ -80,6 +83,9 @@ function DiagramView({
             rfId={rfId}
             edgeTypes={edgeTypes}
             noPanClassName={noPanClassName}
+            onEdgeUpdate={onEdgeUpdate}
+            onEdgeUpdateStart={onEdgeUpdateStart}
+            onEdgeUpdateEnd={onEdgeUpdateEnd}
          >
             <ConnectionLineWrapper />
          </EdgeRenderer>

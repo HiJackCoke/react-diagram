@@ -9,7 +9,7 @@ import Anchor from './Anchor';
 
 import { getMarkerId } from 'utils/graph';
 
-import { PortType } from 'types';
+import { Connection, PortType } from 'types';
 
 import { EdgeProps, WrapEdgeProps } from './type';
 
@@ -54,6 +54,10 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          elementsSelectable,
          hidden,
          isFocusable,
+
+         onEdgeUpdate,
+         onEdgeUpdateStart,
+         onEdgeUpdateEnd,
       } = props;
 
       const edgeRef = useRef<SVGGElement>(null);
@@ -80,13 +84,20 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                return;
             }
 
+            const { edges } = store.getState();
+
             const nodeId = props[fromPortType];
+            const edge = edges.find((e) => e.id === id)!;
 
             setUpdating(true);
+            onEdgeUpdateStart?.(event, edge, fromPortType);
 
-            const onEdgeUpdateEnd = (event: MouseEvent | TouchEvent) => {
+            const onConnectEdge = (connection: Connection) =>
+               onEdgeUpdate?.(edge, connection);
+
+            const handleEdgeUpdateEnd = (evt: MouseEvent | TouchEvent) => {
                setUpdating(false);
-               console.log(event);
+               onEdgeUpdateEnd?.(evt, edge, fromPortType);
             };
 
             handlePointerDown({
@@ -96,8 +107,8 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                portType: fromPortType,
                getState: store.getState,
                setState: store.setState,
-               onConnect: console.log,
-               onEdgeUpdateEnd,
+               onConnect: onConnectEdge,
+               onEdgeUpdateEnd: handleEdgeUpdateEnd,
             });
          };
 

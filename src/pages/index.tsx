@@ -112,8 +112,9 @@ function Index() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            onConnectStart={console.log}
-            onConnectEnd={console.log}
+            onEdgeUpdate={() => console.log}
+            onEdgeUpdateStart={console.log}
+            onEdgeUpdateEnd={console.log}
          />
       </>
    );

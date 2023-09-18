@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react';
+import type { HTMLAttributes, MouseEvent as ReactMouseEvent } from 'react';
 
 import {
    CoordinateExtent,
@@ -16,6 +16,8 @@ import {
    OnConnect,
    OnConnectStart,
    OnConnectEnd,
+   OnEdgeUpdateFunc,
+   PortType,
 } from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
@@ -48,6 +50,18 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onConnect?: OnConnect;
    onConnectStart?: OnConnectStart;
    onConnectEnd?: OnConnectEnd;
+
+   onEdgeUpdate?: OnEdgeUpdateFunc;
+   onEdgeUpdateStart?: (
+      event: ReactMouseEvent,
+      edge: Edge,
+      portType: PortType,
+   ) => void;
+   onEdgeUpdateEnd?: (
+      event: MouseEvent | TouchEvent,
+      edge: Edge,
+      portType: PortType,
+   ) => void;
 
    minZoom?: number;
    maxZoom?: number;

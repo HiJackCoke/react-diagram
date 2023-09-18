@@ -1,6 +1,11 @@
-import { ReactNode, HTMLAttributes, CSSProperties } from 'react';
+import {
+   ReactNode,
+   HTMLAttributes,
+   CSSProperties,
+   MouseEvent as ReactMouseEvent,
+} from 'react';
 
-import { Position } from 'types';
+import { Connection, PortType, Position } from 'types';
 
 export enum MarkerType {
    Arrow = 'arrow',
@@ -59,6 +64,11 @@ export type DefaultEdge<T = any> = {
 
 export type Edge<T = any> = DefaultEdge<T> & EdgeLabelOptions;
 
+export type OnEdgeUpdateFunc<T = any> = (
+   oldEdge: Edge<T>,
+   newConnection: Connection,
+) => void;
+
 export type WrapEdgeProps<T = any> = Edge<T> & {
    sourceX: number;
    sourceY: number;
@@ -70,6 +80,18 @@ export type WrapEdgeProps<T = any> = Edge<T> & {
 
    rfId?: string;
    isFocusable: boolean;
+
+   onEdgeUpdate?: OnEdgeUpdateFunc;
+   onEdgeUpdateStart?: (
+      event: ReactMouseEvent,
+      edge: Edge,
+      portType: PortType,
+   ) => void;
+   onEdgeUpdateEnd?: (
+      event: MouseEvent | TouchEvent,
+      edge: Edge,
+      portType: PortType,
+   ) => void;
 };
 
 export type EdgeProps<T = any> = Pick<
