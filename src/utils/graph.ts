@@ -142,3 +142,29 @@ export const addEdge = (
 
    return edges.concat(edge);
 };
+
+export const updateEdge = (
+   oldEdge: Edge,
+   newConnection: Connection,
+   edges: Edge[],
+   options = { shouldReplaceId: true },
+): Edge[] => {
+   const { id: oldEdgeId, ...rest } = oldEdge;
+
+   if (!newConnection.source || !newConnection.target)
+      throw Error('Can`t create edge. An edge needs a source and a target.');
+
+   const foundEdge = edges.find((e) => e.id === oldEdgeId) as Edge;
+
+   if (!foundEdge)
+      throw Error(`The old edge with id=${oldEdgeId} does not exist.`);
+
+   const edge = {
+      ...rest,
+      id: options.shouldReplaceId ? getEdgeId(newConnection) : oldEdgeId,
+      source: newConnection.source,
+      target: newConnection.target,
+   } as Edge;
+
+   return edges.filter((e) => e.id !== oldEdgeId).concat(edge);
+};

@@ -1,14 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
 
 import ReactDiagram from 'container/ReactDiagram';
 
-import { addEdge } from 'utils/graph';
+import { addEdge, updateEdge } from 'utils/graph';
 
 import { MarkerType } from 'components/Edges/type';
 
-import { Connection } from 'types';
+import { Connection, Edge } from 'types';
 
 import './style.css';
 
@@ -73,6 +73,8 @@ const initialEdges = [
 let idIndex = 5;
 
 function Index() {
+   const edgeUpdateSuccessful = useRef(true);
+
    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -94,6 +96,26 @@ function Index() {
       [],
    );
 
+   const onEdgeUpdateStart = useCallback(() => {
+      edgeUpdateSuccessful.current = false;
+   }, []);
+
+   const onEdgeUpdate = useCallback(
+      (oldEdge: Edge, newConnection: Connection) => {
+         edgeUpdateSuccessful.current = true;
+         setEdges((els) => updateEdge(oldEdge, newConnection, els));
+      },
+      [],
+   );
+
+   const onEdgeUpdateEnd = useCallback((_c: any, edge: Edge) => {
+      if (!edgeUpdateSuccessful.current) {
+         setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+      }
+
+      edgeUpdateSuccessful.current = true;
+   }, []);
+
    return (
       <>
          <button
@@ -112,9 +134,9 @@ function Index() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            onEdgeUpdate={() => console.log}
-            onEdgeUpdateStart={console.log}
-            onEdgeUpdateEnd={console.log}
+            onEdgeUpdate={onEdgeUpdate}
+            onEdgeUpdateStart={onEdgeUpdateStart}
+            onEdgeUpdateEnd={onEdgeUpdateEnd}
          />
       </>
    );
