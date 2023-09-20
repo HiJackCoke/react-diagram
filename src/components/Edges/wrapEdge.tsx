@@ -183,7 +183,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                centerX={sourceX}
                centerY={sourceY}
                radius={10}
-               onMouseDown={console.log}
+               onMouseDown={handleEdgeUpdater('target')}
                onMouseEnter={console.log}
                onMouseOut={console.log}
                type="source"
