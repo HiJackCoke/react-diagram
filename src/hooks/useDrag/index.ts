@@ -14,7 +14,7 @@ import {
    getEventHandlerParams,
    hasSelector,
 } from './utils';
-import { getEventPosition } from 'utils';
+import { getEventPosition, calcAutoPanPosition } from 'utils';
 
 import { XYPosition } from 'types';
 import { NodeDragItem } from 'components/Node/type';
@@ -44,6 +44,8 @@ function useDrag({
       y: null,
    });
    const dragEvent = useRef<MouseEvent | null>(null);
+   const autoPanStarted = useRef(false);
+   const autoPanId = useRef(0);
 
    const getPointerPosition = useGetPointerPosition();
 
@@ -117,6 +119,22 @@ function useDrag({
             }
          };
 
+         const autoPan = (): void => {
+            if (!containerBounds.current) {
+               return;
+            }
+
+            const [xMovement, yMovement] = calcAutoPanPosition(
+               mousePosition.current,
+               containerBounds.current,
+            );
+
+            if (xMovement !== 0 || yMovement !== 0) {
+               console.log(xMovement, yMovement);
+            }
+            autoPanId.current = requestAnimationFrame(autoPan);
+         };
+
          const dragHandle = drag()
             .on('start', (e: UseDragEvent) => {
                const {
@@ -167,6 +185,11 @@ function useDrag({
             .on('drag', (e: UseDragEvent) => {
                const pointerPosition = getPointerPosition(e);
 
+               if (!autoPanStarted.current) {
+                  autoPanStarted.current = true;
+                  autoPan();
+               }
+
                if (
                   (lastPosition.current.x !== pointerPosition.xSnapped ||
                      lastPosition.current.y !== pointerPosition.ySnapped) &&
@@ -183,6 +206,8 @@ function useDrag({
             })
             .on('end', () => {
                setDragging(false);
+               autoPanStarted.current = false;
+               cancelAnimationFrame(autoPanId.current);
             })
             .filter((event: MouseEvent) => {
                const target = event.target as HTMLDivElement;
