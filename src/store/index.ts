@@ -1,4 +1,5 @@
 import { createStore } from 'zustand';
+import { zoomIdentity } from 'd3-zoom';
 
 import {
    updateAbsoluteNodePositions,
@@ -11,7 +12,7 @@ import { createSelectionChange, getSelectionChanges } from 'utils/changes';
 
 import { getPortBounds } from '../components/Node/utils';
 
-import initialState from './initialState';
+import initialState, { infiniteExtent } from './initialState';
 import {
    NodeDimensionChange,
    NodePositionChange,
@@ -25,6 +26,7 @@ import {
    ReactDiagramState,
    UnSelectNodesParams,
 } from 'components/ReactDiagramProvider/type';
+import { CoordinateExtent, XYPosition } from 'types';
 
 const createRFStore = () =>
    createStore<ReactDiagramState>((set, get) => ({
@@ -211,6 +213,30 @@ const createRFStore = () =>
             connectionNodeId: initialState.connectionNodeId,
             connectionPortType: initialState.connectionPortType,
          }),
+
+      panBy: (delta: XYPosition) => {
+         const { transform, width, height, d3Zoom, d3Selection } = get();
+
+         if (!d3Zoom || !d3Selection || (!delta.x && !delta.y)) {
+            return;
+         }
+
+         const nextTransform = zoomIdentity
+            .translate(transform[0] + delta.x, transform[1] + delta.y)
+            .scale(transform[2]);
+
+         const extent: CoordinateExtent = [
+            [0, 0],
+            [width, height],
+         ];
+
+         const constrainedTransform = d3Zoom?.constrain()(
+            nextTransform,
+            extent,
+            infiniteExtent,
+         );
+         d3Zoom.transform(d3Selection, constrainedTransform);
+      },
    }));
 
 export { createRFStore };

@@ -87,6 +87,7 @@ export type ReactDiagramActions = {
    triggerNodeChanges: (changes: NodeChange[]) => void;
 
    cancelConnection: () => void;
+   panBy: (delta: XYPosition) => void;
 };
 
 export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;

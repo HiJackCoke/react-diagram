@@ -34,7 +34,6 @@ function useDrag({
    noDragClassName,
 }: UseDragParams) {
    const store = useStoreApi();
-   const [dragging, setDragging] = useState<boolean>(false);
 
    const dragItems = useRef<NodeDragItem[]>([]);
    const containerBounds = useRef<DOMRect | null>(null);
@@ -46,6 +45,8 @@ function useDrag({
    const dragEvent = useRef<MouseEvent | null>(null);
    const autoPanStarted = useRef(false);
    const autoPanId = useRef(0);
+
+   const [dragging, setDragging] = useState<boolean>(false);
 
    const getPointerPosition = useGetPointerPosition();
 
@@ -130,7 +131,15 @@ function useDrag({
             );
 
             if (xMovement !== 0 || yMovement !== 0) {
-               console.log(xMovement, yMovement);
+               const { transform, panBy } = store.getState();
+
+               lastPosition.current.x =
+                  (lastPosition.current.x ?? 0) - xMovement / transform[2];
+               lastPosition.current.y =
+                  (lastPosition.current.y ?? 0) - yMovement / transform[2];
+
+               updateNodes(lastPosition.current as XYPosition);
+               panBy({ x: xMovement, y: yMovement });
             }
             autoPanId.current = requestAnimationFrame(autoPan);
          };
