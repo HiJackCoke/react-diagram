@@ -217,6 +217,12 @@ function useDrag({
                setDragging(false);
                autoPanStarted.current = false;
                cancelAnimationFrame(autoPanId.current);
+
+               if (dragItems.current) {
+                  const { updateNodePositions } = store.getState();
+
+                  updateNodePositions(dragItems.current, false, false);
+               }
             })
             .filter((event: MouseEvent) => {
                const target = event.target as HTMLDivElement;
