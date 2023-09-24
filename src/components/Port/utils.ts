@@ -5,7 +5,7 @@ import {
 
 import { StoreApi } from 'zustand';
 
-import { getEventPosition, internalsSymbol } from 'utils';
+import { calcAutoPanPosition, getEventPosition, internalsSymbol } from 'utils';
 
 import {
    Connection,
@@ -188,8 +188,14 @@ export const handlePointerDown = ({
 }): void => {
    const doc = getHostForElement(event.target as HTMLElement);
 
-   const { getNodes, domNode, cancelConnection, onConnectStart, onConnectEnd } =
-      getState();
+   const {
+      getNodes,
+      domNode,
+      cancelConnection,
+      onConnectStart,
+      onConnectEnd,
+      panBy,
+   } = getState();
 
    const containerBounds = domNode?.getBoundingClientRect();
 
@@ -206,6 +212,22 @@ export const handlePointerDown = ({
    let closestPort: ConnectionPort | null = null;
    let isValid = false;
    let connection: Connection | null = null;
+   let autoPanId = 0;
+   let autoPanStarted = false;
+
+   if (!containerBounds || !portType) {
+      return;
+   }
+
+   const autoPan = (): void => {
+      const [xMovement, yMovement] = calcAutoPanPosition(
+         connectionPosition,
+         containerBounds,
+      );
+
+      panBy({ x: xMovement, y: yMovement });
+      autoPanId = requestAnimationFrame(autoPan);
+   };
 
    setState({
       connectionPosition,
@@ -219,6 +241,11 @@ export const handlePointerDown = ({
       connectionPosition = getEventPosition(event, containerBounds);
 
       closestPort = getClosestPort(connectionPosition, 20, allPort);
+
+      if (!autoPanStarted) {
+         autoPan();
+         autoPanStarted = true;
+      }
 
       const result = getConnection(event, closestPort, nodeId, portType, doc);
 
@@ -250,9 +277,11 @@ export const handlePointerDown = ({
       }
 
       cancelConnection();
+      cancelAnimationFrame(autoPanId);
 
       isValid = false;
       connection = null;
+      autoPanStarted = false;
 
       doc.removeEventListener('mousemove', onPointerMove as EventListener);
       doc.removeEventListener('mouseup', onPointerUp as EventListener);
