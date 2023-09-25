@@ -69,6 +69,7 @@ export type ReactDiagramStore = {
    onConnectEnd?: OnConnectEnd;
 
    autoPanOnNodeDrag: boolean;
+   autoPanOnConnect: boolean;
 };
 
 export type ReactDiagramActions = {

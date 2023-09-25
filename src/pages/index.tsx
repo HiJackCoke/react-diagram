@@ -138,6 +138,7 @@ function Index() {
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
             autoPanOnNodeDrag={false}
+            autoPanOnConnect={false}
          />
       </>
    );

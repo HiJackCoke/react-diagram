@@ -189,8 +189,9 @@ export const handlePointerDown = ({
    const doc = getHostForElement(event.target as HTMLElement);
 
    const {
-      getNodes,
       domNode,
+      autoPanOnConnect,
+      getNodes,
       cancelConnection,
       onConnectStart,
       onConnectEnd,
@@ -220,6 +221,10 @@ export const handlePointerDown = ({
    }
 
    const autoPan = (): void => {
+      if (!autoPanOnConnect) {
+         return;
+      }
+
       const [xMovement, yMovement] = calcAutoPanPosition(
          connectionPosition,
          containerBounds,

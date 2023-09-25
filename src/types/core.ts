@@ -73,6 +73,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    noPanClassName?: string;
    panning?: boolean;
    autoPanOnNodeDrag?: boolean;
+   autoPanOnConnect?: boolean;
 };
 
 export type ReactDiagramRefType = HTMLDivElement;
