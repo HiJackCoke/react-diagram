@@ -193,8 +193,9 @@ function useDrag({
             })
             .on('drag', (e: UseDragEvent) => {
                const pointerPosition = getPointerPosition(e);
+               const { autoPanOnNodeDrag } = store.getState();
 
-               if (!autoPanStarted.current) {
+               if (!autoPanStarted.current && autoPanOnNodeDrag) {
                   autoPanStarted.current = true;
                   autoPan();
                }

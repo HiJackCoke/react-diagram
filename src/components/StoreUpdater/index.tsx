@@ -22,6 +22,7 @@ export type StoreUpdaterProps = Pick<
    | 'gridStep'
    | 'elevateNodesOnSelect'
    | 'nodesDraggable'
+   | 'autoPanOnNodeDrag'
    | 'onConnect'
    | 'onConnectStart'
    | 'onConnectEnd'
@@ -66,6 +67,7 @@ const StoreUpdater = ({
    gridStep,
    elevateNodesOnSelect,
    nodesDraggable,
+   autoPanOnNodeDrag,
    onConnect,
    onConnectStart,
    onConnectEnd,
@@ -85,6 +87,11 @@ const StoreUpdater = ({
    );
 
    useDirectStoreUpdater('nodesDraggable', nodesDraggable, store.setState);
+   useDirectStoreUpdater(
+      'autoPanOnNodeDrag',
+      autoPanOnNodeDrag,
+      store.setState,
+   );
 
    useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
    useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);

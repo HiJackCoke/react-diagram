@@ -32,6 +32,7 @@ const initialState: ReactDiagramStore = {
    connectionPosition: { x: 0, y: 0 },
    connectionNodeId: null,
    connectionPortType: 'source',
+   autoPanOnNodeDrag: true,
 };
 
 export default initialState;
