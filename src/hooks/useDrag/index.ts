@@ -214,15 +214,29 @@ function useDrag({
                   updateNodes(pointerPosition);
                }
             })
-            .on('end', () => {
+            .on('end', (event: UseDragEvent) => {
                setDragging(false);
                autoPanStarted.current = false;
                cancelAnimationFrame(autoPanId.current);
 
                if (dragItems.current) {
-                  const { updateNodePositions } = store.getState();
+                  const { nodeInternals, updateNodePositions, onNodeDragEnd } =
+                     store.getState();
 
                   updateNodePositions(dragItems.current, false, false);
+
+                  if (onNodeDragEnd) {
+                     const [currentNode, nodes] = getEventHandlerParams({
+                        nodeId,
+                        dragItems: dragItems.current,
+                        nodeInternals,
+                     });
+                     onNodeDragEnd(
+                        event.sourceEvent as MouseEvent,
+                        currentNode,
+                        nodes,
+                     );
+                  }
                }
             })
             .filter((event: MouseEvent) => {

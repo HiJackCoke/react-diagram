@@ -58,6 +58,8 @@ export type ReactDiagramStore = {
    onNodesChange: OnNodesChange | null;
    onNodeDragStart?: NodeDragHandler;
    onNodeDrag?: NodeDragHandler;
+   onNodeDragEnd?: NodeDragHandler;
+
    onEdgesChange?: OnEdgesChange;
 
    connectionPosition: XYPosition;

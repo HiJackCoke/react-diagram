@@ -46,6 +46,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onNodesChange?: OnNodesChange;
    onNodeDragStart?: NodeDragHandler;
    onNodeDrag?: NodeDragHandler;
+   onNodeDragEnd?: NodeDragHandler;
 
    onEdgesChange?: OnEdgesChange;
    onConnect?: OnConnect;

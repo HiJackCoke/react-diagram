@@ -19,6 +19,7 @@ export type StoreUpdaterProps = Pick<
    | 'onNodesChange'
    | 'onNodeDrag'
    | 'onNodeDragStart'
+   | 'onNodeDragEnd'
    | 'edges'
    | 'onEdgesChange'
    | 'gridStep'
@@ -67,6 +68,7 @@ const StoreUpdater = ({
    onNodesChange,
    onNodeDrag,
    onNodeDragStart,
+   onNodeDragEnd,
    edges,
    onEdgesChange,
    gridStep,
@@ -103,6 +105,7 @@ const StoreUpdater = ({
    useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
    useDirectStoreUpdater('onNodeDrag', onNodeDrag, store.setState);
    useDirectStoreUpdater('onNodeDragStart', onNodeDragStart, store.setState);
+   useDirectStoreUpdater('onNodeDragEnd', onNodeDragEnd, store.setState);
 
    useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);
 
