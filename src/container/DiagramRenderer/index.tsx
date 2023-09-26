@@ -20,9 +20,9 @@ function DiagramRenderer({
    maxZoom,
    translateExtent,
    defaultViewport,
+   onMove,
 }: DiagramRendererProps) {
    useGlobalKeyHandler();
-
    return (
       <ZoomPane
          noPanClassName={noPanClassName}
@@ -31,6 +31,7 @@ function DiagramRenderer({
          maxZoom={maxZoom}
          translateExtent={translateExtent}
          defaultViewport={defaultViewport}
+         onMove={onMove}
       >
          <Viewport>{children}</Viewport>
       </ZoomPane>

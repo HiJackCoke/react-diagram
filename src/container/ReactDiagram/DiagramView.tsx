@@ -45,6 +45,7 @@ function DiagramView({
    maxZoom,
    translateExtent,
    defaultViewport,
+   onMove,
 
    // NodeRenderer props
    onlyRenderVisibleElements,
@@ -68,6 +69,7 @@ function DiagramView({
          maxZoom={maxZoom}
          translateExtent={translateExtent}
          defaultViewport={defaultViewport}
+         onMove={onMove}
       >
          <NodeRenderer
             rfId={rfId}

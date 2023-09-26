@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 
+import { ZoomTransform } from 'd3';
 import { zoom, zoomIdentity } from 'd3-zoom';
 import type { D3ZoomEvent } from 'd3-zoom';
 import { select } from 'd3-selection';
@@ -11,7 +12,7 @@ import { useStore, useStoreApi } from 'hooks/useStore';
 
 import { clamp } from 'utils';
 
-import { ReactDiagramProps, CoordinateExtent } from 'types';
+import { ReactDiagramProps, CoordinateExtent, Viewport } from 'types';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
 import './style.css';
@@ -28,15 +29,25 @@ export type ZoomPaneProps = Required<
    > & {
       children: ReactNode;
    }
->;
+> &
+   Pick<ReactDiagramProps, 'onMove'>;
+
+const convertTransform = (transform: ZoomTransform): Viewport => {
+   const { x, y, k } = transform;
+   return {
+      x,
+      y,
+      zoom: k,
+   };
+};
+
+const isWrappedWithClass = (event: any, className: string | undefined) =>
+   event.target.closest(`.${className}`);
 
 const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,
    d3Selection: s.d3Selection,
 });
-
-const isWrappedWithClass = (event: any, className: string | undefined) =>
-   event.target.closest(`.${className}`);
 
 function ZoomPane({
    noPanClassName,
@@ -46,6 +57,7 @@ function ZoomPane({
    defaultViewport,
    translateExtent,
    children,
+   onMove,
 }: ZoomPaneProps) {
    const store = useStoreApi();
    const isZoomingOrPanning = useRef(false);
@@ -138,9 +150,18 @@ function ZoomPane({
                   event.transform.k,
                ],
             });
+
+            if (onMove) {
+               const flowTransform = convertTransform(event.transform);
+
+               onMove?.(
+                  event.sourceEvent as MouseEvent | TouchEvent,
+                  flowTransform,
+               );
+            }
          });
       }
-   }, [d3Zoom]);
+   }, [d3Zoom, onMove]);
 
    useEffect(() => {
       if (d3Zoom) {

@@ -31,3 +31,8 @@ export type OnConnectStart = (
 export type OnConnectEnd = (event: MouseEvent | TouchEvent) => void;
 
 export type GridStep = [number, number];
+
+export type OnMove = (
+   event: MouseEvent | TouchEvent,
+   viewport: Viewport,
+) => void;

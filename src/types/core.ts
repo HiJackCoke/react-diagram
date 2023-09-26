@@ -18,6 +18,7 @@ import {
    OnConnectEnd,
    OnEdgeUpdateFunc,
    PortType,
+   OnMove,
 } from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
@@ -62,6 +63,8 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
       edge: Edge,
       portType: PortType,
    ) => void;
+
+   onMove?: OnMove;
 
    minZoom?: number;
    maxZoom?: number;
