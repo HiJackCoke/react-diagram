@@ -30,7 +30,7 @@ export type ZoomPaneProps = Required<
       children: ReactNode;
    }
 > &
-   Pick<ReactDiagramProps, 'onMove'>;
+   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart'>;
 
 const convertTransform = (transform: ZoomTransform): Viewport => {
    const { x, y, k } = transform;
@@ -58,6 +58,7 @@ function ZoomPane({
    translateExtent,
    children,
    onMove,
+   onMoveStart,
 }: ZoomPaneProps) {
    const store = useStoreApi();
    const isZoomingOrPanning = useRef(false);
@@ -65,6 +66,7 @@ function ZoomPane({
    const zoomPane = useRef<HTMLDivElement>(null);
    const d3ZoomHandler =
       useRef<(this: Element, event: any, d: unknown) => void | undefined>();
+   const prevTransform = useRef<Viewport>({ x: 0, y: 0, zoom: 0 });
 
    const { d3Zoom, d3Selection } = useStore(selector, shallow);
 
@@ -136,9 +138,19 @@ function ZoomPane({
             }
 
             isZoomingOrPanning.current = true;
+
+            if (onMoveStart) {
+               const flowTransform = convertTransform(event.transform);
+               prevTransform.current = flowTransform;
+
+               onMoveStart?.(
+                  event.sourceEvent as MouseEvent | TouchEvent,
+                  flowTransform,
+               );
+            }
          });
       }
-   }, [d3Zoom]);
+   }, [d3Zoom, onMoveStart]);
 
    useEffect(() => {
       if (d3Zoom) {

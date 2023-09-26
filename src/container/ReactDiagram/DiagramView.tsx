@@ -46,6 +46,7 @@ function DiagramView({
    translateExtent,
    defaultViewport,
    onMove,
+   onMoveStart,
 
    // NodeRenderer props
    onlyRenderVisibleElements,
@@ -70,6 +71,7 @@ function DiagramView({
          translateExtent={translateExtent}
          defaultViewport={defaultViewport}
          onMove={onMove}
+         onMoveStart={onMoveStart}
       >
          <NodeRenderer
             rfId={rfId}

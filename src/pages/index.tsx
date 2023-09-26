@@ -140,6 +140,7 @@ function Index() {
             // autoPanOnNodeDrag={false}
             // autoPanOnConnect={false}
             onMove={console.log}
+            onMoveStart={console.log}
          />
       </>
    );

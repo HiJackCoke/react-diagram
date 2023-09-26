@@ -65,6 +65,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    ) => void;
 
    onMove?: OnMove;
+   onMoveStart?: OnMove;
 
    minZoom?: number;
    maxZoom?: number;
