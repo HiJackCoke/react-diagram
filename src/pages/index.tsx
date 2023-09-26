@@ -132,6 +132,8 @@ function Index() {
             // minZoom={minZoom}
             // maxZoom={maxZoom}
             onNodesChange={onNodesChange}
+            onNodeDrag={console.log}
+            onNodeDragStart={console.log}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onEdgeUpdate={onEdgeUpdate}

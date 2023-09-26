@@ -74,6 +74,9 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          autoPanOnNodeDrag,
          autoPanOnConnect,
          onNodesChange,
+         onNodeDrag,
+         onNodeDragStart,
+
          onEdgesChange,
          onConnect,
          onConnectStart,
@@ -119,6 +122,8 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   autoPanOnNodeDrag={autoPanOnNodeDrag}
                   autoPanOnConnect={autoPanOnConnect}
                   onNodesChange={onNodesChange}
+                  onNodeDrag={onNodeDrag}
+                  onNodeDragStart={onNodeDragStart}
                   onEdgesChange={onEdgesChange}
                   onConnect={onConnect}
                   onConnectStart={onConnectStart}

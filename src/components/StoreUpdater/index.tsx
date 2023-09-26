@@ -17,6 +17,8 @@ export type StoreUpdaterProps = Pick<
    ReactDiagramProps,
    | 'nodes'
    | 'onNodesChange'
+   | 'onNodeDrag'
+   | 'onNodeDragStart'
    | 'edges'
    | 'onEdgesChange'
    | 'gridStep'
@@ -63,6 +65,8 @@ function useDirectStoreUpdater(
 const StoreUpdater = ({
    nodes,
    onNodesChange,
+   onNodeDrag,
+   onNodeDragStart,
    edges,
    onEdgesChange,
    gridStep,
@@ -97,6 +101,9 @@ const StoreUpdater = ({
    useDirectStoreUpdater('autoPanOnConnect', autoPanOnConnect, store.setState);
 
    useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
+   useDirectStoreUpdater('onNodeDrag', onNodeDrag, store.setState);
+   useDirectStoreUpdater('onNodeDragStart', onNodeDragStart, store.setState);
+
    useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);
 
    useDirectStoreUpdater('onConnect', onConnect, store.setState);
