@@ -141,6 +141,7 @@ function Index() {
             // autoPanOnConnect={false}
             onMove={console.log}
             onMoveStart={console.log}
+            onMoveEnd={console.log}
          />
       </>
    );

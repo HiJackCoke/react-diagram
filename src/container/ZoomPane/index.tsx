@@ -30,7 +30,7 @@ export type ZoomPaneProps = Required<
       children: ReactNode;
    }
 > &
-   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart'>;
+   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'>;
 
 const convertTransform = (transform: ZoomTransform): Viewport => {
    const { x, y, k } = transform;
@@ -43,6 +43,15 @@ const convertTransform = (transform: ZoomTransform): Viewport => {
 
 const isWrappedWithClass = (event: any, className: string | undefined) =>
    event.target.closest(`.${className}`);
+
+const isViewChanged = (
+   prevViewport: Viewport,
+   eventViewport: ZoomTransform,
+): boolean => {
+   const { x: prevX, y: prevY, zoom: prevZoom } = prevViewport;
+   const { x, y, k } = eventViewport;
+   return prevX !== x || prevY !== y || prevZoom !== k;
+};
 
 const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,
@@ -59,6 +68,7 @@ function ZoomPane({
    children,
    onMove,
    onMoveStart,
+   onMoveEnd,
 }: ZoomPaneProps) {
    const store = useStoreApi();
    const isZoomingOrPanning = useRef(false);
@@ -67,6 +77,7 @@ function ZoomPane({
    const d3ZoomHandler =
       useRef<(this: Element, event: any, d: unknown) => void | undefined>();
    const prevTransform = useRef<Viewport>({ x: 0, y: 0, zoom: 0 });
+   const timerId = useRef<ReturnType<typeof setTimeout>>();
 
    const { d3Zoom, d3Selection } = useStore(selector, shallow);
 
@@ -178,8 +189,23 @@ function ZoomPane({
    useEffect(() => {
       if (d3Zoom) {
          d3Zoom.on('end', (event: D3ZoomEvent<HTMLDivElement, any>) => {
-            console.log(event);
             isZoomingOrPanning.current = false;
+
+            if (
+               onMoveEnd &&
+               isViewChanged(prevTransform.current, event.transform)
+            ) {
+               const flowTransform = convertTransform(event.transform);
+               prevTransform.current = flowTransform;
+
+               clearTimeout(timerId.current);
+               timerId.current = setTimeout(() => {
+                  onMoveEnd?.(
+                     event.sourceEvent as MouseEvent | TouchEvent,
+                     flowTransform,
+                  );
+               }, 0);
+            }
          });
       }
    }, [d3Zoom]);

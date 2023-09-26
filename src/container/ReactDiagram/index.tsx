@@ -64,6 +64,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
 
          onMove,
          onMoveStart,
+         onMoveEnd,
 
          // StoreUpdater props
          nodes,
@@ -107,6 +108,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onEdgeUpdateEnd={onEdgeUpdateEnd}
                   onMove={onMove}
                   onMoveStart={onMoveStart}
+                  onMoveEnd={onMoveEnd}
                />
                <StoreUpdater
                   rfId={rfId}

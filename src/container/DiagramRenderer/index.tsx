@@ -22,6 +22,7 @@ function DiagramRenderer({
    defaultViewport,
    onMove,
    onMoveStart,
+   onMoveEnd,
 }: DiagramRendererProps) {
    useGlobalKeyHandler();
    return (
@@ -34,6 +35,7 @@ function DiagramRenderer({
          defaultViewport={defaultViewport}
          onMove={onMove}
          onMoveStart={onMoveStart}
+         onMoveEnd={onMoveEnd}
       >
          <Viewport>{children}</Viewport>
       </ZoomPane>
