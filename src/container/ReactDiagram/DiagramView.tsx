@@ -56,6 +56,7 @@ function DiagramView({
    nodeOrigin,
    nodeTypes,
    onNodeClick,
+   onNodeDoubleClick,
 
    // EdgeRenderer props
    edgeTypes,
@@ -81,9 +82,10 @@ function DiagramView({
             onlyRenderVisibleElements={onlyRenderVisibleElements}
             disableKeyboardA11y={disableKeyboardA11y}
             nodeOrigin={nodeOrigin}
-            onNodeClick={onNodeClick}
             noDragClassName={noDragClassName}
             noPanClassName={noPanClassName}
+            onNodeClick={onNodeClick}
+            onNodeDoubleClick={onNodeDoubleClick}
          />
          <EdgeRenderer
             rfId={rfId}
