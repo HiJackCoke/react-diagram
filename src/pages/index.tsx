@@ -137,6 +137,7 @@ function Index() {
             onNodeDragEnd={console.log}
             onNodeClick={console.log}
             onNodeDoubleClick={console.log}
+            onNodeContextMenu={console.log}
             onNodeMouseEnter={console.log}
             onNodeMouseMove={console.log}
             onNodeMouseLeave={console.log}

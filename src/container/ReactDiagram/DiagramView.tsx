@@ -57,6 +57,7 @@ function DiagramView({
    nodeTypes,
    onNodeClick,
    onNodeDoubleClick,
+   onNodeContextMenu,
    onNodeMouseEnter,
    onNodeMouseMove,
    onNodeMouseLeave,
@@ -89,6 +90,7 @@ function DiagramView({
             noPanClassName={noPanClassName}
             onNodeClick={onNodeClick}
             onNodeDoubleClick={onNodeDoubleClick}
+            onNodeContextMenu={onNodeContextMenu}
             onNodeMouseEnter={onNodeMouseEnter}
             onNodeMouseMove={onNodeMouseMove}
             onNodeMouseLeave={onNodeMouseLeave}
