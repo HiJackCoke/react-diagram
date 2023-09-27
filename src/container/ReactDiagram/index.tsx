@@ -56,6 +56,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          nodeTypes = defaultNodeTypes,
          onNodeClick,
          onNodeDoubleClick,
+         onNodeMouseEnter,
 
          edgeTypes = defaultEdgeTypes,
 
@@ -109,6 +110,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   edgeTypes={edgeTypesWrapped}
                   onNodeClick={onNodeClick}
                   onNodeDoubleClick={onNodeDoubleClick}
+                  onNodeMouseEnter={onNodeMouseEnter}
                   onEdgeUpdate={onEdgeUpdate}
                   onEdgeUpdateStart={onEdgeUpdateStart}
                   onEdgeUpdateEnd={onEdgeUpdateEnd}

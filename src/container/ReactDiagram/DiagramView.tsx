@@ -57,6 +57,7 @@ function DiagramView({
    nodeTypes,
    onNodeClick,
    onNodeDoubleClick,
+   onNodeMouseEnter,
 
    // EdgeRenderer props
    edgeTypes,
@@ -86,6 +87,7 @@ function DiagramView({
             noPanClassName={noPanClassName}
             onNodeClick={onNodeClick}
             onNodeDoubleClick={onNodeDoubleClick}
+            onNodeMouseEnter={onNodeMouseEnter}
          />
          <EdgeRenderer
             rfId={rfId}
