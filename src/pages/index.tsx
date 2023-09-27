@@ -138,6 +138,7 @@ function Index() {
             onNodeClick={console.log}
             onNodeDoubleClick={console.log}
             onNodeMouseEnter={console.log}
+            onNodeMouseMove={console.log}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onEdgeUpdate={onEdgeUpdate}
