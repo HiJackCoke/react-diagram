@@ -59,6 +59,7 @@ function DiagramView({
    onNodeDoubleClick,
    onNodeMouseEnter,
    onNodeMouseMove,
+   onNodeMouseLeave,
 
    // EdgeRenderer props
    edgeTypes,
@@ -90,6 +91,7 @@ function DiagramView({
             onNodeDoubleClick={onNodeDoubleClick}
             onNodeMouseEnter={onNodeMouseEnter}
             onNodeMouseMove={onNodeMouseMove}
+            onNodeMouseLeave={onNodeMouseLeave}
          />
          <EdgeRenderer
             rfId={rfId}
