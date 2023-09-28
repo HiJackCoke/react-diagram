@@ -222,6 +222,10 @@ function ZoomPane({
 
             if (!panning) return false;
 
+            const buttonAllowed = !event.button || event.button <= 1;
+
+            if (!buttonAllowed) return false;
+
             return true;
          });
       }
