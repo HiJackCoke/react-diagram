@@ -158,6 +158,7 @@ function useDrag({
                      id: nodeId,
                      store,
                      nodeRef: nodeRef as RefObject<HTMLDivElement>,
+                     isSelectable,
                   });
                }
 

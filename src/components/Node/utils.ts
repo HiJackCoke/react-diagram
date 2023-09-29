@@ -68,7 +68,7 @@ export function handleNodeClick({
    unselect?: boolean;
    nodeRef?: RefObject<HTMLDivElement>;
 }) {
-   if (isSelectable) return;
+   if (!isSelectable) return;
 
    const {
       addSelectedNodes,
