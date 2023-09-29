@@ -146,6 +146,9 @@ function useDrag({
 
          const dragHandle = drag()
             .on('start', (e: UseDragEvent) => {
+               // only allow left click
+               if (e.sourceEvent.which !== 1) return;
+
                const {
                   nodeInternals,
                   nodesDraggable,
