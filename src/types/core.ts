@@ -41,10 +41,10 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onNodesChange?: OnNodesChange;
    onNodeClick?: NodeMouseHandler;
    onNodeDoubleClick?: NodeMouseHandler;
+   onNodeContextMenu?: NodeMouseHandler;
    onNodeMouseEnter?: NodeMouseHandler;
    onNodeMouseMove?: NodeMouseHandler;
    onNodeMouseLeave?: NodeMouseHandler;
-   onNodeContextMenu?: NodeMouseHandler;
    onNodeDragStart?: NodeDragHandler;
    onNodeDrag?: NodeDragHandler;
    onNodeDragEnd?: NodeDragHandler;
@@ -52,6 +52,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onEdgesChange?: OnEdgesChange;
    onEdgeClick?: (event: ReactMouseEvent, node: Edge) => void;
    onEdgeDoubleClick?: EdgeMouseHandler;
+   onEdgeContextMenu?: EdgeMouseHandler;
 
    onEdgeUpdate?: OnEdgeUpdateFunc;
    onEdgeUpdateStart?: (

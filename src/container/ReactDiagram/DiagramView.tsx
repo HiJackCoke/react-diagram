@@ -66,6 +66,7 @@ function DiagramView({
    edgeTypes,
    onEdgeClick,
    onEdgeDoubleClick,
+   onEdgeContextMenu,
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
@@ -103,6 +104,7 @@ function DiagramView({
             noPanClassName={noPanClassName}
             onEdgeClick={onEdgeClick}
             onEdgeDoubleClick={onEdgeDoubleClick}
+            onEdgeContextMenu={onEdgeContextMenu}
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}

@@ -77,6 +77,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
          onClick,
          onEdgeDoubleClick,
+         onContextMenu,
          onEdgeUpdate,
          onEdgeUpdateStart,
          onEdgeUpdateEnd,
@@ -151,6 +152,12 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          onEdgeDoubleClick,
       );
 
+      const onEdgeContextMenu = getMouseHandler(
+         id,
+         store.getState,
+         onContextMenu,
+      );
+
       const inactive = !elementsSelectable;
 
       const wrapperClassName = cc([
@@ -190,6 +197,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
       const events = {
          onClick: onEdgeClick,
          onDoubleClick: onEdgeDoubleClickHandler,
+         onContextMenu: onEdgeContextMenu,
       };
 
       return (

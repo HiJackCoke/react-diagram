@@ -64,6 +64,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          edgeTypes = defaultEdgeTypes,
          onEdgeClick,
          onEdgeDoubleClick,
+         onEdgeContextMenu,
          onEdgeUpdate,
          onEdgeUpdateStart,
          onEdgeUpdateEnd,
@@ -121,6 +122,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onNodeMouseLeave={onNodeMouseLeave}
                   onEdgeClick={onEdgeClick}
                   onEdgeDoubleClick={onEdgeDoubleClick}
+                  onEdgeContextMenu={onEdgeContextMenu}
                   onEdgeUpdate={onEdgeUpdate}
                   onEdgeUpdateStart={onEdgeUpdateStart}
                   onEdgeUpdateEnd={onEdgeUpdateEnd}
@@ -150,7 +152,5 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
       );
    },
 );
-
-ReactDiagram.displayName = 'ReactDiagram';
 
 export default ReactDiagram;

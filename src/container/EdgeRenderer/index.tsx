@@ -21,6 +21,7 @@ type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
       ReactDiagramProps,
       | 'onEdgeClick'
       | 'onEdgeDoubleClick'
+      | 'onEdgeContextMenu'
       | 'onEdgeUpdate'
       | 'onEdgeUpdateStart'
       | 'onEdgeUpdateEnd'
@@ -49,6 +50,7 @@ function EdgeRenderer({
    noPanClassName,
    onEdgeClick,
    onEdgeDoubleClick,
+   onEdgeContextMenu,
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
@@ -169,6 +171,7 @@ function EdgeRenderer({
                   const events = {
                      onClick: onEdgeClick,
                      onEdgeDoubleClick,
+                     onContextMenu: onEdgeContextMenu,
                      onEdgeUpdate,
                      onEdgeUpdateStart,
                      onEdgeUpdateEnd,
