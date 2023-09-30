@@ -19,6 +19,7 @@ import {
    OnEdgeUpdateFunc,
    PortType,
    OnMove,
+   EdgeMouseHandler,
 } from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
@@ -37,19 +38,20 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    edges?: Edge[];
    edgeTypes?: EdgeTypes;
 
+   onNodesChange?: OnNodesChange;
    onNodeClick?: NodeMouseHandler;
    onNodeDoubleClick?: NodeMouseHandler;
    onNodeMouseEnter?: NodeMouseHandler;
    onNodeMouseMove?: NodeMouseHandler;
    onNodeMouseLeave?: NodeMouseHandler;
    onNodeContextMenu?: NodeMouseHandler;
-   onNodesChange?: OnNodesChange;
    onNodeDragStart?: NodeDragHandler;
    onNodeDrag?: NodeDragHandler;
    onNodeDragEnd?: NodeDragHandler;
 
    onEdgesChange?: OnEdgesChange;
    onEdgeClick?: (event: ReactMouseEvent, node: Edge) => void;
+   onEdgeDoubleClick?: EdgeMouseHandler;
 
    onEdgeUpdate?: OnEdgeUpdateFunc;
    onEdgeUpdateStart?: (

@@ -84,6 +84,7 @@ export type WrapEdgeProps<T = any> = Edge<T> & {
    isFocusable: boolean;
 
    onClick?: EdgeMouseHandler;
+   onEdgeDoubleClick?: EdgeMouseHandler;
    onEdgeUpdate?: OnEdgeUpdateFunc;
    onEdgeUpdateStart?: (
       event: ReactMouseEvent,

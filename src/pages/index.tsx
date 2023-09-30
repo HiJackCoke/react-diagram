@@ -144,6 +144,7 @@ function Index() {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onEdgeClick={console.log}
+            onEdgeDoubleClick={console.log}
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}

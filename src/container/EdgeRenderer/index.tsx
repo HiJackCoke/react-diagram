@@ -19,7 +19,11 @@ import './style.css';
 type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
    Pick<
       ReactDiagramProps,
-      'onEdgeClick' | 'onEdgeUpdate' | 'onEdgeUpdateStart' | 'onEdgeUpdateEnd'
+      | 'onEdgeClick'
+      | 'onEdgeDoubleClick'
+      | 'onEdgeUpdate'
+      | 'onEdgeUpdateStart'
+      | 'onEdgeUpdateEnd'
    >;
 
 type RequiredProps = Required<Pick<ReactDiagramProps, 'noPanClassName'>>;
@@ -44,6 +48,7 @@ function EdgeRenderer({
    children,
    noPanClassName,
    onEdgeClick,
+   onEdgeDoubleClick,
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
@@ -163,6 +168,7 @@ function EdgeRenderer({
 
                   const events = {
                      onClick: onEdgeClick,
+                     onEdgeDoubleClick,
                      onEdgeUpdate,
                      onEdgeUpdateStart,
                      onEdgeUpdateEnd,

@@ -1,5 +1,5 @@
 import { memo, useMemo, useRef, useState } from 'react';
-import type { ComponentType } from 'react';
+import type { ComponentType, MouseEvent as ReactMouseEvent } from 'react';
 import cc from 'classcat';
 
 import { useStoreApi } from 'hooks/useStore';
@@ -9,9 +9,29 @@ import Anchor from './Anchor';
 
 import { getMarkerId } from 'utils/graph';
 
-import { Connection, PortType } from 'types';
+import { Connection, PortType, ReactDiagramState } from 'types';
 
-import { EdgeProps, WrapEdgeProps } from './type';
+import { Edge, EdgeProps, WrapEdgeProps } from './type';
+import { StoreApi } from 'zustand';
+
+export function getMouseHandler(
+   id: string,
+   getState: StoreApi<ReactDiagramState>['getState'],
+   handler?: (
+      event: ReactMouseEvent<SVGGElement, MouseEvent>,
+      edge: Edge,
+   ) => void,
+) {
+   return handler === undefined
+      ? handler
+      : (event: ReactMouseEvent<SVGGElement, MouseEvent>) => {
+           const edge = getState().edges.find((e) => e.id === id);
+
+           if (edge) {
+              handler(event, { ...edge });
+           }
+        };
+}
 
 const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
    const EdgeWrapper = (props: WrapEdgeProps): JSX.Element | null => {
@@ -56,6 +76,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          isFocusable,
 
          onClick,
+         onEdgeDoubleClick,
          onEdgeUpdate,
          onEdgeUpdateStart,
          onEdgeUpdateEnd,
@@ -124,6 +145,12 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          }
       };
 
+      const onEdgeDoubleClickHandler = getMouseHandler(
+         id,
+         store.getState,
+         onEdgeDoubleClick,
+      );
+
       const inactive = !elementsSelectable;
 
       const wrapperClassName = cc([
@@ -162,6 +189,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
       const events = {
          onClick: onEdgeClick,
+         onDoubleClick: onEdgeDoubleClickHandler,
       };
 
       return (
