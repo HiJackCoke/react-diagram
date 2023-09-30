@@ -64,6 +64,7 @@ function DiagramView({
 
    // EdgeRenderer props
    edgeTypes,
+   onEdgeClick,
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
@@ -99,6 +100,7 @@ function DiagramView({
             rfId={rfId}
             edgeTypes={edgeTypes}
             noPanClassName={noPanClassName}
+            onEdgeClick={onEdgeClick}
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}

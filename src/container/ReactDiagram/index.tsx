@@ -62,7 +62,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onNodeMouseLeave,
 
          edgeTypes = defaultEdgeTypes,
-
+         onEdgeClick,
          onEdgeUpdate,
          onEdgeUpdateStart,
          onEdgeUpdateEnd,
@@ -84,6 +84,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onNodeDragEnd,
 
          onEdgesChange,
+
          onConnect,
          onConnectStart,
          onConnectEnd,
@@ -117,6 +118,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onNodeMouseEnter={onNodeMouseEnter}
                   onNodeMouseMove={onNodeMouseMove}
                   onNodeMouseLeave={onNodeMouseLeave}
+                  onEdgeClick={onEdgeClick}
                   onEdgeUpdate={onEdgeUpdate}
                   onEdgeUpdateStart={onEdgeUpdateStart}
                   onEdgeUpdateEnd={onEdgeUpdateEnd}

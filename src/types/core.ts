@@ -49,9 +49,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onNodeDragEnd?: NodeDragHandler;
 
    onEdgesChange?: OnEdgesChange;
-   onConnect?: OnConnect;
-   onConnectStart?: OnConnectStart;
-   onConnectEnd?: OnConnectEnd;
+   onEdgeClick?: (event: ReactMouseEvent, node: Edge) => void;
 
    onEdgeUpdate?: OnEdgeUpdateFunc;
    onEdgeUpdateStart?: (
@@ -64,6 +62,10 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
       edge: Edge,
       portType: PortType,
    ) => void;
+
+   onConnect?: OnConnect;
+   onConnectStart?: OnConnectStart;
+   onConnectEnd?: OnConnectEnd;
 
    onMove?: OnMove;
    onMoveStart?: OnMove;

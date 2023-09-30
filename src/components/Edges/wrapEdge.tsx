@@ -55,6 +55,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          hidden,
          isFocusable,
 
+         onClick,
          onEdgeUpdate,
          onEdgeUpdateStart,
          onEdgeUpdateEnd,
@@ -112,6 +113,17 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
             });
          };
 
+      const onEdgeClick = (
+         event: React.MouseEvent<SVGGElement, MouseEvent>,
+      ): void => {
+         const { edges } = store.getState();
+
+         if (onClick) {
+            const edge = edges.find((e) => e.id === id)!;
+            onClick(event, edge);
+         }
+      };
+
       const inactive = !elementsSelectable;
 
       const wrapperClassName = cc([
@@ -148,8 +160,13 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          targetPosition,
       };
 
+      const events = {
+         onClick: onEdgeClick,
+      };
+
       return (
          <g
+            {...events}
             ref={edgeRef}
             className={wrapperClassName}
             tabIndex={isFocusable ? 0 : undefined}

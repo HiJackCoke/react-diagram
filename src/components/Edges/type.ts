@@ -69,6 +69,8 @@ export type OnEdgeUpdateFunc<T = any> = (
    newConnection: Connection,
 ) => void;
 
+export type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;
+
 export type WrapEdgeProps<T = any> = Edge<T> & {
    sourceX: number;
    sourceY: number;
@@ -81,6 +83,7 @@ export type WrapEdgeProps<T = any> = Edge<T> & {
    rfId?: string;
    isFocusable: boolean;
 
+   onClick?: EdgeMouseHandler;
    onEdgeUpdate?: OnEdgeUpdateFunc;
    onEdgeUpdateStart?: (
       event: ReactMouseEvent,
