@@ -87,6 +87,7 @@ export type WrapEdgeProps<T = any> = Edge<T> & {
    onDoubleClick?: EdgeMouseHandler;
    onContextMenu?: EdgeMouseHandler;
    onMouseEnter?: EdgeMouseHandler;
+   onMouseMove?: EdgeMouseHandler;
 
    onEdgeUpdate?: OnEdgeUpdateFunc;
    onEdgeUpdateStart?: (

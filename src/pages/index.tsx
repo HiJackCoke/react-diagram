@@ -146,6 +146,8 @@ function Index() {
             onEdgeClick={console.log}
             onEdgeDoubleClick={console.log}
             onEdgeContextMenu={console.log}
+            onEdgeMouseEnter={console.log}
+            onEdgeMouseMove={console.log}
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
