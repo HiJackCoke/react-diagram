@@ -53,6 +53,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onEdgeClick?: (event: ReactMouseEvent, node: Edge) => void;
    onEdgeDoubleClick?: EdgeMouseHandler;
    onEdgeContextMenu?: EdgeMouseHandler;
+   onEdgeMouseEnter?: EdgeMouseHandler;
 
    onEdgeUpdate?: OnEdgeUpdateFunc;
    onEdgeUpdateStart?: (
