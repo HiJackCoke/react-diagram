@@ -172,7 +172,7 @@ function EdgeRenderer({
 
                   const events = {
                      onClick: onEdgeClick,
-                     onEdgeDoubleClick,
+                     onDoubleClick: onEdgeDoubleClick,
                      onContextMenu: onEdgeContextMenu,
                      onMouseEnter: onEdgeMouseEnter,
                      onEdgeUpdate,
