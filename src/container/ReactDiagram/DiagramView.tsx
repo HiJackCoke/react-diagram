@@ -69,6 +69,7 @@ function DiagramView({
    onEdgeContextMenu,
    onEdgeMouseEnter,
    onEdgeMouseMove,
+   onEdgeMouseLeave,
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
@@ -109,6 +110,7 @@ function DiagramView({
             onEdgeContextMenu={onEdgeContextMenu}
             onEdgeMouseEnter={onEdgeMouseEnter}
             onEdgeMouseMove={onEdgeMouseMove}
+            onEdgeMouseLeave={onEdgeMouseLeave}
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}

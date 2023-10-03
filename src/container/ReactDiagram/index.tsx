@@ -67,6 +67,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onEdgeContextMenu,
          onEdgeMouseEnter,
          onEdgeMouseMove,
+         onEdgeMouseLeave,
          onEdgeUpdate,
          onEdgeUpdateStart,
          onEdgeUpdateEnd,
@@ -127,6 +128,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onEdgeContextMenu={onEdgeContextMenu}
                   onEdgeMouseEnter={onEdgeMouseEnter}
                   onEdgeMouseMove={onEdgeMouseMove}
+                  onEdgeMouseLeave={onEdgeMouseLeave}
                   onEdgeUpdate={onEdgeUpdate}
                   onEdgeUpdateStart={onEdgeUpdateStart}
                   onEdgeUpdateEnd={onEdgeUpdateEnd}

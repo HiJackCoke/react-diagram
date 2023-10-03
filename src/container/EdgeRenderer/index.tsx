@@ -24,6 +24,7 @@ type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
       | 'onEdgeContextMenu'
       | 'onEdgeMouseEnter'
       | 'onEdgeMouseMove'
+      | 'onEdgeMouseLeave'
       | 'onEdgeUpdate'
       | 'onEdgeUpdateStart'
       | 'onEdgeUpdateEnd'
@@ -55,6 +56,7 @@ function EdgeRenderer({
    onEdgeContextMenu,
    onEdgeMouseEnter,
    onEdgeMouseMove,
+   onEdgeMouseLeave,
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
@@ -178,6 +180,7 @@ function EdgeRenderer({
                      onContextMenu: onEdgeContextMenu,
                      onMouseEnter: onEdgeMouseEnter,
                      onMouseMove: onEdgeMouseMove,
+                     onMouseLeave: onEdgeMouseLeave,
                      onEdgeUpdate,
                      onEdgeUpdateStart,
                      onEdgeUpdateEnd,
