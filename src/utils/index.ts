@@ -2,13 +2,19 @@ import {
    MouseEvent as ReactMouseEvent,
    TouchEvent as ReactTouchEvent,
 } from 'react';
+
+import { errorMessages } from 'fixtures/errorMessages';
+
 import { Dimensions, Rect, XYPosition, CoordinateExtent, Box } from 'types';
 
 export const internalsSymbol = Symbol.for('internals');
 
-export const devWarn = (id: string, message: string) => {
+export const devWarn = (
+   id: keyof typeof errorMessages,
+   message: string = '',
+) => {
    if (process.env.NODE_ENV === 'development') {
-      console.warn(`[React Diagram]: ${id}-${message}`);
+      console.warn(`[React Diagram]: ${id}-${errorMessages[id](message)}`);
    }
 };
 

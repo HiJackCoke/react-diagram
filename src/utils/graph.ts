@@ -1,7 +1,5 @@
 import { devWarn, getOverlappingArea } from 'utils';
 
-import { errorMessages } from 'fixtures/errorMessages';
-
 import { XYPosition, Rect, Transform, Edge, Connection } from 'types';
 import { Node, NodeOrigin, NodeInternals } from 'components/Node/type';
 import { EdgeMarkerType } from 'components/Edges/type';
@@ -127,7 +125,7 @@ export const addEdge = (
    edges: Edge[],
 ): Edge[] => {
    if (!isEdge(edgeParams)) {
-      devWarn('020', errorMessages['020']());
+      devWarn('020');
 
       return edges;
    }
@@ -156,12 +154,11 @@ export const updateEdge = (
 ): Edge[] => {
    const { id: oldEdgeId, ...rest } = oldEdge;
 
-   if (!newConnection.source || !newConnection.target)
-      devWarn('020', errorMessages['020']());
+   if (!newConnection.source || !newConnection.target) devWarn('020');
 
    const foundEdge = edges.find((e) => e.id === oldEdgeId) as Edge;
 
-   if (!foundEdge) devWarn('021', errorMessages['021'](oldEdgeId));
+   if (!foundEdge) devWarn('021', oldEdgeId);
 
    const edge = {
       ...rest,

@@ -5,8 +5,6 @@ import { devWarn } from 'utils';
 import { EdgeTypes, EdgeTypesWrapped } from 'container/EdgeRenderer/type';
 import { NodeTypes, NodeTypesWrapped } from 'container/NodeRenderer/type';
 
-import { errorMessages } from 'fixtures/errorMessages';
-
 export type CreateNodeTypes = (nodeTypes: NodeTypes) => NodeTypesWrapped;
 export type CreateEdgeTypes = (edgeTypes: EdgeTypes) => EdgeTypesWrapped;
 
@@ -29,7 +27,7 @@ export function useNodeOrEdgeTypes(
       if (process.env.NODE_ENV === 'development') {
          const typeKeys = Object.keys(nodeOrEdgeTypes);
          if (shallow(typesKeysRef.current, typeKeys)) {
-            devWarn('002', errorMessages['002']());
+            devWarn('002');
          }
 
          typesKeysRef.current = typeKeys;
