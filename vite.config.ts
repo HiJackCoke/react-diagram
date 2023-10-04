@@ -16,6 +16,7 @@ export default defineConfig({
          hooks: path.resolve(__dirname, 'src/hooks'),
          contexts: path.resolve(__dirname, 'src/contexts'),
          store: path.resolve(__dirname, 'src/store'),
+         fixtures: path.resolve(__dirname, 'src/fixtures'),
       },
    },
 
