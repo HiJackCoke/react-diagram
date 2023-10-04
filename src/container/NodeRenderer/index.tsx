@@ -40,9 +40,10 @@ type NodeRendererProps = Pick<
    };
 
 const selector = (s: ReactDiagramState) => ({
-   updateNodeDimensions: s.updateNodeDimensions,
    nodesDraggable: s.nodesDraggable,
    elementsSelectable: s.elementsSelectable,
+   updateNodeDimensions: s.updateNodeDimensions,
+   onError: s.onError,
 });
 
 function NodeRenderer({
@@ -55,7 +56,7 @@ function NodeRenderer({
    onNodeDoubleClick,
    ...props
 }: NodeRendererProps) {
-   const { nodesDraggable, elementsSelectable, updateNodeDimensions } =
+   const { nodesDraggable, elementsSelectable, updateNodeDimensions, onError } =
       useStore(selector, shallow);
    const nodes = useVisibleNodes();
 
@@ -109,6 +110,12 @@ function NodeRenderer({
             } = node;
 
             let nodeType = type || 'default';
+
+            if (!nodeTypes[nodeType]) {
+               onError?.('010', nodeType);
+
+               nodeType = 'default';
+            }
 
             const NodeComponent = (nodeTypes[nodeType] ||
                nodeTypes.default) as ComponentType<WrapNodeProps>;
