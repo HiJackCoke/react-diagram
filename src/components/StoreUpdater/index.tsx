@@ -30,6 +30,7 @@ export type StoreUpdaterProps = Pick<
    | 'onConnect'
    | 'onConnectStart'
    | 'onConnectEnd'
+   | 'onError'
 > & {
    rfId: string;
 };
@@ -79,6 +80,7 @@ const StoreUpdater = ({
    onConnect,
    onConnectStart,
    onConnectEnd,
+   onError,
 }: StoreUpdaterProps) => {
    const { setNodes, setEdges } = useStore(selector, shallow);
    const store = useStoreApi();
@@ -112,6 +114,8 @@ const StoreUpdater = ({
    useDirectStoreUpdater('onConnect', onConnect, store.setState);
    useDirectStoreUpdater('onConnectStart', onConnectStart, store.setState);
    useDirectStoreUpdater('onConnectEnd', onConnectEnd, store.setState);
+
+   useDirectStoreUpdater('onError', onError, store.setState);
 
    return null;
 };

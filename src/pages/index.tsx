@@ -157,6 +157,7 @@ function Index() {
             onMove={console.log}
             onMoveStart={console.log}
             onMoveEnd={console.log}
+            onError={console.log}
          />
       </>
    );

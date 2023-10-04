@@ -1,4 +1,5 @@
-import { CoordinateExtent } from '../types';
+import { devWarn } from 'utils';
+import { CoordinateExtent } from 'types';
 import { ReactDiagramStore } from 'components/ReactDiagramProvider/type';
 
 export const infiniteExtent: CoordinateExtent = [
@@ -34,6 +35,8 @@ const initialState: ReactDiagramStore = {
    connectionPortType: 'source',
    autoPanOnNodeDrag: true,
    autoPanOnConnect: true,
+
+   onError: devWarn,
 };
 
 export default initialState;

@@ -93,6 +93,8 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onConnect,
          onConnectStart,
          onConnectEnd,
+
+         onError,
       },
       ref,
    ) => {
@@ -152,6 +154,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onConnect={onConnect}
                   onConnectStart={onConnectStart}
                   onConnectEnd={onConnectEnd}
+                  onError={onError}
                />
             </Wrapper>
          </div>
