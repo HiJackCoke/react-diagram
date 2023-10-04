@@ -1,4 +1,6 @@
-import { getOverlappingArea } from 'utils';
+import { devWarn, getOverlappingArea } from 'utils';
+
+import { errorMessages } from 'fixtures/errorMessages';
 
 import { XYPosition, Rect, Transform, Edge, Connection } from 'types';
 import { Node, NodeOrigin, NodeInternals } from 'components/Node/type';
@@ -124,8 +126,11 @@ export const addEdge = (
    edgeParams: Edge | Connection,
    edges: Edge[],
 ): Edge[] => {
-   if (!isEdge(edgeParams))
-      throw Error('Can`t create edge. An edge needs a source and a target.');
+   if (!isEdge(edgeParams)) {
+      devWarn('020', errorMessages['020']());
+
+      return edges;
+   }
 
    if (isExistsConnection(edgeParams, edges)) {
       return edges;
@@ -152,12 +157,11 @@ export const updateEdge = (
    const { id: oldEdgeId, ...rest } = oldEdge;
 
    if (!newConnection.source || !newConnection.target)
-      throw Error('Can`t create edge. An edge needs a source and a target.');
+      devWarn('020', errorMessages['020']());
 
    const foundEdge = edges.find((e) => e.id === oldEdgeId) as Edge;
 
-   if (!foundEdge)
-      throw Error(`The old edge with id=${oldEdgeId} does not exist.`);
+   if (!foundEdge) devWarn('021', errorMessages['021'](oldEdgeId));
 
    const edge = {
       ...rest,

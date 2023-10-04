@@ -4,10 +4,11 @@ import type { StoreApi } from 'zustand';
 
 import StoreContext from '../contexts/RFStoreContext';
 
+import { errorMessages } from 'fixtures/errorMessages';
+
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
 
-const zustandErrorMessage =
-   '[React Diagram]: Seems like you have not used zustand provider as an ancestor';
+const zustandErrorMessage = errorMessages['001']();
 
 type ExtractState = StoreApi<ReactDiagramState> extends {
    getState: () => infer T;
