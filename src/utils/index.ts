@@ -5,18 +5,27 @@ import {
 
 import { errorMessages } from 'fixtures/errorMessages';
 
-import { Dimensions, Rect, XYPosition, CoordinateExtent, Box } from 'types';
+import {
+   Dimensions,
+   Rect,
+   XYPosition,
+   CoordinateExtent,
+   Box,
+   OnError,
+} from 'types';
 
 export const internalsSymbol = Symbol.for('internals');
 
-export const devWarn = (
-   id: keyof typeof errorMessages,
-   message: string = '',
-) => {
+export const devWarn = (id: keyof typeof errorMessages, value: string = '') => {
    if (process.env.NODE_ENV === 'development') {
-      console.warn(`[React Diagram]: ${id}-${errorMessages[id](message)}`);
+      console.warn(`[React Diagram]: ${id}-${errorMessages[id](value)}`);
    }
 };
+
+export const onErrorWrapper =
+   (onError?: OnError) =>
+   (id: keyof typeof errorMessages, value: string = '') =>
+      onError?.(id, errorMessages[id](value));
 
 export const isNumeric = (n: any): n is number => !isNaN(n) && isFinite(n);
 

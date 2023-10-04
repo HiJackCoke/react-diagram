@@ -3,7 +3,9 @@ import { useEffect } from 'react';
 import { StoreApi } from 'zustand';
 import { shallow } from 'zustand/shallow';
 
-import { useStore, useStoreApi } from '../../hooks/useStore';
+import { useStore, useStoreApi } from 'hooks/useStore';
+
+import { onErrorWrapper } from 'utils';
 
 import { ReactDiagramProps } from 'types';
 import { Edge } from 'components/Edges/type';
@@ -115,7 +117,7 @@ const StoreUpdater = ({
    useDirectStoreUpdater('onConnectStart', onConnectStart, store.setState);
    useDirectStoreUpdater('onConnectEnd', onConnectEnd, store.setState);
 
-   useDirectStoreUpdater('onError', onError, store.setState);
+   useDirectStoreUpdater('onError', onErrorWrapper(onError), store.setState);
 
    return null;
 };

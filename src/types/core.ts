@@ -20,6 +20,7 @@ import {
    PortType,
    OnMove,
    EdgeMouseHandler,
+   OnError,
 } from '.';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
@@ -76,6 +77,8 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onMove?: OnMove;
    onMoveStart?: OnMove;
    onMoveEnd?: OnMove;
+
+   onError?: OnError;
 
    minZoom?: number;
    maxZoom?: number;
