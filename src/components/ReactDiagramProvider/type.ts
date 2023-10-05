@@ -93,6 +93,8 @@ export type ReactDiagramActions = {
 
    cancelConnection: () => void;
    panBy: (delta: XYPosition) => void;
+
+   setNodeExtent: (nodeExtent: CoordinateExtent) => void;
 };
 
 export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;

@@ -7,7 +7,7 @@ import {
    updateNodesSelections,
 } from './utils';
 
-import { getDimensions, internalsSymbol } from 'utils';
+import { clampPosition, getDimensions, internalsSymbol } from 'utils';
 import { createSelectionChange, getSelectionChanges } from 'utils/changes';
 
 import { getPortBounds } from '../components/Node/utils';
@@ -236,6 +236,18 @@ const createRFStore = () =>
             infiniteExtent,
          );
          d3Zoom.transform(d3Selection, constrainedTransform);
+      },
+      setNodeExtent: (nodeExtent: CoordinateExtent) => {
+         const { nodeInternals } = get();
+
+         nodeInternals.forEach((node) => {
+            node.positionAbsolute = clampPosition(node.position, nodeExtent);
+         });
+
+         set({
+            nodeExtent,
+            nodeInternals: new Map(nodeInternals),
+         });
       },
    }));
 

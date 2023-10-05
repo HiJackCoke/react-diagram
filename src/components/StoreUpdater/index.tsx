@@ -7,7 +7,7 @@ import { useStore, useStoreApi } from 'hooks/useStore';
 
 import { onErrorWrapper } from 'utils';
 
-import { ReactDiagramProps } from 'types';
+import { CoordinateExtent, ReactDiagramProps } from 'types';
 import { Edge } from 'components/Edges/type';
 import { Node } from 'components/Node/type';
 import {
@@ -18,6 +18,7 @@ import {
 export type StoreUpdaterProps = Pick<
    ReactDiagramProps,
    | 'nodes'
+   | 'nodeExtent'
    | 'onNodesChange'
    | 'onNodeDrag'
    | 'onNodeDragStart'
@@ -40,6 +41,7 @@ export type StoreUpdaterProps = Pick<
 const selector = (s: ReactDiagramState) => ({
    setNodes: s.setNodes,
    setEdges: s.setEdges,
+   setNodeExtent: s.setNodeExtent,
 });
 
 function useStoreUpdater<T>(
@@ -68,6 +70,7 @@ function useDirectStoreUpdater(
 
 const StoreUpdater = ({
    nodes,
+   nodeExtent,
    onNodesChange,
    onNodeDrag,
    onNodeDragStart,
@@ -84,13 +87,14 @@ const StoreUpdater = ({
    onConnectEnd,
    onError,
 }: StoreUpdaterProps) => {
-   const { setNodes, setEdges } = useStore(selector, shallow);
+   const { setNodes, setEdges, setNodeExtent } = useStore(selector, shallow);
    const store = useStoreApi();
 
    useDirectStoreUpdater('gridStep', gridStep, store.setState);
 
    useStoreUpdater<Node[]>(nodes, setNodes);
    useStoreUpdater<Edge[]>(edges, setEdges);
+   useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
 
    useDirectStoreUpdater(
       'elevateNodesOnSelect',
