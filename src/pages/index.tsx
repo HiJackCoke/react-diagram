@@ -158,6 +158,10 @@ function Index() {
             onMoveStart={console.log}
             onMoveEnd={console.log}
             onError={console.log}
+            nodeExtent={[
+               [-100, -100],
+               [100, 100],
+            ]}
          />
       </>
    );

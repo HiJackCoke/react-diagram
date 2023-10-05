@@ -46,6 +46,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          minZoom = 0.5,
          maxZoom = 2,
          translateExtent = infiniteExtent,
+         nodeExtent = infiniteExtent,
          defaultViewport = initViewport,
 
          onlyRenderVisibleElements = false,
@@ -111,6 +112,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   minZoom={minZoom}
                   maxZoom={maxZoom}
                   translateExtent={translateExtent}
+                  nodeExtent={nodeExtent}
                   defaultViewport={defaultViewport}
                   onlyRenderVisibleElements={onlyRenderVisibleElements}
                   disableKeyboardA11y={disableKeyboardA11y}

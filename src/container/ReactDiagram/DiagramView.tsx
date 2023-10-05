@@ -44,6 +44,7 @@ function DiagramView({
    minZoom,
    maxZoom,
    translateExtent,
+   nodeExtent,
    defaultViewport,
    onMove,
    onMoveStart,
@@ -94,6 +95,7 @@ function DiagramView({
             nodeOrigin={nodeOrigin}
             noDragClassName={noDragClassName}
             noPanClassName={noPanClassName}
+            nodeExtent={nodeExtent}
             onNodeClick={onNodeClick}
             onNodeDoubleClick={onNodeDoubleClick}
             onNodeContextMenu={onNodeContextMenu}

@@ -6,7 +6,7 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from 'hooks/useStore';
 import useVisibleNodes from 'hooks/useVisibleNodes';
 
-import { internalsSymbol } from 'utils';
+import { clampPosition, internalsSymbol } from 'utils';
 
 import { Position, ReactDiagramProps } from 'types';
 import { ReactDiagramState } from 'components/ReactDiagramProvider/type';
@@ -48,6 +48,7 @@ const selector = (s: ReactDiagramState) => ({
 
 function NodeRenderer({
    nodeTypes,
+   nodeExtent,
    onNodeClick,
    onNodeMouseEnter,
    onNodeMouseMove,
@@ -150,9 +151,13 @@ function NodeRenderer({
                onDoubleClick: onNodeDoubleClick,
             };
 
+            const clampedPosition = nodeExtent
+               ? clampPosition(positionAbsolute, nodeExtent)
+               : node.positionAbsolute;
+
             const position = {
-               positionX: positionAbsolute?.x || 0,
-               positionY: positionAbsolute?.y || 0,
+               positionX: clampedPosition?.x || 0,
+               positionY: clampedPosition?.y || 0,
                sourcePosition: Position.Bottom,
                targetPosition: Position.Top,
             };
