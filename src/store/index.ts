@@ -249,6 +249,11 @@ const createRFStore = () =>
             nodeInternals: new Map(nodeInternals),
          });
       },
+      setTranslateExtent: (translateExtent: CoordinateExtent) => {
+         get().d3Zoom?.translateExtent(translateExtent);
+
+         set({ translateExtent });
+      },
    }));
 
 export { createRFStore };

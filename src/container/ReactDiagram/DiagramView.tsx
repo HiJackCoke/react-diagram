@@ -21,7 +21,6 @@ export type DiagramViewProps = ReactDiagramCommonProps &
          | 'panning'
          | 'minZoom'
          | 'maxZoom'
-         | 'translateExtent'
          | 'defaultViewport'
          | 'onlyRenderVisibleElements'
          | 'disableKeyboardA11y'
@@ -43,7 +42,6 @@ function DiagramView({
    panning,
    minZoom,
    maxZoom,
-   translateExtent,
 
    defaultViewport,
    onMove,
@@ -81,7 +79,6 @@ function DiagramView({
          panning={panning}
          minZoom={minZoom}
          maxZoom={maxZoom}
-         translateExtent={translateExtent}
          defaultViewport={defaultViewport}
          onMove={onMove}
          onMoveStart={onMoveStart}

@@ -127,7 +127,7 @@ function ZoomPane({
             ) as HTMLDivElement,
          });
       }
-   }, []);
+   }, [translateExtent]);
 
    useEffect(() => {
       if (d3Zoom && d3Selection) {

@@ -158,7 +158,7 @@ function Index() {
             onMoveStart={console.log}
             onMoveEnd={console.log}
             onError={console.log}
-            nodeExtent={[
+            translateExtent={[
                [-100, -100],
                [100, 100],
             ]}

@@ -1,30 +1,34 @@
 import { memo } from 'react';
 
+import { useStore } from 'hooks/useStore';
 import useGlobalKeyHandler from 'hooks/useGlobalKeyHandler';
 
 import ZoomPane from 'container/ZoomPane';
 import Viewport from 'container/Viewport';
 
 import { ZoomPaneProps } from 'container/ZoomPane';
+import { ReactDiagramState } from 'types';
 
-type RequiredProps = ZoomPaneProps;
+export type DiagramRendererProps = Omit<ZoomPaneProps, 'translateExtent'>;
 
-export type DiagramRendererProps = RequiredProps;
+const selector = (s: ReactDiagramState) => s.translateExtent;
 
 function DiagramRenderer({
    children,
-
    noPanClassName,
    panning,
    minZoom,
    maxZoom,
-   translateExtent,
+
    defaultViewport,
    onMove,
    onMoveStart,
    onMoveEnd,
 }: DiagramRendererProps) {
+   const translateExtent = useStore(selector);
+
    useGlobalKeyHandler();
+
    return (
       <ZoomPane
          noPanClassName={noPanClassName}

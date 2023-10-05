@@ -24,7 +24,6 @@ const initialState: ReactDiagramStore = {
    elevateNodesOnSelect: true,
 
    nodesDraggable: true,
-   nodeExtent: infiniteExtent,
    multiSelectionActive: false,
 
    d3Zoom: null,
@@ -35,6 +34,8 @@ const initialState: ReactDiagramStore = {
    connectionPortType: 'source',
    autoPanOnNodeDrag: true,
    autoPanOnConnect: true,
+   nodeExtent: infiniteExtent,
+   translateExtent: infiniteExtent,
 
    onError: devWarn,
 };

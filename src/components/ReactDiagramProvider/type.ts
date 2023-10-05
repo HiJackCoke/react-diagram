@@ -46,7 +46,7 @@ export type ReactDiagramStore = {
    nodesSelectionActive: boolean;
    elevateNodesOnSelect: boolean;
    nodesDraggable: boolean;
-   nodeExtent: CoordinateExtent;
+
    multiSelectionActive: boolean;
    elementsSelectable: boolean;
 
@@ -72,6 +72,9 @@ export type ReactDiagramStore = {
 
    autoPanOnNodeDrag: boolean;
    autoPanOnConnect: boolean;
+
+   nodeExtent: CoordinateExtent;
+   translateExtent: CoordinateExtent;
 };
 
 export type ReactDiagramActions = {
@@ -95,6 +98,7 @@ export type ReactDiagramActions = {
    panBy: (delta: XYPosition) => void;
 
    setNodeExtent: (nodeExtent: CoordinateExtent) => void;
+   setTranslateExtent: (translateExtent: CoordinateExtent) => void;
 };
 
 export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;

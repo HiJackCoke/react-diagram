@@ -18,7 +18,6 @@ import {
 export type StoreUpdaterProps = Pick<
    ReactDiagramProps,
    | 'nodes'
-   | 'nodeExtent'
    | 'onNodesChange'
    | 'onNodeDrag'
    | 'onNodeDragStart'
@@ -34,6 +33,8 @@ export type StoreUpdaterProps = Pick<
    | 'onConnectStart'
    | 'onConnectEnd'
    | 'onError'
+   | 'nodeExtent'
+   | 'translateExtent'
 > & {
    rfId: string;
 };
@@ -42,6 +43,7 @@ const selector = (s: ReactDiagramState) => ({
    setNodes: s.setNodes,
    setEdges: s.setEdges,
    setNodeExtent: s.setNodeExtent,
+   setTranslateExtent: s.setTranslateExtent,
 });
 
 function useStoreUpdater<T>(
@@ -70,7 +72,6 @@ function useDirectStoreUpdater(
 
 const StoreUpdater = ({
    nodes,
-   nodeExtent,
    onNodesChange,
    onNodeDrag,
    onNodeDragStart,
@@ -86,8 +87,13 @@ const StoreUpdater = ({
    onConnectStart,
    onConnectEnd,
    onError,
+   nodeExtent,
+   translateExtent,
 }: StoreUpdaterProps) => {
-   const { setNodes, setEdges, setNodeExtent } = useStore(selector, shallow);
+   const { setNodes, setEdges, setNodeExtent, setTranslateExtent } = useStore(
+      selector,
+      shallow,
+   );
    const store = useStoreApi();
 
    useDirectStoreUpdater('gridStep', gridStep, store.setState);
@@ -95,6 +101,7 @@ const StoreUpdater = ({
    useStoreUpdater<Node[]>(nodes, setNodes);
    useStoreUpdater<Edge[]>(edges, setEdges);
    useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
+   useStoreUpdater<CoordinateExtent>(translateExtent, setTranslateExtent);
 
    useDirectStoreUpdater(
       'elevateNodesOnSelect',
