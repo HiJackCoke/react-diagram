@@ -9,23 +9,30 @@ import Viewport from 'container/Viewport';
 import { ZoomPaneProps } from 'container/ZoomPane';
 import { ReactDiagramState } from 'types';
 
-export type DiagramRendererProps = Omit<ZoomPaneProps, 'translateExtent'>;
+export type DiagramRendererProps = Omit<
+   ZoomPaneProps,
+   'translateExtent' | 'minZoom' | 'maxZoom'
+>;
 
-const selector = (s: ReactDiagramState) => s.translateExtent;
+const selector = (s: ReactDiagramState) => {
+   const { minZoom, maxZoom, translateExtent } = s;
+   return {
+      minZoom,
+      maxZoom,
+      translateExtent,
+   };
+};
 
 function DiagramRenderer({
    children,
    noPanClassName,
    panning,
-   minZoom,
-   maxZoom,
-
    defaultViewport,
    onMove,
    onMoveStart,
    onMoveEnd,
 }: DiagramRendererProps) {
-   const translateExtent = useStore(selector);
+   const { minZoom, maxZoom, translateExtent } = useStore(selector);
 
    useGlobalKeyHandler();
 

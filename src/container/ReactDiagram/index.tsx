@@ -3,8 +3,6 @@ import { forwardRef } from 'react';
 import DiagramView from './DiagramView';
 import StoreUpdater from 'components/StoreUpdater';
 
-import { infiniteExtent } from 'store/initialState';
-
 import { useNodeOrEdgeTypes } from 'hooks/useNodeOrEdgeTypes';
 
 import Nodes from 'components/Node';
@@ -43,10 +41,10 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          id,
          // DiagramView props
          panning = true,
-         minZoom = 0.5,
-         maxZoom = 2,
-         translateExtent = infiniteExtent,
-         nodeExtent = infiniteExtent,
+         minZoom,
+         maxZoom,
+         translateExtent,
+         nodeExtent,
          defaultViewport = initViewport,
 
          onlyRenderVisibleElements = false,
@@ -109,8 +107,6 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                <DiagramView
                   rfId={rfId}
                   panning={panning}
-                  minZoom={minZoom}
-                  maxZoom={maxZoom}
                   defaultViewport={defaultViewport}
                   onlyRenderVisibleElements={onlyRenderVisibleElements}
                   disableKeyboardA11y={disableKeyboardA11y}
@@ -148,6 +144,8 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   autoPanOnConnect={autoPanOnConnect}
                   nodeExtent={nodeExtent}
                   translateExtent={translateExtent}
+                  minZoom={minZoom}
+                  maxZoom={maxZoom}
                   onNodesChange={onNodesChange}
                   onNodeDrag={onNodeDrag}
                   onNodeDragStart={onNodeDragStart}

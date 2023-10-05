@@ -15,10 +15,9 @@ import './style.css';
 const initialNodes = [
    {
       id: '1',
-      width: 50,
-      type: 'coco',
+      // width: 50,
       height: 100,
-      data: { label: 'Node1' },
+      data: { label: 'Node1Node1Node1Node1Node1' },
       position: { x: 100, y: 100 },
    },
    {
@@ -130,8 +129,8 @@ function Index() {
             nodes={nodes}
             edges={edges}
             // panning={false}
-            // minZoom={minZoom}
-            // maxZoom={maxZoom}
+            minZoom={1}
+            maxZoom={2}
             onNodesChange={onNodesChange}
             onNodeDrag={console.log}
             onNodeDragStart={console.log}
@@ -158,10 +157,14 @@ function Index() {
             onMoveStart={console.log}
             onMoveEnd={console.log}
             onError={console.log}
-            translateExtent={[
-               [-100, -100],
-               [100, 100],
-            ]}
+            // nodeExtent={[
+            //    [-100, -100],
+            //    [100, 100],
+            // ]}
+            // translateExtent={[
+            //    [-100, -100],
+            //    [100, 100],
+            // ]}
          />
       </>
    );

@@ -52,6 +52,8 @@ export type ReactDiagramStore = {
 
    d3Zoom: ZoomBehavior<Element, unknown> | null;
    d3Selection: D3Selection<Element, unknown, null, undefined> | null;
+   minZoom: number;
+   maxZoom: number;
 
    onError?: OnError;
 
@@ -99,6 +101,8 @@ export type ReactDiagramActions = {
 
    setNodeExtent: (nodeExtent: CoordinateExtent) => void;
    setTranslateExtent: (translateExtent: CoordinateExtent) => void;
+   setMinZoom: (minZoom: number) => void;
+   setMaxZoom: (minZoom: number) => void;
 };
 
 export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;

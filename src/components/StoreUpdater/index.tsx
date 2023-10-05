@@ -35,16 +35,30 @@ export type StoreUpdaterProps = Pick<
    | 'onError'
    | 'nodeExtent'
    | 'translateExtent'
+   | 'minZoom'
+   | 'maxZoom'
 > & {
    rfId: string;
 };
 
-const selector = (s: ReactDiagramState) => ({
-   setNodes: s.setNodes,
-   setEdges: s.setEdges,
-   setNodeExtent: s.setNodeExtent,
-   setTranslateExtent: s.setTranslateExtent,
-});
+const selector = (s: ReactDiagramState) => {
+   const {
+      setNodes,
+      setEdges,
+      setNodeExtent,
+      setTranslateExtent,
+      setMinZoom,
+      setMaxZoom,
+   } = s;
+   return {
+      setNodes,
+      setEdges,
+      setNodeExtent,
+      setTranslateExtent,
+      setMinZoom,
+      setMaxZoom,
+   };
+};
 
 function useStoreUpdater<T>(
    value: T | undefined,
@@ -89,11 +103,17 @@ const StoreUpdater = ({
    onError,
    nodeExtent,
    translateExtent,
+   minZoom,
+   maxZoom,
 }: StoreUpdaterProps) => {
-   const { setNodes, setEdges, setNodeExtent, setTranslateExtent } = useStore(
-      selector,
-      shallow,
-   );
+   const {
+      setNodes,
+      setEdges,
+      setNodeExtent,
+      setTranslateExtent,
+      setMinZoom,
+      setMaxZoom,
+   } = useStore(selector, shallow);
    const store = useStoreApi();
 
    useDirectStoreUpdater('gridStep', gridStep, store.setState);
@@ -102,6 +122,8 @@ const StoreUpdater = ({
    useStoreUpdater<Edge[]>(edges, setEdges);
    useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
    useStoreUpdater<CoordinateExtent>(translateExtent, setTranslateExtent);
+   useStoreUpdater<number>(minZoom, setMinZoom);
+   useStoreUpdater<number>(maxZoom, setMaxZoom);
 
    useDirectStoreUpdater(
       'elevateNodesOnSelect',

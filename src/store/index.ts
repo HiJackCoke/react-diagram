@@ -254,6 +254,18 @@ const createRFStore = () =>
 
          set({ translateExtent });
       },
+      setMinZoom: (minZoom: number) => {
+         const { d3Zoom, maxZoom } = get();
+         d3Zoom?.scaleExtent([minZoom, maxZoom]);
+
+         set({ minZoom });
+      },
+      setMaxZoom: (maxZoom: number) => {
+         const { d3Zoom, minZoom } = get();
+         d3Zoom?.scaleExtent([minZoom, maxZoom]);
+
+         set({ maxZoom });
+      },
    }));
 
 export { createRFStore };
