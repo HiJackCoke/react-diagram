@@ -1,14 +1,17 @@
 import { useCallback, useRef } from 'react';
 
-import { useNodesState, useEdgesState } from 'hooks/useNodesEdgesState';
+import {
+   useNodesState,
+   useEdgesState,
+} from '../../packages/src/hooks/useNodesEdgesState';
 
-import ReactDiagram from 'container/ReactDiagram';
+import ReactDiagram from '../../packages/src/container/ReactDiagram';
 
-import { addEdge, updateEdge } from 'utils/graph';
+import { addEdge, updateEdge } from '../../packages/src/utils/graph';
 
-import { MarkerType } from 'components/Edges/type';
+import { MarkerType } from '../../packages/src/components/Edges/type';
 
-import { Connection, Edge } from 'types';
+import { Connection, Edge } from '../../packages/src/types';
 
 import './style.css';
 

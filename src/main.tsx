@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './routes';
 
-import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function Error() {
    return <h1 style={{ color: 'black' }}>Application Error</h1>;
