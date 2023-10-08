@@ -29,6 +29,7 @@ module.exports = {
       '@typescript-eslint',
    ],
    rules: {
+      'import/no-unresolved': 0,
       '@typescript-eslint/default-param-last': 0,
       'jsx-no-lambda': 0,
       semi: 0,
@@ -63,7 +64,6 @@ module.exports = {
       'import/no-dynamic-require': 0,
       'import/no-extraneous-dependencies': 0,
       'import/no-named-as-default': 0,
-      'import/no-unresolved': [2, { caseSensitive: false }],
       'import/no-webpack-loader-syntax': 0,
       'import/prefer-default-export': 0,
       'import/no-cycle': 1,
