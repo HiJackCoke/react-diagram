@@ -131,11 +131,11 @@ function ZoomPane({
 
    useEffect(() => {
       if (d3Zoom && d3Selection) {
-         d3Selection.on('wheel.zoom', (event) => {
+         d3Selection.on('wheel.zoom', (event, d) => {
             event.preventDefault();
 
-            if (d3ZoomHandler.current) {
-               d3ZoomHandler.current.call(zoomPane.current, event);
+            if (zoomPane.current && d3ZoomHandler.current) {
+               d3ZoomHandler.current.call(zoomPane.current, event, d);
             }
          });
       }
