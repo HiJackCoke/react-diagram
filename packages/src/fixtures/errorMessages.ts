@@ -1,3 +1,5 @@
+export type ErrorMessageCode = keyof typeof errorMessages;
+
 export const errorMessages = {
    '001': () => 'Seems like you have not used zustand provider as an ancestor',
    '002': () =>

@@ -3,8 +3,9 @@ import {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 import { PortType } from '../components/Port/type';
+import { ErrorMessageCode } from '../fixtures/errorMessages';
 
-export type OnError = (id: string, message: string) => void;
+export type OnError = (id: ErrorMessageCode, message: string) => void;
 
 export type Viewport = {
    x: number;

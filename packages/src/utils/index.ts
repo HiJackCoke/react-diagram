@@ -3,7 +3,7 @@ import {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
-import { errorMessages } from '../fixtures/errorMessages';
+import { ErrorMessageCode, errorMessages } from '../fixtures/errorMessages';
 
 import {
    Dimensions,
@@ -16,7 +16,7 @@ import {
 
 export const internalsSymbol = Symbol.for('internals');
 
-export const devWarn = (id: keyof typeof errorMessages, value: string = '') => {
+export const devWarn = (id: ErrorMessageCode, value: string = '') => {
    if (process.env.NODE_ENV === 'development') {
       console.warn(`[React Diagram]: ${id}-${errorMessages[id](value)}`);
    }
