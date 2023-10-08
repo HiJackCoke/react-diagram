@@ -31,9 +31,7 @@ export function useMarkerSymbol(type: MarkerType) {
       );
 
       if (!symbolExists) {
-         store
-            .getState()
-            .onError?.('009', `Marker type "${type}" doesn't exist.`);
+         store.getState().onError?.('022', type);
 
          return null;
       }

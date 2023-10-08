@@ -11,8 +11,6 @@ import {
    NodeDragItem,
 } from '../../components/Node/type';
 
-const errorMessages = 'Only child nodes can use a parent extent';
-
 export function isParentSelected(
    node: Node,
    nodeInternals: NodeInternals,
@@ -108,7 +106,7 @@ export function calcNextPosition(
                  ]
                : currentExtent;
       } else {
-         onError?.('005', errorMessages);
+         onError?.('011');
 
          currentExtent = nodeExtent;
       }

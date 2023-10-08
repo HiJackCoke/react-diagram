@@ -5,7 +5,7 @@ import {
 import { PortType } from '../components/Port/type';
 import { ErrorMessageCode } from '../fixtures/errorMessages';
 
-export type OnError = (id: ErrorMessageCode, message: string) => void;
+export type OnError = (id: ErrorMessageCode, message?: string) => void;
 
 export type Viewport = {
    x: number;
