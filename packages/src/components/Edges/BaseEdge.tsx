@@ -3,8 +3,6 @@ import EdgeLabel from './EdgeLabel';
 
 import { isNumeric } from '../../utils';
 
-import './style.css';
-
 function BaseEdge({
    path,
    labelX,

@@ -14,8 +14,6 @@ import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { Position, ReactDiagramProps } from '../../types';
 import { EdgeTypesWrapped } from './type';
 
-import './style.css';
-
 type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
    Pick<
       ReactDiagramProps,

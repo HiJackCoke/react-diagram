@@ -11,8 +11,6 @@ import {
 } from '../../types';
 import ConnectionLineWrapper from '../../components/ConnectionEdge';
 
-import '../style.css';
-
 export type ReactDiagramCommonProps = Omit<
    ReactDiagramProps,
    'nodes' | 'edges' | 'nodeTypes' | 'edgeTypes'

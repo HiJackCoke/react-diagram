@@ -15,8 +15,6 @@ import { Connection } from '../../types';
 
 import { PortProps } from './type';
 
-import './style.css';
-
 function Port({ type, position }: PortProps) {
    const store = useStoreApi();
    const nodeId = useNodeId();

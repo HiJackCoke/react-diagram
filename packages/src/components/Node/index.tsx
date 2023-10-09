@@ -4,8 +4,6 @@ import { NodeProps } from './type';
 
 import { Position } from '../../types';
 
-import './style.css';
-
 function Nodes({ data }: NodeProps) {
    return (
       <>

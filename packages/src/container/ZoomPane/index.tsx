@@ -15,8 +15,6 @@ import { clamp } from '../../utils';
 import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
-import './style.css';
-
 export type ZoomPaneProps = Required<
    Pick<
       ReactDiagramProps,

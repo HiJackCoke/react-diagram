@@ -22,8 +22,6 @@ import {
    EdgeTypes,
 } from '../../types';
 
-import './style.css';
-
 const initViewport: Viewport = { x: 0, y: 0, zoom: 1 };
 const initNodeOrigin: NodeOrigin = [0, 0];
 
