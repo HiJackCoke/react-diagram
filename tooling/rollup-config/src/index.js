@@ -13,61 +13,61 @@ const pkg = JSON.parse(readFileSync(resolve(cwd(), './package.json')));
 const isProd = process.env.NODE_ENV === 'production';
 
 const defaultPlugins = [
-  resolvePlugin(),
-  commonjs({
-    include: /node_modules/,
-  }),
+   resolvePlugin(),
+   commonjs({
+      include: /node_modules/,
+   }),
 ];
 
 const onwarn = (warning, rollupWarn) => {
-  if (warning.code !== 'CIRCULAR_DEPENDENCY') {
-    rollupWarn(warning);
-  }
+   if (warning.code !== 'CIRCULAR_DEPENDENCY') {
+      rollupWarn(warning);
+   }
 };
 
 export const esmConfig = defineConfig({
-  input: pkg.source,
-  output: {
-    file: pkg.module,
-    format: 'esm',
-  },
-  onwarn,
-  plugins: [
-    peerDepsExternal({
-      includeDependencies: true,
-    }),
-    ...defaultPlugins,
-    typescript(),
-  ],
+   input: pkg.source,
+   output: {
+      file: pkg.module,
+      format: 'esm',
+   },
+   onwarn,
+   plugins: [
+      peerDepsExternal({
+         includeDependencies: true,
+      }),
+      ...defaultPlugins,
+      typescript(),
+   ],
 });
 
 const globals = {
-  react: 'React',
-  'react-dom': 'ReactDOM',
-  'react/jsx-runtime': 'jsxRuntime',
-  ...(pkg.rollup?.globals || {}),
+   react: 'React',
+   'react-dom': 'ReactDOM',
+   'react/jsx-runtime': 'jsxRuntime',
+   ...(pkg.rollup?.globals || {}),
 };
 
 export const umdConfig = defineConfig({
-  input: pkg.source,
-  output: {
-    file: pkg.main,
-    format: 'umd',
-    exports: 'named',
-    name: pkg.rollup?.name || 'ReactFlow',
-    globals,
-  },
-  onwarn,
-  plugins: [
-    peerDepsExternal(),
-    ...defaultPlugins,
-    typescript(),
-    replace({
-      preventAssignment: true,
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
-    terser(),
-  ],
+   input: pkg.source,
+   output: {
+      file: pkg.main,
+      format: 'umd',
+      exports: 'named',
+      name: pkg.rollup?.name || 'ReactFlow',
+      globals,
+   },
+   onwarn,
+   plugins: [
+      peerDepsExternal(),
+      ...defaultPlugins,
+      typescript(),
+      replace({
+         preventAssignment: true,
+         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      }),
+      terser(),
+   ],
 });
 
 export default isProd ? [esmConfig, umdConfig] : esmConfig;
