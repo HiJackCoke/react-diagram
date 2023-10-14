@@ -5,13 +5,17 @@ import {
    useEdgesState,
 } from '../../packages/src/hooks/useNodesEdgesState';
 
-import ReactDiagram from '../../packages/src/container/ReactDiagram';
+// import ReactDiagram from '../../packages/src/container/ReactDiagram';
 
 import { addEdge, updateEdge } from '../../packages/src/utils/graph';
 
 import { MarkerType } from '../../packages/src/components/Edges/type';
 
 import { Connection, Edge } from '../../packages/src/types';
+
+import { ReactDiagram } from 'react-beautiful-diagram';
+
+import 'react-beautiful-diagram/styles/style.css';
 
 import './style.css';
 
