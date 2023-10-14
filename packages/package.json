@@ -1,6 +1,6 @@
 {
    "name": "react-beautiful-diagram",
-   "version": "1.0.0",
+   "version": "0.1.0",
    "description": "React Diagram",
    "scripts": {
       "build": "rm -rf dist && rollup -c ../tooling/rollup-config/src/index.js --environment NODE_ENV:production"
