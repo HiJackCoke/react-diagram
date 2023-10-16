@@ -54,7 +54,7 @@ export const umdConfig = defineConfig({
       file: pkg.main,
       format: 'umd',
       exports: 'named',
-      name: pkg.rollup?.name || 'ReactFlow',
+      name: pkg.rollup?.name || 'ReactDiagram',
       globals,
    },
    onwarn,
