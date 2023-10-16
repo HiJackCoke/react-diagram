@@ -54,6 +54,7 @@
    },
    "devDependencies": {
       "@reactdiagram/rollup-config": "workspace:*",
+      "@reactdiagram/tsconfig": "workspace:*",
       "@types/node": "^18.7.16",
       "@types/react": ">=17",
       "@types/react-dom": ">=17",

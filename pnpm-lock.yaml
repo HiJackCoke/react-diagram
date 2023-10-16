@@ -147,6 +147,9 @@ importers:
       '@reactdiagram/rollup-config':
         specifier: workspace:*
         version: link:../tooling/rollup-config
+      '@reactdiagram/tsconfig':
+        specifier: workspace:*
+        version: link:../tooling/tsconfig
       '@types/node':
         specifier: ^18.7.16
         version: 18.18.4
@@ -201,6 +204,8 @@ importers:
       typescript:
         specifier: ^4.9.4
         version: 4.9.5
+
+  tooling/tsconfig: {}
 
 packages:
 
