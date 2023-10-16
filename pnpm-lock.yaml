@@ -162,6 +162,9 @@ importers:
         version: 4.4.3(@types/react@18.2.25)(react@18.2.0)
 
     devDependencies:
+      '@reactdiagram/eslint-config':
+        specifier: workspace:*
+        version: link:../tooling/eslint-config
       '@reactdiagram/rollup-config':
         specifier: workspace:*
         version: link:../tooling/rollup-config
