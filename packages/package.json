@@ -1,5 +1,5 @@
 {
-   "name": "react-beautiful-diagram",
+   "name": "react-cosmos-diagram",
    "version": "0.1.0",
    "description": "React Diagram",
    "scripts": {
@@ -71,6 +71,6 @@
          "zustand": "zustand",
          "zustand/shallow": "zustandShallow"
       },
-      "name": "ReactBeautifulDiagram"
+      "name": "ReactCosmosDiagram"
    }
 }

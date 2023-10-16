@@ -13,9 +13,9 @@ import { MarkerType } from '../../packages/src/components/Edges/type';
 
 import { Connection, Edge } from '../../packages/src/types';
 
-import { ReactDiagram } from 'react-beautiful-diagram';
+import { ReactDiagram } from 'react-cosmos-diagram';
 
-import 'react-beautiful-diagram/styles/style.css';
+import 'react-cosmos-diagram/styles/style.css';
 
 import './style.css';
 
