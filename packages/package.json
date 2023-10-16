@@ -3,7 +3,8 @@
    "version": "0.1.0",
    "description": "React Diagram",
    "scripts": {
-      "build": "rm -rf dist && rollup -c node:@reactdiagram/rollup-config --environment NODE_ENV:production"
+      "build": "rm -rf dist && rollup -c node:@reactdiagram/rollup-config --environment NODE_ENV:production && npm run css",
+      "css": "postcss styles/style.css --config ../tooling/postcss-config/postcss.config.js --dir dist"
    },
    "workspaces": [
       "./packages/*",
