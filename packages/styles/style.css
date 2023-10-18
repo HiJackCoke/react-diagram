@@ -23,6 +23,11 @@
    border: 1px solid #000000;
    background-color: #ffffff;
    box-sizing: border-box;
+
+   &:focus-visible {
+      outline: none;
+      border: 1px solid #555;
+   }
 }
 
 .react-diagram__node {
