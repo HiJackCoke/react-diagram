@@ -160,4 +160,6 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
    },
 );
 
+ReactDiagram.displayName = 'ReactDiagram';
+
 export default ReactDiagram;
