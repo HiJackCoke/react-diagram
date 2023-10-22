@@ -130,7 +130,6 @@ function NodeRenderer({
             );
 
             const elProps = {
-               key: id,
                id,
                className,
                style: {
@@ -168,6 +167,7 @@ function NodeRenderer({
 
             return (
                <NodeComponent
+                  key={id}
                   {...props}
                   {...elProps}
                   {...position}

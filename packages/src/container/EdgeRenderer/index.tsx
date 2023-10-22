@@ -108,7 +108,7 @@ function EdgeRenderer({
                      return null;
                   }
 
-                  let edgeType = type || 'step';
+                  const edgeType = type || 'step';
 
                   const EdgeComponent =
                      edgeTypes[edgeType] || edgeTypes.default;
@@ -129,7 +129,6 @@ function EdgeRenderer({
                   }
 
                   const elProps = {
-                     key: id,
                      id,
                      className: cc([className, noPanClassName]),
                      style,
@@ -186,6 +185,7 @@ function EdgeRenderer({
 
                   return (
                      <EdgeComponent
+                        key={id}
                         {...elProps}
                         {...sourceAndTargetIds}
                         {...marker}
