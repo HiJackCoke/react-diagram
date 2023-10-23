@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useStoreApi } from './useStore';
 
-function useGlobalKeyHandler() {
+export type KeyCode = string | Array<string> | null;
+
+function useGlobalKeyHandler(multiSelectionKeyCode: KeyCode = 'Meta') {
    const store = useStoreApi();
 
    const [multiSelectionActivate, setMultiSelectionActivate] = useState(false);
 
    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.metaKey) {
+      console.log(123123, e.key, multiSelectionKeyCode);
+      if (e.key === multiSelectionKeyCode) {
          setMultiSelectionActivate(true);
       }
    };

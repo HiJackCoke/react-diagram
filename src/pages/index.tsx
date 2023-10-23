@@ -135,6 +135,7 @@ function Index() {
          <ReactDiagram
             nodes={nodes}
             edges={edges}
+            multiSelectionKeyCode="z"
             // panning={false}
             minZoom={1}
             maxZoom={2}

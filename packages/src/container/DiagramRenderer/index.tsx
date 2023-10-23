@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { useStore } from '../../hooks/useStore';
-import useGlobalKeyHandler from '../../hooks/useGlobalKeyHandler';
+import useGlobalKeyHandler, { KeyCode } from '../../hooks/useGlobalKeyHandler';
 
 import ZoomPane from '../../container/ZoomPane';
 import Viewport from '../../container/Viewport';
@@ -12,7 +12,9 @@ import { ReactDiagramState } from '../../types';
 export type DiagramRendererProps = Omit<
    ZoomPaneProps,
    'translateExtent' | 'minZoom' | 'maxZoom'
->;
+> & {
+   multiSelectionKeyCode?: KeyCode;
+};
 
 const selector = (s: ReactDiagramState) => {
    const { minZoom, maxZoom, translateExtent } = s;
@@ -25,6 +27,7 @@ const selector = (s: ReactDiagramState) => {
 
 function DiagramRenderer({
    children,
+   multiSelectionKeyCode,
    noPanClassName,
    panning,
    defaultViewport,
@@ -34,7 +37,7 @@ function DiagramRenderer({
 }: DiagramRendererProps) {
    const { minZoom, maxZoom, translateExtent } = useStore(selector);
 
-   useGlobalKeyHandler();
+   useGlobalKeyHandler(multiSelectionKeyCode);
 
    return (
       <ZoomPane

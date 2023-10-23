@@ -38,10 +38,14 @@ function DiagramView({
    rfId,
 
    // DiagramRenderer props
+
    noPanClassName,
    panning,
 
    defaultViewport,
+
+   multiSelectionKeyCode,
+
    onMove,
    onMoveStart,
    onMoveEnd,
@@ -73,6 +77,7 @@ function DiagramView({
 }: DiagramViewProps) {
    return (
       <DiagramRenderer
+         multiSelectionKeyCode={multiSelectionKeyCode}
          noPanClassName={noPanClassName}
          panning={panning}
          defaultViewport={defaultViewport}

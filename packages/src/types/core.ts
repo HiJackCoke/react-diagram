@@ -22,6 +22,7 @@ import {
    EdgeMouseHandler,
    OnError,
 } from '.';
+import { KeyCode } from '../hooks/useGlobalKeyHandler';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;
@@ -84,6 +85,8 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    maxZoom?: number;
    defaultViewport?: Viewport;
    translateExtent?: CoordinateExtent;
+
+   multiSelectionKeyCode?: KeyCode;
 
    nodesDraggable?: boolean;
    noDragClassName?: string;
