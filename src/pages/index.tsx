@@ -123,6 +123,8 @@ function Index() {
       edgeUpdateSuccessful.current = true;
    }, []);
 
+   console.log('fix eslint extend error');
+
    return (
       <>
          <button

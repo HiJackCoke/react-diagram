@@ -48,6 +48,9 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.18.6
         version: 7.23.0(@babel/core@7.23.0)
+      '@reactdiagram/eslint-config':
+        specifier: workspace:*
+        version: link:tooling/eslint-config
       '@types/d3':
         specifier: ^7.4.0
         version: 7.4.1
@@ -162,9 +165,6 @@ importers:
         version: 4.4.3(@types/react@18.2.25)(react@18.2.0)
 
     devDependencies:
-      '@reactdiagram/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@reactdiagram/rollup-config':
         specifier: workspace:*
         version: link:../tooling/rollup-config
