@@ -6,11 +6,11 @@
    user-select: none;
 }
 
-.react-diagram__node {
+.react-diagram__node-default {
    border-width: 2px;
 }
 
-.react-diagram__node.selected {
+.react-diagram__node-default.selected {
    border-radius: 3px;
 
    border: 2px dotted transparent;

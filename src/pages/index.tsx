@@ -5,8 +5,6 @@ import {
    useEdgesState,
 } from '../../packages/src/hooks/useNodesEdgesState';
 
-// import ReactDiagram from '../../packages/src/container/ReactDiagram';
-
 import { addEdge, updateEdge } from '../../packages/src/utils/graph';
 
 import { MarkerType } from '../../packages/src/components/Edges/type';
@@ -15,16 +13,23 @@ import { Connection, Edge } from '../../packages/src/types';
 
 import { ReactDiagram } from 'react-cosmos-diagram';
 
+import CustomNode from 'components/CustomNode';
+
 import 'react-cosmos-diagram/styles/style.css';
 
 import './style.css';
 
+const nodeTypes = {
+   c: CustomNode,
+};
+
 const initialNodes = [
    {
       id: '1',
-      // width: 50,
+      type: 'c',
+      width: 200,
       height: 100,
-      data: { label: 'Node1Node1Node1Node1Node1' },
+      data: { label: 'Custom Node' },
       position: { x: 100, y: 100 },
    },
    {
@@ -123,8 +128,6 @@ function Index() {
       edgeUpdateSuccessful.current = true;
    }, []);
 
-   console.log('fix eslint extend error');
-
    return (
       <>
          <button
@@ -137,6 +140,7 @@ function Index() {
          <ReactDiagram
             nodes={nodes}
             edges={edges}
+            nodeTypes={nodeTypes}
             // multiSelectionKeyCode="z"
             // panning={false}
             minZoom={1}
