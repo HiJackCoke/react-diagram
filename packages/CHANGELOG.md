@@ -101,7 +101,3 @@ All notable changes to this project will be documented in this file. See [standa
 * type error due to elementsSelectable in initialState ([fa00677](https://github.com/taehunlim/react-diagram/commit/fa00677245bad70ba6fdca67b41a2081cb7c4a0c))
 * type error in onError ([b11754e](https://github.com/taehunlim/react-diagram/commit/b11754ed5801a1200a7784fbaff13952385b1f2e))
 * type error in ZoomPane ([2f849c2](https://github.com/taehunlim/react-diagram/commit/2f849c2bd6ce26a6c380a487d927c62611bd04aa))
-
-## [0.0.0](https://github.com/taehunlim/react-diagram/compare/v0.1.0...v0.0.0) (2023-10-25)
-
-## [0.1.0](https://github.com/taehunlim/react-diagram/compare/v0.0.0...v0.1.0) (2023-10-25)
