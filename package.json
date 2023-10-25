@@ -49,6 +49,7 @@
       "postcss-import": "^15.1.0",
       "postcss-nested": "^6.0.0",
       "rollup": "^3.9.1",
+      "standard-version": "^9.5.0",
       "typescript": "^4.6.4",
       "vite": "^4.2.1"
    },

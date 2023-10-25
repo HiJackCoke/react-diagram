@@ -1,0 +1,75 @@
+{
+   "types": [
+      {
+         "type": "feat",
+         "section": "Features"
+      },
+      {
+         "type": "fix",
+         "section": "Bug Fixes"
+      },
+      {
+         "type": "docs",
+         "section": "Docs"
+      },
+      {
+         "type": "design",
+         "section": "UI Styling"
+      },
+      {
+         "type": "refactor",
+         "section": "Code Refactoring"
+      },
+      {
+         "type": "make",
+         "section": "Change Existing Behavior"
+      },
+      {
+         "type": "add",
+         "section": "Adding Something"
+      },
+      {
+         "type": "set",
+         "section": "Change Variable Value"
+      },
+      {
+         "type": "update",
+         "section": "Version Updating"
+      },
+      {
+         "type": "style",
+         "section": "Code Styling",
+         "hidden": true
+      },
+      {
+         "type": "chore",
+         "section": "Build or Packages Editing",
+         "hidden": true
+      },
+      {
+         "type": "use",
+         "section": "Using Some Code to Implement Function",
+         "hidden": true
+      },
+      {
+         "type": "remove",
+         "section": "Remove Code or File",
+         "hidden": true
+      },
+      {
+         "type": "move",
+         "section": "Code Movement",
+         "hidden": true
+      },
+      {
+         "type": "rename",
+         "section": "Rename File",
+         "hidden": true
+      },
+      {
+         "type": "clean",
+         "section": "Clean Up Unnecessary Code",
+         "hidden": true
+      }
+   ]
+}
