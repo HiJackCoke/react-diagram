@@ -103,6 +103,11 @@ All notable changes to this project will be documented in this file. See [standa
 * type error in ZoomPane ([2f849c2](https://github.com/taehunlim/react-diagram/commit/2f849c2bd6ce26a6c380a487d927c62611bd04aa))
 
 
+### Change Existing Behavior
+
+* onConnect work on mouseUp ([77265a7](https://github.com/taehunlim/react-diagram/commit/77265a74f5417f4cf4528ceb8cb3fa84d296e857))
+
+
 ### Code Refactoring
 
 * devWarn func ([b0de268](https://github.com/taehunlim/react-diagram/commit/b0de2683930e28e559b1556b6393e88e4084f5db))
@@ -117,6 +122,44 @@ All notable changes to this project will be documented in this file. See [standa
 * ZoomPaneProps ([fa833cf](https://github.com/taehunlim/react-diagram/commit/fa833cf02bb834a3d42fff40e92d69fc012fc515))
 
 
+### Add Code
+
+* 010 error message ([1e72297](https://github.com/taehunlim/react-diagram/commit/1e72297f880332129f6c1cd3a33c0fea351ed518))
+* addNode button ([e41b5d9](https://github.com/taehunlim/react-diagram/commit/e41b5d9a2a02b3cff8a500fd8be0d07b2727f597))
+* connection reset code to onPointerUp func ([606e72d](https://github.com/taehunlim/react-diagram/commit/606e72dd70023599a1b74ea6930521b6bcca9244))
+* connectionNodeId to store when doing onMouseDown Port ([d47d360](https://github.com/taehunlim/react-diagram/commit/d47d360d991a96cf4e0bb737702926a7b635ef40))
+* connectionPortType to store when doing onMouseDown Port ([406d592](https://github.com/taehunlim/react-diagram/commit/406d592238b828c15751195cae5de3202b74afdd))
+* connectionPosition to store ([50b5161](https://github.com/taehunlim/react-diagram/commit/50b51616e7ee627471fd9e687ba20be01b20eb9a))
+* const centerLineIsBent ([686adc8](https://github.com/taehunlim/react-diagram/commit/686adc89800bb094a408532ee5dc34dcad39500a))
+* d3Selection to store ([730d4dd](https://github.com/taehunlim/react-diagram/commit/730d4dd4504fc4a0999b622274acc29792b75cab))
+* data props into Node ([0662cbb](https://github.com/taehunlim/react-diagram/commit/0662cbb2777b3249a6cd1167f81d664624fc785d))
+* data-portpos, port type to Port for get handleBounds ([f4b36f6](https://github.com/taehunlim/react-diagram/commit/f4b36f6eb99da04de4cca91bddf86c25b4715feb))
+* dragging className to wrapNode ([ce6cf7e](https://github.com/taehunlim/react-diagram/commit/ce6cf7e37bba69b03de56794bd54582207b790a3))
+* error code to errorMessages to fix type error in onError ([d086f76](https://github.com/taehunlim/react-diagram/commit/d086f76ccbcf3c1f5fd77c57481b72c25cf17125))
+* errorMessages ([cd07afa](https://github.com/taehunlim/react-diagram/commit/cd07afa14161cc74848c857ad05392bbde266902))
+* eslint to root ([71efcc1](https://github.com/taehunlim/react-diagram/commit/71efcc1d64f9d9eb36de54eafe5f3d00ee18ec7f))
+* eslint-config ([5ef6805](https://github.com/taehunlim/react-diagram/commit/5ef680556e73cf54d6ef0a2cd5339cb74af91a1e))
+* event validation code to ZoomPane ([68d436e](https://github.com/taehunlim/react-diagram/commit/68d436e19191ef414aeae4dc0c75dad47abd93bc))
+* handleNodeClick in useDrag to change from click to drag start to add selected ([5e0a143](https://github.com/taehunlim/react-diagram/commit/5e0a14308874dc0a8bf2bb09205729930254c55c))
+* index.ts to packages ([b59ff85](https://github.com/taehunlim/react-diagram/commit/b59ff85636326b7ead478d95ce5f591375759cf5))
+* isDraggable to const hasPointerEvents in wrapNode to make node draggable without adding onNodeClick ([d410ac7](https://github.com/taehunlim/react-diagram/commit/d410ac73ce6693ef39c7d8ff53b9a6fe9249de61))
+* isExistsConnection func to addEdge maintain unique edge ([c65ebcd](https://github.com/taehunlim/react-diagram/commit/c65ebcdd38ff188ed0a49435652e1c18336b652f))
+* node hidden props ([8881acf](https://github.com/taehunlim/react-diagram/commit/8881acfad16e17fc72a0fd7e28f6849c2829bfc9))
+* nodesDraggable props ([07b4481](https://github.com/taehunlim/react-diagram/commit/07b448134f01ee30669e9c3da11bb44b2f66494e))
+* onConnect to StoreUpdate to get the node connected state ([18fdf68](https://github.com/taehunlim/react-diagram/commit/18fdf684482198c40358dbc173eb3d9d86e12def))
+* onConnectEnd event ([9d7f63c](https://github.com/taehunlim/react-diagram/commit/9d7f63cb9f39afc290404e6d2a3352c0e01ff5a8))
+* onConnectStart event ([3ac4e5a](https://github.com/taehunlim/react-diagram/commit/3ac4e5ab3c49aaf83479ce5e2d490bdc6951cc17))
+* package.json ([83c6106](https://github.com/taehunlim/react-diagram/commit/83c61068e59029113350962a20daf8e246d928d8))
+* postcss-config ([dffb8c0](https://github.com/taehunlim/react-diagram/commit/dffb8c00aeda6cc622eed2a01ac483e4f9554191))
+* React memo to DiagramView ([290b379](https://github.com/taehunlim/react-diagram/commit/290b3791b58d072d3f767d5bbcb70df1d399c9c5))
+* rollup-config ([94fb139](https://github.com/taehunlim/react-diagram/commit/94fb13911ee97421c7967a8347b1e9c6b421f86e))
+* set code to updateNode Dimensions to make nodes visible without adding onNodesChange to ReactDiagram on initial render ([81c7ed1](https://github.com/taehunlim/react-diagram/commit/81c7ed1e4091d81cae44c6b63e0dd56279576b33))
+* touch event to Port ([fe0313a](https://github.com/taehunlim/react-diagram/commit/fe0313a76e9ed73813c821aa8472f35f38c954cb))
+* tsconfig to packages ([4ce6458](https://github.com/taehunlim/react-diagram/commit/4ce64587bed1909ff25772a9da6db747ae737e0b))
+* updateNodePositions reset code when drag end ([ef897d0](https://github.com/taehunlim/react-diagram/commit/ef897d0a81dddbd04e2513ddccbcf2c0f176f3a3))
+* validation to ConnectionPath so that it only works when portType is source ([9718e33](https://github.com/taehunlim/react-diagram/commit/9718e33b46276aba1a1fd69ce78a16404b61c140))
+
+
 ### UI Styling
 
 * .react-diagram ([d7c0c13](https://github.com/taehunlim/react-diagram/commit/d7c0c132ec9bfee61487a1a9a8f8180aa31879a6))
@@ -128,6 +171,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Build or Packages Editing
 
 * monorepo with pnpm ([c20b934](https://github.com/taehunlim/react-diagram/commit/c20b934f87645067ca6cc70608e520dd7fe6e67e))
+* **release:** 0.0.0 ([28845ba](https://github.com/taehunlim/react-diagram/commit/28845baefab7fd6e1b743c5578cadea6bb23f0cf))
 * **release:** 0.0.0 ([c33c37a](https://github.com/taehunlim/react-diagram/commit/c33c37aeb8bf25e41e79e1a858671573fa5d8329))
 * **release:** 0.0.0 ([e042ab6](https://github.com/taehunlim/react-diagram/commit/e042ab6a630fbb501eb72a3832c6b615d695c6de))
 * **release:** 0.0.0 ([8750d91](https://github.com/taehunlim/react-diagram/commit/8750d91d75124e28a3e3c6583ffd4a22b1b4aeb7))
