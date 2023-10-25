@@ -122,7 +122,7 @@ All notable changes to this project will be documented in this file. See [standa
 * ZoomPaneProps ([fa833cf](https://github.com/taehunlim/react-diagram/commit/fa833cf02bb834a3d42fff40e92d69fc012fc515))
 
 
-### Add Code
+### Adding Something
 
 * 010 error message ([1e72297](https://github.com/taehunlim/react-diagram/commit/1e72297f880332129f6c1cd3a33c0fea351ed518))
 * addNode button ([e41b5d9](https://github.com/taehunlim/react-diagram/commit/e41b5d9a2a02b3cff8a500fd8be0d07b2727f597))
@@ -166,28 +166,3 @@ All notable changes to this project will be documented in this file. See [standa
 * add focus-visible to default node ([1fa7151](https://github.com/taehunlim/react-diagram/commit/1fa7151329fee298adbeb62f0405044c92f1bc87))
 * react-diagram__container, containerStyle ([05fdcc7](https://github.com/taehunlim/react-diagram/commit/05fdcc7f0407106cdad0b0b9940922b8e44cb19d))
 * selected node style ([2e11ae2](https://github.com/taehunlim/react-diagram/commit/2e11ae2adf952cf51d1fb0fcb5925fedd673b783))
-
-
-### Build or Packages Editing
-
-* monorepo with pnpm ([c20b934](https://github.com/taehunlim/react-diagram/commit/c20b934f87645067ca6cc70608e520dd7fe6e67e))
-* **release:** 0.0.0 ([28845ba](https://github.com/taehunlim/react-diagram/commit/28845baefab7fd6e1b743c5578cadea6bb23f0cf))
-* **release:** 0.0.0 ([c33c37a](https://github.com/taehunlim/react-diagram/commit/c33c37aeb8bf25e41e79e1a858671573fa5d8329))
-* **release:** 0.0.0 ([e042ab6](https://github.com/taehunlim/react-diagram/commit/e042ab6a630fbb501eb72a3832c6b615d695c6de))
-* **release:** 0.0.0 ([8750d91](https://github.com/taehunlim/react-diagram/commit/8750d91d75124e28a3e3c6583ffd4a22b1b4aeb7))
-* **release:** 0.0.0 ([2d9e05c](https://github.com/taehunlim/react-diagram/commit/2d9e05cbbb0c726d1cb3505c62b59554d9514654))
-* **release:** 0.0.0 ([c72ad15](https://github.com/taehunlim/react-diagram/commit/c72ad15919f6bd7a78069eb3a8ea5b3de9bac5b6))
-* **release:** 0.0.0 ([89c99f8](https://github.com/taehunlim/react-diagram/commit/89c99f861a4ee07c426e1958845dbaba7c19b957))
-* **release:** 0.0.0 ([7a1a99c](https://github.com/taehunlim/react-diagram/commit/7a1a99c8fc2d2db54db1d3bf2f2580a5593b3ff6))
-* **release:** 0.0.0 ([edd4e17](https://github.com/taehunlim/react-diagram/commit/edd4e17bfb630dca892c045bc990230be5876ef4))
-* **release:** 0.0.0 ([1c5e680](https://github.com/taehunlim/react-diagram/commit/1c5e68067d58ad0383fa7cf6891e65863dfe3989))
-* **release:** 0.0.0 ([a27cb10](https://github.com/taehunlim/react-diagram/commit/a27cb10c729f13a073b6df3080fe884ceb491575))
-* **release:** 0.0.0 ([0996f0f](https://github.com/taehunlim/react-diagram/commit/0996f0feec8fa0c6f55643d4ac0e122c5df63ee7))
-* **release:** 0.0.0 ([f58891c](https://github.com/taehunlim/react-diagram/commit/f58891cddd4306a2efd2e91c8d63332e05c8b1a7))
-* **release:** 0.0.0 ([4d47d21](https://github.com/taehunlim/react-diagram/commit/4d47d21db8b559f9aac5a65da609899eecf6b2d2))
-* **release:** 0.0.0 ([a83c124](https://github.com/taehunlim/react-diagram/commit/a83c12490fa8e9f93847d7ab029f559e1af08f72))
-* **release:** 0.0.0 ([7ef0631](https://github.com/taehunlim/react-diagram/commit/7ef06313b57572d0693ad18ae7285311709a99e8))
-* **release:** 0.1.0 ([0b2a5bf](https://github.com/taehunlim/react-diagram/commit/0b2a5bf0753a3751cc118103c67e8c71a4d37958))
-* **release:** 0.1.0 ([3d5137b](https://github.com/taehunlim/react-diagram/commit/3d5137b000eac7f9a7d5f214929076b874ceb609))
-* **release:** 0.1.0 ([911003d](https://github.com/taehunlim/react-diagram/commit/911003de5957d5c1ab54b93558a4521245d38803))
-* rollup packages ([11f33a6](https://github.com/taehunlim/react-diagram/commit/11f33a66d1a03f5eba0bd7eb307dcf451451c180))
