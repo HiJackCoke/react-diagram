@@ -6,7 +6,7 @@ import Node from '../../components/Node';
 import { NodeProps } from '../../components/Node/type';
 import { NodeTypes, NodeTypesWrapped } from './type';
 
-export function createNodeTypes(nodeTypes: NodeTypes): NodeTypesWrapped {
+export const createNodeTypes = (nodeTypes: NodeTypes): NodeTypesWrapped => {
    const defaultType: NodeTypesWrapped = {
       default: wrapNode(
          (nodeTypes.default || Node) as ComponentType<NodeProps>,
@@ -28,4 +28,4 @@ export function createNodeTypes(nodeTypes: NodeTypes): NodeTypesWrapped {
       ...defaultType,
       ...customTypes,
    };
-}
+};

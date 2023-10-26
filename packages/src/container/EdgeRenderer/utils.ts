@@ -15,15 +15,19 @@ import {
 import { Node, NodePortBounds } from '../../components/Node/type';
 import { EdgeProps } from '../../components/Edges/type';
 import { EdgeTypes, EdgeTypesWrapped } from './type';
+import StraightEdge from '../../components/Edges/StraightEdge';
 
-export function createEdgeTypes(edgeTypes: EdgeTypes): EdgeTypesWrapped {
-   const standardTypes: EdgeTypesWrapped = {
+export const createEdgeTypes = (edgeTypes: EdgeTypes): EdgeTypesWrapped => {
+   const defaultType: EdgeTypesWrapped = {
+      default: wrapEdge(
+         (edgeTypes.straight || StraightEdge) as ComponentType<EdgeProps>,
+      ),
       step: wrapEdge((edgeTypes.step || StepEdge) as ComponentType<EdgeProps>),
    };
 
    const wrappedTypes = {} as EdgeTypesWrapped;
-   const specialTypes: EdgeTypesWrapped = Object.keys(edgeTypes)
-      .filter((k) => !['default', 'bezier'].includes(k))
+   const customTypes: EdgeTypesWrapped = Object.keys(edgeTypes)
+      .filter((k) => !['default', 'step'].includes(k))
       .reduce((res, key) => {
          res[key] = wrapEdge(
             (edgeTypes[key] || StepEdge) as ComponentType<EdgeProps>,
@@ -33,10 +37,10 @@ export function createEdgeTypes(edgeTypes: EdgeTypes): EdgeTypesWrapped {
       }, wrappedTypes);
 
    return {
-      ...standardTypes,
-      ...specialTypes,
+      ...defaultType,
+      ...customTypes,
    };
-}
+};
 
 export function getPortPosition(
    position: Position,

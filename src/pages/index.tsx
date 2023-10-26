@@ -71,6 +71,7 @@ const initialEdges = [
    },
    {
       id: 'e-3-4',
+      type: 'straight',
       source: '3',
       target: '4',
       markerEnd: {

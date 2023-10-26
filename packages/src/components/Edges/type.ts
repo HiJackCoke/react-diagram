@@ -121,7 +121,6 @@ export type EdgeProps<T = any> = Pick<
    EdgeLabelOptions & {
       markerStart?: string;
       markerEnd?: string;
-      // @TODO: how can we get better types for pathOptions?
       pathOptions?: any;
    };
 
