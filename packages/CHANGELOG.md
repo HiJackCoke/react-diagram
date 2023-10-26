@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.1](https://github.com/taehunlim/react-diagram/compare/v0.0.0...v0.0.1) (2023-10-26)
+
+
+### Docs
+
+* CHANGELOG.md ([e490240](https://github.com/taehunlim/react-diagram/commit/e49024096a2f26ae9ea2e2886c4970e506e6f7c3))
+
 ## 0.0.0 (2023-10-25)
 
 
