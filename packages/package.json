@@ -1,6 +1,6 @@
 {
    "name": "react-cosmos-diagram",
-   "version": "0.0.2",
+   "version": "0.0.1",
    "description": "React Diagram",
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@reactdiagram/rollup-config --environment NODE_ENV:production && npm run css",
