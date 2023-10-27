@@ -11,7 +11,7 @@ export type GetStraightPathParams = {
    targetY: number;
 };
 
-export function getStraightPath({
+export const getStraightPath = ({
    sourceX,
    sourceY,
    targetX,
@@ -22,7 +22,7 @@ export function getStraightPath({
    labelY: number,
    offsetX: number,
    offsetY: number,
-] {
+] => {
    const [labelX, labelY, offsetX, offsetY] = getEdgeCenter({
       sourceX,
       sourceY,
@@ -37,7 +37,7 @@ export function getStraightPath({
       offsetX,
       offsetY,
    ];
-}
+};
 
 const StraightEdge = memo(
    ({

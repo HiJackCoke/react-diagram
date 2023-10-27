@@ -53,6 +53,7 @@ const initialNodes = [
 const initialEdges = [
    {
       id: 'e-1-2',
+      type: 'bezier',
       source: '1',
       target: '2',
       markerStart: {

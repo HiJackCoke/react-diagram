@@ -134,6 +134,14 @@ export type BaseEdgeProps = Pick<
       path: string;
    };
 
+export type BezierPathOptions = {
+   curvature?: number;
+};
+
+export type BezierEdgeProps<T = any> = EdgeProps<T> & {
+   pathOptions?: BezierPathOptions;
+};
+
 export type StepPathOptions = {
    offset?: number;
    borderRadius?: number;
