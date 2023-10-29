@@ -37,6 +37,7 @@ export const getBezierEdgeCenter = ({
    targetControlX: number;
    targetControlY: number;
 }): [number, number, number, number] => {
+   // cubic bezier t=0.5 mid point, not the actual mid point, but easy to calculate
    // https://stackoverflow.com/questions/67516101/how-to-find-distance-mid-point-of-bezier-curve
 
    const midPoint = 0.5;
@@ -53,6 +54,7 @@ export const getBezierEdgeCenter = ({
       sourceControlY * controlPoint +
       targetControlY * controlPoint +
       targetY * point;
+
    const offsetX = Math.abs(centerX - sourceX);
    const offsetY = Math.abs(centerY - sourceY);
 

@@ -20,7 +20,7 @@ import { EdgeProps } from '../../components/Edges/type';
 import { EdgeTypes, EdgeTypesWrapped } from './type';
 
 export const createEdgeTypes = (edgeTypes: EdgeTypes): EdgeTypesWrapped => {
-   const defaultType: EdgeTypesWrapped = {
+   const defaultTypes: EdgeTypesWrapped = {
       default: wrapEdge(
          (edgeTypes.straight || StraightEdge) as ComponentType<EdgeProps>,
       ),
@@ -32,7 +32,7 @@ export const createEdgeTypes = (edgeTypes: EdgeTypes): EdgeTypesWrapped => {
 
    const wrappedTypes = {} as EdgeTypesWrapped;
    const customTypes: EdgeTypesWrapped = Object.keys(edgeTypes)
-      .filter((k) => !['default', 'step', 'bezier'].includes(k))
+      .filter((k) => !Object.keys(defaultTypes).includes(k))
       .reduce((res, key) => {
          res[key] = wrapEdge(
             (edgeTypes[key] || StepEdge) as ComponentType<EdgeProps>,
@@ -42,7 +42,7 @@ export const createEdgeTypes = (edgeTypes: EdgeTypes): EdgeTypesWrapped => {
       }, wrappedTypes);
 
    return {
-      ...defaultType,
+      ...defaultTypes,
       ...customTypes,
    };
 };
