@@ -7,7 +7,7 @@ import { NodeProps } from '../../components/Node/type';
 import { NodeTypes, NodeTypesWrapped } from './type';
 
 export const createNodeTypes = (nodeTypes: NodeTypes): NodeTypesWrapped => {
-   const defaultType: NodeTypesWrapped = {
+   const defaultTypes: NodeTypesWrapped = {
       default: wrapNode(
          (nodeTypes.default || Node) as ComponentType<NodeProps>,
       ),
@@ -15,7 +15,7 @@ export const createNodeTypes = (nodeTypes: NodeTypes): NodeTypesWrapped => {
 
    const wrappedTypes = {} as NodeTypesWrapped;
    const customTypes: NodeTypesWrapped = Object.keys(nodeTypes)
-      .filter((key) => key !== 'default')
+      .filter((k) => !Object.keys(defaultTypes).includes(k))
       .reduce((res, key) => {
          res[key] = wrapNode(
             (nodeTypes[key] || Node) as ComponentType<NodeProps>,
@@ -25,7 +25,7 @@ export const createNodeTypes = (nodeTypes: NodeTypes): NodeTypesWrapped => {
       }, wrappedTypes);
 
    return {
-      ...defaultType,
+      ...defaultTypes,
       ...customTypes,
    };
 };
