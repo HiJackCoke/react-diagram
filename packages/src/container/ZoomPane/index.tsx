@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 
 import { ZoomTransform } from 'd3';
@@ -10,10 +10,11 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 
-import { clamp } from '../../utils';
+import { clamp, getEventPosition } from '../../utils';
 
 import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
+import DragSelection from '../../components/DragSelection';
 
 export type ZoomPaneProps = Required<
    Pick<
@@ -29,7 +30,6 @@ export type ZoomPaneProps = Required<
    }
 > &
    Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'>;
-
 const convertTransform = (transform: ZoomTransform): Viewport => {
    const { x, y, k } = transform;
    return {
@@ -54,6 +54,7 @@ const isViewChanged = (
 const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,
    d3Selection: s.d3Selection,
+   elementsSelectable: s.elementsSelectable,
 });
 
 function ZoomPane({
@@ -64,25 +65,82 @@ function ZoomPane({
    defaultViewport,
    translateExtent,
    children,
+
    onMove,
    onMoveStart,
    onMoveEnd,
 }: ZoomPaneProps) {
    const store = useStoreApi();
    const isZoomingOrPanning = useRef(false);
-
    const zoomPane = useRef<HTMLDivElement>(null);
    const d3ZoomHandler =
       useRef<(this: Element, event: any, d: unknown) => void | undefined>();
    const prevTransform = useRef<Viewport>({ x: 0, y: 0, zoom: 0 });
    const timerId = useRef<ReturnType<typeof setTimeout>>();
+   const zoomPaneBounds = useRef<DOMRect>();
 
-   const { d3Zoom, d3Selection } = useStore(selector, shallow);
+   const { d3Zoom, d3Selection, elementsSelectable } = useStore(
+      selector,
+      shallow,
+   );
+
+   const [dragSelectionRect, setDragSelectionRect] = useState({
+      width: 0,
+      height: 0,
+      startX: 0,
+      startY: 0,
+      x: 0,
+      y: 0,
+   });
 
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === zoomPane.current) {
          store.getState().resetSelectedElements();
       }
+   };
+
+   const onMouseDown = (event: ReactMouseEvent): void => {
+      const { resetSelectedElements, domNode } = store.getState();
+      zoomPaneBounds.current = domNode?.getBoundingClientRect();
+
+      if (
+         event.button !== 0 ||
+         event.target !== zoomPane.current ||
+         !zoomPaneBounds.current
+      ) {
+         return;
+      }
+
+      const { x, y } = getEventPosition(event, zoomPaneBounds.current);
+
+      resetSelectedElements();
+
+      setDragSelectionRect({
+         width: 0,
+         height: 0,
+         startX: x,
+         startY: y,
+         x,
+         y,
+      });
+   };
+
+   const onMouseMove = (event: ReactMouseEvent): void => {
+      if (!dragSelectionRect) return;
+
+      const mousePos = getEventPosition(event, zoomPaneBounds.current);
+      const startX = dragSelectionRect.startX ?? 0;
+      const startY = dragSelectionRect.startY ?? 0;
+
+      const rect = {
+         ...dragSelectionRect,
+         x: mousePos.x < startX ? mousePos.x : startX,
+         y: mousePos.y < startY ? mousePos.y : startY,
+         width: Math.abs(mousePos.x - startX),
+         height: Math.abs(mousePos.y - startY),
+      };
+
+      setDragSelectionRect(rect);
    };
 
    useEffect(() => {
@@ -228,14 +286,18 @@ function ZoomPane({
          });
       }
    }, [d3Zoom, panning]);
+   console.log(dragSelectionRect);
 
    return (
       <div
          className="react-diagram__zoompane react-diagram__container"
          ref={zoomPane}
          onClick={onClick}
+         onMouseDown={onMouseDown}
+         onMouseMove={onMouseMove}
       >
          {children}
+         <DragSelection selectionRect={dragSelectionRect} />
       </div>
    );
 }

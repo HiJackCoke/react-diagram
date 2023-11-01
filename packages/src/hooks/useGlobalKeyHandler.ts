@@ -9,7 +9,6 @@ function useGlobalKeyHandler(multiSelectionKeyCode: KeyCode = 'Meta') {
    const [multiSelectionActivate, setMultiSelectionActivate] = useState(false);
 
    const handleKeyDown = (e: KeyboardEvent) => {
-      console.log(123123, e.key, multiSelectionKeyCode);
       if (e.key === multiSelectionKeyCode) {
          setMultiSelectionActivate(true);
       }
