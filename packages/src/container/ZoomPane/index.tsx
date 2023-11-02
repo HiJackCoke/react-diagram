@@ -162,6 +162,10 @@ function ZoomPane({
       setDragSelectionRect(null);
    };
 
+   const onMouseLeave = () => {
+      setDragSelectionRect(null);
+   };
+
    useEffect(() => {
       if (zoomPane.current) {
          const bbox = zoomPane.current.getBoundingClientRect();
@@ -319,6 +323,7 @@ function ZoomPane({
          onMouseUp={
             elementsSelectable && dragSelectionRect ? onMouseUp : undefined
          }
+         onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
       >
          {children}
          <DragSelection selectionRect={dragSelectionRect} />
