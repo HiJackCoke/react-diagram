@@ -14,7 +14,7 @@ import { clamp, getEventPosition } from '../../utils';
 
 import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import DragSelection from '../../components/DragSelection';
+import DragSelection, { SelectionRect } from '../../components/DragSelection';
 
 export type ZoomPaneProps = Required<
    Pick<
@@ -87,14 +87,15 @@ function ZoomPane({
       shallow,
    );
 
-   const [dragSelectionRect, setDragSelectionRect] = useState({
-      width: 0,
-      height: 0,
-      startX: 0,
-      startY: 0,
-      x: 0,
-      y: 0,
-   });
+   const [dragSelectionRect, setDragSelectionRect] =
+      useState<SelectionRect | null>({
+         width: 0,
+         height: 0,
+         startX: 0,
+         startY: 0,
+         x: 0,
+         y: 0,
+      });
 
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === zoomPane.current) {
@@ -131,7 +132,12 @@ function ZoomPane({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      if (!dragSelectionRect || !dragSelectionKeyPressed) return;
+      if (
+         !dragSelectionRect ||
+         !zoomPaneBounds.current ||
+         !dragSelectionKeyPressed
+      )
+         return;
 
       const mousePos = getEventPosition(event, zoomPaneBounds.current);
       const startX = dragSelectionRect.startX ?? 0;
@@ -146,6 +152,14 @@ function ZoomPane({
       };
 
       setDragSelectionRect(rect);
+   };
+
+   const onMouseUp = (event: ReactMouseEvent) => {
+      if (event.button !== 0) {
+         return;
+      }
+
+      setDragSelectionRect(null);
    };
 
    useEffect(() => {
@@ -291,7 +305,6 @@ function ZoomPane({
          });
       }
    }, [d3Zoom, panning]);
-   console.log(dragSelectionRect);
 
    const isPossibleDragSelection =
       elementsSelectable && dragSelectionKeyPressed;
@@ -303,6 +316,9 @@ function ZoomPane({
          onClick={onClick}
          onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
          onMouseMove={isPossibleDragSelection ? onMouseMove : undefined}
+         onMouseUp={
+            elementsSelectable && dragSelectionRect ? onMouseUp : undefined
+         }
       >
          {children}
          <DragSelection selectionRect={dragSelectionRect} />

@@ -65,7 +65,7 @@ function DiagramRenderer({
    return (
       <ZoomPane
          noPanClassName={noPanClassName}
-         panning={panning}
+         panning={panning && !dragSelectionKeyPressed}
          minZoom={minZoom}
          maxZoom={maxZoom}
          translateExtent={translateExtent}

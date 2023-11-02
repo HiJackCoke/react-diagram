@@ -5,7 +5,11 @@ export type SelectionRect = Rect & {
    startY: number;
 };
 
-function DragSelection({ selectionRect }: { selectionRect: SelectionRect }) {
+function DragSelection({
+   selectionRect,
+}: {
+   selectionRect: SelectionRect | null;
+}) {
    const isActive = selectionRect;
 
    if (!isActive) {
