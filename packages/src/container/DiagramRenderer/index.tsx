@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 
 import { useStore } from '../../hooks/useStore';
 import useGlobalKeyHandler, { KeyCode } from '../../hooks/useGlobalKeyHandler';
@@ -37,7 +37,30 @@ function DiagramRenderer({
 }: DiagramRendererProps) {
    const { minZoom, maxZoom, translateExtent } = useStore(selector);
 
+   const [dragSelectionKeyPressed, setDragSelectionKeyPressed] =
+      useState(false);
+
    useGlobalKeyHandler(multiSelectionKeyCode);
+
+   const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Shift') {
+         setDragSelectionKeyPressed(true);
+      }
+   };
+
+   const handleKeyUp = () => {
+      setDragSelectionKeyPressed(false);
+   };
+
+   useEffect(() => {
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('keyup', handleKeyUp);
+
+      return () => {
+         document.removeEventListener('keydown', handleKeyDown);
+         document.removeEventListener('keyup', handleKeyUp);
+      };
+   }, []);
 
    return (
       <ZoomPane
@@ -47,6 +70,7 @@ function DiagramRenderer({
          maxZoom={maxZoom}
          translateExtent={translateExtent}
          defaultViewport={defaultViewport}
+         dragSelectionKeyPressed={dragSelectionKeyPressed}
          onMove={onMove}
          onMoveStart={onMoveStart}
          onMoveEnd={onMoveEnd}

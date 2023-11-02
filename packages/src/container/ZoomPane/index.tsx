@@ -29,7 +29,10 @@ export type ZoomPaneProps = Required<
       children: ReactNode;
    }
 > &
-   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'>;
+   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'> & {
+      dragSelectionKeyPressed?: boolean;
+   };
+
 const convertTransform = (transform: ZoomTransform): Viewport => {
    const { x, y, k } = transform;
    return {
@@ -65,7 +68,7 @@ function ZoomPane({
    defaultViewport,
    translateExtent,
    children,
-
+   dragSelectionKeyPressed,
    onMove,
    onMoveStart,
    onMoveEnd,
@@ -104,9 +107,11 @@ function ZoomPane({
       zoomPaneBounds.current = domNode?.getBoundingClientRect();
 
       if (
+         !elementsSelectable ||
          event.button !== 0 ||
          event.target !== zoomPane.current ||
-         !zoomPaneBounds.current
+         !zoomPaneBounds.current ||
+         !dragSelectionKeyPressed
       ) {
          return;
       }
@@ -126,7 +131,7 @@ function ZoomPane({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      if (!dragSelectionRect) return;
+      if (!dragSelectionRect || !dragSelectionKeyPressed) return;
 
       const mousePos = getEventPosition(event, zoomPaneBounds.current);
       const startX = dragSelectionRect.startX ?? 0;
@@ -288,13 +293,16 @@ function ZoomPane({
    }, [d3Zoom, panning]);
    console.log(dragSelectionRect);
 
+   const isPossibleDragSelection =
+      elementsSelectable && dragSelectionKeyPressed;
+
    return (
       <div
          className="react-diagram__zoompane react-diagram__container"
          ref={zoomPane}
          onClick={onClick}
-         onMouseDown={onMouseDown}
-         onMouseMove={onMouseMove}
+         onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
+         onMouseMove={isPossibleDragSelection ? onMouseMove : undefined}
       >
          {children}
          <DragSelection selectionRect={dragSelectionRect} />
