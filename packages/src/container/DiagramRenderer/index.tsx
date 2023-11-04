@@ -8,6 +8,7 @@ import Viewport from '../../container/Viewport';
 
 import { ZoomPaneProps } from '../../container/ZoomPane';
 import { ReactDiagramState } from '../../types';
+import DragSelection from '../DragSelection';
 
 export type DiagramRendererProps = Omit<
    ZoomPaneProps,
@@ -70,12 +71,13 @@ function DiagramRenderer({
          maxZoom={maxZoom}
          translateExtent={translateExtent}
          defaultViewport={defaultViewport}
-         dragSelectionKeyPressed={dragSelectionKeyPressed}
          onMove={onMove}
          onMoveStart={onMoveStart}
          onMoveEnd={onMoveEnd}
       >
-         <Viewport>{children}</Viewport>
+         <DragSelection dragSelectionKeyPressed={dragSelectionKeyPressed}>
+            <Viewport>{children}</Viewport>
+         </DragSelection>
       </ZoomPane>
    );
 }

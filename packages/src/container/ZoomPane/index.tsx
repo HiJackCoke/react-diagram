@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import type { ReactNode, MouseEvent as ReactMouseEvent } from 'react';
+import { useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 
 import { ZoomTransform } from 'd3';
 import { zoom, zoomIdentity } from 'd3-zoom';
@@ -10,11 +10,10 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 
-import { clamp, getEventPosition } from '../../utils';
+import { clamp } from '../../utils';
 
 import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import DragBox, { DragBoxRect } from '../../components/DragBox';
 
 export type ZoomPaneProps = Required<
    Pick<
@@ -29,9 +28,7 @@ export type ZoomPaneProps = Required<
       children: ReactNode;
    }
 > &
-   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'> & {
-      dragSelectionKeyPressed?: boolean;
-   };
+   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'>;
 
 const convertTransform = (transform: ZoomTransform): Viewport => {
    const { x, y, k } = transform;
@@ -68,7 +65,7 @@ function ZoomPane({
    defaultViewport,
    translateExtent,
    children,
-   dragSelectionKeyPressed,
+
    onMove,
    onMoveStart,
    onMoveEnd,
@@ -80,86 +77,8 @@ function ZoomPane({
       useRef<(this: Element, event: any, d: unknown) => void | undefined>();
    const prevTransform = useRef<Viewport>({ x: 0, y: 0, zoom: 0 });
    const timerId = useRef<ReturnType<typeof setTimeout>>();
-   const zoomPaneBounds = useRef<DOMRect>();
 
-   const { d3Zoom, d3Selection, elementsSelectable } = useStore(
-      selector,
-      shallow,
-   );
-
-   const [dragBoxRect, setDragBoxRect] = useState<DragBoxRect | null>({
-      width: 0,
-      height: 0,
-      startX: 0,
-      startY: 0,
-      x: 0,
-      y: 0,
-   });
-
-   const onClick = (e: ReactMouseEvent) => {
-      if (e.target === zoomPane.current) {
-         store.getState().resetSelectedElements();
-      }
-   };
-
-   const onMouseDown = (event: ReactMouseEvent): void => {
-      const { resetSelectedElements, domNode } = store.getState();
-      zoomPaneBounds.current = domNode?.getBoundingClientRect();
-
-      if (
-         !elementsSelectable ||
-         event.button !== 0 ||
-         event.target !== zoomPane.current ||
-         !zoomPaneBounds.current ||
-         !dragSelectionKeyPressed
-      ) {
-         return;
-      }
-
-      const { x, y } = getEventPosition(event, zoomPaneBounds.current);
-
-      resetSelectedElements();
-
-      setDragBoxRect({
-         width: 0,
-         height: 0,
-         startX: x,
-         startY: y,
-         x,
-         y,
-      });
-   };
-
-   const onMouseMove = (event: ReactMouseEvent): void => {
-      if (!dragBoxRect || !zoomPaneBounds.current || !dragSelectionKeyPressed)
-         return;
-
-      const mousePos = getEventPosition(event, zoomPaneBounds.current);
-      const startX = dragBoxRect.startX ?? 0;
-      const startY = dragBoxRect.startY ?? 0;
-
-      const rect = {
-         ...dragBoxRect,
-         x: mousePos.x < startX ? mousePos.x : startX,
-         y: mousePos.y < startY ? mousePos.y : startY,
-         width: Math.abs(mousePos.x - startX),
-         height: Math.abs(mousePos.y - startY),
-      };
-
-      setDragBoxRect(rect);
-   };
-
-   const onMouseUp = (event: ReactMouseEvent) => {
-      if (event.button !== 0) {
-         return;
-      }
-
-      setDragBoxRect(null);
-   };
-
-   const onMouseLeave = () => {
-      setDragBoxRect(null);
-   };
+   const { d3Zoom, d3Selection } = useStore(selector, shallow);
 
    useEffect(() => {
       if (zoomPane.current) {
@@ -305,20 +224,12 @@ function ZoomPane({
       }
    }, [d3Zoom, panning]);
 
-   const isPossibleDragBox = elementsSelectable && dragSelectionKeyPressed;
-
    return (
       <div
          className="react-diagram__zoompane react-diagram__container"
          ref={zoomPane}
-         onClick={onClick}
-         onMouseDown={isPossibleDragBox ? onMouseDown : undefined}
-         onMouseMove={isPossibleDragBox ? onMouseMove : undefined}
-         onMouseUp={elementsSelectable && dragBoxRect ? onMouseUp : undefined}
-         onMouseLeave={isPossibleDragBox ? onMouseLeave : undefined}
       >
          {children}
-         <DragBox rect={dragBoxRect} />
       </div>
    );
 }
