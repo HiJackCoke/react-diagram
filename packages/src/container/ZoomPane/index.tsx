@@ -14,7 +14,7 @@ import { clamp, getEventPosition } from '../../utils';
 
 import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import DragBox, { SelectionRect } from '../../components/DragBox';
+import DragBox, { DragBoxRect } from '../../components/DragBox';
 
 export type ZoomPaneProps = Required<
    Pick<
@@ -87,7 +87,7 @@ function ZoomPane({
       shallow,
    );
 
-   const [dragSelectionRect, setDragBoxRect] = useState<SelectionRect | null>({
+   const [dragBoxRect, setDragBoxRect] = useState<DragBoxRect | null>({
       width: 0,
       height: 0,
       startX: 0,
@@ -131,19 +131,15 @@ function ZoomPane({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      if (
-         !dragSelectionRect ||
-         !zoomPaneBounds.current ||
-         !dragSelectionKeyPressed
-      )
+      if (!dragBoxRect || !zoomPaneBounds.current || !dragSelectionKeyPressed)
          return;
 
       const mousePos = getEventPosition(event, zoomPaneBounds.current);
-      const startX = dragSelectionRect.startX ?? 0;
-      const startY = dragSelectionRect.startY ?? 0;
+      const startX = dragBoxRect.startX ?? 0;
+      const startY = dragBoxRect.startY ?? 0;
 
       const rect = {
-         ...dragSelectionRect,
+         ...dragBoxRect,
          x: mousePos.x < startX ? mousePos.x : startX,
          y: mousePos.y < startY ? mousePos.y : startY,
          width: Math.abs(mousePos.x - startX),
@@ -318,13 +314,11 @@ function ZoomPane({
          onClick={onClick}
          onMouseDown={isPossibleDragBox ? onMouseDown : undefined}
          onMouseMove={isPossibleDragBox ? onMouseMove : undefined}
-         onMouseUp={
-            elementsSelectable && dragSelectionRect ? onMouseUp : undefined
-         }
+         onMouseUp={elementsSelectable && dragBoxRect ? onMouseUp : undefined}
          onMouseLeave={isPossibleDragBox ? onMouseLeave : undefined}
       >
          {children}
-         <DragBox selectionRect={dragSelectionRect} />
+         <DragBox rect={dragBoxRect} />
       </div>
    );
 }

@@ -1,12 +1,12 @@
 import { Rect } from '../../types';
 
-export type SelectionRect = Rect & {
+export type DragBoxRect = Rect & {
    startX: number;
    startY: number;
 };
 
-function DragBox({ selectionRect }: { selectionRect: SelectionRect | null }) {
-   const isActive = selectionRect;
+function DragBox({ rect }: { rect: DragBoxRect | null }) {
+   const isActive = rect;
 
    if (!isActive) {
       return null;
@@ -16,9 +16,9 @@ function DragBox({ selectionRect }: { selectionRect: SelectionRect | null }) {
       <div
          className="react-diagram__drag-box react-diagram__container"
          style={{
-            width: selectionRect.width,
-            height: selectionRect.height,
-            transform: `translate(${selectionRect.x}px, ${selectionRect.y}px)`,
+            width: rect.width,
+            height: rect.height,
+            transform: `translate(${rect.x}px, ${rect.y}px)`,
          }}
       />
    );
