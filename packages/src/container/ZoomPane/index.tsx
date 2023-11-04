@@ -14,7 +14,7 @@ import { clamp, getEventPosition } from '../../utils';
 
 import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import DragSelection, { SelectionRect } from '../../components/DragSelection';
+import DragBox, { SelectionRect } from '../../components/DragBox';
 
 export type ZoomPaneProps = Required<
    Pick<
@@ -87,15 +87,14 @@ function ZoomPane({
       shallow,
    );
 
-   const [dragSelectionRect, setDragSelectionRect] =
-      useState<SelectionRect | null>({
-         width: 0,
-         height: 0,
-         startX: 0,
-         startY: 0,
-         x: 0,
-         y: 0,
-      });
+   const [dragSelectionRect, setDragBoxRect] = useState<SelectionRect | null>({
+      width: 0,
+      height: 0,
+      startX: 0,
+      startY: 0,
+      x: 0,
+      y: 0,
+   });
 
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === zoomPane.current) {
@@ -121,7 +120,7 @@ function ZoomPane({
 
       resetSelectedElements();
 
-      setDragSelectionRect({
+      setDragBoxRect({
          width: 0,
          height: 0,
          startX: x,
@@ -151,7 +150,7 @@ function ZoomPane({
          height: Math.abs(mousePos.y - startY),
       };
 
-      setDragSelectionRect(rect);
+      setDragBoxRect(rect);
    };
 
    const onMouseUp = (event: ReactMouseEvent) => {
@@ -159,11 +158,11 @@ function ZoomPane({
          return;
       }
 
-      setDragSelectionRect(null);
+      setDragBoxRect(null);
    };
 
    const onMouseLeave = () => {
-      setDragSelectionRect(null);
+      setDragBoxRect(null);
    };
 
    useEffect(() => {
@@ -310,23 +309,22 @@ function ZoomPane({
       }
    }, [d3Zoom, panning]);
 
-   const isPossibleDragSelection =
-      elementsSelectable && dragSelectionKeyPressed;
+   const isPossibleDragBox = elementsSelectable && dragSelectionKeyPressed;
 
    return (
       <div
          className="react-diagram__zoompane react-diagram__container"
          ref={zoomPane}
          onClick={onClick}
-         onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
-         onMouseMove={isPossibleDragSelection ? onMouseMove : undefined}
+         onMouseDown={isPossibleDragBox ? onMouseDown : undefined}
+         onMouseMove={isPossibleDragBox ? onMouseMove : undefined}
          onMouseUp={
             elementsSelectable && dragSelectionRect ? onMouseUp : undefined
          }
-         onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
+         onMouseLeave={isPossibleDragBox ? onMouseLeave : undefined}
       >
          {children}
-         <DragSelection selectionRect={dragSelectionRect} />
+         <DragBox selectionRect={dragSelectionRect} />
       </div>
    );
 }

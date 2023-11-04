@@ -5,11 +5,7 @@ export type SelectionRect = Rect & {
    startY: number;
 };
 
-function DragSelection({
-   selectionRect,
-}: {
-   selectionRect: SelectionRect | null;
-}) {
+function DragBox({ selectionRect }: { selectionRect: SelectionRect | null }) {
    const isActive = selectionRect;
 
    if (!isActive) {
@@ -18,7 +14,7 @@ function DragSelection({
 
    return (
       <div
-         className="react-diagram__selection react-diagram__container"
+         className="react-diagram__drag-box react-diagram__container"
          style={{
             width: selectionRect.width,
             height: selectionRect.height,
@@ -28,4 +24,4 @@ function DragSelection({
    );
 }
 
-export default DragSelection;
+export default DragBox;
