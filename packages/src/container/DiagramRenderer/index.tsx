@@ -3,15 +3,15 @@ import { memo, useState, useEffect } from 'react';
 import { useStore } from '../../hooks/useStore';
 import useGlobalKeyHandler, { KeyCode } from '../../hooks/useGlobalKeyHandler';
 
-import ZoomPane from '../../container/ZoomPane';
+import Pane from '../Pane';
 import Viewport from '../../container/Viewport';
 
-import { ZoomPaneProps } from '../../container/ZoomPane';
+import { PaneProps } from '../Pane';
 import { ReactDiagramState } from '../../types';
 import DragSelection from '../DragSelection';
 
 export type DiagramRendererProps = Omit<
-   ZoomPaneProps,
+   PaneProps,
    'translateExtent' | 'minZoom' | 'maxZoom'
 > & {
    multiSelectionKeyCode?: KeyCode;
@@ -64,7 +64,7 @@ function DiagramRenderer({
    }, []);
 
    return (
-      <ZoomPane
+      <Pane
          noPanClassName={noPanClassName}
          panning={panning && !dragSelectionKeyPressed}
          minZoom={minZoom}
@@ -78,7 +78,7 @@ function DiagramRenderer({
          <DragSelection dragSelectionKeyPressed={dragSelectionKeyPressed}>
             <Viewport>{children}</Viewport>
          </DragSelection>
-      </ZoomPane>
+      </Pane>
    );
 }
 

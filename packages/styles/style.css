@@ -119,7 +119,7 @@
    pointer-events: none;
 }
 
-.react-diagram__zoompane {
+.react-diagram__pane {
    z-index: 9;
    cursor: grab;
 }

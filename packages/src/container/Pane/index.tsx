@@ -15,7 +15,7 @@ import { clamp } from '../../utils';
 import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
-export type ZoomPaneProps = Required<
+export type PaneProps = Required<
    Pick<
       ReactDiagramProps,
       | 'noPanClassName'
@@ -57,7 +57,7 @@ const selector = (s: ReactDiagramState) => ({
    elementsSelectable: s.elementsSelectable,
 });
 
-function ZoomPane({
+function Pane({
    noPanClassName,
    panning,
    minZoom,
@@ -69,10 +69,10 @@ function ZoomPane({
    onMove,
    onMoveStart,
    onMoveEnd,
-}: ZoomPaneProps) {
+}: PaneProps) {
    const store = useStoreApi();
    const isZoomingOrPanning = useRef(false);
-   const zoomPane = useRef<HTMLDivElement>(null);
+   const Pane = useRef<HTMLDivElement>(null);
    const d3ZoomHandler =
       useRef<(this: Element, event: any, d: unknown) => void | undefined>();
    const prevTransform = useRef<Viewport>({ x: 0, y: 0, zoom: 0 });
@@ -81,14 +81,12 @@ function ZoomPane({
    const { d3Zoom, d3Selection } = useStore(selector, shallow);
 
    useEffect(() => {
-      if (zoomPane.current) {
-         const bbox = zoomPane.current.getBoundingClientRect();
+      if (Pane.current) {
+         const bbox = Pane.current.getBoundingClientRect();
          const d3ZoomInstance = zoom()
             .scaleExtent([minZoom, maxZoom])
             .translateExtent(translateExtent);
-         const selection = select(zoomPane.current as Element).call(
-            d3ZoomInstance,
-         );
+         const selection = select(Pane.current as Element).call(d3ZoomInstance);
          const updatedTransform = zoomIdentity
             .translate(defaultViewport.x, defaultViewport.y)
             .scale(clamp(defaultViewport.zoom, minZoom, maxZoom));
@@ -115,9 +113,7 @@ function ZoomPane({
                constrainedTransform.y,
                constrainedTransform.k,
             ],
-            domNode: zoomPane.current.closest(
-               '.react-diagram',
-            ) as HTMLDivElement,
+            domNode: Pane.current.closest('.react-diagram') as HTMLDivElement,
          });
       }
    }, [translateExtent]);
@@ -127,8 +123,8 @@ function ZoomPane({
          d3Selection.on('wheel.zoom', (event, d) => {
             event.preventDefault();
 
-            if (zoomPane.current && d3ZoomHandler.current) {
-               d3ZoomHandler.current.call(zoomPane.current, event, d);
+            if (Pane.current && d3ZoomHandler.current) {
+               d3ZoomHandler.current.call(Pane.current, event, d);
             }
          });
       }
@@ -225,13 +221,10 @@ function ZoomPane({
    }, [d3Zoom, panning]);
 
    return (
-      <div
-         className="react-diagram__zoompane react-diagram__container"
-         ref={zoomPane}
-      >
+      <div className="react-diagram__pane react-diagram__container" ref={Pane}>
          {children}
       </div>
    );
 }
 
-export default ZoomPane;
+export default Pane;
