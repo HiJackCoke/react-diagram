@@ -7,13 +7,16 @@ import { useStore, useStoreApi } from '../../hooks/useStore';
 
 import { getEventPosition } from '../../utils';
 
-import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import DragBox, { DragBoxRect } from '../../components/DragBox';
+import DragBox from '../../components/DragBox';
 
-export type DragSelectionProps = {
+import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
+import { DragBoxRect } from '../../components/DragBox/type';
+
+type DragSelectionProps = {
    children: ReactNode;
    dragSelectionKeyPressed?: boolean;
 };
+
 const selector = (s: ReactDiagramState) => ({
    elementsSelectable: s.elementsSelectable,
 });
@@ -115,7 +118,7 @@ function DragSelection({
    return (
       <div
          ref={dragSelection}
-         className="react-diagram__container react-diagram__drag-selection "
+         className="react-diagram__container react-diagram__drag-selection"
          onClick={onClick}
          onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
          onMouseMove={isPossibleDragSelection ? onMouseMove : undefined}

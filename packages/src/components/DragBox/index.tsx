@@ -1,9 +1,4 @@
-import { Rect } from '../../types';
-
-export type DragBoxRect = Rect & {
-   startX: number;
-   startY: number;
-};
+import { DragBoxRect } from './type';
 
 function DragBox({ rect }: { rect: DragBoxRect | null }) {
    const isActive = rect;
@@ -12,13 +7,15 @@ function DragBox({ rect }: { rect: DragBoxRect | null }) {
       return null;
    }
 
+   const { width, height, x, y } = rect;
+
    return (
       <div
          className="react-diagram__drag-box react-diagram__container"
          style={{
-            width: rect.width,
-            height: rect.height,
-            transform: `translate(${rect.x}px, ${rect.y}px)`,
+            width,
+            height,
+            transform: `translate(${x}px, ${y}px)`,
          }}
       />
    );
