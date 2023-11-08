@@ -3,9 +3,11 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore } from '../../hooks/useStore';
 
-import { internalsSymbol } from '../../utils';
-import { ReactDiagramStore, Position, PortType } from '../../types';
 import { getStepPath } from '../../components/Edges/StepEdge';
+
+import { internalsSymbol } from '../../utils';
+
+import { ReactDiagramStore, Position, PortType } from '../../types';
 
 type ConnectionPathProps = {
    style?: CSSProperties;
