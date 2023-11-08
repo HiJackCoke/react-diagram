@@ -16,7 +16,7 @@ import {
 
 export const internalsSymbol = Symbol.for('internals');
 
-export const devWarn = (id: ErrorMessageCode, value: string = '') => {
+export const devWarn = (id: ErrorMessageCode, value = '') => {
    if (process.env.NODE_ENV === 'development') {
       console.warn(`[React Diagram]: ${id}-${errorMessages[id](value)}`);
    }
@@ -24,7 +24,7 @@ export const devWarn = (id: ErrorMessageCode, value: string = '') => {
 
 export const onErrorWrapper =
    (onError?: OnError) =>
-   (id: keyof typeof errorMessages, value: string = '') =>
+   (id: keyof typeof errorMessages, value = '') =>
       onError?.(id, errorMessages[id](value));
 
 export const isNumeric = (n: any): n is number => !isNaN(n) && isFinite(n);
@@ -65,6 +65,13 @@ export const rectToBox = ({ x, y, width, height }: Rect): Box => ({
    y,
    x2: x + width,
    y2: y + height,
+});
+
+export const boxToRect = ({ x, y, x2, y2 }: Box): Rect => ({
+   x,
+   y,
+   width: x2 - x,
+   height: y2 - y,
 });
 
 export const isMouseEvent = (
