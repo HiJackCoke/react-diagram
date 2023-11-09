@@ -3,9 +3,18 @@ import { memo } from 'react';
 import BaseEdge from './BaseEdge';
 import { getBezierEdgeCenter } from './utils';
 import { Position } from '../../types';
-import type { BezierEdgeProps } from '../../types';
 
-export interface GetBezierPathParams {
+import { EdgeProps } from './type';
+
+interface BezierPathOptions {
+   curvature?: number;
+}
+
+interface BezierEdgeProps<T = any> extends EdgeProps<T> {
+   pathOptions?: BezierPathOptions;
+}
+
+interface GetBezierPathParams {
    sourceX: number;
    sourceY: number;
    sourcePosition?: Position;

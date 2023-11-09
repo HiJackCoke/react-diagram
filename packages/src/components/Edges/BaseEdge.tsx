@@ -1,7 +1,18 @@
-import { BaseEdgeProps } from './type';
 import EdgeLabel from './EdgeLabel';
 
 import { isNumeric } from '../../utils';
+
+import { EdgeProps } from './type';
+
+import { EdgeLabelOptions } from './EdgeLabel';
+
+interface BaseEdgeProps
+   extends Pick<EdgeProps, 'style' | 'markerStart' | 'markerEnd'>,
+      EdgeLabelOptions {
+   labelX?: number;
+   labelY?: number;
+   path: string;
+}
 
 function BaseEdge({
    path,

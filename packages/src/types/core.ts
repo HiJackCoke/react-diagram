@@ -16,13 +16,16 @@ import {
    OnConnect,
    OnConnectStart,
    OnConnectEnd,
-   OnEdgeUpdateFunc,
    PortType,
    OnMove,
-   EdgeMouseHandler,
    OnError,
 } from '.';
+
 import { KeyCode } from '../hooks/useGlobalKeyHandler';
+import {
+   EdgeMouseHandler,
+   OnEdgeUpdateFunc,
+} from '../components/Edges/wrapEdge';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;

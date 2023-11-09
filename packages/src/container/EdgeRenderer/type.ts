@@ -1,6 +1,7 @@
 import { ComponentType, MemoExoticComponent } from 'react';
 
-import { WrapEdgeProps, EdgeProps } from '../../components/Edges/type';
+import { EdgeProps } from '../../components/Edges/type';
+import { WrapEdgeProps } from '../../components/Edges/wrapEdge';
 
 export type EdgeTypes = { [key: string]: ComponentType<EdgeProps> };
 export type EdgeTypesWrapped = {

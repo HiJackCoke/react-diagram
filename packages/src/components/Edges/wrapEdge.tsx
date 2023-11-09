@@ -1,6 +1,7 @@
 import { memo, useMemo, useRef, useState } from 'react';
 import type { ComponentType, MouseEvent as ReactMouseEvent } from 'react';
 import cc from 'classcat';
+import { StoreApi } from 'zustand';
 
 import { useStoreApi } from '../../hooks/useStore';
 import { ARIA_EDGE_DESC_KEY } from '../../components/A11yDescriptions';
@@ -9,10 +10,48 @@ import Anchor from './Anchor';
 
 import { getMarkerId } from '../../utils/graph';
 
-import { Connection, PortType, ReactDiagramState } from '../../types';
+import { Position, Connection, PortType, ReactDiagramState } from '../../types';
 
-import { Edge, EdgeProps, WrapEdgeProps } from './type';
-import { StoreApi } from 'zustand';
+import { Edge, EdgeProps } from './type';
+
+export type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;
+
+export type OnEdgeUpdateFunc<T = any> = (
+   oldEdge: Edge<T>,
+   newConnection: Connection,
+) => void;
+
+export type WrapEdgeProps<T = any> = Edge<T> & {
+   sourceX: number;
+   sourceY: number;
+   targetX: number;
+   targetY: number;
+   sourcePosition: Position;
+   targetPosition: Position;
+   elementsSelectable?: boolean;
+
+   rfId?: string;
+   isFocusable: boolean;
+
+   onClick?: EdgeMouseHandler;
+   onDoubleClick?: EdgeMouseHandler;
+   onContextMenu?: EdgeMouseHandler;
+   onMouseEnter?: EdgeMouseHandler;
+   onMouseMove?: EdgeMouseHandler;
+   onMouseLeave?: EdgeMouseHandler;
+
+   onEdgeUpdate?: OnEdgeUpdateFunc;
+   onEdgeUpdateStart?: (
+      event: ReactMouseEvent,
+      edge: Edge,
+      portType: PortType,
+   ) => void;
+   onEdgeUpdateEnd?: (
+      event: MouseEvent | TouchEvent,
+      edge: Edge,
+      portType: PortType,
+   ) => void;
+};
 
 export function getMouseHandler(
    id: string,

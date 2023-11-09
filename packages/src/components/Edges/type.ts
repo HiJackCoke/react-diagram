@@ -1,11 +1,8 @@
-import {
-   ReactNode,
-   HTMLAttributes,
-   CSSProperties,
-   MouseEvent as ReactMouseEvent,
-} from 'react';
+import { CSSProperties } from 'react';
 
-import { Connection, PortType, Position } from '../../types';
+import { EdgeLabelOptions } from './EdgeLabel';
+
+import { WrapEdgeProps } from './wrapEdge';
 
 export enum MarkerType {
    Arrow = 'arrow',
@@ -21,24 +18,9 @@ export type EdgeMarker = {
    strokeWidth?: number;
 };
 
-export type EdgeMarkerType = string | EdgeMarker;
+// export type EdgeMarkerType = string | EdgeMarker; //
 
-type EdgeLabelOptions = {
-   label?: string | ReactNode;
-   labelStyle?: CSSProperties;
-   labelShowBg?: boolean;
-   labelBgStyle?: CSSProperties;
-   labelBgPadding?: [number, number];
-   labelBgBorderRadius?: number;
-};
-
-export type EdgeLabelProps = HTMLAttributes<SVGElement> &
-   EdgeLabelOptions & {
-      x: number;
-      y: number;
-   };
-
-export type DefaultEdge<T = any> = {
+interface DefaultEdge<T = any> {
    id: string;
    type?: string;
    source: string;
@@ -52,56 +34,17 @@ export type DefaultEdge<T = any> = {
    sourceNode?: Node;
    targetNode?: Node;
    selected?: boolean;
-   markerStart?: EdgeMarkerType;
-   markerEnd?: EdgeMarkerType;
+   markerStart?: EdgeMarker;
+   markerEnd?: EdgeMarker;
    zIndex?: number;
    ariaLabel?: string;
 
    focusable?: boolean;
    hidden?: boolean;
    deletable?: boolean;
-};
+}
 
 export type Edge<T = any> = DefaultEdge<T> & EdgeLabelOptions;
-
-export type OnEdgeUpdateFunc<T = any> = (
-   oldEdge: Edge<T>,
-   newConnection: Connection,
-) => void;
-
-export type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;
-
-export type WrapEdgeProps<T = any> = Edge<T> & {
-   sourceX: number;
-   sourceY: number;
-   targetX: number;
-   targetY: number;
-   sourcePosition: Position;
-   targetPosition: Position;
-   elementsSelectable?: boolean;
-
-   rfId?: string;
-   isFocusable: boolean;
-
-   onClick?: EdgeMouseHandler;
-   onDoubleClick?: EdgeMouseHandler;
-   onContextMenu?: EdgeMouseHandler;
-   onMouseEnter?: EdgeMouseHandler;
-   onMouseMove?: EdgeMouseHandler;
-   onMouseLeave?: EdgeMouseHandler;
-
-   onEdgeUpdate?: OnEdgeUpdateFunc;
-   onEdgeUpdateStart?: (
-      event: ReactMouseEvent,
-      edge: Edge,
-      portType: PortType,
-   ) => void;
-   onEdgeUpdateEnd?: (
-      event: MouseEvent | TouchEvent,
-      edge: Edge,
-      portType: PortType,
-   ) => void;
-};
 
 export type EdgeProps<T = any> = Pick<
    Edge<T>,
@@ -123,33 +66,6 @@ export type EdgeProps<T = any> = Pick<
       markerEnd?: string;
       pathOptions?: any;
    };
-
-export type BaseEdgeProps = Pick<
-   EdgeProps,
-   'style' | 'markerStart' | 'markerEnd'
-> &
-   EdgeLabelOptions & {
-      labelX?: number;
-      labelY?: number;
-      path: string;
-   };
-
-export type BezierPathOptions = {
-   curvature?: number;
-};
-
-export type BezierEdgeProps<T = any> = EdgeProps<T> & {
-   pathOptions?: BezierPathOptions;
-};
-
-export type StepPathOptions = {
-   offset?: number;
-   borderRadius?: number;
-};
-
-export type StepEdgeProps<T = any> = EdgeProps<T> & {
-   pathOptions?: StepPathOptions;
-};
 
 export type DefaultEdgeOptions = Omit<
    Edge,

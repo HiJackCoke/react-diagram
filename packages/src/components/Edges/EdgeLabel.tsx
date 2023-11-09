@@ -1,8 +1,26 @@
 import { memo, useRef, useState, useEffect } from 'react';
-import type { PropsWithChildren } from 'react';
+import type {
+   ReactNode,
+   CSSProperties,
+   HTMLAttributes,
+   PropsWithChildren,
+} from 'react';
 import cc from 'classcat';
 
-import { EdgeLabelProps } from './type';
+export type EdgeLabelOptions = {
+   label?: string | ReactNode;
+   labelStyle?: CSSProperties;
+   labelShowBg?: boolean;
+   labelBgStyle?: CSSProperties;
+   labelBgPadding?: [number, number];
+   labelBgBorderRadius?: number;
+};
+
+interface EdgeLabelProps extends HTMLAttributes<SVGElement>, EdgeLabelOptions {
+   x: number;
+   y: number;
+}
+
 import { Rect } from '../../types';
 
 function EdgeLabel({

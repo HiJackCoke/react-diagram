@@ -31,14 +31,13 @@ type AnchorEvents = {
    ) => void;
 };
 
-export type AnchorProps = SVGAttributes<SVGGElement> &
-   AnchorEvents & {
-      position: Position;
-      centerX: number;
-      centerY: number;
-      radius?: number;
-      type: string;
-   };
+interface AnchorProps extends SVGAttributes<SVGGElement>, AnchorEvents {
+   position: Position;
+   centerX: number;
+   centerY: number;
+   radius?: number;
+   type: string;
+}
 
 const EdgeUpdaterClassName = 'react-diagram__edgeupdater';
 

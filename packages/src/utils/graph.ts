@@ -2,7 +2,7 @@ import { devWarn, getOverlappingArea } from '../utils';
 
 import { XYPosition, Rect, Transform, Edge, Connection } from '../types';
 import { Node, NodeOrigin, NodeInternals } from '../components/Node/type';
-import { EdgeMarkerType } from '../components/Edges/type';
+import { EdgeMarker } from '../components/Edges/type';
 
 export const getNodePositionWithOrigin = (
    node: Node | undefined,
@@ -92,7 +92,7 @@ export const getNodesInside = (
 };
 
 export const getMarkerId = (
-   marker: EdgeMarkerType | undefined,
+   marker: EdgeMarker | undefined,
    rfId?: string,
 ): string => {
    if (typeof marker === 'undefined') {

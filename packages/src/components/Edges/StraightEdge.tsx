@@ -4,12 +4,12 @@ import BaseEdge from './BaseEdge';
 import { getEdgeCenter } from './utils';
 import type { EdgeProps } from '../../types';
 
-export type GetStraightPathParams = {
+interface GetStraightPathParams {
    sourceX: number;
    sourceY: number;
    targetX: number;
    targetY: number;
-};
+}
 
 export const getStraightPath = ({
    sourceX,
