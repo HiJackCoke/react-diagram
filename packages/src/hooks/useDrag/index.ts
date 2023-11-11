@@ -17,7 +17,7 @@ import {
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
 import { XYPosition } from '../../types';
-import { NodeDragItem } from '../../components/Node/type';
+import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
 
 type UseDragParams = {

@@ -10,8 +10,10 @@ import {
    EdgeSelectionChange,
 } from '../hooks/useNodesEdgesState/type';
 
+import { NodeInternals } from './type';
 import { ReactDiagramState } from '../components/ReactDiagramProvider/type';
-import { Node, NodeOrigin, NodeInternals } from '../components/Node/type';
+import { Node } from '../components/Node/type';
+import { NodeOrigin } from '../components/Node/utils';
 import { Edge } from '../components/Edges/type';
 
 type ParentNodes = Record<string, boolean>;

@@ -1,7 +1,9 @@
 import { devWarn, getOverlappingArea } from '../utils';
 
 import { XYPosition, Rect, Transform, Edge, Connection } from '../types';
-import { Node, NodeOrigin, NodeInternals } from '../components/Node/type';
+import { NodeInternals } from '../store/type';
+import { Node } from '../components/Node/type';
+import { NodeOrigin } from '../components/Node/utils';
 import { EdgeMarker } from '../components/Edges/type';
 
 export const getNodePositionWithOrigin = (

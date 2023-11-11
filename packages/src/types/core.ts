@@ -6,9 +6,6 @@ import {
    GridStep,
    Viewport,
    Node,
-   NodeOrigin,
-   NodeMouseHandler,
-   NodeDragHandler,
    NodeTypes,
    Edge,
    OnNodesChange,
@@ -21,7 +18,10 @@ import {
    OnError,
 } from '.';
 
+import { NodeDragHandler } from '../hooks/useDrag/type';
 import { KeyCode } from '../hooks/useGlobalKeyHandler';
+import { NodeOrigin } from '../components/Node/utils';
+import { NodeMouseHandler } from '../components/Node/wrapNode';
 import {
    EdgeMouseHandler,
    OnEdgeUpdateFunc,

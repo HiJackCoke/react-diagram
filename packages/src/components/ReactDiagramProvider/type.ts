@@ -1,6 +1,9 @@
 import { ZoomBehavior, Selection as D3Selection } from 'd3';
 
 import {
+   Node,
+   Edge,
+   DefaultEdgeOptions,
    Transform,
    GridStep,
    CoordinateExtent,
@@ -12,20 +15,16 @@ import {
    OnConnectEnd,
 } from '../../types';
 
+import { NodeInternals, NodeDimensionUpdate } from '../../store/type';
+
 import {
    NodeChange,
    OnNodesChange,
    OnEdgesChange,
 } from '../../hooks/useNodesEdgesState/type';
-import {
-   Node,
-   NodeInternals,
-   NodeOrigin,
-   NodeDragHandler,
-   NodeDragItem,
-   NodeDimensionUpdate,
-} from '../../components/Node/type';
-import { DefaultEdgeOptions, Edge } from '../../components/Edges/type';
+
+import { NodeDragItem, NodeDragHandler } from '../../hooks/useDrag/type';
+import { NodeOrigin } from '../Node/utils';
 
 export type UnSelectNodesParams = {
    nodes?: Node[];

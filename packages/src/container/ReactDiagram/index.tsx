@@ -17,10 +17,10 @@ import {
    ReactDiagramRefType,
    ReactDiagramProps,
    Viewport,
-   NodeOrigin,
    NodeTypes,
    EdgeTypes,
 } from '../../types';
+import { NodeOrigin } from '../../components/Node/utils';
 
 const initViewport: Viewport = { x: 0, y: 0, zoom: 1 };
 const initNodeOrigin: NodeOrigin = [0, 0];

@@ -1,18 +1,10 @@
-import { CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
+import { CSSProperties } from 'react';
 
 import { internalsSymbol } from '../../utils';
 
-import {
-   PortElement,
-   Position,
-   XYPosition,
-   CoordinateExtent,
-} from '../../types';
-
-export type NodePortBounds = {
-   source: PortElement[] | null;
-   target: PortElement[] | null;
-};
+import { Position, XYPosition, CoordinateExtent } from '../../types';
+import { PortBounds } from '../Port/utils';
+import { WrapNodeProps } from './wrapNode';
 
 export type Node<T = any, U extends string | undefined = string | undefined> = {
    id: string;
@@ -44,60 +36,10 @@ export type Node<T = any, U extends string | undefined = string | undefined> = {
 
    [internalsSymbol]?: {
       z?: number;
-      portBounds?: NodePortBounds;
+      portBounds?: PortBounds;
       isParent?: boolean;
    };
 };
-
-export type NodeOrigin = [number, number];
-
-export type NodeInternals = Map<string, Node>;
-
-export type NodeDimensionUpdate = {
-   id: string;
-   nodeElement: HTMLDivElement;
-   forceUpdate?: boolean;
-};
-
-// event
-export type NodeMouseHandler = (event: ReactMouseEvent, node: Node) => void;
-
-export type WrapNodeProps<T = any> = Pick<
-   Node<T>,
-   | 'id'
-   | 'data'
-   | 'style'
-   | 'className'
-   | 'selected'
-   | 'dragHandle'
-   | 'sourcePosition'
-   | 'targetPosition'
-   | 'hidden'
-   | 'ariaLabel'
-   | 'width'
-   | 'height'
-> &
-   Required<Pick<Node<T>, 'type' | 'zIndex'>> & {
-      positionX: number;
-      positionY: number;
-
-      initialized: boolean;
-      isSelectable: boolean;
-      isDraggable: boolean;
-
-      onClick?: NodeMouseHandler;
-      onDoubleClick?: NodeMouseHandler;
-      onMouseEnter?: NodeMouseHandler;
-      onMouseMove?: NodeMouseHandler;
-      onMouseLeave?: NodeMouseHandler;
-      onContextMenu?: NodeMouseHandler;
-      resizeObserver: ResizeObserver | null;
-      isParent: boolean;
-      rfId: string;
-      disableKeyboardA11y: boolean;
-      noDragClassName: string;
-      noPanClassName: string;
-   };
 
 export type NodeProps<T = any> = Pick<
    WrapNodeProps<T>,
@@ -115,22 +57,3 @@ export type NodeProps<T = any> = Pick<
    targetPosition?: Position;
    sourcePosition?: Position;
 };
-
-export type NodeDragItem = {
-   id: string;
-   position: XYPosition;
-   positionAbsolute: XYPosition;
-   // distance from the mouse cursor to the node when start dragging
-   distance: XYPosition;
-   width?: number | null;
-   height?: number | null;
-   extent?: 'parent' | CoordinateExtent;
-   parentNode?: string;
-   dragging?: boolean;
-};
-
-export type NodeDragHandler = (
-   event: ReactMouseEvent,
-   node: Node,
-   nodes: Node[],
-) => void;

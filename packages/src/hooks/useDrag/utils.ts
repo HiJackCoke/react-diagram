@@ -4,12 +4,10 @@ import { isNumeric, clampPosition } from '../../utils';
 
 import { XYPosition, CoordinateExtent, OnError } from '../../types';
 
-import {
-   Node,
-   NodeOrigin,
-   NodeInternals,
-   NodeDragItem,
-} from '../../components/Node/type';
+import { NodeInternals } from '../../store/type';
+import { Node } from '../../components/Node/type';
+import { NodeOrigin } from '../../components/Node/utils';
+import { NodeDragItem } from './type';
 
 export function isParentSelected(
    node: Node,

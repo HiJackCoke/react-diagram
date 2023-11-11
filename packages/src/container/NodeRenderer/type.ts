@@ -1,6 +1,7 @@
 import { ComponentType, MemoExoticComponent } from 'react';
 
-import { WrapNodeProps, NodeProps } from '../../components/Node/type';
+import { NodeProps } from '../../components/Node/type';
+import { WrapNodeProps } from '../../components/Node/wrapNode';
 
 export type NodeTypes = { [key: string]: ComponentType<NodeProps> };
 export type NodeTypesWrapped = {

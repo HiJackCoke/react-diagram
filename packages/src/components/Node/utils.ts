@@ -5,7 +5,9 @@ import { getDimensions } from '../../utils';
 
 import { PortElement, Position } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import { Node, NodeOrigin } from './type';
+import { Node } from './type';
+
+export type NodeOrigin = [number, number];
 
 export const getPortBounds = (
    selector: string,

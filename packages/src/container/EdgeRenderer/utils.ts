@@ -15,7 +15,8 @@ import {
    XYPosition,
 } from '../../types';
 
-import { Node, NodePortBounds } from '../../components/Node/type';
+import { Node } from '../../components/Node/type';
+import { PortBounds } from '../../components/Port/utils';
 import { EdgeProps } from '../../components/Edges/type';
 import { EdgeTypes, EdgeTypesWrapped } from './type';
 
@@ -190,9 +191,7 @@ export function isEdgeVisible({
    return overlappingArea > 0;
 }
 
-export function getNodeData(
-   node?: Node,
-): [Rect, NodePortBounds | null, boolean] {
+export function getNodeData(node?: Node): [Rect, PortBounds | null, boolean] {
    const portBounds = node?.[internalsSymbol]?.portBounds || null;
 
    const isValid =

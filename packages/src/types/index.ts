@@ -2,7 +2,7 @@ export * from './utils';
 export * from './general';
 
 export * from '../hooks/useNodesEdgesState/type';
-export * from '../hooks/useDrag/type';
+// export * from '../hooks/useDrag/type';
 
 export * from '../components/Node/type';
 export * from '../components/Edges/type';

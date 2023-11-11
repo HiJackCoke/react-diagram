@@ -14,12 +14,17 @@ import {
 import {
    Connection,
    Node,
-   NodePortBounds,
    OnConnect,
    PortType,
+   PortElement,
    ReactDiagramState,
    XYPosition,
 } from '../../types';
+
+export type PortBounds = {
+   source: PortElement[] | null;
+   target: PortElement[] | null;
+};
 
 export type ConnectionPort = {
    // id: string | null;
@@ -107,7 +112,7 @@ const getConnection = (
 
 const getPorts = (
    node: Node,
-   portBounds: NodePortBounds,
+   portBounds: PortBounds,
    type: PortType,
    currentPort: string,
 ): ConnectionPort[] =>

@@ -13,18 +13,16 @@ import { createSelectionChange, getSelectionChanges } from '../utils/changes';
 import { getPortBounds } from '../components/Node/utils';
 
 import initialState, { infiniteExtent } from './initialState';
+
+import { NodeDimensionUpdate } from './type';
 import {
    NodeDimensionChange,
    NodePositionChange,
    NodeChange,
+   NodeSelectionChange,
 } from '../hooks/useNodesEdgesState/type';
-import { NodeSelectionChange } from '../hooks/useNodesEdgesState/type';
-
-import {
-   Node,
-   NodeDimensionUpdate,
-   NodeDragItem,
-} from '../components/Node/type';
+import { Node } from '../components/Node/type';
+import { NodeDragItem } from '../hooks/useDrag/type';
 import { Edge } from '../components/Edges/type';
 import {
    ReactDiagramState,
