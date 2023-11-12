@@ -11,14 +11,8 @@ import {
    internalsSymbol,
 } from '../../utils';
 
-import {
-   Connection,
-   Node,
-   OnConnect,
-   ReactDiagramState,
-   XYPosition,
-} from '../../types';
-
+import { Connection, Node, OnConnect, XYPosition } from '../../types';
+import { ReactDiagramState } from '../ReactDiagramProvider/type';
 import { PortType, PortBounds } from './type';
 
 type getConnectionResult = {

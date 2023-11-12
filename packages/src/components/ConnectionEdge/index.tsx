@@ -5,7 +5,7 @@ import { useStore } from '../../hooks/useStore';
 
 import ConnectionPath from './ConnectionPath';
 
-import { ReactDiagramState } from '../../types';
+import { ReactDiagramState } from '../ReactDiagramProvider/type';
 
 type ConnectionEdgeProps = {
    containerStyle?: CSSProperties;

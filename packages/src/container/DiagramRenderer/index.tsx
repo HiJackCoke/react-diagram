@@ -7,7 +7,7 @@ import Pane from '../Pane';
 import Viewport from '../../container/Viewport';
 
 import { PaneProps } from '../Pane';
-import { ReactDiagramState } from '../../types';
+import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import DragSelection from '../DragSelection';
 
 export type DiagramRendererProps = Omit<

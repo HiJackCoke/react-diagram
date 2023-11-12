@@ -7,7 +7,8 @@ import { getStepPath } from '../../components/Edges/StepEdge';
 
 import { internalsSymbol } from '../../utils';
 
-import { ReactDiagramStore, Position } from '../../types';
+import { Position } from '../../types';
+import { ReactDiagramStore } from '../ReactDiagramProvider/type';
 
 import { PortType } from '../Port/type';
 

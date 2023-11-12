@@ -4,7 +4,7 @@ import { StoreApi } from 'zustand';
 
 import { Provider } from '../../contexts/RFStoreContext';
 import { createRFStore } from '../../store';
-import type { ReactDiagramState } from './type';
+import { ReactDiagramState } from './type';
 
 const ReactDiagramProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
    const storeRef = useRef<StoreApi<ReactDiagramState> | null>(null);

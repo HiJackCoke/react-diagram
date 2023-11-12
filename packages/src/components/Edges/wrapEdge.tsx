@@ -9,8 +9,8 @@ import { handlePointerDown } from '../../components/Port/utils';
 import Anchor from './Anchor';
 
 import { getMarkerId } from '../../utils/graph';
-
-import { Position, Connection, ReactDiagramState } from '../../types';
+import { ReactDiagramState } from '../ReactDiagramProvider/type';
+import { Position, Connection } from '../../types';
 
 import { PortType } from '../Port/type';
 
