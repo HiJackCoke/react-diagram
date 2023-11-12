@@ -3,7 +3,7 @@ import { CSSProperties } from 'react';
 import { internalsSymbol } from '../../utils';
 
 import { Position, XYPosition, CoordinateExtent } from '../../types';
-import { PortBounds } from '../Port/utils';
+import { PortBounds } from '../Port/type';
 import { WrapNodeProps } from './wrapNode';
 
 export type Node<T = any, U extends string | undefined = string | undefined> = {

@@ -3,8 +3,9 @@ import { StoreApi } from 'zustand';
 
 import { getDimensions } from '../../utils';
 
-import { PortElement, Position } from '../../types';
+import { Position } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
+import { PortElement } from '../Port/type';
 import { Node } from './type';
 
 export type NodeOrigin = [number, number];

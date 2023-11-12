@@ -9,7 +9,6 @@ import {
    CoordinateExtent,
    OnError,
    XYPosition,
-   PortType,
    OnConnect,
    OnConnectStart,
    OnConnectEnd,
@@ -25,6 +24,7 @@ import {
 
 import { NodeDragItem, NodeDragHandler } from '../../hooks/useDrag/type';
 import { NodeOrigin } from '../Node/utils';
+import { PortType } from '../Port/type';
 
 export type UnSelectNodesParams = {
    nodes?: Node[];

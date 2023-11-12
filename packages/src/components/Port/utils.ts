@@ -15,24 +15,11 @@ import {
    Connection,
    Node,
    OnConnect,
-   PortType,
-   PortElement,
    ReactDiagramState,
    XYPosition,
 } from '../../types';
 
-export type PortBounds = {
-   source: PortElement[] | null;
-   target: PortElement[] | null;
-};
-
-export type ConnectionPort = {
-   // id: string | null;
-   type: PortType;
-   nodeId: string;
-   x: number;
-   y: number;
-};
+import { PortType, PortBounds } from './type';
 
 type getConnectionResult = {
    isValid: boolean;
@@ -43,6 +30,14 @@ type GetAllPortParams = {
    nodes: Node[];
    nodeId: string;
    portType: string;
+};
+
+type ConnectionPort = {
+   // id: string | null;
+   type: PortType;
+   nodeId: string;
+   x: number;
+   y: number;
 };
 
 export const getHostForElement = (

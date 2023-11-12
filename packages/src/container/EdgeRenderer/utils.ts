@@ -7,16 +7,10 @@ import BezierEdge from '../../components/Edges/BezierEdge';
 import wrapEdge from '../../components/Edges/wrapEdge';
 import { internalsSymbol, rectToBox } from '../../utils';
 
-import {
-   PortElement,
-   Rect,
-   Transform,
-   Position,
-   XYPosition,
-} from '../../types';
+import { Rect, Transform, Position, XYPosition } from '../../types';
 
 import { Node } from '../../components/Node/type';
-import { PortBounds } from '../../components/Port/utils';
+import { PortElement, PortBounds } from '../../components/Port/type';
 import { EdgeProps } from '../../components/Edges/type';
 import { EdgeTypes, EdgeTypesWrapped } from './type';
 

@@ -10,7 +10,9 @@ import Anchor from './Anchor';
 
 import { getMarkerId } from '../../utils/graph';
 
-import { Position, Connection, PortType, ReactDiagramState } from '../../types';
+import { Position, Connection, ReactDiagramState } from '../../types';
+
+import { PortType } from '../Port/type';
 
 import { Edge, EdgeProps } from './type';
 

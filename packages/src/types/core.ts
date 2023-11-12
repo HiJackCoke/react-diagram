@@ -13,7 +13,6 @@ import {
    OnConnect,
    OnConnectStart,
    OnConnectEnd,
-   PortType,
    OnMove,
    OnError,
 } from '.';
@@ -26,6 +25,7 @@ import {
    EdgeMouseHandler,
    OnEdgeUpdateFunc,
 } from '../components/Edges/wrapEdge';
+import { PortType } from '../components/Port/type';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;

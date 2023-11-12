@@ -7,7 +7,9 @@ import { getStepPath } from '../../components/Edges/StepEdge';
 
 import { internalsSymbol } from '../../utils';
 
-import { ReactDiagramStore, Position, PortType } from '../../types';
+import { ReactDiagramStore, Position } from '../../types';
+
+import { PortType } from '../Port/type';
 
 type ConnectionPathProps = {
    style?: CSSProperties;
