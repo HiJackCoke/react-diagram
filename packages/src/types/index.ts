@@ -10,7 +10,7 @@ export * from '../components/Edges/type';
 
 export * from '../components/ReactDiagramProvider/type';
 
-export * from '../container/NodeRenderer/type';
-export * from '../container/EdgeRenderer/type';
+// export * from '../container/NodeRenderer/type';
+// export * from '../container/EdgeRenderer/type';
 
 export * from './core';
