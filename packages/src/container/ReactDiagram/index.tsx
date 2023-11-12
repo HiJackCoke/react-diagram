@@ -13,13 +13,9 @@ import { createEdgeTypes } from '../../container/EdgeRenderer/utils';
 
 import Wrapper from './Wrapper';
 
-import {
-   ReactDiagramRefType,
-   ReactDiagramProps,
-   Viewport,
-   NodeTypes,
-   EdgeTypes,
-} from '../../types';
+import { ReactDiagramRefType, ReactDiagramProps, Viewport } from '../../types';
+import { NodeTypes } from '../NodeRenderer/type';
+import { EdgeTypes } from '../EdgeRenderer/type';
 import { NodeOrigin } from '../../components/Node/utils';
 
 const initViewport: Viewport = { x: 0, y: 0, zoom: 1 };

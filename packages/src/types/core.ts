@@ -2,11 +2,9 @@ import type { HTMLAttributes, MouseEvent as ReactMouseEvent } from 'react';
 
 import {
    CoordinateExtent,
-   EdgeTypes,
    GridStep,
    Viewport,
    Node,
-   NodeTypes,
    Edge,
    OnNodesChange,
    OnEdgesChange,
@@ -21,10 +19,12 @@ import { NodeDragHandler } from '../hooks/useDrag/type';
 import { KeyCode } from '../hooks/useGlobalKeyHandler';
 import { NodeOrigin } from '../components/Node/utils';
 import { NodeMouseHandler } from '../components/Node/wrapNode';
+import { NodeTypes } from '../container/NodeRenderer/type';
 import {
    EdgeMouseHandler,
    OnEdgeUpdateFunc,
 } from '../components/Edges/wrapEdge';
+import { EdgeTypes } from '../container/EdgeRenderer/type';
 import { PortType } from '../components/Port/type';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {

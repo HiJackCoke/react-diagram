@@ -3,13 +3,11 @@ import { memo } from 'react';
 import DiagramRenderer from '../../container/DiagramRenderer';
 import NodeRenderer from '../../container/NodeRenderer';
 import EdgeRenderer from '../../container/EdgeRenderer';
-
-import {
-   ReactDiagramProps,
-   NodeTypesWrapped,
-   EdgeTypesWrapped,
-} from '../../types';
 import ConnectionLineWrapper from '../../components/ConnectionEdge';
+
+import { ReactDiagramProps } from '../../types';
+import { NodeTypesWrapped } from '../NodeRenderer/type';
+import { EdgeTypesWrapped } from '../EdgeRenderer/type';
 
 export type ReactDiagramCommonProps = Omit<
    ReactDiagramProps,
