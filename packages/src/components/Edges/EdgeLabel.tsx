@@ -7,6 +7,8 @@ import type {
 } from 'react';
 import cc from 'classcat';
 
+import { Rect } from '../../types';
+
 export type EdgeLabelOptions = {
    label?: string | ReactNode;
    labelStyle?: CSSProperties;
@@ -20,8 +22,6 @@ interface EdgeLabelProps extends HTMLAttributes<SVGElement>, EdgeLabelOptions {
    x: number;
    y: number;
 }
-
-import { Rect } from '../../types';
 
 function EdgeLabel({
    x,

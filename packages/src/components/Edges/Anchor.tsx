@@ -3,6 +3,22 @@ import cc from 'classcat';
 
 import { Position } from '../../types';
 
+type EventNames = 'onMouseDown' | 'onMouseEnter' | 'onMouseOut';
+
+type AnchorEvents = {
+   [H in EventNames]?: (
+      event: ReactMouseEvent<SVGGElement, MouseEvent>,
+   ) => void;
+};
+
+interface AnchorProps extends SVGAttributes<SVGGElement>, AnchorEvents {
+   position: Position;
+   centerX: number;
+   centerY: number;
+   radius?: number;
+   type: string;
+}
+
 const portPositionX = (
    x: number,
    shift: number,
@@ -22,22 +38,6 @@ const portPositionY = (
    if (position === Position.Bottom) return y + shift;
    return y;
 };
-
-type EventNames = 'onMouseDown' | 'onMouseEnter' | 'onMouseOut';
-
-type AnchorEvents = {
-   [H in EventNames]?: (
-      event: ReactMouseEvent<SVGGElement, MouseEvent>,
-   ) => void;
-};
-
-interface AnchorProps extends SVGAttributes<SVGGElement>, AnchorEvents {
-   position: Position;
-   centerX: number;
-   centerY: number;
-   radius?: number;
-   type: string;
-}
 
 const EdgeUpdaterClassName = 'react-diagram__edgeupdater';
 
