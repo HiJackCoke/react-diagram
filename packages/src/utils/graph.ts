@@ -6,6 +6,12 @@ import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';
 import { EdgeMarker } from '../components/Edges/type';
 
+export const isNode = (element: Node | Connection | Edge): element is Node =>
+   'id' in element && !('source' in element) && !('target' in element);
+
+export const isEdge = (element: Node | Connection | Edge): element is Edge =>
+   'source' in element && 'target' in element;
+
 export const getNodePositionWithOrigin = (
    node: Node | undefined,
    nodeOrigin: NodeOrigin = [0, 0],
@@ -112,9 +118,6 @@ export const getMarkerId = (
       .map((key: string) => `${key}=${(marker as any)[key]}`)
       .join('&')}`;
 };
-
-const isEdge = (element: Node | Connection | Edge): element is Edge =>
-   'source' in element && 'target' in element;
 
 const getEdgeId = ({ source, target }: Connection): string =>
    `reactdiagram__edge-${source}-${target}`;
