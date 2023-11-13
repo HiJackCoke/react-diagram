@@ -1,25 +1,18 @@
-import type { ComponentType } from 'react';
-
-import wrapNode from '../../components/Node/wrapNode';
+import wrapNode from '../../components/Node/NodeWrapper';
 import Node from '../../components/Node';
 
-import { NodeProps } from '../../components/Node/type';
 import { NodeTypes, NodeTypesWrapped } from './type';
 
 export const createNodeTypes = (nodeTypes: NodeTypes): NodeTypesWrapped => {
    const defaultTypes: NodeTypesWrapped = {
-      default: wrapNode(
-         (nodeTypes.default || Node) as ComponentType<NodeProps>,
-      ),
+      default: wrapNode(nodeTypes.default || Node),
    };
 
    const wrappedTypes = {} as NodeTypesWrapped;
    const customTypes: NodeTypesWrapped = Object.keys(nodeTypes)
       .filter((k) => !Object.keys(defaultTypes).includes(k))
       .reduce((res, key) => {
-         res[key] = wrapNode(
-            (nodeTypes[key] || Node) as ComponentType<NodeProps>,
-         );
+         res[key] = wrapNode(nodeTypes[key] || Node);
 
          return res;
       }, wrappedTypes);

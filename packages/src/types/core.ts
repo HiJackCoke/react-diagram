@@ -18,7 +18,7 @@ import {
 import { NodeDragHandler } from '../hooks/useDrag/type';
 import { KeyCode } from '../hooks/useGlobalKeyHandler';
 import { NodeOrigin } from '../components/Node/utils';
-import { NodeMouseHandler } from '../components/Node/wrapNode';
+import { NodeMouseHandler } from '../components/Node/NodeWrapper/type';
 import { NodeTypes } from '../container/NodeRenderer/type';
 import {
    EdgeMouseHandler,

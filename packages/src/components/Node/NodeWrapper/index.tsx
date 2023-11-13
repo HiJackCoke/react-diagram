@@ -2,56 +2,18 @@ import { useEffect, useRef, memo } from 'react';
 import type { CSSProperties, ComponentType, MouseEvent } from 'react';
 import cc from 'classcat';
 
-import useDrag from '../../hooks/useDrag';
-import { useStoreApi } from '../../hooks/useStore';
+import useDrag from '../../../hooks/useDrag';
+import { useStoreApi } from '../../../hooks/useStore';
 
-import { Provider } from '../../contexts/NodeIdContext';
+import { Provider } from '../../../contexts/NodeIdContext';
 
-import { ARIA_NODE_DESC_KEY } from '../../components/A11yDescriptions';
+import { ARIA_NODE_DESC_KEY } from '../../A11yDescriptions';
 
-import { getMouseHandler, handleNodeClick } from './utils';
+import { getMouseHandler, handleNodeClick } from '../utils';
 
-import type { XYPosition } from '../../types';
-import { Node, NodeProps } from './type';
-
-export type NodeMouseHandler = (event: MouseEvent, node: Node) => void;
-
-export type WrapNodeProps<T = any> = Pick<
-   Node<T>,
-   | 'id'
-   | 'data'
-   | 'style'
-   | 'className'
-   | 'selected'
-   | 'dragHandle'
-   | 'sourcePosition'
-   | 'targetPosition'
-   | 'hidden'
-   | 'ariaLabel'
-   | 'width'
-   | 'height'
-> &
-   Required<Pick<Node<T>, 'type' | 'zIndex'>> & {
-      positionX: number;
-      positionY: number;
-
-      initialized: boolean;
-      isSelectable: boolean;
-      isDraggable: boolean;
-
-      onClick?: NodeMouseHandler;
-      onDoubleClick?: NodeMouseHandler;
-      onMouseEnter?: NodeMouseHandler;
-      onMouseMove?: NodeMouseHandler;
-      onMouseLeave?: NodeMouseHandler;
-      onContextMenu?: NodeMouseHandler;
-      resizeObserver: ResizeObserver | null;
-      isParent: boolean;
-      rfId: string;
-      disableKeyboardA11y: boolean;
-      noDragClassName: string;
-      noPanClassName: string;
-   };
+import { XYPosition } from '../../../types';
+import { NodeProps } from '../type';
+import { WrapNodeProps } from './type';
 
 export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowUp: { x: 0, y: -1 },

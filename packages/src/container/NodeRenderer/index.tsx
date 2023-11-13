@@ -10,7 +10,7 @@ import { internalsSymbol } from '../../utils';
 
 import { Position, ReactDiagramProps } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import { WrapNodeProps } from '../../components/Node/wrapNode';
+import { WrapNodeProps } from '../../components/Node/NodeWrapper/type';
 import { NodeTypesWrapped } from './type';
 
 type RequiredProps = Required<

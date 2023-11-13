@@ -4,7 +4,7 @@ import { internalsSymbol } from '../../utils';
 
 import { Position, XYPosition, CoordinateExtent } from '../../types';
 import { PortBounds } from '../Port/type';
-import { WrapNodeProps } from './wrapNode';
+import { WrapNodeProps } from './NodeWrapper/type';
 
 export type Node<T = any, U extends string | undefined = string | undefined> = {
    id: string;
