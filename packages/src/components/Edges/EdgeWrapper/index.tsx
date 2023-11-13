@@ -3,57 +3,20 @@ import type { ComponentType, MouseEvent as ReactMouseEvent } from 'react';
 import cc from 'classcat';
 import { StoreApi } from 'zustand';
 
-import { useStoreApi } from '../../hooks/useStore';
-import { ARIA_EDGE_DESC_KEY } from '../../components/A11yDescriptions';
-import { handlePointerDown } from '../../components/Port/utils';
-import Anchor from './Anchor';
+import { useStoreApi } from '../../../hooks/useStore';
+import { ARIA_EDGE_DESC_KEY } from '../../../components/A11yDescriptions';
+import { handlePointerDown } from '../../../components/Port/utils';
+import Anchor from '../Anchor';
 
-import { getMarkerId } from '../../utils/graph';
-import { ReactDiagramState } from '../ReactDiagramProvider/type';
-import { Position, Connection } from '../../types';
+import { getMarkerId } from '../../../utils/graph';
+import { ReactDiagramState } from '../../ReactDiagramProvider/type';
+import { Connection } from '../../../types';
 
-import { PortType } from '../Port/type';
+import { PortType } from '../../Port/type';
 
-import { Edge, EdgeProps } from './type';
+import { Edge, EdgeProps } from '../type';
 
-export type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;
-
-export type OnEdgeUpdateFunc<T = any> = (
-   oldEdge: Edge<T>,
-   newConnection: Connection,
-) => void;
-
-export type WrapEdgeProps<T = any> = Edge<T> & {
-   sourceX: number;
-   sourceY: number;
-   targetX: number;
-   targetY: number;
-   sourcePosition: Position;
-   targetPosition: Position;
-   elementsSelectable?: boolean;
-
-   rfId?: string;
-   isFocusable: boolean;
-
-   onClick?: EdgeMouseHandler;
-   onDoubleClick?: EdgeMouseHandler;
-   onContextMenu?: EdgeMouseHandler;
-   onMouseEnter?: EdgeMouseHandler;
-   onMouseMove?: EdgeMouseHandler;
-   onMouseLeave?: EdgeMouseHandler;
-
-   onEdgeUpdate?: OnEdgeUpdateFunc;
-   onEdgeUpdateStart?: (
-      event: ReactMouseEvent,
-      edge: Edge,
-      portType: PortType,
-   ) => void;
-   onEdgeUpdateEnd?: (
-      event: MouseEvent | TouchEvent,
-      edge: Edge,
-      portType: PortType,
-   ) => void;
-};
+import { WrapEdgeProps } from '../EdgeWrapper/type';
 
 export function getMouseHandler(
    id: string,

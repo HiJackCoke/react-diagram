@@ -23,7 +23,7 @@ import { NodeTypes } from '../container/NodeRenderer/type';
 import {
    EdgeMouseHandler,
    OnEdgeUpdateFunc,
-} from '../components/Edges/wrapEdge';
+} from '../components/Edges/EdgeWrapper/type';
 import { EdgeTypes } from '../container/EdgeRenderer/type';
 import { PortType } from '../components/Port/type';
 

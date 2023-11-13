@@ -4,7 +4,7 @@ import StraightEdge from '../../components/Edges/StraightEdge';
 import StepEdge from '../../components/Edges/StepEdge';
 import BezierEdge from '../../components/Edges/BezierEdge';
 
-import wrapEdge from '../../components/Edges/wrapEdge';
+import wrapEdge from '../../components/Edges/EdgeWrapper';
 import { internalsSymbol, rectToBox } from '../../utils';
 
 import { Rect, Transform, Position, XYPosition } from '../../types';

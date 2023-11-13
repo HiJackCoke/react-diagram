@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 
 import { EdgeLabelOptions } from './EdgeLabel';
 
-import { WrapEdgeProps } from './wrapEdge';
+import { WrapEdgeProps } from './EdgeWrapper/type';
 
 export enum MarkerType {
    Arrow = 'arrow',
