@@ -12,6 +12,8 @@ import DragBox from '../../components/DragBox';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { DragBoxRect } from '../../components/DragBox/type';
 
+import { getNodesInside, getRectOfNodes } from '../../utils/graph';
+
 type DragSelectionProps = {
    children: ReactNode;
    dragSelectionKeyPressed?: boolean;
@@ -78,6 +80,8 @@ function DragSelection({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
+      const { nodeInternals, transform, nodeOrigin } = store.getState();
+
       if (
          !dragSelectionRect ||
          !containerBounds.current ||
@@ -96,6 +100,19 @@ function DragSelection({
          width: Math.abs(mousePos.x - startX),
          height: Math.abs(mousePos.y - startY),
       };
+
+      const selectedNodes = getNodesInside(
+         nodeInternals,
+         rect,
+         transform,
+         false,
+         true,
+         nodeOrigin,
+      );
+
+      const selectionBoxRect = getRectOfNodes(selectedNodes, nodeOrigin);
+
+      console.log(selectionBoxRect);
 
       setDragSelectionRect(rect);
    };

@@ -1,4 +1,4 @@
-import { devWarn, getOverlappingArea } from '../utils';
+import { devWarn, getOverlappingArea, rectToBox, boxToRect } from '../utils';
 
 import { XYPosition, Rect, Transform, Edge, Connection } from '../types';
 import { NodeInternals } from '../store/type';
@@ -173,4 +173,39 @@ export const updateEdge = (
    } as Edge;
 
    return edges.filter((e) => e.id !== oldEdgeId).concat(edge);
+};
+
+export const getRectOfNodes = (
+   nodes: Node[],
+   nodeOrigin: NodeOrigin = [0, 0],
+): Rect => {
+   if (nodes.length === 0) {
+      return { x: 0, y: 0, width: 0, height: 0 };
+   }
+
+   const box = nodes.reduce(
+      (currentBox, node) => {
+         const { x, y } = getNodePositionWithOrigin(
+            node,
+            nodeOrigin,
+         ).positionAbsolute;
+
+         const nextBox = rectToBox({
+            x,
+            y,
+            width: node.width || 0,
+            height: node.height || 0,
+         });
+
+         return {
+            x: Math.min(currentBox.x, nextBox.x),
+            y: Math.min(currentBox.y, nextBox.y),
+            x2: Math.max(currentBox.x2, nextBox.x2),
+            y2: Math.max(currentBox.y2, nextBox.y2),
+         };
+      },
+      { x: Infinity, y: Infinity, x2: -Infinity, y2: -Infinity },
+   );
+
+   return boxToRect(box);
 };
