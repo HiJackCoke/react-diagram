@@ -1,4 +1,10 @@
-import { devWarn, getOverlappingArea, rectToBox, boxToRect } from '../utils';
+import {
+   devWarn,
+   getOverlappingArea,
+   rectToBox,
+   boxToRect,
+   getBoundsOfBoxes,
+} from '../utils';
 
 import { XYPosition, Rect, Transform, Edge, Connection } from '../types';
 import { NodeInternals } from '../store/type';
@@ -197,12 +203,7 @@ export const getRectOfNodes = (
             height: node.height || 0,
          });
 
-         return {
-            x: Math.min(currentBox.x, nextBox.x),
-            y: Math.min(currentBox.y, nextBox.y),
-            x2: Math.max(currentBox.x2, nextBox.x2),
-            y2: Math.max(currentBox.y2, nextBox.y2),
-         };
+         return getBoundsOfBoxes(currentBox, nextBox);
       },
       { x: Infinity, y: Infinity, x2: -Infinity, y2: -Infinity },
    );

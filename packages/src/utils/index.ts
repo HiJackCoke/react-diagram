@@ -74,6 +74,13 @@ export const boxToRect = ({ x, y, x2, y2 }: Box): Rect => ({
    height: y2 - y,
 });
 
+export const getBoundsOfBoxes = (box1: Box, box2: Box): Box => ({
+   x: Math.min(box1.x, box2.x),
+   y: Math.min(box1.y, box2.y),
+   x2: Math.max(box1.x2, box2.x2),
+   y2: Math.max(box1.y2, box2.y2),
+});
+
 export const isMouseEvent = (
    event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
 ): event is MouseEvent | ReactMouseEvent => 'clientX' in event;
