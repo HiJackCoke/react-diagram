@@ -1,22 +1,12 @@
 import { memo, useRef } from 'react';
 import cc from 'classcat';
 
-import { SelectionBoxRect } from './type';
+import { Rect } from '../../types';
 
-function SelectionBox({ rect }: { rect: SelectionBoxRect | null }) {
+function SelectionBox({ rect }: { rect: Rect }) {
    const nodeRef = useRef<HTMLDivElement>(null);
 
-   const isActive = rect;
-
-   if (!isActive) {
-      return null;
-   }
-
    const { width, height, x, y } = rect;
-
-   if (!width || !height) {
-      return null;
-   }
 
    return (
       <div

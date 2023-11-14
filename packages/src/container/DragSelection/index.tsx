@@ -14,7 +14,6 @@ import { getNodesInside, getRectOfNodes } from '../../utils/graph';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
 import { Rect } from '../../types';
-import { SelectionBoxRect } from '../../components/SelectionBox/type';
 
 type DragSelectionProps = {
    children: ReactNode;
@@ -46,13 +45,12 @@ function DragSelection({
       y: 0,
    });
 
-   const [selectionBoxRect, setSelectionBoxRect] =
-      useState<SelectionBoxRect | null>({
-         x: 0,
-         y: 0,
-         width: 0,
-         height: 0,
-      });
+   const [selectionBoxRect, setSelectionBoxRect] = useState<Rect>({
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
+   });
 
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === dragSelection.current) {
@@ -87,8 +85,7 @@ function DragSelection({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      const { nodeInternals, transform, getNodes, nodeOrigin } =
-         store.getState();
+      const { nodeInternals, transform, nodeOrigin } = store.getState();
 
       if (
          !dragSelectionRect ||
@@ -134,7 +131,11 @@ function DragSelection({
          return;
       }
 
-      if (selectionBoxRect?.width && selectionBoxRect.height)
+      if (
+         selectionBoxRect &&
+         selectionBoxRect?.width &&
+         selectionBoxRect.height
+      )
          setSelectionBoxActive(true);
       else setSelectionBoxActive(false);
       setDragSelectionRect(null);
@@ -147,7 +148,6 @@ function DragSelection({
    const isPossibleDragSelection =
       elementsSelectable && dragSelectionKeyPressed;
 
-   console.log(dragSelectionRect, selectionBoxRect);
    return (
       <div
          ref={dragSelection}
