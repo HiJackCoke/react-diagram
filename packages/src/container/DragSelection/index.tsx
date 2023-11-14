@@ -13,7 +13,7 @@ import { getNodesInside, getRectOfNodes } from '../../utils/graph';
 
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
-import { Rect } from '../../types';
+import { Rect, XYPosition } from '../../types';
 
 type DragSelectionProps = {
    children: ReactNode;
@@ -41,6 +41,11 @@ function DragSelection({
 
    const { elementsSelectable, transform } = useStore(selector, shallow);
 
+   const [dragSelectionStartPosition, setDragSelectionStartPosition] =
+      useState<XYPosition | null>({
+         x: 0,
+         y: 0,
+      });
    const [dragSelectionRect, setDragSelectionRect] = useState<Rect | null>({
       width: 0,
       height: 0,
@@ -54,6 +59,11 @@ function DragSelection({
       x: 0,
       y: 0,
    });
+
+   const resetDragSelectionRect = () => {
+      setDragSelectionRect(null);
+      setDragSelectionStartPosition(null);
+   };
 
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === dragSelection.current) {
@@ -85,6 +95,11 @@ function DragSelection({
          x,
          y,
       });
+
+      setDragSelectionStartPosition({
+         x,
+         y,
+      });
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
@@ -92,14 +107,15 @@ function DragSelection({
 
       if (
          !dragSelectionRect ||
+         !dragSelectionStartPosition ||
          !containerBounds.current ||
          !dragSelectionKeyPressed
       )
          return;
 
       const mousePos = getEventPosition(event, containerBounds.current);
-      const startX = dragSelectionRect.x ?? 0;
-      const startY = dragSelectionRect.y ?? 0;
+      const startX = dragSelectionStartPosition.x ?? 0;
+      const startY = dragSelectionStartPosition.y ?? 0;
 
       const rect = {
          x: mousePos.x < startX ? mousePos.x : startX,
@@ -144,11 +160,11 @@ function DragSelection({
          setSelectionBoxActive(false);
       }
 
-      setDragSelectionRect(null);
+      resetDragSelectionRect();
    };
 
    const onMouseLeave = () => {
-      setDragSelectionRect(null);
+      resetDragSelectionRect;
    };
 
    const isPossibleDragSelection =
