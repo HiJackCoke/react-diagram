@@ -12,8 +12,8 @@ import { getEventPosition } from '../../utils';
 import { getNodesInside, getRectOfNodes } from '../../utils/graph';
 
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import { DragBoxRect } from '../../components/DragBox/type';
 
+import { Rect } from '../../types';
 import { SelectionBoxRect } from '../../components/SelectionBox/type';
 
 type DragSelectionProps = {
@@ -39,15 +39,12 @@ function DragSelection({
 
    const { elementsSelectable } = useStore(selector, shallow);
 
-   const [dragSelectionRect, setDragSelectionRect] =
-      useState<DragBoxRect | null>({
-         width: 0,
-         height: 0,
-         startX: 0,
-         startY: 0,
-         x: 0,
-         y: 0,
-      });
+   const [dragSelectionRect, setDragSelectionRect] = useState<Rect | null>({
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
+   });
 
    const [selectionBoxRect, setSelectionBoxRect] =
       useState<SelectionBoxRect | null>({
@@ -84,15 +81,14 @@ function DragSelection({
       setDragSelectionRect({
          width: 0,
          height: 0,
-         startX: x,
-         startY: y,
          x,
          y,
       });
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      const { nodeInternals, transform, nodeOrigin } = store.getState();
+      const { nodeInternals, transform, getNodes, nodeOrigin } =
+         store.getState();
 
       if (
          !dragSelectionRect ||
@@ -102,11 +98,10 @@ function DragSelection({
          return;
 
       const mousePos = getEventPosition(event, containerBounds.current);
-      const startX = dragSelectionRect.startX ?? 0;
-      const startY = dragSelectionRect.startY ?? 0;
+      const startX = dragSelectionRect.x ?? 0;
+      const startY = dragSelectionRect.y ?? 0;
 
       const rect = {
-         ...dragSelectionRect,
          x: mousePos.x < startX ? mousePos.x : startX,
          y: mousePos.y < startY ? mousePos.y : startY,
          width: Math.abs(mousePos.x - startX),
@@ -152,6 +147,7 @@ function DragSelection({
    const isPossibleDragSelection =
       elementsSelectable && dragSelectionKeyPressed;
 
+   console.log(dragSelectionRect, selectionBoxRect);
    return (
       <div
          ref={dragSelection}
@@ -165,7 +161,7 @@ function DragSelection({
          onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
       >
          {children}
-         <DragBox rect={dragSelectionRect} />
+         {dragSelectionRect && <DragBox rect={dragSelectionRect} />}
          {selectionBoxActive && <SelectionBox rect={selectionBoxRect} />}
       </div>
    );

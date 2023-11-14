@@ -1,12 +1,6 @@
-import { DragBoxRect } from './type';
+import { Rect } from '../../types';
 
-function DragBox({ rect }: { rect: DragBoxRect | null }) {
-   const isActive = rect;
-
-   if (!isActive) {
-      return null;
-   }
-
+function DragBox({ rect }: { rect: Rect }) {
    const { width, height, x, y } = rect;
 
    return (
