@@ -20,9 +20,12 @@ type DragSelectionProps = {
    dragSelectionKeyPressed?: boolean;
 };
 
-const selector = (s: ReactDiagramState) => ({
-   elementsSelectable: s.elementsSelectable,
-});
+const selector = (s: ReactDiagramState) => {
+   return {
+      elementsSelectable: s.elementsSelectable,
+      transform: `translate(${s.transform[0]}px,${s.transform[1]}px) scale(${s.transform[2]})`,
+   };
+};
 
 function DragSelection({
    children,
@@ -36,7 +39,7 @@ function DragSelection({
 
    const containerBounds = useRef<DOMRect>();
 
-   const { elementsSelectable } = useStore(selector, shallow);
+   const { elementsSelectable, transform } = useStore(selector, shallow);
 
    const [dragSelectionRect, setDragSelectionRect] = useState<Rect | null>({
       width: 0,
@@ -135,9 +138,12 @@ function DragSelection({
          selectionBoxRect &&
          selectionBoxRect?.width &&
          selectionBoxRect.height
-      )
+      ) {
          setSelectionBoxActive(true);
-      else setSelectionBoxActive(false);
+      } else {
+         setSelectionBoxActive(false);
+      }
+
       setDragSelectionRect(null);
    };
 
@@ -162,7 +168,9 @@ function DragSelection({
       >
          {children}
          {dragSelectionRect && <DragBox rect={dragSelectionRect} />}
-         {selectionBoxActive && <SelectionBox rect={selectionBoxRect} />}
+         {selectionBoxActive && (
+            <SelectionBox rect={selectionBoxRect} transform={transform} />
+         )}
       </div>
    );
 }

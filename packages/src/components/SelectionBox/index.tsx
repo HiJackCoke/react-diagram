@@ -3,7 +3,7 @@ import cc from 'classcat';
 
 import { Rect } from '../../types';
 
-function SelectionBox({ rect }: { rect: Rect }) {
+function SelectionBox({ rect, transform }: { rect: Rect; transform: string }) {
    const nodeRef = useRef<HTMLDivElement>(null);
 
    const { width, height, x, y } = rect;
@@ -14,6 +14,9 @@ function SelectionBox({ rect }: { rect: Rect }) {
             'react-diagram__selection-box',
             'react-diagram__container',
          ])}
+         style={{
+            transform,
+         }}
       >
          <div
             ref={nodeRef}
