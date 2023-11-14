@@ -5,14 +5,16 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 
-import { getEventPosition } from '../../utils';
-
 import DragBox from '../../components/DragBox';
+import SelectionBox from '../../components/SelectionBox';
+
+import { getEventPosition } from '../../utils';
+import { getNodesInside, getRectOfNodes } from '../../utils/graph';
 
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { DragBoxRect } from '../../components/DragBox/type';
 
-import { getNodesInside, getRectOfNodes } from '../../utils/graph';
+import { SelectionBoxRect } from '../../components/SelectionBox/type';
 
 type DragSelectionProps = {
    children: ReactNode;
@@ -30,6 +32,8 @@ function DragSelection({
    const store = useStoreApi();
 
    const dragSelection = useRef<HTMLDivElement>(null);
+   const [selectionBoxActive, setSelectionBoxActive] = useState(false);
+   const prevSelectedNodesCount = useRef<number>(0);
 
    const containerBounds = useRef<DOMRect>();
 
@@ -43,6 +47,14 @@ function DragSelection({
          startY: 0,
          x: 0,
          y: 0,
+      });
+
+   const [selectionBoxRect, setSelectionBoxRect] =
+      useState<SelectionBoxRect | null>({
+         x: 0,
+         y: 0,
+         width: 0,
+         height: 0,
       });
 
    const onClick = (e: ReactMouseEvent) => {
@@ -110,9 +122,14 @@ function DragSelection({
          nodeOrigin,
       );
 
-      const selectionBoxRect = getRectOfNodes(selectedNodes, nodeOrigin);
+      const selectedNodeIds = selectedNodes.map((n) => n.id);
 
-      console.log(selectionBoxRect);
+      const selectionBoxRect = getRectOfNodes(selectedNodes, nodeOrigin);
+      setSelectionBoxRect(selectionBoxRect);
+
+      if (prevSelectedNodesCount.current !== selectedNodeIds.length) {
+         prevSelectedNodesCount.current = selectedNodeIds.length;
+      }
 
       setDragSelectionRect(rect);
    };
@@ -122,6 +139,9 @@ function DragSelection({
          return;
       }
 
+      if (selectionBoxRect?.width && selectionBoxRect.height)
+         setSelectionBoxActive(true);
+      else setSelectionBoxActive(false);
       setDragSelectionRect(null);
    };
 
@@ -146,6 +166,7 @@ function DragSelection({
       >
          {children}
          <DragBox rect={dragSelectionRect} />
+         {selectionBoxActive && <SelectionBox rect={selectionBoxRect} />}
       </div>
    );
 }

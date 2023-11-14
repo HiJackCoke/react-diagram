@@ -137,11 +137,21 @@
    user-select: none;
 }
 
-.react-diagram__drag-box {
+.react-diagram__selection-box-rect {
+   position: absolute;
+   pointer-events: all;
+   cursor: grab;
+}
+
+.react-diagram__drag-box,
+.react-diagram__selection-box-rect {
    background: rgba(47, 79, 79, 0.08);
    border: 1px dotted rgba(47, 79, 79, 0.8);
 }
+
 .react-diagram__drag-box:focus,
-.react-diagram__drag-box:focus-visible {
+.react-diagram__drag-box:focus-visible,
+.react-diagram__selection-box-rect:focus,
+.react-diagram__selection-box-rect:focus-visible {
    outline: none;
 }
