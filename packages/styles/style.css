@@ -137,6 +137,12 @@
    user-select: none;
 }
 
+.react-diagram__selection-box {
+   z-index: 3;
+   transform-origin: left top;
+   pointer-events: none;
+}
+
 .react-diagram__selection-box-rect {
    position: absolute;
    pointer-events: all;

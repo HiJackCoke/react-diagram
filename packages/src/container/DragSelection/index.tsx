@@ -34,7 +34,6 @@ function DragSelection({
    const store = useStoreApi();
 
    const dragSelection = useRef<HTMLDivElement>(null);
-   const [selectionBoxActive, setSelectionBoxActive] = useState(false);
    const prevSelectedNodesCount = useRef<number>(0);
 
    const containerBounds = useRef<DOMRect>();
@@ -59,6 +58,7 @@ function DragSelection({
       x: 0,
       y: 0,
    });
+   const [selectionBoxActive, setSelectionBoxActive] = useState(false);
 
    const resetDragSelectionRect = () => {
       setDragSelectionRect(null);
@@ -68,6 +68,7 @@ function DragSelection({
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === dragSelection.current) {
          store.getState().resetSelectedElements();
+         setSelectionBoxActive(false);
       }
    };
 
