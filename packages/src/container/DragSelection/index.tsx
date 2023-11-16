@@ -40,12 +40,13 @@ function DragSelection({
 
    const { elementsSelectable, transform } = useStore(selector, shallow);
 
-   const [dragBoxStartPosition, setDragBoxStartPosition] =
-      useState<XYPosition | null>({
+   const [dragBoxStartPosition, setDragBoxStartPosition] = useState<XYPosition>(
+      {
          x: 0,
          y: 0,
-      });
-   const [dragBoxRect, setDragBoxRect] = useState<Rect | null>({
+      },
+   );
+   const [dragBoxRect, setDragBoxRect] = useState<Rect>({
       width: 0,
       height: 0,
       x: 0,
@@ -63,8 +64,16 @@ function DragSelection({
    const [selectionBoxActive, setSelectionBoxActive] = useState(false);
 
    const resetDragBox = () => {
-      setDragBoxRect(null);
-      setDragBoxStartPosition(null);
+      setDragBoxStartPosition({
+         x: 0,
+         y: 0,
+      });
+      setDragBoxRect({
+         width: 0,
+         height: 0,
+         x: 0,
+         y: 0,
+      });
       setDragBoxActive(false);
    };
 
@@ -110,9 +119,13 @@ function DragSelection({
    const onMouseMove = (event: ReactMouseEvent): void => {
       const { nodeInternals, transform, nodeOrigin } = store.getState();
 
+      const hasDragBoxPosition = dragBoxRect.x && dragBoxRect.y;
+      const hasDragBoxStartPosition =
+         dragBoxStartPosition.x && dragBoxStartPosition.y;
+
       if (
-         !dragBoxRect ||
-         !dragBoxStartPosition ||
+         !hasDragBoxPosition ||
+         !hasDragBoxStartPosition ||
          !containerBounds.current ||
          !dragSelectionKeyPressed
       ) {
@@ -182,7 +195,7 @@ function DragSelection({
          onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
       >
          {children}
-         {dragBoxActive && dragBoxRect && <DragBox rect={dragBoxRect} />}
+         {dragBoxActive && <DragBox rect={dragBoxRect} />}
          {selectionBoxActive && (
             <SelectionBox rect={selectionBoxRect} transform={transform} />
          )}
