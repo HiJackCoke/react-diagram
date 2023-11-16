@@ -45,7 +45,7 @@ function DragSelection({
          x: 0,
          y: 0,
       });
-   const [dragSelectionRect, setDragSelectionRect] = useState<Rect | null>({
+   const [dragBoxRect, setDragBoxRect] = useState<Rect | null>({
       width: 0,
       height: 0,
       x: 0,
@@ -58,10 +58,11 @@ function DragSelection({
       x: 0,
       y: 0,
    });
+
    const [selectionBoxActive, setSelectionBoxActive] = useState(false);
 
-   const resetDragSelectionRect = () => {
-      setDragSelectionRect(null);
+   const resetDragBoxRect = () => {
+      setDragBoxRect(null);
       setDragSelectionStartPosition(null);
    };
 
@@ -90,7 +91,7 @@ function DragSelection({
 
       resetSelectedElements();
 
-      setDragSelectionRect({
+      setDragBoxRect({
          width: 0,
          height: 0,
          x,
@@ -107,7 +108,7 @@ function DragSelection({
       const { nodeInternals, transform, nodeOrigin } = store.getState();
 
       if (
-         !dragSelectionRect ||
+         !dragBoxRect ||
          !dragSelectionStartPosition ||
          !containerBounds.current ||
          !dragSelectionKeyPressed
@@ -143,7 +144,7 @@ function DragSelection({
          prevSelectedNodesCount.current = selectedNodeIds.length;
       }
 
-      setDragSelectionRect(rect);
+      setDragBoxRect(rect);
    };
 
    const onMouseUp = (event: ReactMouseEvent) => {
@@ -161,11 +162,11 @@ function DragSelection({
          setSelectionBoxActive(false);
       }
 
-      resetDragSelectionRect();
+      resetDragBoxRect();
    };
 
    const onMouseLeave = () => {
-      resetDragSelectionRect;
+      resetDragBoxRect;
    };
 
    const isPossibleDragSelection =
@@ -178,13 +179,11 @@ function DragSelection({
          onClick={onClick}
          onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
          onMouseMove={isPossibleDragSelection ? onMouseMove : undefined}
-         onMouseUp={
-            elementsSelectable && dragSelectionRect ? onMouseUp : undefined
-         }
+         onMouseUp={elementsSelectable && dragBoxRect ? onMouseUp : undefined}
          onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
       >
          {children}
-         {dragSelectionRect && <DragBox rect={dragSelectionRect} />}
+         {dragBoxRect && <DragBox rect={dragBoxRect} />}
          {selectionBoxActive && (
             <SelectionBox rect={selectionBoxRect} transform={transform} />
          )}
