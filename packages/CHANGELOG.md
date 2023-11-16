@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/taehunlim/react-diagram/compare/v0.0.1...v0.1.1) (2023-11-16)
+
+
+### Features
+
+* BezierEdge ([e163073](https://github.com/taehunlim/react-diagram/commit/e1630736dbd8a932ab733396fc5a62ee05cc4d0b))
+* boxToRect ([17ed43d](https://github.com/taehunlim/react-diagram/commit/17ed43d2e7e559a994b4d4597181bddae4c66f17))
+* DragSelection & Move: related code from ZoomPane ([1908671](https://github.com/taehunlim/react-diagram/commit/1908671a64ab5a74e5d4f5e35f664c92607d31c8))
+* DragSelection draw ([b2cb4d3](https://github.com/taehunlim/react-diagram/commit/b2cb4d3c82d79d2011877c10429b71bd8d386c09))
+* DragSelection draw when pressing shift key and mouseDown ([2403d42](https://github.com/taehunlim/react-diagram/commit/2403d42f268a8890ba55ddd790ab6d38cf107af0))
+* dragSelectionKeyPressed to enable dragSelection when pressing shift key ([af4e82b](https://github.com/taehunlim/react-diagram/commit/af4e82b8d5193d519b8294383f0a48e037da6d41))
+* getBoundsOfBoxes for use in getRectOfNodes ([57081f0](https://github.com/taehunlim/react-diagram/commit/57081f0748a644fe459f526f40b7a50b91567e7b))
+* getRectOfNodes to get box size of selected nodes using DragSelection ([ea19817](https://github.com/taehunlim/react-diagram/commit/ea1981733103fd8e9e6e15a82155098bcac80fdf))
+* isNode ([3a6b478](https://github.com/taehunlim/react-diagram/commit/3a6b47890b9a4f388d74c934d6fbae57a768df1b))
+* selected when node enter DragBox rect ([aa76053](https://github.com/taehunlim/react-diagram/commit/aa760537697a1c08dc03dcd617f149a543852ef5))
+* SelectionBox ([94bd3a7](https://github.com/taehunlim/react-diagram/commit/94bd3a7f455be5db9d0ea5c582f957241cc1ee50))
+* StraightEdge ([ac6cf83](https://github.com/taehunlim/react-diagram/commit/ac6cf8307ebeedae25c746ae2ab020fb66877207))
+
+
+### Bug Fixes
+
+* issue where DragSelection is not drawn when drawing from bottom to top ([ce17994](https://github.com/taehunlim/react-diagram/commit/ce17994e8e54a4dd6946ddbe40ecff6652615d87))
+* issue where drawn DragSelection remained when mouse left viewport ([b7c5c93](https://github.com/taehunlim/react-diagram/commit/b7c5c930e4edc693bc153ddbbf3ddce5b6498643))
+* SelectionBox not being inactive ([0d0baf3](https://github.com/taehunlim/react-diagram/commit/0d0baf362bcd929de744677feb5109ea20e2c4af))
+* type error after remove NodeRenderer, EdgeRenderer from export type ([1c5c723](https://github.com/taehunlim/react-diagram/commit/1c5c72385401ae4ae765425ac906e8d982615738))
+
+
+### Docs
+
+* git tag & release ([d16f0c9](https://github.com/taehunlim/react-diagram/commit/d16f0c95c89e894462235b7566277a85e6585a90))
+
+
+### Code Refactoring
+
+* DragBox ([2c6fa6d](https://github.com/taehunlim/react-diagram/commit/2c6fa6d51f3e4fc7632e6fa7b46e85a9fd1065d4))
+* type to expor from Edges ([87e8d1d](https://github.com/taehunlim/react-diagram/commit/87e8d1d062b8206e221329d81715fb668ef9a522))
+* type to expor from Node ([a059aeb](https://github.com/taehunlim/react-diagram/commit/a059aebd85da615362605814948eed399569abc7))
+* type to expor from Port ([451f0f8](https://github.com/taehunlim/react-diagram/commit/451f0f8cb27c3460148e5f961febaa9c67a7568a))
+* type to expor from ReactDiagramProvider ([b81bcda](https://github.com/taehunlim/react-diagram/commit/b81bcdafba70be9c802239cadf529f6855539673))
+
+
+### Adding Something
+
+* displayName to DragSelection ([12fd634](https://github.com/taehunlim/react-diagram/commit/12fd634d035e289bb1fd95e8103141591e4a4c8d))
+* dragBoxActive state to DragSelection ([29caaff](https://github.com/taehunlim/react-diagram/commit/29caaffd0e1b69c206f61bd8335d285d62e92f48))
+* transform to SelectionBox ([e3d54de](https://github.com/taehunlim/react-diagram/commit/e3d54de29f38d855b4d48e19d32ba23e2d9e4ad9))
+
 ### 0.0.1 (2023-10-26)
 
 ### Features
