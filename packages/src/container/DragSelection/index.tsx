@@ -59,16 +59,19 @@ function DragSelection({
       y: 0,
    });
 
+   const [dragBoxActive, setDragBoxActive] = useState(false);
    const [selectionBoxActive, setSelectionBoxActive] = useState(false);
 
-   const resetDragBoxRect = () => {
+   const resetDragBox = () => {
       setDragBoxRect(null);
       setDragBoxStartPosition(null);
+      setDragBoxActive(false);
    };
 
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === dragSelection.current) {
          store.getState().resetSelectedElements();
+         setDragBoxActive(false);
          setSelectionBoxActive(false);
       }
    };
@@ -112,8 +115,12 @@ function DragSelection({
          !dragBoxStartPosition ||
          !containerBounds.current ||
          !dragSelectionKeyPressed
-      )
+      ) {
          return;
+      }
+
+      setDragBoxActive(true);
+      setSelectionBoxActive(false);
 
       const mousePos = getEventPosition(event, containerBounds.current);
       const startX = dragBoxStartPosition.x ?? 0;
@@ -152,21 +159,13 @@ function DragSelection({
          return;
       }
 
-      if (
-         selectionBoxRect &&
-         selectionBoxRect?.width &&
-         selectionBoxRect.height
-      ) {
-         setSelectionBoxActive(true);
-      } else {
-         setSelectionBoxActive(false);
-      }
-
-      resetDragBoxRect();
+      setSelectionBoxActive(prevSelectedNodesCount.current > 0);
+      resetDragBox();
    };
 
    const onMouseLeave = () => {
-      resetDragBoxRect;
+      setSelectionBoxActive(prevSelectedNodesCount.current > 0);
+      resetDragBox();
    };
 
    const isPossibleDragSelection =
@@ -183,7 +182,7 @@ function DragSelection({
          onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
       >
          {children}
-         {dragBoxRect && <DragBox rect={dragBoxRect} />}
+         {dragBoxActive && dragBoxRect && <DragBox rect={dragBoxRect} />}
          {selectionBoxActive && (
             <SelectionBox rect={selectionBoxRect} transform={transform} />
          )}
