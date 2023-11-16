@@ -40,7 +40,7 @@ function DragSelection({
 
    const { elementsSelectable, transform } = useStore(selector, shallow);
 
-   const [dragSelectionStartPosition, setDragSelectionStartPosition] =
+   const [dragBoxStartPosition, setDragBoxStartPosition] =
       useState<XYPosition | null>({
          x: 0,
          y: 0,
@@ -63,7 +63,7 @@ function DragSelection({
 
    const resetDragBoxRect = () => {
       setDragBoxRect(null);
-      setDragSelectionStartPosition(null);
+      setDragBoxStartPosition(null);
    };
 
    const onClick = (e: ReactMouseEvent) => {
@@ -98,7 +98,7 @@ function DragSelection({
          y,
       });
 
-      setDragSelectionStartPosition({
+      setDragBoxStartPosition({
          x,
          y,
       });
@@ -109,15 +109,15 @@ function DragSelection({
 
       if (
          !dragBoxRect ||
-         !dragSelectionStartPosition ||
+         !dragBoxStartPosition ||
          !containerBounds.current ||
          !dragSelectionKeyPressed
       )
          return;
 
       const mousePos = getEventPosition(event, containerBounds.current);
-      const startX = dragSelectionStartPosition.x ?? 0;
-      const startY = dragSelectionStartPosition.y ?? 0;
+      const startX = dragBoxStartPosition.x ?? 0;
+      const startY = dragBoxStartPosition.y ?? 0;
 
       const rect = {
          x: mousePos.x < startX ? mousePos.x : startX,
