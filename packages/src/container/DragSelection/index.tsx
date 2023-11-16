@@ -10,10 +10,11 @@ import SelectionBox from '../../components/SelectionBox';
 
 import { getEventPosition } from '../../utils';
 import { getNodesInside, getRectOfNodes } from '../../utils/graph';
+import { getSelectionChanges } from '../../utils/changes';
 
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
-import { Rect, XYPosition } from '../../types';
+import { NodeChange, Rect, XYPosition } from '../../types';
 
 type DragSelectionProps = {
    children: ReactNode;
@@ -117,14 +118,15 @@ function DragSelection({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      const { nodeInternals, transform, nodeOrigin } = store.getState();
+      const { nodeInternals, transform, nodeOrigin, getNodes } =
+         store.getState();
 
-      const hasDragBoxPosition = dragBoxRect.x && dragBoxRect.y;
+      // const hasDragBoxPosition = dragBoxRect.x > 0 && dragBoxRect.y > 0;
       const hasDragBoxStartPosition =
-         dragBoxStartPosition.x && dragBoxStartPosition.y;
+         dragBoxStartPosition.x > 0 && dragBoxStartPosition.y > 0;
 
       if (
-         !hasDragBoxPosition ||
+         // !hasDragBoxPosition ||
          !hasDragBoxStartPosition ||
          !containerBounds.current ||
          !dragSelectionKeyPressed
@@ -146,6 +148,7 @@ function DragSelection({
          height: Math.abs(mousePos.y - startY),
       };
 
+      const nodes = getNodes();
       const selectedNodes = getNodesInside(
          nodeInternals,
          rect,
@@ -162,6 +165,8 @@ function DragSelection({
 
       if (prevSelectedNodesCount.current !== selectedNodeIds.length) {
          prevSelectedNodesCount.current = selectedNodeIds.length;
+
+         getSelectionChanges(nodes, selectedNodeIds) as NodeChange[];
       }
 
       setDragBoxRect(rect);
@@ -202,5 +207,7 @@ function DragSelection({
       </div>
    );
 }
+
+DragSelection.displayName = 'DragSelection';
 
 export default DragSelection;
