@@ -118,7 +118,7 @@ function DragSelection({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      const { nodeInternals, transform, nodeOrigin, getNodes } =
+      const { nodeInternals, transform, nodeOrigin, getNodes, onNodesChange } =
          store.getState();
 
       // const hasDragBoxPosition = dragBoxRect.x > 0 && dragBoxRect.y > 0;
@@ -166,7 +166,14 @@ function DragSelection({
       if (prevSelectedNodesCount.current !== selectedNodeIds.length) {
          prevSelectedNodesCount.current = selectedNodeIds.length;
 
-         getSelectionChanges(nodes, selectedNodeIds) as NodeChange[];
+         const changes = getSelectionChanges(
+            nodes,
+            selectedNodeIds,
+         ) as NodeChange[];
+
+         if (changes.length) {
+            onNodesChange?.(changes);
+         }
       }
 
       setDragBoxRect(rect);
