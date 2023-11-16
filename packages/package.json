@@ -7,8 +7,7 @@
       "css": "postcss styles/style.css --config ../tooling/postcss-config/postcss.config.js --dir dist",
       "release": "standard-version && node:../conventionalGithubReleaser",
       "release-major": "standard-version --release-as major && node:../conventionalGithubReleaser",
-      "release-minor": "standard-version --release-as minor && node:../conventionalGithubReleaser",
-      "release-one": "standard-version --release-as 0.1.1 && node:../conventionalGithubReleaser"
+      "release-minor": "standard-version --release-as minor && node:../conventionalGithubReleaser"
    },
    "workspaces": [
       "./packages/*",
