@@ -6,6 +6,10 @@ export { default as Port } from './components/Port';
 
 export { default as BaseEdge } from './components/Edges/BaseEdge';
 export { default as StepEdge, getStepPath } from './components/Edges/StepEdge';
+export {
+   default as BezierEdge,
+   getBezierPath,
+} from './components/Edges/BezierEdge';
 
 export * from './hooks/useNodesEdgesState';
 // export { useStore, useStoreApi } from './hooks/useStore';

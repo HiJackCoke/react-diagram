@@ -4,6 +4,7 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 
 import { getStepPath } from '../../components/Edges/StepEdge';
+import { getBezierPath } from '../Edges/BezierEdge';
 
 import { internalsSymbol } from '../../utils';
 
@@ -11,11 +12,13 @@ import { Position } from '../../types';
 import { ReactDiagramStore } from '../ReactDiagramProvider/type';
 
 import { PortType } from '../Port/type';
+import { ConnectionEdgeType } from './type';
 
 type ConnectionPathProps = {
    style?: CSSProperties;
    nodeId: string;
    portType: PortType;
+   type?: ConnectionEdgeType;
 };
 
 const oppositePosition = {
@@ -25,7 +28,12 @@ const oppositePosition = {
    [Position.Bottom]: Position.Top,
 };
 
-function ConnectionPath({ style, nodeId, portType }: ConnectionPathProps) {
+function ConnectionPath({
+   style,
+   nodeId,
+   portType,
+   type = ConnectionEdgeType.Straight,
+}: ConnectionPathProps) {
    const { fromNode, toX, toY } = useStore(
       useCallback(
          (s: ReactDiagramStore) => ({
@@ -62,9 +70,6 @@ function ConnectionPath({ style, nodeId, portType }: ConnectionPathProps) {
       return null;
    }
 
-   // // straight edge
-   // const dAttr = `M${fromX},${fromY} ${toX},${toY}`;
-
    let dAttr = '';
 
    const pathParams = {
@@ -76,10 +81,16 @@ function ConnectionPath({ style, nodeId, portType }: ConnectionPathProps) {
       targetPosition: toPosition,
    };
 
-   [dAttr] = getStepPath({
-      ...pathParams,
-      borderRadius: 0,
-   });
+   if (type === ConnectionEdgeType.Bezier) {
+      [dAttr] = getBezierPath(pathParams);
+   } else if (type === ConnectionEdgeType.Step) {
+      [dAttr] = getStepPath({
+         ...pathParams,
+         borderRadius: 0,
+      });
+   } else {
+      dAttr = `M${fromX},${fromY} ${toX},${toY}`;
+   }
 
    return (
       <path

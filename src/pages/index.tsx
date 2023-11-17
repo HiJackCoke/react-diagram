@@ -8,6 +8,7 @@ import ReactDiagram, {
    Connection,
    Edge,
    MarkerType,
+   ConnectionEdgeType,
 } from 'react-cosmos-diagram';
 
 import CustomNode from 'components/CustomNode';
@@ -140,6 +141,7 @@ function Index() {
             nodes={nodes}
             edges={edges}
             nodeTypes={nodeTypes}
+            connectionEdgeType={ConnectionEdgeType.Step}
             // multiSelectionKeyCode="z"
             // panning={false}
             minZoom={1}

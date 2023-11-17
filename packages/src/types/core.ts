@@ -1,4 +1,8 @@
-import type { HTMLAttributes, MouseEvent as ReactMouseEvent } from 'react';
+import type {
+   CSSProperties,
+   HTMLAttributes,
+   MouseEvent as ReactMouseEvent,
+} from 'react';
 
 import {
    CoordinateExtent,
@@ -13,6 +17,7 @@ import {
    OnConnectEnd,
    OnMove,
    OnError,
+   ConnectionEdgeType,
 } from '.';
 
 import { NodeDragHandler } from '../hooks/useDrag/type';
@@ -42,6 +47,10 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    edges?: Edge[];
    edgeTypes?: EdgeTypes;
+
+   connectionEdgeContainerStyle?: CSSProperties;
+   connectionEdgeStyle?: CSSProperties;
+   connectionEdgeType?: ConnectionEdgeType;
 
    onNodesChange?: OnNodesChange;
    onNodeClick?: NodeMouseHandler;

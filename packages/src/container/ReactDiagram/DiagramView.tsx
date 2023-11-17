@@ -72,6 +72,11 @@ function DiagramView({
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
+
+   // ConnectionLineWrapper
+   connectionEdgeContainerStyle,
+   connectionEdgeStyle,
+   connectionEdgeType,
 }: DiagramViewProps) {
    return (
       <DiagramRenderer
@@ -112,7 +117,11 @@ function DiagramView({
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
          >
-            <ConnectionLineWrapper />
+            <ConnectionLineWrapper
+               containerStyle={connectionEdgeContainerStyle}
+               style={connectionEdgeStyle}
+               type={connectionEdgeType}
+            />
          </EdgeRenderer>
          <div className="react-diagram__edgelabel-renderer" />
       </DiagramRenderer>
