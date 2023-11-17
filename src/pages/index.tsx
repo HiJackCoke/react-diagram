@@ -1,17 +1,14 @@
 import { useCallback, useRef } from 'react';
 
-import {
+import ReactDiagram, {
    useNodesState,
    useEdgesState,
-} from '../../packages/src/hooks/useNodesEdgesState';
-
-import { addEdge, updateEdge } from '../../packages/src/utils/graph';
-
-import { MarkerType } from '../../packages/src/components/Edges/type';
-
-import { Connection, Edge } from '../../packages/src/types';
-
-import { ReactDiagram } from 'react-cosmos-diagram';
+   addEdge,
+   updateEdge,
+   Connection,
+   Edge,
+   MarkerType,
+} from 'react-cosmos-diagram';
 
 import CustomNode from 'components/CustomNode';
 
