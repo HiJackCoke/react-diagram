@@ -15,8 +15,6 @@ import CustomNode from 'components/CustomNode';
 
 import 'react-cosmos-diagram/styles/style.css';
 
-import './style.css';
-
 const nodeTypes = {
    c: CustomNode,
 };

@@ -20,7 +20,7 @@
 
    text-align: center;
 
-   border: 1px solid #000000;
+   border: 2px solid #000000;
    background-color: #ffffff;
    box-sizing: border-box;
 
@@ -37,6 +37,38 @@
    transform-origin: 0 0;
    box-sizing: border-box;
    cursor: grab;
+}
+
+.react-diagram__node-default.selected {
+   border-radius: 3px;
+
+   border: 2px dotted transparent;
+   background-image: linear-gradient(to right, #ffffff, #ffffff),
+      conic-gradient(
+         from var(--angle),
+         #d53e33 0deg 90deg,
+         #fbb300 90deg 180deg,
+         #377af5 180deg 270deg,
+         #399953 270deg 360deg
+      );
+   background-origin: border-box;
+   background-clip: padding-box, border-box;
+}
+
+@property --angle {
+   syntax: '<angle>';
+   initial-value: 0deg;
+   inherits: false;
+}
+
+@keyframes rotate {
+   to {
+      --angle: 360deg;
+   }
+}
+
+.react-diagram__node.selected {
+   animation: rotate 4s linear infinite;
 }
 
 .react-diagram__port {
