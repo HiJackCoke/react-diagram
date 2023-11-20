@@ -15,29 +15,57 @@ type ConnectionEdgeProps = {
 };
 
 const selector = (s: ReactDiagramState) => ({
+   edges: s.edges,
    nodeId: s.connectionNodeId,
    portType: s.connectionPortType,
 });
 
 function ConnectionEdge({ containerStyle, style, type }: ConnectionEdgeProps) {
-   const { nodeId, portType } = useStore(selector, shallow);
+   const { nodeId, portType, edges } = useStore(selector, shallow);
    const isValid = !!(nodeId && portType);
 
    if (!isValid) {
       return null;
    }
 
+   const capitalizeFirstLetter = (str: string) => {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+   };
+
+   const getConnectionEdgeType = (edgeType = '') => {
+      let connectionEdgeType = '';
+
+      if (type) {
+         connectionEdgeType = type;
+      } else if (
+         Object.keys(ConnectionEdgeType).includes(
+            capitalizeFirstLetter(edgeType),
+         )
+      ) {
+         connectionEdgeType = edgeType;
+      } else {
+         connectionEdgeType = 'straight';
+      }
+
+      return connectionEdgeType as ConnectionEdgeType;
+   };
+
+   const currentEdgeType = edges.find((edge) => edge[portType] === nodeId)
+      ?.type;
+
+   const edgeType = getConnectionEdgeType(currentEdgeType);
+
    return (
       <svg
          style={containerStyle}
-         className="react-diagram__container react-diagram__edges react-diagram__connectionline"
+         className="react-diagram__container react-diagram__edges react-diagram__connection-line"
       >
          <g className="react-diagram__connection">
             <ConnectionPath
                style={style}
                nodeId={nodeId}
                portType={portType}
-               type={type}
+               type={edgeType}
             />
          </g>
       </svg>
