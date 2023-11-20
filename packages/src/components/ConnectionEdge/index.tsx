@@ -28,9 +28,8 @@ function ConnectionEdge({ containerStyle, style, type }: ConnectionEdgeProps) {
       return null;
    }
 
-   const capitalizeFirstLetter = (str: string) => {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-   };
+   const capitalizeFirstLetter = (str: string) =>
+      str.charAt(0).toUpperCase() + str.slice(1);
 
    const getConnectionEdgeType = (edgeType = '') => {
       let connectionEdgeType = '';

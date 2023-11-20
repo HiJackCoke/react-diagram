@@ -1,5 +1,5 @@
 export enum ConnectionEdgeType {
-   Straight = 'default',
+   Straight = 'straight',
    Bezier = 'bezier',
    Step = 'step',
 }
