@@ -108,7 +108,7 @@ function EdgeRenderer({
                      return null;
                   }
 
-                  const edgeType = type || 'step';
+                  const edgeType = type || 'straight';
 
                   const EdgeComponent =
                      edgeTypes[edgeType] || edgeTypes.default;
