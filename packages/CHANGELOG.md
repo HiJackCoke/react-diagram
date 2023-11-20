@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/taehunlim/react-diagram/compare/v0.1.1...v0.2.0) (2023-11-20)
+
+
+### Features
+
+* connectionEdgeComponent to custom connectionEdge ([37f1fda](https://github.com/taehunlim/react-diagram/commit/37f1fda9598097344f0a78435af99d7bae6fe0d9))
+* connectionEdgeContainerStyle, connectionEdgeStyle, connectionEdgeType ([a70b87e](https://github.com/taehunlim/react-diagram/commit/a70b87e9240ce48a8f405634f7aab420637157bb))
+
+
+### UI Styling
+
+* default node style ([f8bdb90](https://github.com/taehunlim/react-diagram/commit/f8bdb90e24f74dc664e23abcb9f9d153cc9f5769))
+
+
+### Change Variable Value
+
+* current edge type to type of ConnectionEdge ([b3b8a76](https://github.com/taehunlim/react-diagram/commit/b3b8a76e343c3765c8de0179ea4e94521371d378))
+* default edge type to straight ([f9cbf55](https://github.com/taehunlim/react-diagram/commit/f9cbf555f76d579b1b41696e0284e8b47907ba5a))
+* default of ConnectionType to straight ([de1a82b](https://github.com/taehunlim/react-diagram/commit/de1a82b2b63c4f3d628b5e1dc4ec198ddbee57b1))
+
+
+### Docs
+
+* README.md ([2a8c93a](https://github.com/taehunlim/react-diagram/commit/2a8c93a9db646ab6856a3d7e33c64716f1514e74))
+
 ### [0.1.1](https://github.com/taehunlim/react-diagram/compare/v0.0.1...v0.1.1) (2023-11-16)
 
 
