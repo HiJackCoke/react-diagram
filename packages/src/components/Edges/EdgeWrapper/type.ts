@@ -7,7 +7,7 @@ import { Edge } from '../type';
 export type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;
 
 export type OnEdgeUpdateFunc<T = any> = (
-   oldEdge: Edge<T>,
+   originEdge: Edge<T>,
    newConnection: Connection,
 ) => void;
 

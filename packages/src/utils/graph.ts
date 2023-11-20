@@ -158,12 +158,12 @@ export const addEdge = (
 };
 
 export const updateEdge = (
-   oldEdge: Edge,
+   originEdge: Edge,
    newConnection: Connection,
    edges: Edge[],
    options = { shouldReplaceId: true },
 ): Edge[] => {
-   const { id: oldEdgeId, ...rest } = oldEdge;
+   const { id: oldEdgeId, ...rest } = originEdge;
 
    if (!newConnection.source || !newConnection.target) devWarn('020');
 

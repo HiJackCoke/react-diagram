@@ -116,9 +116,9 @@ function Index() {
    }, []);
 
    const onEdgeUpdate = useCallback(
-      (oldEdge: Edge, newConnection: Connection) => {
+      (originEdge: Edge, newConnection: Connection) => {
          edgeUpdateSuccessful.current = true;
-         setEdges((els) => updateEdge(oldEdge, newConnection, els));
+         setEdges((els) => updateEdge(originEdge, newConnection, els));
       },
       [],
    );
@@ -145,7 +145,7 @@ function Index() {
             edges={edges}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
-            connectionEdgeComponent={ConnectionEdge}
+            // connectionEdgeComponent={ConnectionEdge}
             // multiSelectionKeyCode="z"
             // panning={false}
             minZoom={1}
