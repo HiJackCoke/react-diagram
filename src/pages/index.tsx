@@ -8,15 +8,20 @@ import ReactDiagram, {
    Connection,
    Edge,
    MarkerType,
-   ConnectionEdgeType,
 } from 'react-cosmos-diagram';
 
 import CustomNode from 'components/CustomNode';
+import CustomEdge from 'components/CustomEdge';
 
 import 'react-cosmos-diagram/styles/style.css';
+import ConnectionEdge from 'components/ConnectionEdge';
 
 const nodeTypes = {
    c: CustomNode,
+};
+
+const edgeTypes = {
+   c: CustomEdge,
 };
 
 const initialNodes = [
@@ -63,12 +68,12 @@ const initialEdges = [
       markerEnd: {
          type: MarkerType.Arrow,
       },
-
+      type: 'step',
       label: 'label',
    },
    {
       id: 'e-3-4',
-      type: 'straight',
+      type: 'c',
       source: '3',
       target: '4',
       markerEnd: {
@@ -139,7 +144,8 @@ function Index() {
             nodes={nodes}
             edges={edges}
             nodeTypes={nodeTypes}
-            connectionEdgeType={ConnectionEdgeType.Step}
+            edgeTypes={edgeTypes}
+            connectionEdgeComponent={ConnectionEdge}
             // multiSelectionKeyCode="z"
             // panning={false}
             minZoom={1}

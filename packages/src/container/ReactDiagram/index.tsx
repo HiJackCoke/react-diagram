@@ -74,6 +74,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          connectionEdgeContainerStyle,
          connectionEdgeStyle,
          connectionEdgeType,
+         connectionEdgeComponent,
 
          // StoreUpdater props
          nodes,
@@ -119,6 +120,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   connectionEdgeContainerStyle={connectionEdgeContainerStyle}
                   connectionEdgeStyle={connectionEdgeStyle}
                   connectionEdgeType={connectionEdgeType}
+                  connectionEdgeComponent={connectionEdgeComponent}
                   onNodeClick={onNodeClick}
                   onNodeDoubleClick={onNodeDoubleClick}
                   onNodeContextMenu={onNodeContextMenu}

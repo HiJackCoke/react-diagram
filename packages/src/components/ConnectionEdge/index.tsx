@@ -6,12 +6,13 @@ import { useStore } from '../../hooks/useStore';
 import ConnectionPath from './ConnectionPath';
 
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
-import { ConnectionEdgeType } from './type';
+import { ConnectionEdgeComponent, ConnectionEdgeType } from './type';
 
 type ConnectionEdgeProps = {
    containerStyle?: CSSProperties;
    style?: CSSProperties;
    type?: ConnectionEdgeType;
+   component?: ConnectionEdgeComponent;
 };
 
 const selector = (s: ReactDiagramState) => ({
@@ -20,7 +21,12 @@ const selector = (s: ReactDiagramState) => ({
    portType: s.connectionPortType,
 });
 
-function ConnectionEdge({ containerStyle, style, type }: ConnectionEdgeProps) {
+function ConnectionEdge({
+   containerStyle,
+   style,
+   type,
+   component,
+}: ConnectionEdgeProps) {
    const { nodeId, portType, edges } = useStore(selector, shallow);
    const isValid = !!(nodeId && portType);
 
@@ -65,6 +71,7 @@ function ConnectionEdge({ containerStyle, style, type }: ConnectionEdgeProps) {
                nodeId={nodeId}
                portType={portType}
                type={edgeType}
+               Component={component}
             />
          </g>
       </svg>

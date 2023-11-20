@@ -77,6 +77,7 @@ function DiagramView({
    connectionEdgeContainerStyle,
    connectionEdgeStyle,
    connectionEdgeType,
+   connectionEdgeComponent,
 }: DiagramViewProps) {
    return (
       <DiagramRenderer
@@ -121,6 +122,7 @@ function DiagramView({
             containerStyle={connectionEdgeContainerStyle}
             style={connectionEdgeStyle}
             type={connectionEdgeType}
+            component={connectionEdgeComponent}
          />
       </DiagramRenderer>
    );
