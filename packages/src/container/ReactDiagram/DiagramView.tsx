@@ -3,7 +3,7 @@ import { memo } from 'react';
 import DiagramRenderer from '../../container/DiagramRenderer';
 import NodeRenderer from '../../container/NodeRenderer';
 import EdgeRenderer from '../../container/EdgeRenderer';
-import ConnectionLineWrapper from '../../components/ConnectionEdge';
+import ConnectionEdge from '../../components/ConnectionEdge';
 
 import { ReactDiagramProps } from '../../types';
 import { NodeTypesWrapped } from '../NodeRenderer/type';
@@ -116,14 +116,12 @@ function DiagramView({
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
-         >
-            <ConnectionLineWrapper
-               containerStyle={connectionEdgeContainerStyle}
-               style={connectionEdgeStyle}
-               type={connectionEdgeType}
-            />
-         </EdgeRenderer>
-         <div className="react-diagram__edgelabel-renderer" />
+         />
+         <ConnectionEdge
+            containerStyle={connectionEdgeContainerStyle}
+            style={connectionEdgeStyle}
+            type={connectionEdgeType}
+         />
       </DiagramRenderer>
    );
 }
