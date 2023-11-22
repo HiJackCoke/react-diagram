@@ -126,7 +126,7 @@ export const getMarkerId = (
 };
 
 const getEdgeId = ({ source, target }: Connection): string =>
-   `reactdiagram__edge-${source}-${target}`;
+   `react-diagram__edge-${source}-${target}`;
 
 const isExistsConnection = (edge: Edge, edges: Edge[]) =>
    edges.some((el) => el.source === edge.source && el.target === edge.target);

@@ -107,6 +107,39 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          return null;
       }
 
+      const position = {
+         sourceX,
+         sourceY,
+         targetX,
+         targetY,
+         sourcePosition,
+         targetPosition,
+      };
+
+      const sourceAndTargetIds = {
+         source,
+         sourcePort,
+         target,
+         targetPort,
+      };
+
+      if (className === 'react-diagram__connection') {
+         document
+            .querySelector('path')
+            ?.classList.add('react-diagram__connection-path');
+
+         return (
+            <EdgeComponent
+               {...sourceAndTargetIds}
+               {...position}
+               id={id}
+               data={data}
+               style={style}
+               selected={selected}
+            />
+         );
+      }
+
       const handleEdgeUpdater =
          (fromPortType: PortType) =>
          (event: React.MouseEvent<SVGGElement, MouseEvent>) => {
@@ -190,13 +223,6 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
       const marker = { markerStart: markerStartUrl, markerEnd: markerEndUrl };
 
-      const sourceAndTargetIds = {
-         source,
-         sourcePort,
-         target,
-         targetPort,
-      };
-
       const labelProps = {
          label,
          labelStyle,
@@ -204,15 +230,6 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          labelBgStyle,
          labelBgPadding,
          labelBgBorderRadius,
-      };
-
-      const position = {
-         sourceX,
-         sourceY,
-         targetX,
-         targetY,
-         sourcePosition,
-         targetPosition,
       };
 
       const events = {

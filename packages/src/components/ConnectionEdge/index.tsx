@@ -7,11 +7,13 @@ import ConnectionPath from './ConnectionPath';
 
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
 import { ConnectionEdgeComponent, ConnectionEdgeType } from './type';
+import { EdgeTypesWrapped } from '../../container/EdgeRenderer/type';
 
 type ConnectionEdgeProps = {
    containerStyle?: CSSProperties;
    style?: CSSProperties;
    type?: ConnectionEdgeType;
+   edgeTypes: EdgeTypesWrapped;
    component?: ConnectionEdgeComponent;
 };
 
@@ -25,6 +27,7 @@ function ConnectionEdge({
    containerStyle,
    style,
    type,
+   edgeTypes,
    component,
 }: ConnectionEdgeProps) {
    const { nodeId, portType, edges } = useStore(selector, shallow);
@@ -34,31 +37,13 @@ function ConnectionEdge({
       return null;
    }
 
-   const capitalizeFirstLetter = (str: string) =>
-      str.charAt(0).toUpperCase() + str.slice(1);
+   const currentEdge = edges.find((edge) => edge[portType] === nodeId);
 
-   const getConnectionEdgeType = (edgeType = '') => {
-      let connectionEdgeType = '';
+   if (!currentEdge) return null;
 
-      if (type) {
-         connectionEdgeType = type;
-      } else if (
-         Object.keys(ConnectionEdgeType).includes(
-            capitalizeFirstLetter(edgeType),
-         )
-      ) {
-         connectionEdgeType = edgeType;
-      } else {
-         connectionEdgeType = 'straight';
-      }
-
-      return connectionEdgeType as ConnectionEdgeType;
-   };
-
-   const currentEdgeType = edges.find((edge) => edge[portType] === nodeId)
-      ?.type;
-
-   const edgeType = getConnectionEdgeType(currentEdgeType);
+   const edgeType = currentEdge?.type
+      ? edgeTypes[currentEdge.type]
+      : edgeTypes.default;
 
    return (
       <svg
@@ -70,8 +55,10 @@ function ConnectionEdge({
                style={style}
                nodeId={nodeId}
                portType={portType}
-               type={edgeType}
+               type={type}
+               currentEdge={currentEdge}
                Component={component}
+               EdgeComponent={edgeType}
             />
          </g>
       </svg>

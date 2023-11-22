@@ -14,7 +14,6 @@ import CustomNode from 'components/CustomNode';
 import CustomEdge from 'components/CustomEdge';
 
 import 'react-cosmos-diagram/styles/style.css';
-import ConnectionEdge from 'components/ConnectionEdge';
 
 const nodeTypes = {
    c: CustomNode,

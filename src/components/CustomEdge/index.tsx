@@ -15,7 +15,6 @@ export default function CustomEdge({
    const yEqual = sourceY === targetY;
 
    const [edgePath] = getBezierPath({
-      // we need this little hack in order to display the gradient for a straight line
       sourceX: xEqual ? sourceX + 0.0001 : sourceX,
       sourceY: yEqual ? sourceY + 0.0001 : sourceY,
       sourcePosition,
@@ -28,8 +27,8 @@ export default function CustomEdge({
       <>
          <path
             id={id}
+            className="customEdge"
             style={style}
-            className="react-flow__edge-path"
             d={edgePath}
             markerEnd={markerEnd}
          />

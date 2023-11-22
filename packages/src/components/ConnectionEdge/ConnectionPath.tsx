@@ -3,23 +3,23 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore } from '../../hooks/useStore';
 
-import { getStepPath } from '../../components/Edges/StepEdge';
-import { getBezierPath } from '../Edges/BezierEdge';
-
 import { internalsSymbol } from '../../utils';
 
-import { Position } from '../../types';
+import { Edge, Position } from '../../types';
 import { ReactDiagramStore } from '../ReactDiagramProvider/type';
 
 import { PortType } from '../Port/type';
 import { ConnectionEdgeComponent, ConnectionEdgeType } from './type';
+import { EdgeComponent } from '../../container/EdgeRenderer/type';
 
 type ConnectionPathProps = {
    style?: CSSProperties;
    nodeId: string;
    portType: PortType;
    type?: ConnectionEdgeType;
+   currentEdge: Edge;
    Component?: ConnectionEdgeComponent;
+   EdgeComponent: EdgeComponent;
 };
 
 const oppositePosition = {
@@ -34,7 +34,9 @@ function ConnectionPath({
    nodeId,
    portType,
    type = ConnectionEdgeType.Straight,
+   currentEdge,
    Component,
+   EdgeComponent,
 }: ConnectionPathProps) {
    const { fromNode, toX, toY } = useStore(
       useCallback(
@@ -89,34 +91,20 @@ function ConnectionPath({
       );
    }
 
-   let d = '';
-
-   const pathParams = {
-      sourceX: fromX,
-      sourceY: fromY,
-      sourcePosition: fromPosition,
-      targetX: toX,
-      targetY: toY,
-      targetPosition: toPosition,
-   };
-
-   if (type === ConnectionEdgeType.Bezier) {
-      [d] = getBezierPath(pathParams);
-   } else if (type === ConnectionEdgeType.Step) {
-      [d] = getStepPath({
-         ...pathParams,
-         borderRadius: 0,
-      });
-   } else {
-      d = `M${fromX},${fromY} ${toX},${toY}`;
-   }
-
    return (
-      <path
-         d={d}
-         fill="none"
-         className="react-diagram__connection-path"
-         style={style}
+      <EdgeComponent
+         id={currentEdge.id}
+         className="react-diagram__connection"
+         type={currentEdge.type || 'default'}
+         source={currentEdge.source}
+         target={currentEdge.target}
+         isFocusable={false}
+         sourceX={fromX}
+         sourceY={fromY}
+         targetX={toX}
+         targetY={toY}
+         sourcePosition={fromPosition}
+         targetPosition={toPosition}
       />
    );
 }

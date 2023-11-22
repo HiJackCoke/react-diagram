@@ -119,6 +119,7 @@ function DiagramView({
             onEdgeUpdateEnd={onEdgeUpdateEnd}
          />
          <ConnectionEdge
+            edgeTypes={edgeTypes}
             containerStyle={connectionEdgeContainerStyle}
             style={connectionEdgeStyle}
             type={connectionEdgeType}
