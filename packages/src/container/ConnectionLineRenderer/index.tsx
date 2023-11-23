@@ -37,7 +37,7 @@ function ConnectionLineRenderer({
 
    if (!selectedEdge) return null;
 
-   const EdgeComponent = selectedEdge?.type
+   const EdgeWrapper = selectedEdge?.type
       ? edgeTypes[selectedEdge.type]
       : edgeTypes.default;
 
@@ -52,7 +52,7 @@ function ConnectionLineRenderer({
                portType={portType}
                edge={selectedEdge}
                Component={component}
-               EdgeComponent={EdgeComponent}
+               EdgeWrapper={EdgeWrapper}
             />
          </g>
       </svg>

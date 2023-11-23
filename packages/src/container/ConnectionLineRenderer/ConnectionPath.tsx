@@ -9,15 +9,15 @@ import { Edge, Position } from '../../types';
 import { ReactDiagramStore } from '../../components/ReactDiagramProvider/type';
 
 import { PortType } from '../../components/Port/type';
+import { EdgeWrapperComponent } from '../../components/Edges/EdgeWrapper/type';
 import { ConnectionLineComponent } from './type';
-import { EdgeComponent } from '../EdgeRenderer/type';
 
 type ConnectionPathProps = {
    nodeId: string;
    portType: PortType;
    edge: Edge;
    Component?: ConnectionLineComponent;
-   EdgeComponent: EdgeComponent;
+   EdgeWrapper: EdgeWrapperComponent;
 };
 
 const oppositePosition = {
@@ -32,7 +32,7 @@ function ConnectionPath({
    portType,
    edge,
    Component,
-   EdgeComponent,
+   EdgeWrapper,
 }: ConnectionPathProps) {
    const { fromNode, toX, toY } = useStore(
       useCallback(
@@ -86,7 +86,7 @@ function ConnectionPath({
    }
 
    return (
-      <EdgeComponent
+      <EdgeWrapper
          id={edge.id}
          className="react-diagram__connection"
          type={edge.type || 'default'}

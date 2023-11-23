@@ -1,4 +1,8 @@
-import { MouseEvent as ReactMouseEvent } from 'react';
+import {
+   ComponentType,
+   MemoExoticComponent,
+   MouseEvent as ReactMouseEvent,
+} from 'react';
 
 import { Position, Connection } from '../../../types';
 import { PortType } from '../../Port/type';
@@ -42,3 +46,7 @@ export type WrapEdgeProps<T = any> = Edge<T> & {
       portType: PortType,
    ) => void;
 };
+
+export type EdgeWrapperComponent = MemoExoticComponent<
+   ComponentType<WrapEdgeProps>
+>;
