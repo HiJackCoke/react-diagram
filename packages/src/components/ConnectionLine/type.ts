@@ -3,7 +3,7 @@ import { Node, Position } from '../../types';
 
 import { PortElement } from '../Port/type';
 
-export type ConnectionEdgeComponentProps = {
+export type ConnectionLineComponentProps = {
    fromNode?: Node;
    fromPort?: PortElement;
    fromX: number;
@@ -14,5 +14,5 @@ export type ConnectionEdgeComponentProps = {
    toPosition: Position;
 };
 
-export type ConnectionEdgeComponent =
-   ComponentType<ConnectionEdgeComponentProps>;
+export type ConnectionLineComponent =
+   ComponentType<ConnectionLineComponentProps>;

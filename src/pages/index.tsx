@@ -144,7 +144,7 @@ function Index() {
             edges={edges}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
-            // connectionEdgeComponent={ConnectionEdge}
+            // ConnectionLineComponent={ConnectionLine}
             // multiSelectionKeyCode="z"
             // panning={false}
             minZoom={1}

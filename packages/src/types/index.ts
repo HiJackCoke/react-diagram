@@ -7,7 +7,7 @@ export * from '../hooks/useNodesEdgesState/type';
 
 export * from '../components/Node/type';
 export * from '../components/Edges/type';
-export * from '../components/ConnectionEdge/type';
+export * from '../components/ConnectionLine/type';
 // export * from '../components/Port/type';
 
 // export * from '../components/ReactDiagramProvider/type';

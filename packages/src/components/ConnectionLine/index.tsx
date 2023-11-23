@@ -6,13 +6,13 @@ import { useStore } from '../../hooks/useStore';
 import ConnectionPath from './ConnectionPath';
 
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
-import { ConnectionEdgeComponent } from './type';
+import { ConnectionLineComponent } from './type';
 import { EdgeTypesWrapped } from '../../container/EdgeRenderer/type';
 
-type ConnectionEdgeProps = {
+type ConnectionLineProps = {
    containerStyle?: CSSProperties;
    edgeTypes: EdgeTypesWrapped;
-   component?: ConnectionEdgeComponent;
+   component?: ConnectionLineComponent;
 };
 
 const selector = (s: ReactDiagramState) => ({
@@ -21,11 +21,11 @@ const selector = (s: ReactDiagramState) => ({
    portType: s.connectionPortType,
 });
 
-function ConnectionEdge({
+function ConnectionLine({
    containerStyle,
    edgeTypes,
    component,
-}: ConnectionEdgeProps) {
+}: ConnectionLineProps) {
    const { nodeId, portType, edges } = useStore(selector, shallow);
    const isValid = !!(nodeId && portType);
 
@@ -59,4 +59,4 @@ function ConnectionEdge({
    );
 }
 
-export default ConnectionEdge;
+export default ConnectionLine;

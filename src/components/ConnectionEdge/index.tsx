@@ -1,11 +1,11 @@
-import { ConnectionEdgeComponentProps } from 'react-cosmos-diagram';
+import { ConnectionLineComponentProps } from 'react-cosmos-diagram';
 
-function ConnectionEdge({
+function ConnectionLine({
    fromX,
    fromY,
    toX,
    toY,
-}: ConnectionEdgeComponentProps) {
+}: ConnectionLineComponentProps) {
    return (
       <path
          fill="none"
@@ -17,4 +17,4 @@ function ConnectionEdge({
    );
 }
 
-export default ConnectionEdge;
+export default ConnectionLine;

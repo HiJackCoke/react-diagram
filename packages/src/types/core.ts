@@ -17,7 +17,7 @@ import {
    OnConnectEnd,
    OnMove,
    OnError,
-   ConnectionEdgeComponent,
+   ConnectionLineComponent,
 } from '.';
 
 import { NodeDragHandler } from '../hooks/useDrag/type';
@@ -48,9 +48,9 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    edges?: Edge[];
    edgeTypes?: EdgeTypes;
 
-   connectionEdgeContainerStyle?: CSSProperties;
+   ConnectionLineContainerStyle?: CSSProperties;
 
-   connectionEdgeComponent?: ConnectionEdgeComponent;
+   ConnectionLineComponent?: ConnectionLineComponent;
 
    onNodesChange?: OnNodesChange;
    onNodeClick?: NodeMouseHandler;

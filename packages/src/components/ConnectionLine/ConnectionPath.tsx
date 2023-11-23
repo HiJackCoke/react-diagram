@@ -9,14 +9,14 @@ import { Edge, Position } from '../../types';
 import { ReactDiagramStore } from '../ReactDiagramProvider/type';
 
 import { PortType } from '../Port/type';
-import { ConnectionEdgeComponent } from './type';
+import { ConnectionLineComponent } from './type';
 import { EdgeComponent } from '../../container/EdgeRenderer/type';
 
 type ConnectionPathProps = {
    nodeId: string;
    portType: PortType;
    currentEdge: Edge;
-   Component?: ConnectionEdgeComponent;
+   Component?: ConnectionLineComponent;
    EdgeComponent: EdgeComponent;
 };
 
