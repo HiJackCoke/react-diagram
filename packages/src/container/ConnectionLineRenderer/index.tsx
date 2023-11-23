@@ -33,12 +33,12 @@ function ConnectionLineRenderer({
       return null;
    }
 
-   const currentEdge = edges.find((edge) => edge[portType] === nodeId);
+   const selectedEdge = edges.find((edge) => edge[portType] === nodeId);
 
-   if (!currentEdge) return null;
+   if (!selectedEdge) return null;
 
-   const edgeType = currentEdge?.type
-      ? edgeTypes[currentEdge.type]
+   const EdgeComponent = selectedEdge?.type
+      ? edgeTypes[selectedEdge.type]
       : edgeTypes.default;
 
    return (
@@ -50,9 +50,9 @@ function ConnectionLineRenderer({
             <ConnectionPath
                nodeId={nodeId}
                portType={portType}
-               currentEdge={currentEdge}
+               edge={selectedEdge}
                Component={component}
-               EdgeComponent={edgeType}
+               EdgeComponent={EdgeComponent}
             />
          </g>
       </svg>

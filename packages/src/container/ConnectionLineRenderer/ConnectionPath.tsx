@@ -15,7 +15,7 @@ import { EdgeComponent } from '../EdgeRenderer/type';
 type ConnectionPathProps = {
    nodeId: string;
    portType: PortType;
-   currentEdge: Edge;
+   edge: Edge;
    Component?: ConnectionLineComponent;
    EdgeComponent: EdgeComponent;
 };
@@ -30,8 +30,7 @@ const oppositePosition = {
 function ConnectionPath({
    nodeId,
    portType,
-
-   currentEdge,
+   edge,
    Component,
    EdgeComponent,
 }: ConnectionPathProps) {
@@ -88,11 +87,11 @@ function ConnectionPath({
 
    return (
       <EdgeComponent
-         id={currentEdge.id}
+         id={edge.id}
          className="react-diagram__connection"
-         type={currentEdge.type || 'default'}
-         source={currentEdge.source}
-         target={currentEdge.target}
+         type={edge.type || 'default'}
+         source={edge.source}
+         target={edge.target}
          isFocusable={false}
          sourceX={fromX}
          sourceY={fromY}
