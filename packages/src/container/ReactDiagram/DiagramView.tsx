@@ -75,7 +75,6 @@ function DiagramView({
 
    // ConnectionLineWrapper
    connectionEdgeContainerStyle,
-   connectionEdgeType,
    connectionEdgeComponent,
 }: DiagramViewProps) {
    return (
@@ -120,7 +119,6 @@ function DiagramView({
          <ConnectionEdge
             edgeTypes={edgeTypes}
             containerStyle={connectionEdgeContainerStyle}
-            type={connectionEdgeType}
             component={connectionEdgeComponent}
          />
       </DiagramRenderer>

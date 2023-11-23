@@ -1,4 +1,4 @@
-import { CSSProperties, useCallback } from 'react';
+import { useCallback } from 'react';
 import { shallow } from 'zustand/shallow';
 
 import { useStore } from '../../hooks/useStore';
@@ -9,13 +9,12 @@ import { Edge, Position } from '../../types';
 import { ReactDiagramStore } from '../ReactDiagramProvider/type';
 
 import { PortType } from '../Port/type';
-import { ConnectionEdgeComponent, ConnectionEdgeType } from './type';
+import { ConnectionEdgeComponent } from './type';
 import { EdgeComponent } from '../../container/EdgeRenderer/type';
 
 type ConnectionPathProps = {
    nodeId: string;
    portType: PortType;
-   type?: ConnectionEdgeType;
    currentEdge: Edge;
    Component?: ConnectionEdgeComponent;
    EdgeComponent: EdgeComponent;
@@ -31,7 +30,7 @@ const oppositePosition = {
 function ConnectionPath({
    nodeId,
    portType,
-   type = ConnectionEdgeType.Straight,
+
    currentEdge,
    Component,
    EdgeComponent,
@@ -75,7 +74,6 @@ function ConnectionPath({
    if (Component) {
       return (
          <Component
-            connectionEdgeType={type}
             fromNode={fromNode}
             fromPort={fromPort}
             fromX={fromX}

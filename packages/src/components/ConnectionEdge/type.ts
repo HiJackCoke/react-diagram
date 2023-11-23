@@ -1,16 +1,9 @@
-import { ComponentType, CSSProperties } from 'react';
+import { ComponentType } from 'react';
 import { Node, Position } from '../../types';
 
 import { PortElement } from '../Port/type';
 
-export enum ConnectionEdgeType {
-   Straight = 'straight',
-   Bezier = 'bezier',
-   Step = 'step',
-}
-
 export type ConnectionEdgeComponentProps = {
-   connectionEdgeType: ConnectionEdgeType;
    fromNode?: Node;
    fromPort?: PortElement;
    fromX: number;

@@ -6,12 +6,11 @@ import { useStore } from '../../hooks/useStore';
 import ConnectionPath from './ConnectionPath';
 
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
-import { ConnectionEdgeComponent, ConnectionEdgeType } from './type';
+import { ConnectionEdgeComponent } from './type';
 import { EdgeTypesWrapped } from '../../container/EdgeRenderer/type';
 
 type ConnectionEdgeProps = {
    containerStyle?: CSSProperties;
-   type?: ConnectionEdgeType;
    edgeTypes: EdgeTypesWrapped;
    component?: ConnectionEdgeComponent;
 };
@@ -24,8 +23,6 @@ const selector = (s: ReactDiagramState) => ({
 
 function ConnectionEdge({
    containerStyle,
-
-   type,
    edgeTypes,
    component,
 }: ConnectionEdgeProps) {
@@ -53,7 +50,6 @@ function ConnectionEdge({
             <ConnectionPath
                nodeId={nodeId}
                portType={portType}
-               type={type}
                currentEdge={currentEdge}
                Component={component}
                EdgeComponent={edgeType}

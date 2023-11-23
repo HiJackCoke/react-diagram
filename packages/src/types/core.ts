@@ -17,7 +17,6 @@ import {
    OnConnectEnd,
    OnMove,
    OnError,
-   ConnectionEdgeType,
    ConnectionEdgeComponent,
 } from '.';
 
@@ -51,7 +50,6 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    connectionEdgeContainerStyle?: CSSProperties;
 
-   connectionEdgeType?: ConnectionEdgeType;
    connectionEdgeComponent?: ConnectionEdgeComponent;
 
    onNodesChange?: OnNodesChange;
