@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import { Node, Position } from '../../types';
 
-import { PortElement } from '../Port/type';
+import { PortElement } from '../../components/Port/type';
 
 export type ConnectionLineComponentProps = {
    fromNode?: Node;

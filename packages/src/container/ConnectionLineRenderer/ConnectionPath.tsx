@@ -6,11 +6,11 @@ import { useStore } from '../../hooks/useStore';
 import { internalsSymbol } from '../../utils';
 
 import { Edge, Position } from '../../types';
-import { ReactDiagramStore } from '../ReactDiagramProvider/type';
+import { ReactDiagramStore } from '../../components/ReactDiagramProvider/type';
 
-import { PortType } from '../Port/type';
+import { PortType } from '../../components/Port/type';
 import { ConnectionLineComponent } from './type';
-import { EdgeComponent } from '../../container/EdgeRenderer/type';
+import { EdgeComponent } from '../EdgeRenderer/type';
 
 type ConnectionPathProps = {
    nodeId: string;

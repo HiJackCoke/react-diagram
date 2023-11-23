@@ -5,11 +5,11 @@ import { useStore } from '../../hooks/useStore';
 
 import ConnectionPath from './ConnectionPath';
 
-import { ReactDiagramState } from '../ReactDiagramProvider/type';
+import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { ConnectionLineComponent } from './type';
-import { EdgeTypesWrapped } from '../../container/EdgeRenderer/type';
+import { EdgeTypesWrapped } from '../EdgeRenderer/type';
 
-type ConnectionLineProps = {
+type ConnectionLineRendererProps = {
    containerStyle?: CSSProperties;
    edgeTypes: EdgeTypesWrapped;
    component?: ConnectionLineComponent;
@@ -21,11 +21,11 @@ const selector = (s: ReactDiagramState) => ({
    portType: s.connectionPortType,
 });
 
-function ConnectionLine({
+function ConnectionLineRenderer({
    containerStyle,
    edgeTypes,
    component,
-}: ConnectionLineProps) {
+}: ConnectionLineRendererProps) {
    const { nodeId, portType, edges } = useStore(selector, shallow);
    const isValid = !!(nodeId && portType);
 
@@ -44,7 +44,7 @@ function ConnectionLine({
    return (
       <svg
          style={containerStyle}
-         className="react-diagram__container react-diagram__edges react-diagram__connection-line"
+         className="react-diagram__container react-diagram__connection-line"
       >
          <g className="react-diagram__connection">
             <ConnectionPath
@@ -59,4 +59,4 @@ function ConnectionLine({
    );
 }
 
-export default ConnectionLine;
+export default ConnectionLineRenderer;

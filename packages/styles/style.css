@@ -156,7 +156,8 @@
    cursor: grab;
 }
 
-.react-diagram .react-diagram__edges {
+.react-diagram .react-diagram__edges,
+.react-diagram .react-diagram__connection-line {
    pointer-events: none;
    overflow: visible;
 }
