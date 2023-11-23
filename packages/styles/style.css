@@ -123,11 +123,6 @@
    fill: none;
 }
 
-.react-diagram__edgeupdater {
-   cursor: move;
-   pointer-events: all;
-}
-
 .react-diagram__edge-text-bg {
    fill: white;
 }
@@ -143,6 +138,16 @@
 
 .react-diagram__edge-text {
    font-size: 10px;
+}
+
+.react-diagram__edge-updater {
+   cursor: move;
+   pointer-events: all;
+}
+
+.react-diagram__edge-updater:hover {
+   transition: 0.2s;
+   fill: #000000;
 }
 
 .react-diagram__viewport {

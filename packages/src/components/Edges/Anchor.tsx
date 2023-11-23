@@ -40,7 +40,7 @@ const portPositionY = (
    return y;
 };
 
-const EdgeUpdaterClassName = 'react-diagram__edgeupdater';
+const EdgeUpdaterClassName = 'react-diagram__edge-updater';
 
 function Anchor({
    position,
