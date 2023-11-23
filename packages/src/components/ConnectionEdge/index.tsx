@@ -11,7 +11,6 @@ import { EdgeTypesWrapped } from '../../container/EdgeRenderer/type';
 
 type ConnectionEdgeProps = {
    containerStyle?: CSSProperties;
-   style?: CSSProperties;
    type?: ConnectionEdgeType;
    edgeTypes: EdgeTypesWrapped;
    component?: ConnectionEdgeComponent;
@@ -25,7 +24,7 @@ const selector = (s: ReactDiagramState) => ({
 
 function ConnectionEdge({
    containerStyle,
-   style,
+
    type,
    edgeTypes,
    component,
@@ -52,7 +51,6 @@ function ConnectionEdge({
       >
          <g className="react-diagram__connection">
             <ConnectionPath
-               style={style}
                nodeId={nodeId}
                portType={portType}
                type={type}

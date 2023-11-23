@@ -13,7 +13,6 @@ import { ConnectionEdgeComponent, ConnectionEdgeType } from './type';
 import { EdgeComponent } from '../../container/EdgeRenderer/type';
 
 type ConnectionPathProps = {
-   style?: CSSProperties;
    nodeId: string;
    portType: PortType;
    type?: ConnectionEdgeType;
@@ -30,7 +29,6 @@ const oppositePosition = {
 };
 
 function ConnectionPath({
-   style,
    nodeId,
    portType,
    type = ConnectionEdgeType.Straight,
@@ -78,7 +76,6 @@ function ConnectionPath({
       return (
          <Component
             connectionEdgeType={type}
-            connectionEdgeStyle={style}
             fromNode={fromNode}
             fromPort={fromPort}
             fromX={fromX}

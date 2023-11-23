@@ -50,7 +50,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    edgeTypes?: EdgeTypes;
 
    connectionEdgeContainerStyle?: CSSProperties;
-   connectionEdgeStyle?: CSSProperties;
+
    connectionEdgeType?: ConnectionEdgeType;
    connectionEdgeComponent?: ConnectionEdgeComponent;
 

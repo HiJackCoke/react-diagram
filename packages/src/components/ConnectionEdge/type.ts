@@ -10,7 +10,6 @@ export enum ConnectionEdgeType {
 }
 
 export type ConnectionEdgeComponentProps = {
-   connectionEdgeStyle?: CSSProperties;
    connectionEdgeType: ConnectionEdgeType;
    fromNode?: Node;
    fromPort?: PortElement;
