@@ -47,9 +47,8 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    edges?: Edge[];
    edgeTypes?: EdgeTypes;
-
+   edgeUpdaterRadius?: number;
    ConnectionLineContainerStyle?: CSSProperties;
-
    ConnectionLineComponent?: ConnectionLineComponent;
 
    onNodesChange?: OnNodesChange;

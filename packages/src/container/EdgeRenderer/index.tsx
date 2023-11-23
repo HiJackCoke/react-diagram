@@ -17,6 +17,7 @@ import { EdgeTypesWrapped } from './type';
 type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
    Pick<
       ReactDiagramProps,
+      | 'edgeUpdaterRadius'
       | 'onEdgeClick'
       | 'onEdgeDoubleClick'
       | 'onEdgeContextMenu'
@@ -47,6 +48,7 @@ function EdgeRenderer({
    rfId,
    edgeTypes,
    noPanClassName,
+   edgeUpdaterRadius,
    onEdgeClick,
    onEdgeDoubleClick,
    onEdgeContextMenu,
@@ -191,6 +193,7 @@ function EdgeRenderer({
                      type={edgeType}
                      data={data}
                      isFocusable={isFocusable}
+                     edgeUpdaterRadius={edgeUpdaterRadius}
                   />
                );
             })}

@@ -66,6 +66,9 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          labelBgPadding,
          labelBgBorderRadius,
 
+         // AnchorProps
+         edgeUpdaterRadius,
+
          // position
          sourceX,
          sourceY,
@@ -279,7 +282,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                position={sourcePosition}
                centerX={sourceX}
                centerY={sourceY}
-               radius={10}
+               radius={edgeUpdaterRadius}
                onMouseDown={handleEdgeUpdater('target')}
                // onMouseEnter={console.log}
                // onMouseOut={console.log}
@@ -290,7 +293,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                position={targetPosition}
                centerX={targetX}
                centerY={targetY}
-               radius={10}
+               radius={edgeUpdaterRadius}
                onMouseDown={handleEdgeUpdater('source')}
                // onMouseEnter={console.log}
                // onMouseOut={console.log}

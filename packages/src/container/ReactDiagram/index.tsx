@@ -57,6 +57,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onNodeMouseLeave,
 
          edgeTypes = defaultEdgeTypes,
+         edgeUpdaterRadius,
          onEdgeClick,
          onEdgeDoubleClick,
          onEdgeContextMenu,
@@ -115,6 +116,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   nodeOrigin={nodeOrigin}
                   nodeTypes={nodeTypesWrapped}
                   edgeTypes={edgeTypesWrapped}
+                  edgeUpdaterRadius={edgeUpdaterRadius}
                   ConnectionLineContainerStyle={ConnectionLineContainerStyle}
                   ConnectionLineComponent={ConnectionLineComponent}
                   onNodeClick={onNodeClick}

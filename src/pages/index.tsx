@@ -147,6 +147,7 @@ function Index() {
             // ConnectionLineComponent={ConnectionLine}
             // multiSelectionKeyCode="z"
             // panning={false}
+            edgeUpdaterRadius={30}
             minZoom={1}
             maxZoom={2}
             onNodesChange={onNodesChange}

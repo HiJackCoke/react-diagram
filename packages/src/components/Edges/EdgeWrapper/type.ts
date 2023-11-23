@@ -27,6 +27,8 @@ export type WrapEdgeProps<T = any> = Edge<T> & {
    rfId?: string;
    isFocusable: boolean;
 
+   edgeUpdaterRadius?: number;
+
    onClick?: EdgeMouseHandler;
    onDoubleClick?: EdgeMouseHandler;
    onContextMenu?: EdgeMouseHandler;
