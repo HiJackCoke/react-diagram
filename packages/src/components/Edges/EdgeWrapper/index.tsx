@@ -90,23 +90,6 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          onEdgeUpdateEnd,
       } = props;
 
-      const edgeRef = useRef<SVGGElement>(null);
-      const [updating, setUpdating] = useState(false);
-      const store = useStoreApi();
-
-      const markerStartUrl = useMemo(
-         () => `url(#${getMarkerId(markerStart, rfId)})`,
-         [markerStart, rfId],
-      );
-      const markerEndUrl = useMemo(
-         () => `url(#${getMarkerId(markerEnd, rfId)})`,
-         [markerEnd, rfId],
-      );
-
-      if (hidden) {
-         return null;
-      }
-
       const position = {
          sourceX,
          sourceY,
@@ -123,7 +106,9 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          targetPort,
       };
 
-      if (className === 'react-diagram__connection') {
+      const isConnecting = className === 'react-diagram__connection';
+
+      if (isConnecting) {
          document
             .querySelector('path')
             ?.classList.add('react-diagram__connection-path');
@@ -138,6 +123,24 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                selected={selected}
             />
          );
+      }
+
+      const store = useStoreApi();
+
+      const edgeRef = useRef<SVGGElement>(null);
+      const [updating, setUpdating] = useState(false);
+
+      const markerStartUrl = useMemo(
+         () => `url(#${getMarkerId(markerStart, rfId)})`,
+         [markerStart, rfId],
+      );
+      const markerEndUrl = useMemo(
+         () => `url(#${getMarkerId(markerEnd, rfId)})`,
+         [markerEnd, rfId],
+      );
+
+      if (hidden) {
+         return null;
       }
 
       const handleEdgeUpdater =
@@ -278,8 +281,8 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                centerY={sourceY}
                radius={10}
                onMouseDown={handleEdgeUpdater('target')}
-               onMouseEnter={console.log}
-               onMouseOut={console.log}
+               // onMouseEnter={console.log}
+               // onMouseOut={console.log}
                type="source"
             />
 
@@ -289,8 +292,8 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                centerY={targetY}
                radius={10}
                onMouseDown={handleEdgeUpdater('source')}
-               onMouseEnter={console.log}
-               onMouseOut={console.log}
+               // onMouseEnter={console.log}
+               // onMouseOut={console.log}
                type="target"
             />
          </g>

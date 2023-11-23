@@ -3,7 +3,8 @@ import cc from 'classcat';
 
 import { Position } from '../../types';
 
-type EventNames = 'onMouseDown' | 'onMouseEnter' | 'onMouseOut';
+type EventNames = 'onMouseDown';
+// | 'onMouseEnter' | 'onMouseOut';
 
 type AnchorEvents = {
    [H in EventNames]?: (
@@ -47,8 +48,8 @@ function Anchor({
    centerY,
    radius = 10,
    onMouseDown,
-   onMouseEnter,
-   onMouseOut,
+   // onMouseEnter,
+   // onMouseOut,
    type,
 }: AnchorProps) {
    return (
@@ -63,8 +64,8 @@ function Anchor({
          stroke="transparent"
          fill="transparent"
          onMouseDown={onMouseDown}
-         onMouseEnter={onMouseEnter}
-         onMouseOut={onMouseOut}
+         // onMouseEnter={onMouseEnter}
+         // onMouseOut={onMouseOut}
       />
    );
 }
