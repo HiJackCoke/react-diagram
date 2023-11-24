@@ -11,7 +11,13 @@ import {
    internalsSymbol,
 } from '../../utils';
 
-import { Connection, Node, OnConnect, XYPosition } from '../../types';
+import {
+   Connection,
+   Node,
+   OnConnect,
+   Transform,
+   XYPosition,
+} from '../../types';
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
 import { PortType, PortBounds } from './type';
 
@@ -165,6 +171,28 @@ export const getClosestPort = (
    return closestPort;
 };
 
+export const pointToRendererPoint = (
+   { x, y }: XYPosition,
+   [tx, ty, tScale]: Transform,
+): XYPosition => {
+   const position: XYPosition = {
+      x: (x - tx) / tScale,
+      y: (y - ty) / tScale,
+   };
+
+   return position;
+};
+
+export const rendererPointToPoint = (
+   { x, y }: XYPosition,
+   [tx, ty, tScale]: Transform,
+): XYPosition => {
+   return {
+      x: x * tScale + tx,
+      y: y * tScale + ty,
+   };
+};
+
 export const handlePointerDown = ({
    isAnchor = false,
    event,
@@ -242,10 +270,13 @@ export const handlePointerDown = ({
    onConnectStart?.(event, { nodeId, portType });
 
    const onPointerMove = (event: MouseEvent | TouchEvent) => {
+      const { transform } = getState();
+
       connectionPosition = getEventPosition(event, containerBounds);
 
       closestPort = getClosestPort(
-         connectionPosition,
+         pointToRendererPoint(connectionPosition, transform),
+
          connectionRadius,
          allPort,
       );
@@ -260,19 +291,12 @@ export const handlePointerDown = ({
       isValid = result.isValid;
       connection = result.connection;
 
-      if (closestPort && isValid) {
-         const { x, y } = closestPort;
-         setState({
-            connectionPosition: {
-               x,
-               y,
-            },
-         });
-      } else {
-         setState({
-            connectionPosition,
-         });
-      }
+      setState({
+         connectionPosition:
+            closestPort && isValid
+               ? rendererPointToPoint(closestPort, transform)
+               : connectionPosition,
+      });
    };
 
    const onPointerUp = (event: MouseEvent | TouchEvent) => {
