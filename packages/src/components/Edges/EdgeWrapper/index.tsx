@@ -266,39 +266,41 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
             }
          >
             {!updating && (
-               <EdgeComponent
-                  {...sourceAndTargetIds}
-                  {...marker}
-                  {...labelProps}
-                  {...position}
-                  id={id}
-                  data={data}
-                  style={style}
-                  selected={selected}
-               />
+               <>
+                  <EdgeComponent
+                     {...sourceAndTargetIds}
+                     {...marker}
+                     {...labelProps}
+                     {...position}
+                     id={id}
+                     data={data}
+                     style={style}
+                     selected={selected}
+                  />
+
+                  <Anchor
+                     position={sourcePosition}
+                     centerX={sourceX}
+                     centerY={sourceY}
+                     radius={edgeUpdaterRadius}
+                     onMouseDown={handleEdgeUpdater('target')}
+                     // onMouseEnter={console.log}
+                     // onMouseOut={console.log}
+                     type="source"
+                  />
+
+                  <Anchor
+                     position={targetPosition}
+                     centerX={targetX}
+                     centerY={targetY}
+                     radius={edgeUpdaterRadius}
+                     onMouseDown={handleEdgeUpdater('source')}
+                     // onMouseEnter={console.log}
+                     // onMouseOut={console.log}
+                     type="target"
+                  />
+               </>
             )}
-
-            <Anchor
-               position={sourcePosition}
-               centerX={sourceX}
-               centerY={sourceY}
-               radius={edgeUpdaterRadius}
-               onMouseDown={handleEdgeUpdater('target')}
-               // onMouseEnter={console.log}
-               // onMouseOut={console.log}
-               type="source"
-            />
-
-            <Anchor
-               position={targetPosition}
-               centerX={targetX}
-               centerY={targetY}
-               radius={edgeUpdaterRadius}
-               onMouseDown={handleEdgeUpdater('source')}
-               // onMouseEnter={console.log}
-               // onMouseOut={console.log}
-               type="target"
-            />
          </g>
       );
    };
