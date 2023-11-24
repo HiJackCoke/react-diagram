@@ -32,6 +32,7 @@ export type StoreUpdaterProps = Pick<
    | 'onConnect'
    | 'onConnectStart'
    | 'onConnectEnd'
+   | 'connectionRadius'
    | 'onError'
    | 'nodeExtent'
    | 'translateExtent'
@@ -97,6 +98,7 @@ const StoreUpdater = ({
    nodesDraggable,
    autoPanOnNodeDrag,
    autoPanOnConnect,
+   connectionRadius,
    onConnect,
    onConnectStart,
    onConnectEnd,
@@ -138,6 +140,7 @@ const StoreUpdater = ({
       store.setState,
    );
    useDirectStoreUpdater('autoPanOnConnect', autoPanOnConnect, store.setState);
+   useDirectStoreUpdater('connectionRadius', connectionRadius, store.setState);
 
    useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
    useDirectStoreUpdater('onNodeDrag', onNodeDrag, store.setState);

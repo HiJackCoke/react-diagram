@@ -76,6 +76,8 @@ export type ReactDiagramStore = {
 
    nodeExtent: CoordinateExtent;
    translateExtent: CoordinateExtent;
+
+   connectionRadius: number;
 };
 
 export type ReactDiagramActions = {

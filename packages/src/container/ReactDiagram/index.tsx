@@ -82,6 +82,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          elevateNodesOnSelect,
          autoPanOnNodeDrag,
          autoPanOnConnect,
+         connectionRadius,
          onNodesChange,
          onNodeDrag,
          onNodeDragStart,
@@ -146,6 +147,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   elevateNodesOnSelect={elevateNodesOnSelect}
                   autoPanOnNodeDrag={autoPanOnNodeDrag}
                   autoPanOnConnect={autoPanOnConnect}
+                  connectionRadius={connectionRadius}
                   nodeExtent={nodeExtent}
                   translateExtent={translateExtent}
                   minZoom={minZoom}

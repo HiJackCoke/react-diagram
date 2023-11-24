@@ -50,6 +50,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    edgeUpdaterRadius?: number;
    ConnectionLineContainerStyle?: CSSProperties;
    ConnectionLineComponent?: ConnectionLineComponent;
+   connectionRadius?: number;
 
    onNodesChange?: OnNodesChange;
    onNodeClick?: NodeMouseHandler;

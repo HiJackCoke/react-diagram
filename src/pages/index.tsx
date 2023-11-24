@@ -148,6 +148,7 @@ function Index() {
             // multiSelectionKeyCode="z"
             // panning={false}
             edgeUpdaterRadius={30}
+            connectionRadius={30}
             minZoom={1}
             maxZoom={2}
             onNodesChange={onNodesChange}

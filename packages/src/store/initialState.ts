@@ -39,6 +39,8 @@ const initialState: ReactDiagramStore = {
    nodeExtent: infiniteExtent,
    translateExtent: infiniteExtent,
 
+   connectionRadius: 20,
+
    onError: devWarn,
 };
 

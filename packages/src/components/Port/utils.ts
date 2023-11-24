@@ -144,7 +144,7 @@ const getAllPort = ({ nodes, nodeId, portType }: GetAllPortParams) =>
       return res;
    }, []);
 
-const getClosestPort = (
+export const getClosestPort = (
    pos: XYPosition,
    connectionRadius: number,
    ports: ConnectionPort[],
@@ -189,6 +189,7 @@ export const handlePointerDown = ({
    const {
       domNode,
       autoPanOnConnect,
+      connectionRadius,
       getNodes,
       cancelConnection,
       onConnectStart,
@@ -243,7 +244,11 @@ export const handlePointerDown = ({
    const onPointerMove = (event: MouseEvent | TouchEvent) => {
       connectionPosition = getEventPosition(event, containerBounds);
 
-      closestPort = getClosestPort(connectionPosition, 20, allPort);
+      closestPort = getClosestPort(
+         connectionPosition,
+         connectionRadius,
+         allPort,
+      );
 
       if (!autoPanStarted) {
          autoPan();
