@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/taehunlim/react-diagram/compare/v0.2.0...v0.3.0) (2023-11-25)
+
+
+### Features
+
+* connectionRadius ([1191867](https://github.com/taehunlim/react-diagram/commit/1191867322615e8f7303b187cbb21d2277a7037d))
+* edgeUpdaterRadius ([48549db](https://github.com/taehunlim/react-diagram/commit/48549db04dd8ae5b9fe31119e8dc05eaaae14a56))
+
+
+### Bug Fixes
+
+* issue with closestPort finding wrong port location ([40443cc](https://github.com/taehunlim/react-diagram/commit/40443ccb035385c1858b535d7019efb0fbef9712))
+
+
+### Code Refactoring
+
+* ConnectionEdge to use EdgeComponent of current Edge ([67a4a22](https://github.com/taehunlim/react-diagram/commit/67a4a22277ac2f8f6e39b99e69227d5550de43dd))
+
+
+### UI Styling
+
+* Anchor hover ([29c6936](https://github.com/taehunlim/react-diagram/commit/29c6936b57e3c54cf341ded615391317a92b9222))
+
+
+### Change Existing Behavior
+
+* Anchor is not visible when Edge is updating ([2a152c2](https://github.com/taehunlim/react-diagram/commit/2a152c213cc265b10d4af9132edd349a2908b970))
+
 ## [0.2.0](https://github.com/taehunlim/react-diagram/compare/v0.1.1...v0.2.0) (2023-11-20)
 
 
