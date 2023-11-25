@@ -171,7 +171,7 @@ export const getClosestPort = (
    return closestPort;
 };
 
-export const pointToRendererPoint = (
+const pointToRendererPoint = (
    { x, y }: XYPosition,
    [tx, ty, tScale]: Transform,
 ): XYPosition => {
@@ -183,7 +183,7 @@ export const pointToRendererPoint = (
    return position;
 };
 
-export const rendererPointToPoint = (
+const rendererPointToPoint = (
    { x, y }: XYPosition,
    [tx, ty, tScale]: Transform,
 ): XYPosition => {
