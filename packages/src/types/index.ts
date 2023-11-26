@@ -14,3 +14,5 @@ export * from '../container/ConnectionLineRenderer/type';
 
 // export * from '../container/NodeRenderer/type';
 // export * from '../container/EdgeRenderer/type';
+
+export * from '../components/Background/type';

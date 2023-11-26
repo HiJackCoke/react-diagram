@@ -8,6 +8,7 @@ import ReactDiagram, {
    Connection,
    Edge,
    MarkerType,
+   Background,
 } from 'react-cosmos-diagram';
 
 import CustomNode from 'components/CustomNode';
@@ -185,7 +186,9 @@ function Index() {
             //    [-100, -100],
             //    [100, 100],
             // ]}
-         />
+         >
+            <Background gap={50} />
+         </ReactDiagram>
       </>
    );
 }

@@ -28,3 +28,5 @@ export {
 
 export * from './types';
 export default ReactDiagram;
+
+export { default as Background } from './components/Background';

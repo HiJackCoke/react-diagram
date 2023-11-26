@@ -32,6 +32,7 @@ const defaultEdgeTypes: EdgeTypes = {
 const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
    (
       {
+         children,
          id,
          // DiagramView props
          panning = true,
@@ -162,6 +163,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onConnectEnd={onConnectEnd}
                   onError={onError}
                />
+               {children}
             </Wrapper>
          </div>
       );
