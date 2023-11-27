@@ -47,7 +47,6 @@ const selector = (s: ReactDiagramState) => ({
 
 function NodeRenderer({
    nodeTypes,
-
    onNodeClick,
    onNodeMouseEnter,
    onNodeMouseMove,

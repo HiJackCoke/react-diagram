@@ -186,8 +186,9 @@ function Index() {
             //    [-100, -100],
             //    [100, 100],
             // ]}
+            gridStep={[100, 100]}
          >
-            <Background gap={50} />
+            <Background />
          </ReactDiagram>
       </>
    );

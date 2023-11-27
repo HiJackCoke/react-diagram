@@ -10,17 +10,22 @@ import LinePath from './LinePath';
 const selector = (s: ReactDiagramState) => ({
    transform: s.transform,
    rfId: s.rfId,
+   gridStepGap: s.gridStep,
 });
 
 function Background({
-   gap = 50,
+   gap,
    lineWidth = 1,
    color = '#000000',
 }: BackgroundProps) {
    const ref = useRef<SVGSVGElement>(null);
-   const { transform, rfId } = useStore(selector, shallow);
+   const { transform, rfId, gridStepGap } = useStore(selector, shallow);
 
-   const gapXY: [number, number] = Array.isArray(gap) ? gap : [gap, gap];
+   const defaultGap = gap ? gap : gridStepGap ? gridStepGap : 50;
+
+   const gapXY: [number, number] = Array.isArray(defaultGap)
+      ? defaultGap
+      : [defaultGap, defaultGap];
    const scaledGap: [number, number] = [
       gapXY[0] * transform[2] || 1,
       gapXY[1] * transform[2] || 1,

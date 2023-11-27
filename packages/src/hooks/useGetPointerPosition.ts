@@ -6,7 +6,6 @@ import { UseDragEvent } from './useDrag/type';
 function useGetPointerPosition() {
    const store = useStoreApi();
 
-   // returns the pointer position projected to the RF coordinate system
    const getPointerPosition = useCallback(({ sourceEvent }: UseDragEvent) => {
       const { transform, gridStep } = store.getState();
       const x = sourceEvent.touches
@@ -21,7 +20,6 @@ function useGetPointerPosition() {
          y: (y - transform[1]) / transform[2],
       };
 
-      // we need the snapped position in order to be able to skip unnecessary drag events
       return {
          xSnapped: gridStep
             ? gridStep[0] * Math.round(pointerPos.x / gridStep[0])
