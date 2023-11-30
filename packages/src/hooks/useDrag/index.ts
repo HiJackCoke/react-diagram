@@ -4,7 +4,7 @@ import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
 
 import { useStoreApi } from '../../hooks/useStore';
-import useGetPointerPosition from '../../hooks/useGetPointerPosition';
+import useGetPointerPosition from '../useGetPointerPosition';
 
 import { handleNodeClick } from '../../components/Node/utils';
 
@@ -13,6 +13,7 @@ import {
    calcNextPosition,
    getEventHandlerParams,
    hasSelector,
+   getStepPosition,
 } from './utils';
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
@@ -77,14 +78,11 @@ function useDrag({
                };
 
                if (gridStep) {
-                  const nextXStep =
-                     gridStep[0] * Math.round(nextPosition.x / gridStep[0]);
-                  const nextYStep =
-                     gridStep[1] * Math.round(nextPosition.y / gridStep[1]);
+                  const { x, y } = getStepPosition(gridStep, nextPosition);
 
                   if (!smoothStep || (smoothStep && dragEnd)) {
-                     nextPosition.x = nextXStep;
-                     nextPosition.y = nextYStep;
+                     nextPosition.x = x;
+                     nextPosition.y = y;
                   }
                }
 
@@ -211,8 +209,8 @@ function useDrag({
                }
 
                if (
-                  (lastPosition.current.x !== pointerPosition.xSnapped ||
-                     lastPosition.current.y !== pointerPosition.ySnapped) &&
+                  (lastPosition.current.x !== pointerPosition.stepX ||
+                     lastPosition.current.y !== pointerPosition.stepY) &&
                   dragItems.current
                ) {
                   dragEvent.current = e.sourceEvent as MouseEvent;

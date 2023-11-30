@@ -1,6 +1,9 @@
 import { useCallback } from 'react';
 
 import { useStoreApi } from './useStore';
+
+import { getStepPosition } from './useDrag/utils';
+
 import { UseDragEvent } from './useDrag/type';
 
 function useGetPointerPosition() {
@@ -20,13 +23,19 @@ function useGetPointerPosition() {
          y: (y - transform[1]) / transform[2],
       };
 
+      if (gridStep) {
+         const { x: stepX, y: stepY } = getStepPosition(gridStep, pointerPos);
+
+         return {
+            stepX: stepX,
+            stepY: stepY,
+            ...pointerPos,
+         };
+      }
+
       return {
-         xSnapped: gridStep
-            ? gridStep[0] * Math.round(pointerPos.x / gridStep[0])
-            : pointerPos.x,
-         ySnapped: gridStep
-            ? gridStep[1] * Math.round(pointerPos.y / gridStep[1])
-            : pointerPos.y,
+         stepX: pointerPos.x,
+         stepY: pointerPos.y,
          ...pointerPos,
       };
    }, []);
