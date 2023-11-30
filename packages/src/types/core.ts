@@ -38,6 +38,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    nodeExtent?: CoordinateExtent;
    nodeOrigin?: NodeOrigin;
+   smoothStep?: boolean;
    gridStep?: GridStep;
 
    elevateNodesOnSelect?: boolean;

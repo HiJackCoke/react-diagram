@@ -54,13 +54,14 @@ function useDrag({
       if (nodeRef?.current) {
          const selection = select(nodeRef.current);
 
-         const updateNodes = ({ x, y }: XYPosition) => {
+         const updateNodes = ({ x, y }: XYPosition, dragEnd?: boolean) => {
             const {
                nodeInternals,
                onNodeDrag,
                updateNodePositions,
                nodeExtent,
                nodeOrigin,
+               smoothStep,
                gridStep,
                onError,
             } = store.getState();
@@ -76,13 +77,18 @@ function useDrag({
                };
 
                if (gridStep) {
-                  nextPosition.x =
+                  const nextXStep =
                      gridStep[0] * Math.round(nextPosition.x / gridStep[0]);
-                  nextPosition.y =
+                  const nextYStep =
                      gridStep[1] * Math.round(nextPosition.y / gridStep[1]);
+
+                  if (!smoothStep || (smoothStep && dragEnd)) {
+                     nextPosition.x = nextXStep;
+                     nextPosition.y = nextYStep;
+                  }
                }
 
-               const updatedPos = calcNextPosition(
+               const updatedPosition = calcNextPosition(
                   n,
                   nextPosition,
                   nodeInternals,
@@ -94,11 +100,11 @@ function useDrag({
                // we want to make sure that we only fire a change event when there is a changes
                hasChange =
                   hasChange ||
-                  n.position.x !== updatedPos.position.x ||
-                  n.position.y !== updatedPos.position.y;
+                  n.position.x !== updatedPosition.position.x ||
+                  n.position.y !== updatedPosition.position.y;
 
-               n.position = updatedPos.position;
-               n.positionAbsolute = updatedPos.positionAbsolute;
+               n.position = updatedPosition.position;
+               n.positionAbsolute = updatedPosition.positionAbsolute;
 
                return n;
             });
@@ -220,12 +226,24 @@ function useDrag({
             })
             .on('end', (event: UseDragEvent) => {
                setDragging(false);
+
                autoPanStarted.current = false;
                cancelAnimationFrame(autoPanId.current);
 
                if (dragItems.current) {
-                  const { nodeInternals, updateNodePositions, onNodeDragEnd } =
-                     store.getState();
+                  const {
+                     nodeInternals,
+                     smoothStep,
+                     gridStep,
+                     updateNodePositions,
+                     onNodeDragEnd,
+                  } = store.getState();
+
+                  if (gridStep) {
+                     const pointerPosition = getPointerPosition(event);
+
+                     if (smoothStep) updateNodes(pointerPosition, true);
+                  }
 
                   updateNodePositions(dragItems.current, false, false);
 

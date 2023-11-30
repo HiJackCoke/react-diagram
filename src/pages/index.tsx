@@ -186,7 +186,8 @@ function Index() {
             //    [-100, -100],
             //    [100, 100],
             // ]}
-            gridStep={[100, 100]}
+            smoothStep
+            gridStep={[150, 150]}
          >
             <Background />
          </ReactDiagram>

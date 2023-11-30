@@ -24,6 +24,7 @@ export type StoreUpdaterProps = Pick<
    | 'onNodeDragEnd'
    | 'edges'
    | 'onEdgesChange'
+   | 'smoothStep'
    | 'gridStep'
    | 'elevateNodesOnSelect'
    | 'nodesDraggable'
@@ -93,6 +94,7 @@ const StoreUpdater = ({
    onNodeDragEnd,
    edges,
    onEdgesChange,
+   smoothStep,
    gridStep,
    elevateNodesOnSelect,
    nodesDraggable,
@@ -118,14 +120,16 @@ const StoreUpdater = ({
    } = useStore(selector, shallow);
    const store = useStoreApi();
 
-   useDirectStoreUpdater('gridStep', gridStep, store.setState);
-
    useStoreUpdater<Node[]>(nodes, setNodes);
    useStoreUpdater<Edge[]>(edges, setEdges);
    useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
    useStoreUpdater<CoordinateExtent>(translateExtent, setTranslateExtent);
    useStoreUpdater<number>(minZoom, setMinZoom);
    useStoreUpdater<number>(maxZoom, setMaxZoom);
+
+   useDirectStoreUpdater('smoothStep', smoothStep, store.setState);
+
+   useDirectStoreUpdater('gridStep', gridStep, store.setState);
 
    useDirectStoreUpdater(
       'elevateNodesOnSelect',

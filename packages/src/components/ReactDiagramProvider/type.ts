@@ -41,6 +41,7 @@ export type ReactDiagramStore = {
 
    domNode: HTMLDivElement | null;
    nodeOrigin: NodeOrigin;
+   smoothStep: boolean;
    gridStep?: GridStep;
    nodesSelectionActive: boolean;
    elevateNodesOnSelect: boolean;
