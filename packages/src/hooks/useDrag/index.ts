@@ -4,7 +4,9 @@ import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
 
 import { useStoreApi } from '../../hooks/useStore';
-import useGetPointerPosition from '../useGetPointerPosition';
+import useGetPointerPosition, {
+   getStepPosition,
+} from '../useGetPointerPosition';
 
 import { handleNodeClick } from '../../components/Node/utils';
 
@@ -13,7 +15,6 @@ import {
    calcNextPosition,
    getEventHandlerParams,
    hasSelector,
-   getStepPosition,
 } from './utils';
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
@@ -218,6 +219,8 @@ function useDrag({
                      e.sourceEvent,
                      containerBounds.current!,
                   );
+
+                  console.log(pointerPosition);
 
                   updateNodes(pointerPosition);
                }

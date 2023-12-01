@@ -2,9 +2,16 @@ import { useCallback } from 'react';
 
 import { useStoreApi } from './useStore';
 
-import { getStepPosition } from './useDrag/utils';
-
 import { UseDragEvent } from './useDrag/type';
+import { GridStep, XYPosition } from '../types';
+
+export const getStepPosition = (
+   gridStep: GridStep,
+   position: XYPosition,
+): XYPosition => ({
+   x: gridStep[0] * Math.round(position.x / gridStep[0]),
+   y: gridStep[1] * Math.round(position.y / gridStep[1]),
+});
 
 function useGetPointerPosition() {
    const store = useStoreApi();

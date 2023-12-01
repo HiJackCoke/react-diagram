@@ -2,7 +2,7 @@ import { RefObject } from 'react';
 import { getNodePositionWithOrigin } from '../../utils/graph';
 import { isNumeric, clampPosition } from '../../utils';
 
-import { XYPosition, CoordinateExtent, OnError, GridStep } from '../../types';
+import { XYPosition, CoordinateExtent, OnError } from '../../types';
 
 import { NodeInternals } from '../../store/type';
 import { Node } from '../../components/Node/type';
@@ -185,11 +185,3 @@ export function hasSelector(
 
    return false;
 }
-
-export const getStepPosition = (
-   gridStep: GridStep,
-   position: XYPosition,
-): XYPosition => ({
-   x: gridStep[0] * Math.round(position.x / gridStep[0]),
-   y: gridStep[1] * Math.round(position.y / gridStep[1]),
-});
