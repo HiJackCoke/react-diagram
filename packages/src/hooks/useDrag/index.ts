@@ -39,11 +39,8 @@ function useDrag({
 
    const dragItems = useRef<NodeDragItem[]>([]);
    const containerBounds = useRef<DOMRect | null>(null);
-   const mousePosition = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-   const lastPosition = useRef<{ x: number | null; y: number | null }>({
-      x: null,
-      y: null,
-   });
+   const mousePosition = useRef<XYPosition>({ x: 0, y: 0 });
+   const lastPosition = useRef<XYPosition>({ x: 0, y: 0 });
    const dragEvent = useRef<MouseEvent | null>(null);
    const autoPanStarted = useRef(false);
    const autoPanId = useRef(0);
@@ -138,12 +135,10 @@ function useDrag({
             if (xMovement !== 0 || yMovement !== 0) {
                const { transform, panBy } = store.getState();
 
-               lastPosition.current.x =
-                  (lastPosition.current.x ?? 0) - xMovement / transform[2];
-               lastPosition.current.y =
-                  (lastPosition.current.y ?? 0) - yMovement / transform[2];
+               lastPosition.current.x -= xMovement / transform[2];
+               lastPosition.current.y -= yMovement / transform[2];
 
-               updateNodes(lastPosition.current as XYPosition);
+               updateNodes(lastPosition.current);
                panBy({ x: xMovement, y: yMovement });
             }
             autoPanId.current = requestAnimationFrame(autoPan);
@@ -219,8 +214,6 @@ function useDrag({
                      e.sourceEvent,
                      containerBounds.current!,
                   );
-
-                  console.log(pointerPosition);
 
                   updateNodes(pointerPosition);
                }
