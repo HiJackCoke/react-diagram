@@ -15,6 +15,7 @@ import {
    calcNextPosition,
    getEventHandlerParams,
    hasSelector,
+   hasChangedPosition,
 } from './utils';
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
@@ -96,8 +97,7 @@ function useDrag({
                // we want to make sure that we only fire a change event when there is a changes
                hasChange =
                   hasChange ||
-                  n.position.x !== updatedPosition.position.x ||
-                  n.position.y !== updatedPosition.position.y;
+                  hasChangedPosition(n.position, updatedPosition.position);
 
                n.position = updatedPosition.position;
                n.positionAbsolute = updatedPosition.positionAbsolute;
@@ -204,11 +204,12 @@ function useDrag({
                   autoPan();
                }
 
-               if (
-                  (lastPosition.current.x !== pointerPosition.stepX ||
-                     lastPosition.current.y !== pointerPosition.stepY) &&
-                  dragItems.current
-               ) {
+               const isChanged = hasChangedPosition(lastPosition.current, {
+                  x: pointerPosition.stepX,
+                  y: pointerPosition.stepY,
+               });
+
+               if (isChanged && dragItems.current) {
                   dragEvent.current = e.sourceEvent as MouseEvent;
                   mousePosition.current = getEventPosition(
                      e.sourceEvent,

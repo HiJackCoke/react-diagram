@@ -30,12 +30,12 @@ export function isParentSelected(
    return isParentSelected(parentNode, nodeInternals);
 }
 
-export function getDragItems(
+export const getDragItems = (
    nodeInternals: NodeInternals,
    nodesDraggable: boolean,
    mousePosition: XYPosition,
    nodeId?: string,
-): NodeDragItem[] {
+): NodeDragItem[] => {
    return Array.from(nodeInternals.values())
       .filter(
          (n) =>
@@ -61,16 +61,16 @@ export function getDragItems(
          width: n.width,
          height: n.height,
       }));
-}
+};
 
-export function calcNextPosition(
+export const calcNextPosition = (
    node: NodeDragItem | Node,
    nextPosition: XYPosition,
    nodeInternals: NodeInternals,
    nodeExtent?: CoordinateExtent,
    nodeOrigin: NodeOrigin = [0, 0],
    onError?: OnError,
-): { position: XYPosition; positionAbsolute: XYPosition } {
+): { position: XYPosition; positionAbsolute: XYPosition } => {
    let currentExtent = node.extent || nodeExtent;
 
    if (node.extent === 'parent') {
@@ -141,9 +141,9 @@ export function calcNextPosition(
       },
       positionAbsolute,
    };
-}
+};
 
-export function getEventHandlerParams({
+export const getEventHandlerParams = ({
    nodeId,
    dragItems,
    nodeInternals,
@@ -151,7 +151,7 @@ export function getEventHandlerParams({
    nodeId?: string;
    dragItems: NodeDragItem[];
    nodeInternals: NodeInternals;
-}): [Node, Node[]] {
+}): [Node, Node[]] => {
    const extentedDragItems: Node[] = dragItems.map((n) => {
       const node = nodeInternals.get(n.id)!;
 
@@ -168,13 +168,13 @@ export function getEventHandlerParams({
          : extentedDragItems[0],
       extentedDragItems,
    ];
-}
+};
 
-export function hasSelector(
+export const hasSelector = (
    target: Element,
    selector: string,
    nodeRef: RefObject<Element>,
-): boolean {
+): boolean => {
    let current = target;
 
    do {
@@ -184,4 +184,11 @@ export function hasSelector(
    } while (current);
 
    return false;
-}
+};
+
+export const hasChangedPosition = (
+   beforePositions: XYPosition,
+   currentPosition: XYPosition,
+): boolean =>
+   beforePositions.x !== currentPosition.x ||
+   beforePositions.y !== currentPosition.y;
