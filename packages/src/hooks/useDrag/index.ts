@@ -108,7 +108,7 @@ function useDrag({
 
             let hasChange = false;
 
-            updateNodesPosition(dragItems.current, true, true, (node) => {
+            updateNodesPosition(dragItems.current, true, (node) => {
                if (isDragItem(node)) {
                   const updatedPosition = updateNodePosition({ x, y }, node);
 
@@ -257,26 +257,21 @@ function useDrag({
                   if (isSmoothStep) {
                      const pointerPosition = getPointerPosition(event);
 
-                     updateNodesPosition(
-                        dragItems.current,
-                        true,
-                        false,
-                        (node) => {
-                           if (isDragItem(node)) {
-                              const updatedPosition = updateNodePosition(
-                                 pointerPosition,
-                                 node,
-                                 true,
-                              );
+                     updateNodesPosition(dragItems.current, false, (node) => {
+                        if (isDragItem(node)) {
+                           const updatedPosition = updateNodePosition(
+                              pointerPosition,
+                              node,
+                              true,
+                           );
 
-                              node.position = updatedPosition.position;
-                              node.positionAbsolute =
-                                 updatedPosition.positionAbsolute;
-                           }
-                        },
-                     );
+                           node.position = updatedPosition.position;
+                           node.positionAbsolute =
+                              updatedPosition.positionAbsolute;
+                        }
+                     });
                   } else {
-                     updateNodesPosition(dragItems.current, false, false);
+                     updateNodesPosition(dragItems.current, false);
                   }
 
                   if (onNodeDragEnd) {
