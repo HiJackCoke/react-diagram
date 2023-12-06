@@ -91,7 +91,7 @@ export type ReactDiagramActions = {
    setEdges: (edges: Edge[]) => void;
 
    updateNodeDimensions: (updates: NodeDimensionUpdate[]) => void;
-   updateNodePositions: (
+   updateNodesPosition: (
       nodeDragItems: NodeDragItem[] | Node[],
       positionChanged: boolean,
       dragging: boolean,

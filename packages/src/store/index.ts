@@ -125,7 +125,7 @@ const createRFStore = () =>
             onNodesChange?.(changes);
          }
       },
-      updateNodePositions: (
+      updateNodesPosition: (
          nodeDragItems: NodeDragItem[] | Node[],
          positionChanged = true,
          dragging = false,
