@@ -95,6 +95,7 @@ export type ReactDiagramActions = {
       nodeDragItems: NodeDragItem[] | Node[],
       positionChanged: boolean,
       dragging: boolean,
+      updateFunc?: (node: NodeDragItem | Node) => void,
    ) => void;
    triggerNodeChanges: (changes: NodeChange[]) => void;
 

@@ -126,13 +126,14 @@ const createRFStore = () =>
          }
       },
       updateNodesPosition: (
-         nodeDragItems: NodeDragItem[] | Node[],
+         nodes: NodeDragItem[] | Node[],
          positionChanged = true,
          dragging = false,
+         updateFunc,
       ) => {
          const { triggerNodeChanges } = get();
 
-         const changes = nodeDragItems.map((node) => {
+         const changes = nodes.map((node) => {
             const change: NodePositionChange = {
                id: node.id,
                type: 'position',
@@ -142,6 +143,16 @@ const createRFStore = () =>
             if (positionChanged) {
                change.positionAbsolute = node.positionAbsolute;
                change.position = node.position;
+            }
+
+            if (updateFunc) {
+               updateFunc(node);
+
+               return {
+                  ...change,
+                  position: node.position,
+                  positionAbsolute: node.positionAbsolute,
+               };
             }
 
             return change;

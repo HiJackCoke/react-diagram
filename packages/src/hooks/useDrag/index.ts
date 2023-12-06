@@ -19,7 +19,7 @@ import {
 } from './utils';
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
-import { XYPosition } from '../../types';
+import { Node, XYPosition } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
 
@@ -29,6 +29,9 @@ type UseDragParams = {
    isSelectable?: boolean;
    noDragClassName?: string;
 };
+
+const isDragItem = (node: NodeDragItem | Node): node is NodeDragItem =>
+   'distance' in node;
 
 function useDrag({
    nodeRef,
@@ -105,24 +108,26 @@ function useDrag({
 
             let hasChange = false;
 
-            dragItems.current = dragItems.current.map((node) => {
-               const updatedPosition = updateNodePosition({ x, y }, node);
+            updateNodesPosition(dragItems.current, true, true, (node) => {
+               if (isDragItem(node)) {
+                  const updatedPosition = updateNodePosition({ x, y }, node);
 
-               hasChange =
-                  hasChange ||
-                  hasChangedPosition(node.position, updatedPosition.position);
+                  hasChange =
+                     hasChange ||
+                     hasChangedPosition(
+                        node.position,
+                        updatedPosition.position,
+                     );
 
-               return {
-                  ...node,
-                  ...updatedPosition,
-               };
+                  node.position = updatedPosition.position;
+                  node.positionAbsolute = updatedPosition.positionAbsolute;
+               }
             });
 
             if (!hasChange) {
                return;
             }
 
-            updateNodesPosition(dragItems.current, true, true);
             setDragging(true);
 
             if (onNodeDrag && dragEvent.current) {
@@ -247,20 +252,29 @@ function useDrag({
                      onNodeDragEnd,
                   } = store.getState();
 
-                  if (gridStep && smoothStep) {
+                  const isSmoothStep = !!gridStep && smoothStep;
+
+                  if (isSmoothStep) {
                      const pointerPosition = getPointerPosition(event);
 
-                     dragItems.current = dragItems.current.map((node) => {
-                        const updatedPosition = updateNodePosition(
-                           pointerPosition,
-                           node,
-                           true,
-                        );
+                     updateNodesPosition(
+                        dragItems.current,
+                        true,
+                        false,
+                        (node) => {
+                           if (isDragItem(node)) {
+                              const updatedPosition = updateNodePosition(
+                                 pointerPosition,
+                                 node,
+                                 true,
+                              );
 
-                        return { ...node, ...updatedPosition };
-                     });
-
-                     updateNodesPosition(dragItems.current, true, false);
+                              node.position = updatedPosition.position;
+                              node.positionAbsolute =
+                                 updatedPosition.positionAbsolute;
+                           }
+                        },
+                     );
                   } else {
                      updateNodesPosition(dragItems.current, false, false);
                   }
