@@ -54,47 +54,55 @@ function useDrag({
 
    const getPointerPosition = useGetPointerPosition();
 
-   const updateNodePosition = (
-      pointerPositions: XYPosition,
-      dragItem: NodeDragItem,
-      dragEnd = false,
-   ) => {
-      const {
-         nodeInternals,
-         nodeExtent,
-         nodeOrigin,
-         smoothStep,
-         gridStep,
-         onError,
-      } = store.getState();
+   const updateNodePosition =
+      (pointerPositions: XYPosition, dragEnd = false) =>
+      (dragItem: Node | NodeDragItem) => {
+         if (!isDragItem(dragItem)) return;
 
-      const { x, y } = pointerPositions;
+         const {
+            nodeInternals,
+            nodeExtent,
+            nodeOrigin,
+            smoothStep,
+            gridStep,
+            onError,
+         } = store.getState();
 
-      const nextPosition = {
-         x: x - dragItem.distance.x,
-         y: y - dragItem.distance.y,
-      };
+         const { x, y } = pointerPositions;
 
-      if (gridStep) {
-         const { x, y } = getStepPosition(gridStep, nextPosition);
+         const nextPosition = {
+            x: x - dragItem.distance.x,
+            y: y - dragItem.distance.y,
+         };
 
-         if (!smoothStep || (smoothStep && dragEnd)) {
-            nextPosition.x = x;
-            nextPosition.y = y;
+         if (gridStep) {
+            const { x, y } = getStepPosition(gridStep, nextPosition);
+
+            if (!smoothStep || (smoothStep && dragEnd)) {
+               nextPosition.x = x;
+               nextPosition.y = y;
+            }
          }
-      }
 
-      const updatedPosition = calcNextPosition(
-         dragItem,
-         nextPosition,
-         nodeInternals,
-         nodeExtent,
-         nodeOrigin,
-         onError,
-      );
+         const updatedPosition = calcNextPosition(
+            dragItem,
+            nextPosition,
+            nodeInternals,
+            nodeExtent,
+            nodeOrigin,
+            onError,
+         );
 
-      return updatedPosition;
-   };
+         const hasChange = hasChangedPosition(
+            dragItem.position,
+            updatedPosition.position,
+         );
+
+         if (!hasChange) return;
+
+         dragItem.position = updatedPosition.position;
+         dragItem.positionAbsolute = updatedPosition.positionAbsolute;
+      };
 
    useEffect(() => {
       if (nodeRef?.current) {
@@ -106,27 +114,11 @@ function useDrag({
 
             lastPosition.current = { x, y };
 
-            let hasChange = false;
-
-            updateNodesPosition(dragItems.current, true, (node) => {
-               if (isDragItem(node)) {
-                  const updatedPosition = updateNodePosition({ x, y }, node);
-
-                  hasChange =
-                     hasChange ||
-                     hasChangedPosition(
-                        node.position,
-                        updatedPosition.position,
-                     );
-
-                  node.position = updatedPosition.position;
-                  node.positionAbsolute = updatedPosition.positionAbsolute;
-               }
-            });
-
-            if (!hasChange) {
-               return;
-            }
+            updateNodesPosition(
+               dragItems.current,
+               true,
+               updateNodePosition({ x, y }),
+            );
 
             setDragging(true);
 
@@ -257,19 +249,11 @@ function useDrag({
                   if (isSmoothStep) {
                      const pointerPosition = getPointerPosition(event);
 
-                     updateNodesPosition(dragItems.current, false, (node) => {
-                        if (isDragItem(node)) {
-                           const updatedPosition = updateNodePosition(
-                              pointerPosition,
-                              node,
-                              true,
-                           );
-
-                           node.position = updatedPosition.position;
-                           node.positionAbsolute =
-                              updatedPosition.positionAbsolute;
-                        }
-                     });
+                     updateNodesPosition(
+                        dragItems.current,
+                        false,
+                        updateNodePosition(pointerPosition, true),
+                     );
                   } else {
                      updateNodesPosition(dragItems.current, false);
                   }

@@ -152,10 +152,7 @@ function Index() {
             connectionRadius={30}
             minZoom={1}
             maxZoom={2}
-            onNodesChange={(e) => {
-               onNodesChange(e);
-               console.log(e);
-            }}
+            onNodesChange={onNodesChange}
             // onNodeDrag={console.log}
             // onNodeDragStart={console.log}
             // onNodeDragEnd={console.log}
