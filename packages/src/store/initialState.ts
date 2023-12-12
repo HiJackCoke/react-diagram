@@ -21,11 +21,11 @@ const initialState: ReactDiagramStore = {
    nodeOrigin: [0, 0],
    smoothStep: false,
    gridStep: undefined,
-   nodesSelectionActive: false,
    elevateNodesOnSelect: true,
 
    nodesDraggable: true,
    multiSelectionActive: false,
+   selectionBoxActive: false,
 
    d3Zoom: null,
    d3Selection: null,

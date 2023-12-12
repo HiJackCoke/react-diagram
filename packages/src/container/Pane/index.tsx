@@ -54,7 +54,6 @@ const isViewChanged = (
 const selector = (s: ReactDiagramState) => ({
    d3Zoom: s.d3Zoom,
    d3Selection: s.d3Selection,
-   elementsSelectable: s.elementsSelectable,
 });
 
 function Pane({
@@ -221,7 +220,11 @@ function Pane({
    }, [d3Zoom, panning]);
 
    return (
-      <div className="react-diagram__pane react-diagram__container" ref={Pane}>
+      <div
+         className="react-diagram__pane react-diagram__container"
+         ref={Pane}
+         onClick={console.log}
+      >
          {children}
       </div>
    );

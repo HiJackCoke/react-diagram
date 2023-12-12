@@ -22,9 +22,11 @@ type DragSelectionProps = {
 };
 
 const selector = (s: ReactDiagramState) => {
+   const { elementsSelectable, transform, selectionBoxActive } = s;
    return {
-      elementsSelectable: s.elementsSelectable,
-      transform: `translate(${s.transform[0]}px,${s.transform[1]}px) scale(${s.transform[2]})`,
+      elementsSelectable,
+      transform: `translate(${transform[0]}px,${transform[1]}px) scale(${transform[2]})`,
+      selectionBoxActive,
    };
 };
 
@@ -39,7 +41,10 @@ function DragSelection({
 
    const containerBounds = useRef<DOMRect>();
 
-   const { elementsSelectable, transform } = useStore(selector, shallow);
+   const { elementsSelectable, transform, selectionBoxActive } = useStore(
+      selector,
+      shallow,
+   );
 
    const [dragBoxStartPosition, setDragBoxStartPosition] = useState<XYPosition>(
       {
@@ -62,7 +67,7 @@ function DragSelection({
    });
 
    const [dragBoxActive, setDragBoxActive] = useState(false);
-   const [selectionBoxActive, setSelectionBoxActive] = useState(false);
+   // const [selectionBoxActive, setSelectionBoxActive] = useState(false);
 
    const resetDragBox = () => {
       setDragBoxStartPosition({
@@ -81,8 +86,12 @@ function DragSelection({
    const onClick = (e: ReactMouseEvent) => {
       if (e.target === dragSelection.current) {
          store.getState().resetSelectedElements();
+
+         store.setState({
+            selectionBoxActive: false,
+         });
          setDragBoxActive(false);
-         setSelectionBoxActive(false);
+         // setSelectionBoxActive(false);
       }
    };
 
@@ -134,8 +143,12 @@ function DragSelection({
          return;
       }
 
+      store.setState({
+         selectionBoxActive: false,
+      });
+
       setDragBoxActive(true);
-      setSelectionBoxActive(false);
+      // setSelectionBoxActive(false);
 
       const mousePos = getEventPosition(event, containerBounds.current);
       const startX = dragBoxStartPosition.x ?? 0;
@@ -184,12 +197,17 @@ function DragSelection({
          return;
       }
 
-      setSelectionBoxActive(prevSelectedNodesCount.current > 0);
+      store.setState({
+         selectionBoxActive: prevSelectedNodesCount.current > 0,
+      });
+      // setSelectionBoxActive(prevSelectedNodesCount.current > 0);
       resetDragBox();
    };
 
    const onMouseLeave = () => {
-      setSelectionBoxActive(prevSelectedNodesCount.current > 0);
+      store.setState({
+         selectionBoxActive: prevSelectedNodesCount.current > 0,
+      });
       resetDragBox();
    };
 
@@ -214,7 +232,5 @@ function DragSelection({
       </div>
    );
 }
-
-DragSelection.displayName = 'DragSelection';
 
 export default DragSelection;

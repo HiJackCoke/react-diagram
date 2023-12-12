@@ -81,7 +81,7 @@ export function handleNodeClick({
    } = store.getState();
    const node = nodeInternals.get(id)!;
 
-   store.setState({ nodesSelectionActive: false });
+   store.setState({ selectionBoxActive: false });
 
    if (!node.selected) {
       addSelectedNodes([id]);

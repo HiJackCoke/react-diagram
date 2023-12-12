@@ -43,12 +43,12 @@ export type ReactDiagramStore = {
    nodeOrigin: NodeOrigin;
    smoothStep: boolean;
    gridStep?: GridStep;
-   nodesSelectionActive: boolean;
    elevateNodesOnSelect: boolean;
    nodesDraggable: boolean;
 
    multiSelectionActive: boolean;
    elementsSelectable: boolean;
+   selectionBoxActive: boolean;
 
    d3Zoom: ZoomBehavior<Element, unknown> | null;
    d3Selection: D3Selection<Element, unknown, null, undefined> | null;
