@@ -22,10 +22,13 @@ type DragSelectionProps = {
 };
 
 const selector = (s: ReactDiagramState) => {
-   const { elementsSelectable, transform, selectionBoxActive } = s;
+   const { elementsSelectable, transform, selectionBoxActive, getNodes } = s;
+   const selectedNodes = getNodes().filter((n) => n.selected);
+
    return {
       elementsSelectable,
-      transform: `translate(${transform[0]}px,${transform[1]}px) scale(${transform[2]})`,
+      selectionBoxRect: getRectOfNodes(selectedNodes, s.nodeOrigin),
+      transformString: `translate(${transform[0]}px,${transform[1]}px) scale(${transform[2]})`,
       selectionBoxActive,
    };
 };
@@ -41,10 +44,12 @@ function DragSelection({
 
    const containerBounds = useRef<DOMRect>();
 
-   const { elementsSelectable, transform, selectionBoxActive } = useStore(
-      selector,
-      shallow,
-   );
+   const {
+      elementsSelectable,
+      selectionBoxRect,
+      transformString,
+      selectionBoxActive,
+   } = useStore(selector, shallow);
 
    const [dragBoxStartPosition, setDragBoxStartPosition] = useState<XYPosition>(
       {
@@ -59,15 +64,7 @@ function DragSelection({
       y: 0,
    });
 
-   const [selectionBoxRect, setSelectionBoxRect] = useState<Rect>({
-      width: 0,
-      height: 0,
-      x: 0,
-      y: 0,
-   });
-
    const [dragBoxActive, setDragBoxActive] = useState(false);
-   // const [selectionBoxActive, setSelectionBoxActive] = useState(false);
 
    const resetDragBox = () => {
       setDragBoxStartPosition({
@@ -91,7 +88,6 @@ function DragSelection({
             selectionBoxActive: false,
          });
          setDragBoxActive(false);
-         // setSelectionBoxActive(false);
       }
    };
 
@@ -127,10 +123,10 @@ function DragSelection({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
+      console.log('move');
       const { nodeInternals, transform, nodeOrigin, getNodes, onNodesChange } =
          store.getState();
 
-      // const hasDragBoxPosition = dragBoxRect.x > 0 && dragBoxRect.y > 0;
       const hasDragBoxStartPosition =
          dragBoxStartPosition.x > 0 && dragBoxStartPosition.y > 0;
 
@@ -148,7 +144,6 @@ function DragSelection({
       });
 
       setDragBoxActive(true);
-      // setSelectionBoxActive(false);
 
       const mousePos = getEventPosition(event, containerBounds.current);
       const startX = dragBoxStartPosition.x ?? 0;
@@ -172,9 +167,6 @@ function DragSelection({
       );
 
       const selectedNodeIds = selectedNodes.map((n) => n.id);
-
-      const selectionBoxRect = getRectOfNodes(selectedNodes, nodeOrigin);
-      setSelectionBoxRect(selectionBoxRect);
 
       if (prevSelectedNodesCount.current !== selectedNodeIds.length) {
          prevSelectedNodesCount.current = selectedNodeIds.length;
@@ -200,7 +192,7 @@ function DragSelection({
       store.setState({
          selectionBoxActive: prevSelectedNodesCount.current > 0,
       });
-      // setSelectionBoxActive(prevSelectedNodesCount.current > 0);
+
       resetDragBox();
    };
 
@@ -227,7 +219,7 @@ function DragSelection({
          {children}
          {dragBoxActive && <DragBox rect={dragBoxRect} />}
          {selectionBoxActive && (
-            <SelectionBox rect={selectionBoxRect} transform={transform} />
+            <SelectionBox rect={selectionBoxRect} transform={transformString} />
          )}
       </div>
    );

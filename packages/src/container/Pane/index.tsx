@@ -220,11 +220,7 @@ function Pane({
    }, [d3Zoom, panning]);
 
    return (
-      <div
-         className="react-diagram__pane react-diagram__container"
-         ref={Pane}
-         onClick={console.log}
-      >
+      <div className="react-diagram__pane react-diagram__container" ref={Pane}>
          {children}
       </div>
    );

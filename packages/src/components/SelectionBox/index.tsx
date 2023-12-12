@@ -1,10 +1,14 @@
 import { memo, useRef } from 'react';
 import cc from 'classcat';
 
+import useDrag from '../../hooks/useDrag';
+
 import { Rect } from '../../types';
 
 function SelectionBox({ rect, transform }: { rect: Rect; transform: string }) {
    const nodeRef = useRef<HTMLDivElement>(null);
+
+   useDrag({ nodeRef });
 
    const { width, height, x, y } = rect;
 
