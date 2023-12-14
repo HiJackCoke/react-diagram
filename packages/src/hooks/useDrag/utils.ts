@@ -52,10 +52,6 @@ export const getDragItems = (
             x: mousePosition.x - (n.positionAbsolute?.x ?? 0),
             y: mousePosition.y - (n.positionAbsolute?.y ?? 0),
          },
-         delta: {
-            x: 0,
-            y: 0,
-         },
          extent: n.extent,
          parentNode: n.parentNode,
          width: n.width,
