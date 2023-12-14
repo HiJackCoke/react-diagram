@@ -123,7 +123,6 @@ function DragSelection({
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
-      console.log('move');
       const { nodeInternals, transform, nodeOrigin, getNodes, onNodesChange } =
          store.getState();
 

@@ -5,7 +5,7 @@ import { drag } from 'd3-drag';
 
 import { useStoreApi } from '../../hooks/useStore';
 import useGetPointerPosition, {
-   getStepPosition,
+   PointerPosition,
 } from '../useGetPointerPosition';
 
 import { handleNodeClick } from '../../components/Node/utils';
@@ -55,7 +55,7 @@ function useDrag({
    const getPointerPosition = useGetPointerPosition();
 
    const updateNodePosition =
-      (pointerPositions: XYPosition, dragEnd = false) =>
+      (pointerPositions: PointerPosition, dragEnd = false) =>
       (dragItem: Node | NodeDragItem) => {
          if (!isDragItem(dragItem)) return;
 
@@ -68,19 +68,18 @@ function useDrag({
             onError,
          } = store.getState();
 
-         const { x, y } = pointerPositions;
+         const { x, y, getStepPosition } = pointerPositions;
 
-         const nextPosition = {
+         let nextPosition = {
             x: x - dragItem.distance.x,
             y: y - dragItem.distance.y,
          };
 
-         if (gridStep) {
-            const { x, y } = getStepPosition(gridStep, nextPosition);
+         if (gridStep && getStepPosition) {
+            const stepPosition = getStepPosition(nextPosition);
 
             if (!smoothStep || (smoothStep && dragEnd)) {
-               nextPosition.x = x;
-               nextPosition.y = y;
+               nextPosition = stepPosition;
             }
          }
 
@@ -108,16 +107,18 @@ function useDrag({
       if (nodeRef?.current) {
          const selection = select(nodeRef.current);
 
-         const updateNodes = ({ x, y }: XYPosition) => {
+         const updateNodes = (pointerPosition: PointerPosition) => {
             const { nodeInternals, onNodeDrag, updateNodesPosition } =
                store.getState();
+
+            const { x, y } = pointerPosition;
 
             lastPosition.current = { x, y };
 
             updateNodesPosition(
                dragItems.current,
                true,
-               updateNodePosition({ x, y }),
+               updateNodePosition(pointerPosition),
             );
 
             setDragging(true);
@@ -156,7 +157,6 @@ function useDrag({
 
          const dragHandle = drag()
             .on('start', (e: UseDragEvent) => {
-               // only allow left click
                if (e.sourceEvent.which !== 1) return;
 
                const {
@@ -207,6 +207,7 @@ function useDrag({
             })
             .on('drag', (e: UseDragEvent) => {
                const pointerPosition = getPointerPosition(e);
+
                const { autoPanOnNodeDrag } = store.getState();
 
                if (!autoPanStarted.current && autoPanOnNodeDrag) {
@@ -214,10 +215,10 @@ function useDrag({
                   autoPan();
                }
 
-               const isChanged = hasChangedPosition(lastPosition.current, {
-                  x: pointerPosition.stepX,
-                  y: pointerPosition.stepY,
-               });
+               const isChanged = hasChangedPosition(
+                  lastPosition.current,
+                  pointerPosition.getStepPosition(),
+               );
 
                if (isChanged && dragItems.current) {
                   dragEvent.current = e.sourceEvent as MouseEvent;

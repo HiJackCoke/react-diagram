@@ -5,13 +5,17 @@ import { useStoreApi } from './useStore';
 import { UseDragEvent } from './useDrag/type';
 import { GridStep, XYPosition } from '../types';
 
-export const getStepPosition = (
+const convertStepPosition = (
    gridStep: GridStep,
    position: XYPosition,
 ): XYPosition => ({
    x: gridStep[0] * Math.round(position.x / gridStep[0]),
    y: gridStep[1] * Math.round(position.y / gridStep[1]),
 });
+
+export type PointerPosition = XYPosition & {
+   getStepPosition?: (position: XYPosition) => XYPosition;
+};
 
 function useGetPointerPosition() {
    const store = useStoreApi();
@@ -30,19 +34,11 @@ function useGetPointerPosition() {
          y: (y - transform[1]) / transform[2],
       };
 
-      if (gridStep) {
-         const { x: stepX, y: stepY } = getStepPosition(gridStep, pointerPos);
-
-         return {
-            stepX: stepX,
-            stepY: stepY,
-            ...pointerPos,
-         };
-      }
+      const getStepPosition = (position: XYPosition = pointerPos) =>
+         gridStep ? convertStepPosition(gridStep, position) : position;
 
       return {
-         stepX: pointerPos.x,
-         stepY: pointerPos.y,
+         getStepPosition,
          ...pointerPos,
       };
    }, []);
