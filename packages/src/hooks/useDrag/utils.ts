@@ -7,7 +7,7 @@ import { XYPosition, CoordinateExtent, OnError } from '../../types';
 import { NodeInternals } from '../../store/type';
 import { Node } from '../../components/Node/type';
 import { NodeOrigin } from '../../components/Node/utils';
-import { NodeDragItem } from './type';
+import { FilteredNode, NodeDragItem } from './type';
 
 export function isParentSelected(
    node: Node,
@@ -36,27 +36,29 @@ export const getDragItems = (
    mousePosition: XYPosition,
    nodeId?: string,
 ): NodeDragItem[] => {
-   return Array.from(nodeInternals.values())
-      .filter(
-         (n) =>
-            (n.selected || n.id === nodeId) &&
-            (!n.parentNode || !isParentSelected(n, nodeInternals)) &&
-            (n.draggable ||
-               (nodesDraggable && typeof n.draggable === 'undefined')),
-      )
-      .map((n) => ({
-         id: n.id,
-         position: n.position || { x: 0, y: 0 },
-         positionAbsolute: n.positionAbsolute || { x: 0, y: 0 },
-         distance: {
-            x: mousePosition.x - (n.positionAbsolute?.x ?? 0),
-            y: mousePosition.y - (n.positionAbsolute?.y ?? 0),
-         },
-         extent: n.extent,
-         parentNode: n.parentNode,
-         width: n.width,
-         height: n.height,
-      }));
+   const filteredNode = Array.from(nodeInternals.values()).filter((n) => {
+      const hasSize = n.width && n.height;
+      const isSelected = n.selected || n.id === nodeId;
+      const hasNoParent = !n.parentNode || !isParentSelected(n, nodeInternals);
+      const isDraggable =
+         n.draggable || (nodesDraggable && typeof n.draggable === 'undefined');
+
+      return hasSize && isSelected && hasNoParent && isDraggable;
+   }) as FilteredNode[];
+
+   return filteredNode.map((n) => ({
+      id: n.id,
+      position: n.position || { x: 0, y: 0 },
+      positionAbsolute: n.positionAbsolute || { x: 0, y: 0 },
+      distance: {
+         x: mousePosition.x - (n.positionAbsolute?.x ?? 0),
+         y: mousePosition.y - (n.positionAbsolute?.y ?? 0),
+      },
+      extent: n.extent,
+      parentNode: n.parentNode,
+      width: n.width,
+      height: n.height,
+   }));
 };
 
 export const calcNextPosition = (

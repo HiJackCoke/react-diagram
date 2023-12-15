@@ -6,17 +6,12 @@ import { Node } from '../../types';
 
 export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
 
-export type NodeDragItem = Pick<
-   Node,
-   | 'id'
-   | 'position'
-   | 'positionAbsolute'
-   | 'width'
-   | 'height'
-   | 'extent'
-   | 'parentNode'
-   | 'dragging'
-> & {
+export type FilteredNode = Required<
+   Pick<Node, 'id' | 'position' | 'positionAbsolute' | 'width' | 'height'>
+> &
+   Pick<Node, 'extent' | 'parentNode' | 'dragging'>;
+
+export type NodeDragItem = FilteredNode & {
    distance: XYPosition;
 };
 
