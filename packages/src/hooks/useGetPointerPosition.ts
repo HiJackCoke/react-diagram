@@ -3,18 +3,17 @@ import { useCallback } from 'react';
 import { useStoreApi } from './useStore';
 
 import { UseDragEvent } from './useDrag/type';
-import { GridStep, XYPosition } from '../types';
+import { XYPosition } from '../types';
 
-const convertStepPosition = (
-   gridStep: GridStep,
-   position: XYPosition,
-): XYPosition => ({
-   x: gridStep[0] * Math.round(position.x / gridStep[0]),
-   y: gridStep[1] * Math.round(position.y / gridStep[1]),
-});
+type StepPositionParams = {
+   position: XYPosition;
+   isCenter?: boolean;
+};
+
+type GetStepPosition = (params?: StepPositionParams) => XYPosition;
 
 export type PointerPosition = XYPosition & {
-   getStepPosition?: (position: XYPosition) => XYPosition;
+   getStepPosition?: GetStepPosition;
 };
 
 function useGetPointerPosition() {
@@ -34,8 +33,23 @@ function useGetPointerPosition() {
          y: (y - transform[1]) / transform[2],
       };
 
-      const getStepPosition = (position: XYPosition = pointerPos) =>
-         gridStep ? convertStepPosition(gridStep, position) : position;
+      const getStepPosition: GetStepPosition = (
+         params = {
+            position: pointerPos,
+         },
+      ) => {
+         const { position } = params;
+
+         if (!gridStep) return position;
+
+         const x = gridStep[0] * Math.round(position.x / gridStep[0]),
+            y = gridStep[1] * Math.round(position.y / gridStep[1]);
+
+         return {
+            x,
+            y,
+         };
+      };
 
       return {
          getStepPosition,

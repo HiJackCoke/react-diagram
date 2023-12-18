@@ -28,8 +28,8 @@ const initialNodes = [
    {
       id: '1',
       type: 'c',
-      width: 100,
-      height: 100,
+      // width: 100,
+      // height: 100,
       data: { label: 'Custom Node' },
       position: { x: 100, y: 100 },
    },
