@@ -27,11 +27,12 @@ function useGetPointerPosition() {
 
    const getPointerPosition = useCallback(({ sourceEvent }: UseDragEvent) => {
       const { transform, gridStep, centerStep } = store.getState();
-      const x = sourceEvent.touches
-         ? sourceEvent.touches[0].clientX
+
+      const x = sourceEvent.changedTouches
+         ? sourceEvent.changedTouches[0].clientX
          : sourceEvent.clientX;
-      const y = sourceEvent.touches
-         ? sourceEvent.touches[0].clientY
+      const y = sourceEvent.changedTouches
+         ? sourceEvent.changedTouches[0].clientY
          : sourceEvent.clientY;
 
       const pointerPos = {
