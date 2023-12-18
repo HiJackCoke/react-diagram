@@ -90,12 +90,12 @@ export const getEventPosition = (
    bounds?: DOMRect,
 ) => {
    const isMouseTriggered = isMouseEvent(event);
-   const evtX = isMouseTriggered ? event.clientX : event.touches?.[0].clientX;
-   const evtY = isMouseTriggered ? event.clientY : event.touches?.[0].clientY;
+   const eventX = isMouseTriggered ? event.clientX : event.touches?.[0].clientX;
+   const eventY = isMouseTriggered ? event.clientY : event.touches?.[0].clientY;
 
    return {
-      x: evtX - (bounds?.left ?? 0),
-      y: evtY - (bounds?.top ?? 0),
+      x: eventX - (bounds?.left ?? 0),
+      y: eventY - (bounds?.top ?? 0),
    };
 };
 

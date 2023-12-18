@@ -192,8 +192,8 @@ function Index() {
             //    [-100, -100],
             //    [100, 100],
             // ]}
-            centerStep
-            smoothStep
+            // centerStep
+            // smoothStep
             gridStep={[150, 150]}
          >
             <Background />

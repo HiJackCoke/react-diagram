@@ -162,8 +162,6 @@ function useDrag({
 
          const dragHandle = drag()
             .on('start', (e: UseDragEvent) => {
-               if (e.sourceEvent.which !== 1) return;
-
                const {
                   nodeInternals,
                   nodesDraggable,
@@ -222,7 +220,7 @@ function useDrag({
 
                const isChanged = hasChangedPosition(
                   lastPosition.current,
-                  pointerPosition.getStepPosition(),
+                  pointerPosition.getStepPosition(), // only when not gridStep
                );
 
                if (isChanged && dragItems.current) {
