@@ -25,6 +25,7 @@ export type StoreUpdaterProps = Pick<
    | 'edges'
    | 'onEdgesChange'
    | 'smoothStep'
+   | 'centerStep'
    | 'gridStep'
    | 'elevateNodesOnSelect'
    | 'nodesDraggable'
@@ -95,6 +96,7 @@ const StoreUpdater = ({
    edges,
    onEdgesChange,
    smoothStep,
+   centerStep,
    gridStep,
    elevateNodesOnSelect,
    nodesDraggable,
@@ -128,7 +130,7 @@ const StoreUpdater = ({
    useStoreUpdater<number>(maxZoom, setMaxZoom);
 
    useDirectStoreUpdater('smoothStep', smoothStep, store.setState);
-
+   useDirectStoreUpdater('centerStep', centerStep, store.setState);
    useDirectStoreUpdater('gridStep', gridStep, store.setState);
 
    useDirectStoreUpdater(

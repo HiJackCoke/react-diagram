@@ -85,6 +85,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          autoPanOnConnect,
          connectionRadius,
          smoothStep,
+         centerStep,
          gridStep,
          onNodesChange,
          onNodeDrag,
@@ -156,6 +157,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   minZoom={minZoom}
                   maxZoom={maxZoom}
                   smoothStep={smoothStep}
+                  centerStep={centerStep}
                   gridStep={gridStep}
                   onNodesChange={onNodesChange}
                   onNodeDrag={onNodeDrag}

@@ -68,7 +68,7 @@ function useDrag({
             onError,
          } = store.getState();
 
-         const { distance } = dragItem;
+         const { distance, width, height } = dragItem;
          const { x, y, getStepPosition } = pointerPositions;
 
          let nextPosition = {
@@ -77,8 +77,10 @@ function useDrag({
          };
 
          if (gridStep && getStepPosition) {
+            const nodeSize = { width, height };
             const stepPosition = getStepPosition({
                position: nextPosition,
+               nodeSize,
             });
 
             if (!smoothStep || (smoothStep && dragEnd)) {
@@ -223,7 +225,6 @@ function useDrag({
                   pointerPosition.getStepPosition(),
                );
 
-               console.log(isChanged);
                if (isChanged && dragItems.current) {
                   dragEvent.current = e.sourceEvent as MouseEvent;
                   mousePosition.current = getEventPosition(
