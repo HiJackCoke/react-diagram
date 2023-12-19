@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/taehunlim/react-diagram/compare/v0.3.0...v0.4.0) (2023-12-19)
+
+
+### Features
+
+* Background to draw grid pattern ([b46af65](https://github.com/taehunlim/react-diagram/commit/b46af65160aa78f2f8d40ad1b0d1057d9a424f14))
+* centerGrid ([c88c2b1](https://github.com/taehunlim/react-diagram/commit/c88c2b13981ea6092b335446496f6948bb774aaf))
+* getStepPosition ([267c82d](https://github.com/taehunlim/react-diagram/commit/267c82dd4e63bc10f3376de35bae60f1e5881dab))
+* hasChangedPosition ([8484448](https://github.com/taehunlim/react-diagram/commit/84844489cda74e33fdb6f5927c8d717bd8069595))
+* SelectionBox(selected nodes) drag ([cf7211a](https://github.com/taehunlim/react-diagram/commit/cf7211a97745f2c2666eff834cf29a967da51a35))
+* smoothStep to use gridStep by dragging smoothly ([9eeb737](https://github.com/taehunlim/react-diagram/commit/9eeb737ad7127091ffa0666aaf80d90ff0c6e49f))
+* to inherit gap from gridStep prop when gap is not set in Background ([b4425cd](https://github.com/taehunlim/react-diagram/commit/b4425cdabc9f5d81a3437336dffe6dc57a249d6c))
+* updateNodePosition for updateNodesPosition in useDrag ([5349bba](https://github.com/taehunlim/react-diagram/commit/5349bba2e49277040c0ec4672bf8d646a9a5be7f))
+
+
+### Bug Fixes
+
+* issue whene drag event did not work when touching(touch event) Node ([2a667dc](https://github.com/taehunlim/react-diagram/commit/2a667dc0167a69df3bce1ad0f718b578c0ab63e0))
+* issue where drag event is triggered by right-cliking ([802dde8](https://github.com/taehunlim/react-diagram/commit/802dde830855866575452b8b29d860e5a375911b))
+* issue where DragSelection is not inactive when selecting on other node ([225788c](https://github.com/taehunlim/react-diagram/commit/225788ce3bf33bc8498a5ec289dd7cd43a6b55fe))
+* issue with smoothStep not working due to missing touches in d3's drag end event ([1033bac](https://github.com/taehunlim/react-diagram/commit/1033baca6a3bf093cab47002e72c1e6231b3179e))
+
+
+### Change Existing Behavior
+
+* export getStepPosition function instead of exporting stepPosition in useGetPointerPosition ([d31e943](https://github.com/taehunlim/react-diagram/commit/d31e9437944f68c2ff63618eb2f606a51fe198a4))
+
+
+### Code Refactoring
+
+* getStepPosition ([216c91f](https://github.com/taehunlim/react-diagram/commit/216c91fc14459c06335054f35bd700be62ed4b6b))
+* updateNodesPosition by adding a callback params(updateFunc) to prevent Nodes updated with map() from being updated with map() again ([980a998](https://github.com/taehunlim/react-diagram/commit/980a998a555eb00c2f54ba6fbefa66df938ba710))
+* updateNodesPosition, updateNodePosition ([2460fe0](https://github.com/taehunlim/react-diagram/commit/2460fe037d5af6f0418685c2ab88f954dbdf8cbf))
+
 ## [0.3.0](https://github.com/taehunlim/react-diagram/compare/v0.2.0...v0.3.0) (2023-11-25)
 
 
