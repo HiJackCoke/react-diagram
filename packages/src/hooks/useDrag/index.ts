@@ -280,8 +280,9 @@ function useDrag({
                const target = event.target as HTMLDivElement;
 
                const isDraggable =
-                  (!event.button && !noDragClassName) ||
-                  !hasSelector(target, `.${noDragClassName}`, nodeRef);
+                  !event.button &&
+                  (!noDragClassName ||
+                     !hasSelector(target, `.${noDragClassName}`, nodeRef));
 
                return isDraggable;
             });
@@ -291,7 +292,14 @@ function useDrag({
             selection.on('.drag', null);
          };
       }
-   }, [store, nodeRef, nodeId, isSelectable, noDragClassName]);
+   }, [
+      store,
+      nodeRef,
+      nodeId,
+      isSelectable,
+      noDragClassName,
+      getPointerPosition,
+   ]);
 
    return dragging;
 }
