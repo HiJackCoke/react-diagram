@@ -10,15 +10,10 @@
       "lint-fix": "eslint '*.{ts,tsx}' --ext .ts,.tsx --fix"
    },
    "dependencies": {
-      "classcat": "^5.0.4",
-      "d3": "^7.8.4",
-      "d3-drag": "^3.0.0",
-      "d3-selection": "^3.0.0",
       "react": "^18.2.0",
       "react-cosmos-diagram": "workspace:*",
       "react-dom": "^18.2.0",
-      "react-router-dom": "^6.4.1",
-      "zustand": "^4.3.7"
+      "react-router-dom": "^6.4.1"
    },
    "devDependencies": {
       "@babel/core": "^7.19.1",
@@ -26,9 +21,6 @@
       "@babel/preset-react": "^7.18.6",
       "@babel/preset-typescript": "^7.18.6",
       "@reactdiagram/eslint-config": "workspace:*",
-      "@types/d3": "^7.4.0",
-      "@types/d3-drag": "^3.0.2",
-      "@types/d3-selection": "^3.0.5",
       "@types/node": "^18.7.20",
       "@types/react": "^18.0.17",
       "@types/react-dom": "^18.0.6",
