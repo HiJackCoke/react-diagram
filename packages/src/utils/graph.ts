@@ -57,7 +57,6 @@ export const getNodesInside = (
    rect: Rect,
    [tx, ty, tScale]: Transform = [0, 0, 1],
    partially = false,
-   // set excludeNonSelectableNodes if you want to pay attention to the nodes "selectable" attribute
    excludeNonSelectableNodes = false,
    nodeOrigin: NodeOrigin = [0, 0],
 ): Node[] => {

@@ -104,6 +104,29 @@ function useDrag({
 
          if (!hasChange) return;
 
+         const intersectionNodes = () => {
+            nodeInternals.forEach((node) => {
+               if (!node.width || !node.height) return;
+               if (node.id === dragItem.id) return;
+               if (node.parentNode) return;
+
+               const { position } = node;
+
+               const leftIn = nextPosition.x + dragItem.width >= position.x;
+               const rightIn = position.x + node.width >= nextPosition.x;
+               const topIn = nextPosition.y + dragItem.height >= position.y;
+               const bottomIn = position.y + node.height >= nextPosition.y;
+
+               if (leftIn && rightIn && topIn && bottomIn) {
+                  console.log(node);
+               }
+            });
+         };
+
+         if (!gridStep) {
+            intersectionNodes();
+         }
+
          dragItem.position = updatedPosition.position;
          dragItem.positionAbsolute = updatedPosition.positionAbsolute;
       };
@@ -113,6 +136,7 @@ function useDrag({
          const selection = select(nodeRef.current);
 
          const updateNodes = (pointerPosition: PointerPosition) => {
+            // console.log(nodeId);
             const { nodeInternals, onNodeDrag, updateNodesPosition } =
                store.getState();
 

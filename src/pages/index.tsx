@@ -159,7 +159,9 @@ function Index() {
             minZoom={1}
             maxZoom={2}
             onNodesChange={onNodesChange}
-            // onNodeDrag={console.log}
+            // onNodeDrag={(a, node) => {
+            //    console.log(node);
+            // }}
             // onNodeDragStart={console.log}
             // onNodeDragEnd={console.log}
             // onNodeClick={console.log}
@@ -192,9 +194,9 @@ function Index() {
             //    [-100, -100],
             //    [100, 100],
             // ]}
-            centerStep
-            smoothStep
-            gridStep={[150, 150]}
+            // centerStep
+            // smoothStep
+            // gridStep={[150, 150]}
          >
             <Background />
          </ReactDiagram>
