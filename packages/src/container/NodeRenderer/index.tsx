@@ -98,6 +98,8 @@ function NodeRenderer({
                id,
                className,
                style,
+               width,
+               height,
                ariaLabel,
 
                positionAbsolute,
@@ -131,11 +133,9 @@ function NodeRenderer({
             const elProps = {
                id,
                className,
-               style: {
-                  ...style,
-                  width: node.width,
-                  height: node.height,
-               },
+               style,
+               width,
+               height,
                ariaLabel,
             };
 

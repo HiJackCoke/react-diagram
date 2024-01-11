@@ -40,6 +40,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       onContextMenu,
       onDoubleClick,
       style,
+      width,
+      height,
       className,
       selected,
       isSelectable,
@@ -151,6 +153,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          transform: `translate(${positionX}px,${positionY}px)`,
          pointerEvents: hasPointerEvents ? 'all' : 'none',
          visibility: initialized ? 'visible' : 'hidden',
+         width,
+         height,
          ...style,
       };
 
