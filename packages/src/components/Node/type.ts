@@ -17,6 +17,7 @@ export type Node<T = any, U extends string | undefined = string | undefined> = {
    targetPosition?: Position;
    hidden?: boolean;
    selected?: boolean;
+   intersected?: boolean;
    dragging?: boolean;
    draggable?: boolean;
    selectable?: boolean;

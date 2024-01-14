@@ -129,7 +129,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          isSelectable,
          noDragClassName,
       });
-
+      console.log('rendering id ', id);
       if (hidden) {
          return null;
       }

@@ -7,14 +7,14 @@ import { getNodePositionWithOrigin } from '../utils/graph';
 import { XYZPosition } from '../types';
 import {
    NodeSelectionChange,
-   EdgeSelectionChange,
+   // EdgeSelectionChange,
 } from '../hooks/useNodesEdgesState/type';
 
 import { NodeInternals } from './type';
 import { ReactDiagramState } from '../components/ReactDiagramProvider/type';
 import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';
-import { Edge } from '../components/Edges/type';
+// import { Edge } from '../components/Edges/type';
 
 type ParentNodes = Record<string, boolean>;
 
@@ -124,6 +124,7 @@ export function createNodeInternals(
          },
       });
 
+      // console.log('create', currInternals, node);
       nextNodeInternals.set(node.id, internals);
    });
 
@@ -132,36 +133,36 @@ export function createNodeInternals(
    return nextNodeInternals;
 }
 
-export function handleControlledNodeSelectionChange(
-   nodeChanges: NodeSelectionChange[],
-   nodeInternals: NodeInternals,
-) {
-   nodeChanges.forEach((change) => {
-      const node = nodeInternals.get(change.id);
-      if (node) {
-         nodeInternals.set(node.id, {
-            ...node,
-            [internalsSymbol]: node[internalsSymbol],
-            selected: change.selected,
-         });
-      }
-   });
+// export function handleControlledNodeSelectionChange(
+//    nodeChanges: NodeSelectionChange[],
+//    nodeInternals: NodeInternals,
+// ) {
+//    nodeChanges.forEach((change) => {
+//       const node = nodeInternals.get(change.id);
+//       if (node) {
+//          nodeInternals.set(node.id, {
+//             ...node,
+//             [internalsSymbol]: node[internalsSymbol],
+//             selected: change.selected,
+//          });
+//       }
+//    });
 
-   return new Map(nodeInternals);
-}
+//    return new Map(nodeInternals);
+// }
 
-export function handleControlledEdgeSelectionChange(
-   edgeChanges: EdgeSelectionChange[],
-   edges: Edge[],
-) {
-   return edges.map((e) => {
-      const change = edgeChanges.find((change) => change.id === e.id);
-      if (change) {
-         e.selected = change.selected;
-      }
-      return e;
-   });
-}
+// export function handleControlledEdgeSelectionChange(
+//    edgeChanges: EdgeSelectionChange[],
+//    edges: Edge[],
+// ) {
+//    return edges.map((e) => {
+//       const change = edgeChanges.find((change) => change.id === e.id);
+//       if (change) {
+//          e.selected = change.selected;
+//       }
+//       return e;
+//    });
+// }
 
 export function updateNodesSelections({
    changedNodes,

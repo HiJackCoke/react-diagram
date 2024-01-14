@@ -120,6 +120,9 @@ const applyChanges = (changes: any[], elements: any[]): any[] => {
                case 'remove': {
                   return res;
                }
+               case 'intersect': {
+                  updateItem.intersected = currentChange.intersected;
+               }
             }
          }
       }

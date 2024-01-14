@@ -19,7 +19,7 @@ import {
 } from './utils';
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
-import { Node, XYPosition } from '../../types';
+import { Node, NodeIntersectionChange, XYPosition } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
 
@@ -53,6 +53,37 @@ function useDrag({
    const [dragging, setDragging] = useState<boolean>(false);
 
    const getPointerPosition = useGetPointerPosition();
+
+   const intersectionNOdes = (dragItem: Node | NodeDragItem) => {
+      const { getNodes, triggerNodeChanges } = store.getState();
+
+      const changes: NodeIntersectionChange[] = getNodes()
+         .filter((node) => {
+            if (!dragItem.width || !dragItem.height) return;
+            if (!node.width || !node.height) return;
+            if (node.id === dragItem.id) return;
+            if (node.parentNode) return;
+
+            const { position: nodePosition } = node;
+            const { position, width, height } = dragItem;
+
+            const leftIn = position.x + width >= nodePosition.x;
+            const rightIn = nodePosition.x + node.width >= position.x;
+            const topIn = position.y + height >= nodePosition.y;
+            const bottomIn = nodePosition.y + node.height >= position.y;
+
+            return leftIn && rightIn && topIn && bottomIn && !node.intersected;
+         })
+         .map((node) => {
+            return {
+               id: node.id,
+               type: 'intersect',
+               intersected: true,
+            };
+         });
+
+      triggerNodeChanges(changes);
+   };
 
    const updateNodePosition =
       (pointerPositions: PointerPosition, dragEnd = false) =>
@@ -104,31 +135,12 @@ function useDrag({
 
          if (!hasChange) return;
 
-         const intersectionNodes = () => {
-            nodeInternals.forEach((node) => {
-               if (!node.width || !node.height) return;
-               if (node.id === dragItem.id) return;
-               if (node.parentNode) return;
-
-               const { position } = node;
-
-               const leftIn = nextPosition.x + dragItem.width >= position.x;
-               const rightIn = position.x + node.width >= nextPosition.x;
-               const topIn = nextPosition.y + dragItem.height >= position.y;
-               const bottomIn = position.y + node.height >= nextPosition.y;
-
-               if (leftIn && rightIn && topIn && bottomIn) {
-                  console.log(node);
-               }
-            });
-         };
-
-         if (!gridStep) {
-            intersectionNodes();
-         }
-
          dragItem.position = updatedPosition.position;
          dragItem.positionAbsolute = updatedPosition.positionAbsolute;
+
+         if (!gridStep) {
+            intersectionNOdes(dragItem);
+         }
       };
 
    useEffect(() => {
@@ -136,7 +148,6 @@ function useDrag({
          const selection = select(nodeRef.current);
 
          const updateNodes = (pointerPosition: PointerPosition) => {
-            // console.log(nodeId);
             const { nodeInternals, onNodeDrag, updateNodesPosition } =
                store.getState();
 

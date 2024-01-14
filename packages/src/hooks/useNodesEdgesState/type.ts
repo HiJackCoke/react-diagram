@@ -24,6 +24,12 @@ export type NodeSelectionChange = {
    selected: boolean;
 };
 
+export type NodeIntersectionChange = {
+   id: string;
+   type: 'intersect';
+   intersected: boolean;
+};
+
 export type NodeRemoveChange = {
    id: string;
    type: 'remove';
@@ -43,6 +49,7 @@ export type NodeChange =
    | NodeDimensionChange
    | NodePositionChange
    | NodeSelectionChange
+   | NodeIntersectionChange
    | NodeRemoveChange
    | NodeAddChange
    | NodeResetChange;
