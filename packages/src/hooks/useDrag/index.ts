@@ -54,7 +54,7 @@ function useDrag({
 
    const getPointerPosition = useGetPointerPosition();
 
-   const intersectionNOdes = (dragItem: Node | NodeDragItem) => {
+   const updateNodesIntersection = (dragItem: Node | NodeDragItem) => {
       const { getNodes, triggerNodeChanges } = store.getState();
 
       const changes: NodeIntersectionChange[] = getNodes()
@@ -139,7 +139,7 @@ function useDrag({
          dragItem.positionAbsolute = updatedPosition.positionAbsolute;
 
          if (!gridStep) {
-            intersectionNOdes(dragItem);
+            updateNodesIntersection(dragItem);
          }
       };
 
