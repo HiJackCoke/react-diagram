@@ -1,11 +1,7 @@
 import { createStore } from 'zustand';
 import { zoomIdentity } from 'd3-zoom';
 
-import {
-   updateAbsoluteNodePositions,
-   createNodeInternals,
-   updateNodesSelections,
-} from './utils';
+import { updateAbsoluteNodePositions, createNodeInternals } from './utils';
 
 import { clampPosition, getDimensions, internalsSymbol } from '../utils';
 import { createSelectionChange, getSelectionChanges } from '../utils/changes';
@@ -164,7 +160,7 @@ const createRFStore = () =>
       },
 
       addSelectedNodes: (selectedNodeIds: string[]) => {
-         const { multiSelectionActive, getNodes } = get();
+         const { multiSelectionActive, getNodes, triggerNodeChanges } = get();
          let changedNodes: NodeSelectionChange[];
 
          if (multiSelectionActive) {
@@ -175,15 +171,11 @@ const createRFStore = () =>
             changedNodes = getSelectionChanges(getNodes(), selectedNodeIds);
          }
 
-         updateNodesSelections({
-            changedNodes,
-            get,
-            set,
-         });
+         triggerNodeChanges(changedNodes);
       },
 
       unselectNodes: ({ nodes }: UnSelectNodesParams = {}) => {
-         const { getNodes } = get();
+         const { getNodes, triggerNodeChanges } = get();
          const nodesToUnselect = nodes ? nodes : getNodes();
 
          const changedNodes = nodesToUnselect.map((n) => {
@@ -191,15 +183,11 @@ const createRFStore = () =>
             return createSelectionChange(n.id, false);
          }) as NodeSelectionChange[];
 
-         updateNodesSelections({
-            changedNodes,
-            get,
-            set,
-         });
+         triggerNodeChanges(changedNodes);
       },
 
       resetSelectedElements: () => {
-         const { getNodes } = get();
+         const { getNodes, triggerNodeChanges } = get();
          const nodes = getNodes();
 
          const nodesToUnselect = nodes
@@ -208,11 +196,7 @@ const createRFStore = () =>
                createSelectionChange(n.id, false),
             ) as NodeSelectionChange[];
 
-         updateNodesSelections({
-            changedNodes: nodesToUnselect,
-            get,
-            set,
-         });
+         triggerNodeChanges(nodesToUnselect);
       },
 
       cancelConnection: () =>

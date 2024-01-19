@@ -164,13 +164,13 @@ export function createNodeInternals(
 //    });
 // }
 
-export function updateNodesSelections({
-   changedNodes,
-   get,
-}: UpdateNodesParams) {
-   const { onNodesChange } = get();
+// export function updateNodesSelections({
+//    changedNodes,
+//    get,
+// }: UpdateNodesParams) {
+//    const { onNodesChange } = get();
 
-   if (changedNodes?.length) {
-      onNodesChange?.(changedNodes);
-   }
-}
+//    if (changedNodes?.length) {
+//       onNodesChange?.(changedNodes);
+//    }
+// }
