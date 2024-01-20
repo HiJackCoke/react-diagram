@@ -87,25 +87,46 @@ function useDrag({
          };
       });
 
-      const beforeChanges = intersectionChanges.current
-         .filter((beforeChange) => {
-            const hasIntersectedNodes = intersectedNodes.length;
+      const beforeChanges = resetIntersectedNodes(intersectedNodes);
 
-            const toFalse =
-               !hasIntersectedNodes ||
-               intersectedNodes.some(
+      triggerNodeChanges([...changes, ...beforeChanges]);
+   };
+
+   const resetIntersectedNodes = (intersectedNodes: Node[]) => {
+      const hasIntersectedNodes = intersectedNodes.length;
+
+      let beforeChanges;
+
+      if (hasIntersectedNodes) {
+         beforeChanges = intersectionChanges.current
+            .filter((beforeChange) => {
+               const toFalse = intersectedNodes.some(
                   (intersectedNode) => beforeChange.id !== intersectedNode.id,
                );
-            return toFalse;
-         })
-         .map((beforeChange) => ({
+               return toFalse;
+            })
+            .map((beforeChange) => ({
+               ...beforeChange,
+               intersected: false,
+            }));
+      } else {
+         beforeChanges = intersectionChanges.current.map((beforeChange) => ({
             ...beforeChange,
             intersected: false,
          }));
+      }
+
+      const changes: NodeIntersectionChange[] = intersectedNodes.map((node) => {
+         return {
+            id: node.id,
+            type: 'intersect',
+            intersected: true,
+         };
+      });
 
       intersectionChanges.current = changes;
 
-      triggerNodeChanges([...changes, ...beforeChanges]);
+      return beforeChanges;
    };
 
    const updateNodePosition =

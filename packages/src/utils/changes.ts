@@ -117,11 +117,12 @@ const applyChanges = (changes: any[], elements: any[]): any[] => {
                   }
                   break;
                }
-               case 'remove': {
-                  return res;
-               }
                case 'intersect': {
                   updateItem.intersected = currentChange.intersected;
+                  break;
+               }
+               case 'remove': {
+                  return res;
                }
             }
          }
