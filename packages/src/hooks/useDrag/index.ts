@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
@@ -40,7 +40,7 @@ function useDrag({
    noDragClassName,
 }: UseDragParams) {
    const store = useStoreApi();
-
+   //이걸 이용해서 훅 판다음callback
    const dragItems = useRef<NodeDragItem[]>([]);
 
    const containerBounds = useRef<DOMRect | null>(null);
@@ -56,40 +56,47 @@ function useDrag({
    const getPointerPosition = useGetPointerPosition();
 
    const updateNodesIntersection = (
-      dragItem: Node | NodeDragItem,
+      dragItems: RefObject<Node[] | NodeDragItem[]>,
       intersected = true,
    ) => {
-      const { getNodes, triggerNodeChanges } = store.getState();
+      const { getNodes, triggerNodeChanges, gridStep } = store.getState();
 
-      const intersectedNodes = getNodes().filter((node) => {
-         if (!dragItem.width || !dragItem.height) return;
-         if (!node.width || !node.height) return;
-         if (node.id === dragItem.id) return;
-         if (node.parentNode) return;
+      if (gridStep) return;
+      dragItems.current?.forEach((dragItem) => {
+         const intersectedNodes = getNodes().filter((node) => {
+            if (!dragItem.width || !dragItem.height) return;
+            if (!node.width || !node.height) return;
+            if (node.id === dragItem.id) return;
+            if (node.parentNode) return;
 
-         const { position: nodePosition } = node;
-         const { position, width, height } = dragItem;
+            const { position: nodePosition } = node;
+            const { position, width, height } = dragItem;
 
-         const leftIn = position.x + width >= nodePosition.x;
-         const rightIn = nodePosition.x + node.width >= position.x;
-         const topIn = position.y + height >= nodePosition.y;
-         const bottomIn = nodePosition.y + node.height >= position.y;
+            const leftIn = position.x + width >= nodePosition.x;
+            const rightIn = nodePosition.x + node.width >= position.x;
+            const topIn = position.y + height >= nodePosition.y;
+            const bottomIn = nodePosition.y + node.height >= position.y;
 
-         return leftIn && rightIn && topIn && bottomIn;
-         // && !node.intersected;
+            return leftIn && rightIn && topIn && bottomIn;
+            // && !node.intersected;
+         });
+
+         const changes: NodeIntersectionChange[] = intersectedNodes.map(
+            (node) => {
+               return {
+                  id: node.id,
+                  type: 'intersect',
+                  intersected,
+               };
+            },
+         );
+
+         const beforeChanges = resetIntersectedNodes(intersectedNodes);
+
+         intersectionChanges.current = changes;
+
+         triggerNodeChanges([...changes, ...beforeChanges]);
       });
-
-      const changes: NodeIntersectionChange[] = intersectedNodes.map((node) => {
-         return {
-            id: node.id,
-            type: 'intersect',
-            intersected,
-         };
-      });
-
-      const beforeChanges = resetIntersectedNodes(intersectedNodes);
-
-      triggerNodeChanges([...changes, ...beforeChanges]);
    };
 
    const resetIntersectedNodes = (intersectedNodes: Node[]) => {
@@ -115,16 +122,6 @@ function useDrag({
             intersected: false,
          }));
       }
-
-      const changes: NodeIntersectionChange[] = intersectedNodes.map((node) => {
-         return {
-            id: node.id,
-            type: 'intersect',
-            intersected: true,
-         };
-      });
-
-      intersectionChanges.current = changes;
 
       return beforeChanges;
    };
@@ -181,10 +178,6 @@ function useDrag({
 
          dragItem.position = updatedPosition.position;
          dragItem.positionAbsolute = updatedPosition.positionAbsolute;
-
-         if (!gridStep) {
-            updateNodesIntersection(dragItem);
-         }
       };
 
    useEffect(() => {
@@ -310,6 +303,8 @@ function useDrag({
                   );
 
                   updateNodes(pointerPosition);
+
+                  updateNodesIntersection(dragItems);
                }
             })
             .on('end', (event: UseDragEvent) => {
