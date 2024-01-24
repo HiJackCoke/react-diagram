@@ -22,6 +22,7 @@ import { getEventPosition, calcAutoPanPosition } from '../../utils';
 import { Node, NodeIntersectionChange, XYPosition } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
+import useUpdateIntersectionNodes from '../useUpdateIntersectionNodes';
 
 type UseDragParams = {
    nodeRef: RefObject<Element>;
@@ -54,87 +55,7 @@ function useDrag({
    const [dragging, setDragging] = useState<boolean>(false);
 
    const getPointerPosition = useGetPointerPosition();
-
-   const updateNodesIntersection = (
-      dragItems: RefObject<Node[] | NodeDragItem[]>,
-      intersected = true,
-   ) => {
-      const { getNodes, triggerNodeChanges, gridStep } = store.getState();
-
-      if (gridStep) return;
-
-      const changes: NodeIntersectionChange[] = [];
-      const changeIds: string[] = [];
-
-      dragItems.current?.forEach((dragItem) => {
-         if (dragItem.width && dragItem.height) {
-            const { position, width, height } = dragItem;
-
-            const intersectedNodes = getNodes().filter((node) => {
-               if (changeIds.includes(node.id)) return;
-               if (!node.width || !node.height) return;
-               if (node.id === dragItem.id) return;
-               if (node.parentNode) return;
-
-               const { position: nodePosition } = node;
-
-               const leftIn = position.x + width >= nodePosition.x;
-               const rightIn = nodePosition.x + node.width >= position.x;
-               const topIn = position.y + height >= nodePosition.y;
-               const bottomIn = nodePosition.y + node.height >= position.y;
-
-               return leftIn && rightIn && topIn && bottomIn;
-            });
-
-            const changeNodes: NodeIntersectionChange[] = intersectedNodes.map(
-               (node) => {
-                  changeIds.push(node.id);
-
-                  return {
-                     id: node.id,
-                     type: 'intersect',
-                     intersected,
-                  };
-               },
-            );
-
-            changes.push(...changeNodes);
-         }
-      });
-
-      const beforeChanges = resetIntersectedNodes(changes);
-      intersectionChanges.current = changes;
-
-      triggerNodeChanges([...changes, ...beforeChanges]);
-   };
-
-   const resetIntersectedNodes = (
-      intersectedNodes: NodeIntersectionChange[],
-   ) => {
-      const hasIntersectedNodes = intersectedNodes.length;
-
-      let beforeChanges;
-
-      if (hasIntersectedNodes) {
-         beforeChanges = intersectionChanges.current
-            .filter((beforeChange) => {
-               return !intersectedNodes.some(
-                  (intersectedNode) => beforeChange.id === intersectedNode.id,
-               );
-            })
-            .map((beforeChange) => ({
-               ...beforeChange,
-               intersected: false,
-            }));
-      } else {
-         beforeChanges = intersectionChanges.current.map((beforeChange) => ({
-            ...beforeChange,
-            intersected: false,
-         }));
-      }
-
-      return beforeChanges;
-   };
+   const updateNodesIntersection = useUpdateIntersectionNodes();
 
    const updateNodePosition =
       (pointerPositions: PointerPosition, dragEnd = false) =>
