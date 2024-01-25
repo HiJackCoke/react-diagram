@@ -49,50 +49,41 @@ function useUpdateIntersectionNodes() {
 
          if (gridStep) return;
 
-         const changes: NodeIntersectionChange[] = [];
-         const changeIds: string[] = [];
+         const changes: NodeIntersectionChange[] = getNodes()
+            .filter((node) => {
+               const { width, height, position, parentNode } = node;
 
-         dragItems.current?.forEach((dragItem) => {
-            if (dragItem.parentNode) return;
-            if (dragItem.width && dragItem.height) {
-               const { position, width, height } = dragItem;
+               if (parentNode) return;
+               if (width && height) {
+                  return dragItems.current?.some((dragItem) => {
+                     const {
+                        position: dPosition,
+                        width: dWidth,
+                        height: dHeight,
+                     } = dragItem;
 
-               const changeNodes: NodeIntersectionChange[] = getNodes()
-                  .filter((node) => {
-                     if (changeIds.includes(node.id)) return;
-                     if (!node.width || !node.height) return;
                      if (node.id === dragItem.id) return;
-                     if (node.parentNode) return;
+                     if (dragItem.parentNode) return;
+                     if (!dWidth || !dHeight) return;
 
-                     const { position: nodePosition } = node;
-
-                     const leftIn = position.x + width >= nodePosition.x;
-                     const rightIn = nodePosition.x + node.width >= position.x;
-                     const topIn = position.y + height >= nodePosition.y;
-                     const bottomIn =
-                        nodePosition.y + node.height >= position.y;
+                     const leftIn = dPosition.x + dWidth >= position.x;
+                     const rightIn = position.x + width >= dPosition.x;
+                     const topIn = dPosition.y + dHeight >= position.y;
+                     const bottomIn = position.y + height >= dPosition.y;
 
                      return leftIn && rightIn && topIn && bottomIn;
-                  })
-                  .map((node) => {
-                     changeIds.push(node.id);
-
-                     return {
-                        id: node.id,
-                        type: 'intersect',
-                        intersected: true,
-                     };
                   });
+               }
+            })
+            .map((node) => {
+               return {
+                  id: node.id,
+                  type: 'intersect',
+                  intersected: true,
+               };
+            });
 
-               changes.push(...changeNodes);
-            }
-         });
-
-         if (deepEqual(changes, intersectionChanges.current)) {
-            triggerNodeChanges(changes);
-         } else {
-            console.log('deepEqul');
-
+         if (!deepEqual(changes, intersectionChanges.current)) {
             const beforeChanges = resetIntersectedNodes(changes);
 
             intersectionChanges.current = changes;
