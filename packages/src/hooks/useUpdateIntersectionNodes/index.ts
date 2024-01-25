@@ -2,6 +2,8 @@ import { RefObject, useCallback, useRef } from 'react';
 
 import { useStoreApi } from '../useStore';
 
+import { deepEqual } from '../../utils/deepEqual';
+
 import { Node } from '../../types';
 import { NodeDragItem } from '../useDrag/type';
 import { NodeIntersectionChange } from '../../types';
@@ -55,24 +57,24 @@ function useUpdateIntersectionNodes() {
             if (dragItem.width && dragItem.height) {
                const { position, width, height } = dragItem;
 
-               const intersectedNodes = getNodes().filter((node) => {
-                  if (changeIds.includes(node.id)) return;
-                  if (!node.width || !node.height) return;
-                  if (node.id === dragItem.id) return;
-                  if (node.parentNode) return;
+               const changeNodes: NodeIntersectionChange[] = getNodes()
+                  .filter((node) => {
+                     if (changeIds.includes(node.id)) return;
+                     if (!node.width || !node.height) return;
+                     if (node.id === dragItem.id) return;
+                     if (node.parentNode) return;
 
-                  const { position: nodePosition } = node;
+                     const { position: nodePosition } = node;
 
-                  const leftIn = position.x + width >= nodePosition.x;
-                  const rightIn = nodePosition.x + node.width >= position.x;
-                  const topIn = position.y + height >= nodePosition.y;
-                  const bottomIn = nodePosition.y + node.height >= position.y;
+                     const leftIn = position.x + width >= nodePosition.x;
+                     const rightIn = nodePosition.x + node.width >= position.x;
+                     const topIn = position.y + height >= nodePosition.y;
+                     const bottomIn =
+                        nodePosition.y + node.height >= position.y;
 
-                  return leftIn && rightIn && topIn && bottomIn;
-               });
-
-               const changeNodes: NodeIntersectionChange[] =
-                  intersectedNodes.map((node) => {
+                     return leftIn && rightIn && topIn && bottomIn;
+                  })
+                  .map((node) => {
                      changeIds.push(node.id);
 
                      return {
@@ -86,10 +88,17 @@ function useUpdateIntersectionNodes() {
             }
          });
 
-         const beforeChanges = resetIntersectedNodes(changes);
-         intersectionChanges.current = changes;
+         if (deepEqual(changes, intersectionChanges.current)) {
+            triggerNodeChanges(changes);
+         } else {
+            console.log('deepEqul');
 
-         triggerNodeChanges([...changes, ...beforeChanges]);
+            const beforeChanges = resetIntersectedNodes(changes);
+
+            intersectionChanges.current = changes;
+
+            triggerNodeChanges([...changes, ...beforeChanges]);
+         }
       },
       [],
    );
