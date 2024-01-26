@@ -108,6 +108,7 @@ function NodeRenderer({
                selected,
                selectable,
                draggable,
+               intersected,
             } = node;
 
             let nodeType = type || 'default';
@@ -157,6 +158,7 @@ function NodeRenderer({
 
             const booleanProps = {
                selected: !!selected,
+               intersected,
                isSelectable,
                isDraggable,
                hidden,

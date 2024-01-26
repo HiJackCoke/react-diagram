@@ -19,7 +19,7 @@ import {
 } from './utils';
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
-import { Node, NodeIntersectionChange, XYPosition } from '../../types';
+import { Node, XYPosition } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
 import useUpdateIntersectionNodes from '../useUpdateIntersectionNodes';
@@ -50,7 +50,6 @@ function useDrag({
    const dragEvent = useRef<MouseEvent | null>(null);
    const autoPanStarted = useRef(false);
    const autoPanId = useRef(0);
-   const intersectionChanges = useRef<NodeIntersectionChange[]>([]);
 
    const [dragging, setDragging] = useState<boolean>(false);
 

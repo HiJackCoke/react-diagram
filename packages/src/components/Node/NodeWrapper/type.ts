@@ -11,6 +11,7 @@ export type WrapNodeProps<T = any> = Pick<
    | 'style'
    | 'className'
    | 'selected'
+   | 'intersected'
    | 'dragHandle'
    | 'sourcePosition'
    | 'targetPosition'

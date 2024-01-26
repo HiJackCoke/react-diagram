@@ -46,6 +46,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       selected,
       isSelectable,
       isDraggable,
+      intersected,
 
       hidden,
 
@@ -129,7 +130,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          isSelectable,
          noDragClassName,
       });
-      console.log('rendering id ', id);
+
       if (hidden) {
          return null;
       }
@@ -143,6 +144,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          className,
          {
             selected,
+            intersected,
             parent: isParent,
             dragging,
          },

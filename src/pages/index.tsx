@@ -55,6 +55,13 @@ const initialNodes = [
       data: { label: 'Node4' },
       position: { x: 650, y: 100 },
    },
+   {
+      id: '5',
+      width: 100,
+      height: 100,
+      data: { label: 'Node5' },
+      position: { x: 550, y: 400 },
+   },
 ];
 
 const initialEdges = [
@@ -158,7 +165,16 @@ function Index() {
             connectionRadius={30}
             minZoom={1}
             maxZoom={2}
-            onNodesChange={onNodesChange}
+            onNodesChange={(e) => {
+               e.forEach((element) => {
+                  if (element.type === 'intersect') console.log(e);
+               });
+
+               e.forEach((element) => {
+                  if (element.type === 'select') console.log(e);
+               });
+               onNodesChange(e);
+            }}
             // onNodeDrag={(a, node) => {
             //    console.log(node);
             // }}
