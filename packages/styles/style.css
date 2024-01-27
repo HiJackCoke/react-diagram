@@ -199,3 +199,8 @@
 .react-diagram__selection-box-rect:focus-visible {
    outline: none;
 }
+
+.react-diagram__node-default.intersected {
+   background-color: #f0f0f0;
+   border-color: #666;
+}
