@@ -41,9 +41,8 @@ function useDrag({
    noDragClassName,
 }: UseDragParams) {
    const store = useStoreApi();
-   //이걸 이용해서 훅 판다음callback
-   const dragItems = useRef<NodeDragItem[]>([]);
 
+   const dragItems = useRef<NodeDragItem[]>([]);
    const containerBounds = useRef<DOMRect | null>(null);
    const mousePosition = useRef<XYPosition>({ x: 0, y: 0 });
    const lastPosition = useRef<XYPosition>({ x: 0, y: 0 });

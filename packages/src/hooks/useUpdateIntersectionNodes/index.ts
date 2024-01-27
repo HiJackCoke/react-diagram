@@ -47,13 +47,15 @@ function useUpdateIntersectionNodes() {
       (dragItems: RefObject<Node[] | NodeDragItem[]>) => {
          const { gridStep, getNodes, triggerNodeChanges } = store.getState();
 
-         if (gridStep) return;
+         if (gridStep) return false;
 
-         const changes: NodeIntersectionChange[] = getNodes()
+         const intersectedDraggingNodeIds: string[] = [];
+         const intersectedNodes: NodeIntersectionChange[] = getNodes()
             .filter((node) => {
                const { width, height, position, parentNode } = node;
 
                if (parentNode) return;
+
                if (width && height) {
                   return dragItems.current?.some((dragItem) => {
                      const {
@@ -66,12 +68,19 @@ function useUpdateIntersectionNodes() {
                      if (dragItem.parentNode) return;
                      if (!dWidth || !dHeight) return;
 
-                     const leftIn = dPosition.x + dWidth >= position.x;
-                     const rightIn = position.x + width >= dPosition.x;
-                     const topIn = dPosition.y + dHeight >= position.y;
-                     const bottomIn = position.y + height >= dPosition.y;
+                     const leftIn = dPosition.x + dWidth >= position.x,
+                        rightIn = position.x + width >= dPosition.x,
+                        topIn = dPosition.y + dHeight >= position.y,
+                        bottomIn = position.y + height >= dPosition.y;
 
-                     return leftIn && rightIn && topIn && bottomIn;
+                     const isIn = leftIn && rightIn && topIn && bottomIn;
+
+                     if (isIn) {
+                        if (!intersectedDraggingNodeIds.includes(dragItem.id)) {
+                           intersectedDraggingNodeIds.push(dragItem.id);
+                        }
+                     }
+                     return isIn;
                   });
                }
             })
@@ -82,6 +91,17 @@ function useUpdateIntersectionNodes() {
                   intersected: true,
                };
             });
+
+         const intersectedDraggingNodes: NodeIntersectionChange[] =
+            intersectedDraggingNodeIds.map((id) => {
+               return {
+                  id,
+                  type: 'intersect',
+                  intersected: true,
+               };
+            });
+
+         const changes = [...intersectedNodes, ...intersectedDraggingNodes];
 
          if (!deepEqual(changes, intersectionChanges.current)) {
             const beforeChanges = resetIntersectedNodes(changes);
