@@ -2,7 +2,66 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [0.5.0](https://github.com/taehunlim/react-diagram/compare/v0.4.1...v0.5.0) (2024-01-30)
+## [0.6.0](https://github.com/taehunlim/react-diagram/compare/v0.4.0...v0.6.0) (2024-01-30)
+
+
+### Features
+
+* deepEqual ([2193fac](https://github.com/taehunlim/react-diagram/commit/2193facebba53b8a715667099e6d2dcb503c18a0))
+* intersectionNodes [#1](https://github.com/taehunlim/react-diagram/issues/1) ([567db88](https://github.com/taehunlim/react-diagram/commit/567db8870b4050b9ec65f994c81253c015705e86))
+* intersectionNodes [#2](https://github.com/taehunlim/react-diagram/issues/2) ([b5a6a17](https://github.com/taehunlim/react-diagram/commit/b5a6a17b5dec8ac9ab63895f811af462c5d8a33e))
+* resetIntersectedNodes ([b2b6280](https://github.com/taehunlim/react-diagram/commit/b2b6280392cbe9017aecdad6297724483c762ca1))
+* updateNodesIntersection [#3](https://github.com/taehunlim/react-diagram/issues/3) ([b69e2d1](https://github.com/taehunlim/react-diagram/commit/b69e2d1b2fc921752f2b6960b16a1697cee3ebff))
+* useUpdateIntersectionNodes ([146bbf2](https://github.com/taehunlim/react-diagram/commit/146bbf2af98da3440f9b89d388d7da379fc26d69))
+
+
+### Bug Fixes
+
+* issue where re-rendering occurr on Node other than Node where event is running ([b63725a](https://github.com/taehunlim/react-diagram/commit/b63725ae2f8e59dd6db33d2c91af2d8841ad7ded))
+
+
+### Change Existing Behavior
+
+* updateNodesIntersection be get intersection for multiple Nodes ([42ff5de](https://github.com/taehunlim/react-diagram/commit/42ff5de838c28f9afdc2d162d2a2dc0f6c143055))
+
+
+### UI Styling
+
+* intersected Node css ([1e875c7](https://github.com/taehunlim/react-diagram/commit/1e875c7e530c28b9149c0c5a23ac23275d61a412))
+
+
+### Adding Something
+
+* intersected class to dragging Node ([1adbc5b](https://github.com/taehunlim/react-diagram/commit/1adbc5be091316f733a33a15ba075096f2a49663))
+* intersected class to Node ([2bef546](https://github.com/taehunlim/react-diagram/commit/2bef54629ff1b3887903321da4f69d0115641865))
+
+## [0.5.0](https://github.com/taehunlim/react-diagram/compare/v0.4.0...v0.5.0) (2024-01-30)
+
+### Features
+
+-  deepEqual ([2193fac](https://github.com/taehunlim/react-diagram/commit/2193facebba53b8a715667099e6d2dcb503c18a0))
+-  intersectionNodes [#1](https://github.com/taehunlim/react-diagram/issues/1) ([567db88](https://github.com/taehunlim/react-diagram/commit/567db8870b4050b9ec65f994c81253c015705e86))
+-  intersectionNodes [#2](https://github.com/taehunlim/react-diagram/issues/2) ([b5a6a17](https://github.com/taehunlim/react-diagram/commit/b5a6a17b5dec8ac9ab63895f811af462c5d8a33e))
+-  resetIntersectedNodes ([b2b6280](https://github.com/taehunlim/react-diagram/commit/b2b6280392cbe9017aecdad6297724483c762ca1))
+-  updateNodesIntersection [#3](https://github.com/taehunlim/react-diagram/issues/3) ([b69e2d1](https://github.com/taehunlim/react-diagram/commit/b69e2d1b2fc921752f2b6960b16a1697cee3ebff))
+-  useUpdateIntersectionNodes ([146bbf2](https://github.com/taehunlim/react-diagram/commit/146bbf2af98da3440f9b89d388d7da379fc26d69))
+
+### Bug Fixes
+
+-  issue where re-rendering occurr on Node other than Node where event is running ([b63725a](https://github.com/taehunlim/react-diagram/commit/b63725ae2f8e59dd6db33d2c91af2d8841ad7ded))
+
+### Change Existing Behavior
+
+-  updateNodesIntersection be get intersection for multiple Nodes ([42ff5de](https://github.com/taehunlim/react-diagram/commit/42ff5de838c28f9afdc2d162d2a2dc0f6c143055))
+
+### UI Styling
+
+-  intersected Node css ([1e875c7](https://github.com/taehunlim/react-diagram/commit/1e875c7e530c28b9149c0c5a23ac23275d61a412))
+
+### Adding Something
+
+-  intersected class to dragging Node ([1adbc5b](https://github.com/taehunlim/react-diagram/commit/1adbc5be091316f733a33a15ba075096f2a49663))
+-  intersected class to Node ([2bef546](https://github.com/taehunlim/react-diagram/commit/2bef54629ff1b3887903321da4f69d0115641865))
 
 ## [0.4.0](https://github.com/taehunlim/react-diagram/compare/v0.3.0...v0.4.0) (2023-12-19)
 
