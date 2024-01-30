@@ -5,7 +5,7 @@
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@reactdiagram/rollup-config --environment NODE_ENV:production && npm run css",
       "css": "postcss styles/style.css --config ../tooling/postcss-config/postcss.config.js --dir dist",
-      "release": "standard-version --release-as 0.5.0 && node:../conventionalGithubReleaser",
+      "release": "standard-version --release-as minor && node:../conventionalGithubReleaser",
       "release-major": "standard-version --release-as major && node:../conventionalGithubReleaser",
       "release-patch": "standard-version && node:../conventionalGithubReleaser"
    },
