@@ -45,9 +45,7 @@ function useUpdateIntersectionNodes() {
 
    const updateNodesIntersection = useCallback(
       (dragItems: RefObject<Node[] | NodeDragItem[]>) => {
-         const { gridStep, getNodes, triggerNodeChanges } = store.getState();
-
-         if (gridStep) return false;
+         const { getNodes, triggerNodeChanges } = store.getState();
 
          const intersectedDraggingNodeIds: string[] = [];
          const intersectedNodes: NodeIntersectionChange[] = getNodes()
