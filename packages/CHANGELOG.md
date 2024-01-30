@@ -2,172 +2,123 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.4.1](https://github.com/taehunlim/react-diagram/compare/v0.4.0...v0.4.1) (2024-01-30)
-
-
-### Features
-
-* deepEqual ([2193fac](https://github.com/taehunlim/react-diagram/commit/2193facebba53b8a715667099e6d2dcb503c18a0))
-* intersectionNodes [#1](https://github.com/taehunlim/react-diagram/issues/1) ([567db88](https://github.com/taehunlim/react-diagram/commit/567db8870b4050b9ec65f994c81253c015705e86))
-* intersectionNodes [#2](https://github.com/taehunlim/react-diagram/issues/2) ([b5a6a17](https://github.com/taehunlim/react-diagram/commit/b5a6a17b5dec8ac9ab63895f811af462c5d8a33e))
-* resetIntersectedNodes ([b2b6280](https://github.com/taehunlim/react-diagram/commit/b2b6280392cbe9017aecdad6297724483c762ca1))
-* updateNodesIntersection [#3](https://github.com/taehunlim/react-diagram/issues/3) ([b69e2d1](https://github.com/taehunlim/react-diagram/commit/b69e2d1b2fc921752f2b6960b16a1697cee3ebff))
-* useUpdateIntersectionNodes ([146bbf2](https://github.com/taehunlim/react-diagram/commit/146bbf2af98da3440f9b89d388d7da379fc26d69))
-
-
-### Bug Fixes
-
-* issue where re-rendering occurr on Node other than Node where event is running ([b63725a](https://github.com/taehunlim/react-diagram/commit/b63725ae2f8e59dd6db33d2c91af2d8841ad7ded))
-
-
-### Change Existing Behavior
-
-* updateNodesIntersection be get intersection for multiple Nodes ([42ff5de](https://github.com/taehunlim/react-diagram/commit/42ff5de838c28f9afdc2d162d2a2dc0f6c143055))
-
-
-### UI Styling
-
-* intersected Node css ([1e875c7](https://github.com/taehunlim/react-diagram/commit/1e875c7e530c28b9149c0c5a23ac23275d61a412))
-
-
-### Adding Something
-
-* intersected class to dragging Node ([1adbc5b](https://github.com/taehunlim/react-diagram/commit/1adbc5be091316f733a33a15ba075096f2a49663))
-* intersected class to Node ([2bef546](https://github.com/taehunlim/react-diagram/commit/2bef54629ff1b3887903321da4f69d0115641865))
+## [0.5.0](https://github.com/taehunlim/react-diagram/compare/v0.4.1...v0.5.0) (2024-01-30)
 
 ## [0.4.0](https://github.com/taehunlim/react-diagram/compare/v0.3.0...v0.4.0) (2023-12-19)
 
-
 ### Features
 
-* Background to draw grid pattern ([b46af65](https://github.com/taehunlim/react-diagram/commit/b46af65160aa78f2f8d40ad1b0d1057d9a424f14))
-* centerGrid ([c88c2b1](https://github.com/taehunlim/react-diagram/commit/c88c2b13981ea6092b335446496f6948bb774aaf))
-* getStepPosition ([267c82d](https://github.com/taehunlim/react-diagram/commit/267c82dd4e63bc10f3376de35bae60f1e5881dab))
-* hasChangedPosition ([8484448](https://github.com/taehunlim/react-diagram/commit/84844489cda74e33fdb6f5927c8d717bd8069595))
-* SelectionBox(selected nodes) drag ([cf7211a](https://github.com/taehunlim/react-diagram/commit/cf7211a97745f2c2666eff834cf29a967da51a35))
-* smoothStep to use gridStep by dragging smoothly ([9eeb737](https://github.com/taehunlim/react-diagram/commit/9eeb737ad7127091ffa0666aaf80d90ff0c6e49f))
-* to inherit gap from gridStep prop when gap is not set in Background ([b4425cd](https://github.com/taehunlim/react-diagram/commit/b4425cdabc9f5d81a3437336dffe6dc57a249d6c))
-* updateNodePosition for updateNodesPosition in useDrag ([5349bba](https://github.com/taehunlim/react-diagram/commit/5349bba2e49277040c0ec4672bf8d646a9a5be7f))
-
+-  Background to draw grid pattern ([b46af65](https://github.com/taehunlim/react-diagram/commit/b46af65160aa78f2f8d40ad1b0d1057d9a424f14))
+-  centerGrid ([c88c2b1](https://github.com/taehunlim/react-diagram/commit/c88c2b13981ea6092b335446496f6948bb774aaf))
+-  getStepPosition ([267c82d](https://github.com/taehunlim/react-diagram/commit/267c82dd4e63bc10f3376de35bae60f1e5881dab))
+-  hasChangedPosition ([8484448](https://github.com/taehunlim/react-diagram/commit/84844489cda74e33fdb6f5927c8d717bd8069595))
+-  SelectionBox(selected nodes) drag ([cf7211a](https://github.com/taehunlim/react-diagram/commit/cf7211a97745f2c2666eff834cf29a967da51a35))
+-  smoothStep to use gridStep by dragging smoothly ([9eeb737](https://github.com/taehunlim/react-diagram/commit/9eeb737ad7127091ffa0666aaf80d90ff0c6e49f))
+-  to inherit gap from gridStep prop when gap is not set in Background ([b4425cd](https://github.com/taehunlim/react-diagram/commit/b4425cdabc9f5d81a3437336dffe6dc57a249d6c))
+-  updateNodePosition for updateNodesPosition in useDrag ([5349bba](https://github.com/taehunlim/react-diagram/commit/5349bba2e49277040c0ec4672bf8d646a9a5be7f))
 
 ### Bug Fixes
 
-* issue whene drag event did not work when touching(touch event) Node ([2a667dc](https://github.com/taehunlim/react-diagram/commit/2a667dc0167a69df3bce1ad0f718b578c0ab63e0))
-* issue where drag event is triggered by right-cliking ([802dde8](https://github.com/taehunlim/react-diagram/commit/802dde830855866575452b8b29d860e5a375911b))
-* issue where DragSelection is not inactive when selecting on other node ([225788c](https://github.com/taehunlim/react-diagram/commit/225788ce3bf33bc8498a5ec289dd7cd43a6b55fe))
-* issue with smoothStep not working due to missing touches in d3's drag end event ([1033bac](https://github.com/taehunlim/react-diagram/commit/1033baca6a3bf093cab47002e72c1e6231b3179e))
-
+-  issue whene drag event did not work when touching(touch event) Node ([2a667dc](https://github.com/taehunlim/react-diagram/commit/2a667dc0167a69df3bce1ad0f718b578c0ab63e0))
+-  issue where drag event is triggered by right-cliking ([802dde8](https://github.com/taehunlim/react-diagram/commit/802dde830855866575452b8b29d860e5a375911b))
+-  issue where DragSelection is not inactive when selecting on other node ([225788c](https://github.com/taehunlim/react-diagram/commit/225788ce3bf33bc8498a5ec289dd7cd43a6b55fe))
+-  issue with smoothStep not working due to missing touches in d3's drag end event ([1033bac](https://github.com/taehunlim/react-diagram/commit/1033baca6a3bf093cab47002e72c1e6231b3179e))
 
 ### Change Existing Behavior
 
-* export getStepPosition function instead of exporting stepPosition in useGetPointerPosition ([d31e943](https://github.com/taehunlim/react-diagram/commit/d31e9437944f68c2ff63618eb2f606a51fe198a4))
-
+-  export getStepPosition function instead of exporting stepPosition in useGetPointerPosition ([d31e943](https://github.com/taehunlim/react-diagram/commit/d31e9437944f68c2ff63618eb2f606a51fe198a4))
 
 ### Code Refactoring
 
-* getStepPosition ([216c91f](https://github.com/taehunlim/react-diagram/commit/216c91fc14459c06335054f35bd700be62ed4b6b))
-* updateNodesPosition by adding a callback params(updateFunc) to prevent Nodes updated with map() from being updated with map() again ([980a998](https://github.com/taehunlim/react-diagram/commit/980a998a555eb00c2f54ba6fbefa66df938ba710))
-* updateNodesPosition, updateNodePosition ([2460fe0](https://github.com/taehunlim/react-diagram/commit/2460fe037d5af6f0418685c2ab88f954dbdf8cbf))
+-  getStepPosition ([216c91f](https://github.com/taehunlim/react-diagram/commit/216c91fc14459c06335054f35bd700be62ed4b6b))
+-  updateNodesPosition by adding a callback params(updateFunc) to prevent Nodes updated with map() from being updated with map() again ([980a998](https://github.com/taehunlim/react-diagram/commit/980a998a555eb00c2f54ba6fbefa66df938ba710))
+-  updateNodesPosition, updateNodePosition ([2460fe0](https://github.com/taehunlim/react-diagram/commit/2460fe037d5af6f0418685c2ab88f954dbdf8cbf))
 
 ## [0.3.0](https://github.com/taehunlim/react-diagram/compare/v0.2.0...v0.3.0) (2023-11-25)
 
-
 ### Features
 
-* connectionRadius ([1191867](https://github.com/taehunlim/react-diagram/commit/1191867322615e8f7303b187cbb21d2277a7037d))
-* edgeUpdaterRadius ([48549db](https://github.com/taehunlim/react-diagram/commit/48549db04dd8ae5b9fe31119e8dc05eaaae14a56))
-
+-  connectionRadius ([1191867](https://github.com/taehunlim/react-diagram/commit/1191867322615e8f7303b187cbb21d2277a7037d))
+-  edgeUpdaterRadius ([48549db](https://github.com/taehunlim/react-diagram/commit/48549db04dd8ae5b9fe31119e8dc05eaaae14a56))
 
 ### Bug Fixes
 
-* issue with closestPort finding wrong port location ([40443cc](https://github.com/taehunlim/react-diagram/commit/40443ccb035385c1858b535d7019efb0fbef9712))
-
+-  issue with closestPort finding wrong port location ([40443cc](https://github.com/taehunlim/react-diagram/commit/40443ccb035385c1858b535d7019efb0fbef9712))
 
 ### Code Refactoring
 
-* ConnectionEdge to use EdgeComponent of current Edge ([67a4a22](https://github.com/taehunlim/react-diagram/commit/67a4a22277ac2f8f6e39b99e69227d5550de43dd))
-
+-  ConnectionEdge to use EdgeComponent of current Edge ([67a4a22](https://github.com/taehunlim/react-diagram/commit/67a4a22277ac2f8f6e39b99e69227d5550de43dd))
 
 ### UI Styling
 
-* Anchor hover ([29c6936](https://github.com/taehunlim/react-diagram/commit/29c6936b57e3c54cf341ded615391317a92b9222))
-
+-  Anchor hover ([29c6936](https://github.com/taehunlim/react-diagram/commit/29c6936b57e3c54cf341ded615391317a92b9222))
 
 ### Change Existing Behavior
 
-* Anchor is not visible when Edge is updating ([2a152c2](https://github.com/taehunlim/react-diagram/commit/2a152c213cc265b10d4af9132edd349a2908b970))
+-  Anchor is not visible when Edge is updating ([2a152c2](https://github.com/taehunlim/react-diagram/commit/2a152c213cc265b10d4af9132edd349a2908b970))
 
 ## [0.2.0](https://github.com/taehunlim/react-diagram/compare/v0.1.1...v0.2.0) (2023-11-20)
 
-
 ### Features
 
-* connectionEdgeComponent to custom connectionEdge ([37f1fda](https://github.com/taehunlim/react-diagram/commit/37f1fda9598097344f0a78435af99d7bae6fe0d9))
-* connectionEdgeContainerStyle, connectionEdgeStyle, connectionEdgeType ([a70b87e](https://github.com/taehunlim/react-diagram/commit/a70b87e9240ce48a8f405634f7aab420637157bb))
-
+-  connectionEdgeComponent to custom connectionEdge ([37f1fda](https://github.com/taehunlim/react-diagram/commit/37f1fda9598097344f0a78435af99d7bae6fe0d9))
+-  connectionEdgeContainerStyle, connectionEdgeStyle, connectionEdgeType ([a70b87e](https://github.com/taehunlim/react-diagram/commit/a70b87e9240ce48a8f405634f7aab420637157bb))
 
 ### UI Styling
 
-* default node style ([f8bdb90](https://github.com/taehunlim/react-diagram/commit/f8bdb90e24f74dc664e23abcb9f9d153cc9f5769))
-
+-  default node style ([f8bdb90](https://github.com/taehunlim/react-diagram/commit/f8bdb90e24f74dc664e23abcb9f9d153cc9f5769))
 
 ### Change Variable Value
 
-* current edge type to type of ConnectionEdge ([b3b8a76](https://github.com/taehunlim/react-diagram/commit/b3b8a76e343c3765c8de0179ea4e94521371d378))
-* default edge type to straight ([f9cbf55](https://github.com/taehunlim/react-diagram/commit/f9cbf555f76d579b1b41696e0284e8b47907ba5a))
-* default of ConnectionType to straight ([de1a82b](https://github.com/taehunlim/react-diagram/commit/de1a82b2b63c4f3d628b5e1dc4ec198ddbee57b1))
-
+-  current edge type to type of ConnectionEdge ([b3b8a76](https://github.com/taehunlim/react-diagram/commit/b3b8a76e343c3765c8de0179ea4e94521371d378))
+-  default edge type to straight ([f9cbf55](https://github.com/taehunlim/react-diagram/commit/f9cbf555f76d579b1b41696e0284e8b47907ba5a))
+-  default of ConnectionType to straight ([de1a82b](https://github.com/taehunlim/react-diagram/commit/de1a82b2b63c4f3d628b5e1dc4ec198ddbee57b1))
 
 ### Docs
 
-* README.md ([2a8c93a](https://github.com/taehunlim/react-diagram/commit/2a8c93a9db646ab6856a3d7e33c64716f1514e74))
+-  README.md ([2a8c93a](https://github.com/taehunlim/react-diagram/commit/2a8c93a9db646ab6856a3d7e33c64716f1514e74))
 
 ### [0.1.1](https://github.com/taehunlim/react-diagram/compare/v0.0.1...v0.1.1) (2023-11-16)
 
-
 ### Features
 
-* BezierEdge ([e163073](https://github.com/taehunlim/react-diagram/commit/e1630736dbd8a932ab733396fc5a62ee05cc4d0b))
-* boxToRect ([17ed43d](https://github.com/taehunlim/react-diagram/commit/17ed43d2e7e559a994b4d4597181bddae4c66f17))
-* DragSelection & Move: related code from ZoomPane ([1908671](https://github.com/taehunlim/react-diagram/commit/1908671a64ab5a74e5d4f5e35f664c92607d31c8))
-* DragSelection draw ([b2cb4d3](https://github.com/taehunlim/react-diagram/commit/b2cb4d3c82d79d2011877c10429b71bd8d386c09))
-* DragSelection draw when pressing shift key and mouseDown ([2403d42](https://github.com/taehunlim/react-diagram/commit/2403d42f268a8890ba55ddd790ab6d38cf107af0))
-* dragSelectionKeyPressed to enable dragSelection when pressing shift key ([af4e82b](https://github.com/taehunlim/react-diagram/commit/af4e82b8d5193d519b8294383f0a48e037da6d41))
-* getBoundsOfBoxes for use in getRectOfNodes ([57081f0](https://github.com/taehunlim/react-diagram/commit/57081f0748a644fe459f526f40b7a50b91567e7b))
-* getRectOfNodes to get box size of selected nodes using DragSelection ([ea19817](https://github.com/taehunlim/react-diagram/commit/ea1981733103fd8e9e6e15a82155098bcac80fdf))
-* isNode ([3a6b478](https://github.com/taehunlim/react-diagram/commit/3a6b47890b9a4f388d74c934d6fbae57a768df1b))
-* selected when node enter DragBox rect ([aa76053](https://github.com/taehunlim/react-diagram/commit/aa760537697a1c08dc03dcd617f149a543852ef5))
-* SelectionBox ([94bd3a7](https://github.com/taehunlim/react-diagram/commit/94bd3a7f455be5db9d0ea5c582f957241cc1ee50))
-* StraightEdge ([ac6cf83](https://github.com/taehunlim/react-diagram/commit/ac6cf8307ebeedae25c746ae2ab020fb66877207))
-
+-  BezierEdge ([e163073](https://github.com/taehunlim/react-diagram/commit/e1630736dbd8a932ab733396fc5a62ee05cc4d0b))
+-  boxToRect ([17ed43d](https://github.com/taehunlim/react-diagram/commit/17ed43d2e7e559a994b4d4597181bddae4c66f17))
+-  DragSelection & Move: related code from ZoomPane ([1908671](https://github.com/taehunlim/react-diagram/commit/1908671a64ab5a74e5d4f5e35f664c92607d31c8))
+-  DragSelection draw ([b2cb4d3](https://github.com/taehunlim/react-diagram/commit/b2cb4d3c82d79d2011877c10429b71bd8d386c09))
+-  DragSelection draw when pressing shift key and mouseDown ([2403d42](https://github.com/taehunlim/react-diagram/commit/2403d42f268a8890ba55ddd790ab6d38cf107af0))
+-  dragSelectionKeyPressed to enable dragSelection when pressing shift key ([af4e82b](https://github.com/taehunlim/react-diagram/commit/af4e82b8d5193d519b8294383f0a48e037da6d41))
+-  getBoundsOfBoxes for use in getRectOfNodes ([57081f0](https://github.com/taehunlim/react-diagram/commit/57081f0748a644fe459f526f40b7a50b91567e7b))
+-  getRectOfNodes to get box size of selected nodes using DragSelection ([ea19817](https://github.com/taehunlim/react-diagram/commit/ea1981733103fd8e9e6e15a82155098bcac80fdf))
+-  isNode ([3a6b478](https://github.com/taehunlim/react-diagram/commit/3a6b47890b9a4f388d74c934d6fbae57a768df1b))
+-  selected when node enter DragBox rect ([aa76053](https://github.com/taehunlim/react-diagram/commit/aa760537697a1c08dc03dcd617f149a543852ef5))
+-  SelectionBox ([94bd3a7](https://github.com/taehunlim/react-diagram/commit/94bd3a7f455be5db9d0ea5c582f957241cc1ee50))
+-  StraightEdge ([ac6cf83](https://github.com/taehunlim/react-diagram/commit/ac6cf8307ebeedae25c746ae2ab020fb66877207))
 
 ### Bug Fixes
 
-* issue where DragSelection is not drawn when drawing from bottom to top ([ce17994](https://github.com/taehunlim/react-diagram/commit/ce17994e8e54a4dd6946ddbe40ecff6652615d87))
-* issue where drawn DragSelection remained when mouse left viewport ([b7c5c93](https://github.com/taehunlim/react-diagram/commit/b7c5c930e4edc693bc153ddbbf3ddce5b6498643))
-* SelectionBox not being inactive ([0d0baf3](https://github.com/taehunlim/react-diagram/commit/0d0baf362bcd929de744677feb5109ea20e2c4af))
-* type error after remove NodeRenderer, EdgeRenderer from export type ([1c5c723](https://github.com/taehunlim/react-diagram/commit/1c5c72385401ae4ae765425ac906e8d982615738))
-
+-  issue where DragSelection is not drawn when drawing from bottom to top ([ce17994](https://github.com/taehunlim/react-diagram/commit/ce17994e8e54a4dd6946ddbe40ecff6652615d87))
+-  issue where drawn DragSelection remained when mouse left viewport ([b7c5c93](https://github.com/taehunlim/react-diagram/commit/b7c5c930e4edc693bc153ddbbf3ddce5b6498643))
+-  SelectionBox not being inactive ([0d0baf3](https://github.com/taehunlim/react-diagram/commit/0d0baf362bcd929de744677feb5109ea20e2c4af))
+-  type error after remove NodeRenderer, EdgeRenderer from export type ([1c5c723](https://github.com/taehunlim/react-diagram/commit/1c5c72385401ae4ae765425ac906e8d982615738))
 
 ### Docs
 
-* git tag & release ([d16f0c9](https://github.com/taehunlim/react-diagram/commit/d16f0c95c89e894462235b7566277a85e6585a90))
-
+-  git tag & release ([d16f0c9](https://github.com/taehunlim/react-diagram/commit/d16f0c95c89e894462235b7566277a85e6585a90))
 
 ### Code Refactoring
 
-* DragBox ([2c6fa6d](https://github.com/taehunlim/react-diagram/commit/2c6fa6d51f3e4fc7632e6fa7b46e85a9fd1065d4))
-* type to expor from Edges ([87e8d1d](https://github.com/taehunlim/react-diagram/commit/87e8d1d062b8206e221329d81715fb668ef9a522))
-* type to expor from Node ([a059aeb](https://github.com/taehunlim/react-diagram/commit/a059aebd85da615362605814948eed399569abc7))
-* type to expor from Port ([451f0f8](https://github.com/taehunlim/react-diagram/commit/451f0f8cb27c3460148e5f961febaa9c67a7568a))
-* type to expor from ReactDiagramProvider ([b81bcda](https://github.com/taehunlim/react-diagram/commit/b81bcdafba70be9c802239cadf529f6855539673))
-
+-  DragBox ([2c6fa6d](https://github.com/taehunlim/react-diagram/commit/2c6fa6d51f3e4fc7632e6fa7b46e85a9fd1065d4))
+-  type to expor from Edges ([87e8d1d](https://github.com/taehunlim/react-diagram/commit/87e8d1d062b8206e221329d81715fb668ef9a522))
+-  type to expor from Node ([a059aeb](https://github.com/taehunlim/react-diagram/commit/a059aebd85da615362605814948eed399569abc7))
+-  type to expor from Port ([451f0f8](https://github.com/taehunlim/react-diagram/commit/451f0f8cb27c3460148e5f961febaa9c67a7568a))
+-  type to expor from ReactDiagramProvider ([b81bcda](https://github.com/taehunlim/react-diagram/commit/b81bcdafba70be9c802239cadf529f6855539673))
 
 ### Adding Something
 
-* displayName to DragSelection ([12fd634](https://github.com/taehunlim/react-diagram/commit/12fd634d035e289bb1fd95e8103141591e4a4c8d))
-* dragBoxActive state to DragSelection ([29caaff](https://github.com/taehunlim/react-diagram/commit/29caaffd0e1b69c206f61bd8335d285d62e92f48))
-* transform to SelectionBox ([e3d54de](https://github.com/taehunlim/react-diagram/commit/e3d54de29f38d855b4d48e19d32ba23e2d9e4ad9))
+-  displayName to DragSelection ([12fd634](https://github.com/taehunlim/react-diagram/commit/12fd634d035e289bb1fd95e8103141591e4a4c8d))
+-  dragBoxActive state to DragSelection ([29caaff](https://github.com/taehunlim/react-diagram/commit/29caaffd0e1b69c206f61bd8335d285d62e92f48))
+-  transform to SelectionBox ([e3d54de](https://github.com/taehunlim/react-diagram/commit/e3d54de29f38d855b4d48e19d32ba23e2d9e4ad9))
 
 ### 0.0.1 (2023-10-26)
 
