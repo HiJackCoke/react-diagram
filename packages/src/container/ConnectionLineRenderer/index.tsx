@@ -35,8 +35,6 @@ function ConnectionLineRenderer({
 
    const selectedEdge = edges.find((edge) => edge[portType] === nodeId);
 
-   if (!selectedEdge) return null;
-
    const EdgeWrapper = selectedEdge?.type
       ? edgeTypes[selectedEdge.type]
       : edgeTypes.default;

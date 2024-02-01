@@ -15,7 +15,7 @@ import { ConnectionLineComponent } from './type';
 type ConnectionPathProps = {
    nodeId: string;
    portType: PortType;
-   edge: Edge;
+   edge?: Edge;
    Component?: ConnectionLineComponent;
    EdgeWrapper: EdgeWrapperComponent;
 };
@@ -85,12 +85,24 @@ function ConnectionPath({
       );
    }
 
+   if (!edge) {
+      const dAttr = `M${fromX},${fromY} ${toX},${toY}`;
+
+      return (
+         <path
+            d={dAttr}
+            fill="none"
+            className="react-diagram__connection-path"
+         />
+      );
+   }
+
    return (
       <EdgeWrapper
          id={edge.id}
          className="react-diagram__connection"
          type={edge.type || 'default'}
-         source={edge.source}
+         source={edge.source || nodeId}
          target={edge.target}
          isFocusable={false}
          sourceX={fromX}
