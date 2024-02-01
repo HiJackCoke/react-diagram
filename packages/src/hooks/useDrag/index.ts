@@ -261,6 +261,7 @@ function useDrag({
                         false,
                         updateNodePosition(pointerPosition, true),
                      );
+                     updateNodesIntersection(dragItems);
                   } else {
                      updateNodesPosition(dragItems.current, false);
                   }
