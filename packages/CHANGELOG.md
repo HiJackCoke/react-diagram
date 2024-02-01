@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/taehunlim/react-diagram/compare/v0.5.1...v0.5.2) (2024-02-01)
+
+
+### Bug Fixes
+
+* intersected status issue after drag drop when using smoothStep ([1fd30d6](https://github.com/taehunlim/react-diagram/commit/1fd30d649b0187d7b46a1330ea8a0ad76d5df90c))
+
+
+### Adding Something
+
+* example page for grid func ([f3c211e](https://github.com/taehunlim/react-diagram/commit/f3c211ee263e31218bcd3899f4d7be78cd97e5b5))
+
 ### [0.5.1](https://github.com/taehunlim/react-diagram/compare/v0.5.0...v0.5.1) (2024-01-31)
 
 ## [0.5.0](https://github.com/taehunlim/react-diagram/compare/v0.4.0...v0.5.0) (2024-01-30)
