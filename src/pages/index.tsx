@@ -11,10 +11,10 @@ import ReactDiagram, {
    Background,
 } from 'react-cosmos-diagram';
 
-import CustomNode from 'components/CustomNode';
+import CustomNode from 'components/Node';
 import CustomEdge from 'components/CustomEdge';
 
-import 'react-cosmos-diagram/styles/style.css';
+import 'react-cosmos-diagram/dist/style.css';
 
 const nodeTypes = {
    c: CustomNode,
@@ -46,7 +46,7 @@ const initialNodes = [
       height: 100,
       data: { label: 'Node3' },
       position: { x: 10, y: 10 },
-      // parentNode: '1',
+      parentNode: '1',
    },
    {
       id: '4',
@@ -119,10 +119,10 @@ function Index() {
       idIndex++;
    };
 
-   const onConnect = useCallback(
-      (params: Connection) => setEdges((eds) => addEdge({ ...params }, eds)),
-      [],
-   );
+   const onConnect = useCallback((params: Connection) => {
+      console.log(params);
+      setEdges((eds) => addEdge({ ...params }, eds));
+   }, []);
 
    const onEdgeUpdateStart = useCallback(() => {
       edgeUpdateSuccessful.current = false;
@@ -131,6 +131,7 @@ function Index() {
    const onEdgeUpdate = useCallback(
       (originEdge: Edge, newConnection: Connection) => {
          edgeUpdateSuccessful.current = true;
+
          setEdges((els) => updateEdge(originEdge, newConnection, els));
       },
       [],

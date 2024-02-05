@@ -1,0 +1,19 @@
+.custom-node__container {
+   width: 200px;
+   height: 100px;
+
+   border-radius: 15px;
+   border: 2px solid #000000;
+
+   background-color: #6373a3;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.custom-node__wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 10px;
+}
