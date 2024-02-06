@@ -4,19 +4,18 @@ import ReactDiagram, {
    MarkerType,
 } from 'react-cosmos-diagram';
 
-import Node from 'components/Node';
+import Edge from 'components/Edge';
 
 import 'react-cosmos-diagram/dist/style.css';
 
-const nodeTypes = {
-   c: Node,
+const edgeTypes = {
+   c: Edge,
 };
 
 const initialNodes = [
    {
       id: '1',
-      type: 'c',
-      data: { label: 'Custom Node' },
+      data: { label: 'Node1' },
       position: { x: 100, y: 100 },
    },
    {
@@ -82,24 +81,20 @@ const initialEdges = [
    },
 ];
 
-function CustomNodeP() {
+function CustomEdgeP() {
    const [nodes, _setNodes, onNodesChange] = useNodesState(initialNodes);
    const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
    return (
-      <>
-         <ReactDiagram
-            nodes={nodes}
-            edges={edges}
-            nodeTypes={nodeTypes}
-            connectionRadius={30}
-            minZoom={1}
-            maxZoom={2}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-         />
-      </>
+      <ReactDiagram
+         nodes={nodes}
+         edges={edges}
+         edgeTypes={edgeTypes}
+         connectionRadius={30}
+         onNodesChange={onNodesChange}
+         onEdgesChange={onEdgesChange}
+      />
    );
 }
 
-export default CustomNodeP;
+export default CustomEdgeP;

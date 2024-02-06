@@ -142,7 +142,7 @@ function Edges() {
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
-         ></ReactDiagram>
+         />
       </>
    );
 }

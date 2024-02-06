@@ -1,6 +1,8 @@
 import { EdgeProps, getBezierPath } from 'react-cosmos-diagram';
 
-export default function CustomEdge({
+import './style.css';
+
+export default function Edge({
    id,
    sourceX,
    sourceY,
@@ -11,12 +13,9 @@ export default function CustomEdge({
    style = {},
    markerEnd,
 }: EdgeProps) {
-   const xEqual = sourceX === targetX;
-   const yEqual = sourceY === targetY;
-
    const [edgePath] = getBezierPath({
-      sourceX: xEqual ? sourceX + 0.0001 : sourceX,
-      sourceY: yEqual ? sourceY + 0.0001 : sourceY,
+      sourceX,
+      sourceY,
       sourcePosition,
       targetX,
       targetY,
@@ -25,9 +24,17 @@ export default function CustomEdge({
 
    return (
       <>
+         <defs>
+            <linearGradient id="gradient">
+               <stop offset="0%" stopColor="yellow"></stop>
+               <stop offset="50%" stopColor="hotpink"></stop>
+               <stop offset="100%" stopColor="deepskyblue"></stop>
+            </linearGradient>
+         </defs>
+
          <path
             id={id}
-            className="customEdge"
+            className="custom-edge__path gradient"
             style={style}
             d={edgePath}
             markerEnd={markerEnd}

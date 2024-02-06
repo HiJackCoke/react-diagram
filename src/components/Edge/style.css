@@ -1,0 +1,6 @@
+.custom-edge__path {
+   stroke: url('#gradient');
+   fill: url('#gradient');
+   stroke-width: 2;
+   stroke-opacity: 0.75;
+}

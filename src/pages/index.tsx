@@ -12,7 +12,7 @@ import ReactDiagram, {
 } from 'react-cosmos-diagram';
 
 import CustomNode from 'components/Node';
-import CustomEdge from 'components/CustomEdge';
+import CustomEdge from 'components/Edge';
 
 import 'react-cosmos-diagram/dist/style.css';
 
