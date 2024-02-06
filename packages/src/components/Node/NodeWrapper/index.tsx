@@ -198,6 +198,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
                   type={type}
                   data={data}
                   dragHandle={dragHandle}
+                  selected={selected}
+                  intersected={intersected}
                />
             </Provider>
          </div>

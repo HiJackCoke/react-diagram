@@ -158,7 +158,7 @@ function NodeRenderer({
 
             const booleanProps = {
                selected: !!selected,
-               intersected,
+               intersected: !!intersected,
                isSelectable,
                isDraggable,
                hidden,

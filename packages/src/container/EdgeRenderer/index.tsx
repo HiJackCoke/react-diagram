@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import type { ReactNode } from 'react';
 import { shallow } from 'zustand/shallow';
 import cc from 'classcat';
 

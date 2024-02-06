@@ -49,6 +49,7 @@ export type NodeProps<T = any> = Pick<
    | 'dragHandle'
    | 'type'
    | 'selected'
+   | 'intersected'
    | 'positionX'
    | 'positionY'
    | 'zIndex'
