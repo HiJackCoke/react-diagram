@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.3](https://github.com/taehunlim/react-diagram/compare/v0.5.2...v0.5.3) (2024-02-06)
+
+
+### Bug Fixes
+
+* issue of not getting intersected and selected state in CustomNode ([59d8ce9](https://github.com/taehunlim/react-diagram/commit/59d8ce98610f7c374277583c3895c381e3329fe5))
+* issue where ConnectionPath is not displayed when selecting Port that does not have connected Edge ([8b4ffe6](https://github.com/taehunlim/react-diagram/commit/8b4ffe6314b27676e4e8ebde479fac937b08ebf5))
+
+
+### Adding Something
+
+* example page for CustomEdge ([f6d6a21](https://github.com/taehunlim/react-diagram/commit/f6d6a21d47b432b4a14f800d00150d500494e201))
+* example page for CustomNode ([2ef286a](https://github.com/taehunlim/react-diagram/commit/2ef286a2d2625496c9065e0aa9b0a346b1bed28f))
+* example page for Edge func ([99f2778](https://github.com/taehunlim/react-diagram/commit/99f27787ee2eff9ce3d15d53a17244a36771f1e9))
+
 ### [0.5.2](https://github.com/taehunlim/react-diagram/compare/v0.5.1...v0.5.2) (2024-02-01)
 
 
