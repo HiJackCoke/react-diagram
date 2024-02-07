@@ -10,6 +10,8 @@ npm install react-cosmos-diagram
 -  Customizable support for nodes, ports, and edges
 -  Written in [Typescript](https://www.typescriptlang.org/)
 
+## [demo](https://codesandbox.io/p/sandbox/blue-framework-hv666c?file=%2Fsrc%2FApp.tsx%3A47%2C66)
+
 ## Quickstart
 
 ```jsx
