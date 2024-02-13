@@ -43,6 +43,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          defaultViewport = initViewport,
 
          multiSelectionKeyCode,
+         dragSelectionKeyCode,
 
          onlyRenderVisibleElements = false,
          disableKeyboardA11y = false,
@@ -114,6 +115,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   panning={panning}
                   defaultViewport={defaultViewport}
                   multiSelectionKeyCode={multiSelectionKeyCode}
+                  dragSelectionKeyCode={dragSelectionKeyCode}
                   onlyRenderVisibleElements={onlyRenderVisibleElements}
                   disableKeyboardA11y={disableKeyboardA11y}
                   noDragClassName={noDragClassName}

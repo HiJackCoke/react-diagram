@@ -43,6 +43,7 @@ function DiagramView({
    defaultViewport,
 
    multiSelectionKeyCode,
+   dragSelectionKeyCode,
 
    onMove,
    onMoveStart,
@@ -81,6 +82,7 @@ function DiagramView({
    return (
       <DiagramRenderer
          multiSelectionKeyCode={multiSelectionKeyCode}
+         dragSelectionKeyCode={dragSelectionKeyCode}
          noPanClassName={noPanClassName}
          panning={panning}
          defaultViewport={defaultViewport}

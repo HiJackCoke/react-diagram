@@ -101,6 +101,7 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    translateExtent?: CoordinateExtent;
 
    multiSelectionKeyCode?: KeyCode;
+   dragSelectionKeyCode?: KeyCode;
 
    nodesDraggable?: boolean;
    noDragClassName?: string;

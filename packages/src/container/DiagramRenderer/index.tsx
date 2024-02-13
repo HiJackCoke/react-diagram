@@ -15,6 +15,7 @@ export type DiagramRendererProps = Omit<
    'translateExtent' | 'minZoom' | 'maxZoom'
 > & {
    multiSelectionKeyCode?: KeyCode;
+   dragSelectionKeyCode?: KeyCode;
 };
 
 const selector = (s: ReactDiagramState) => {
@@ -29,6 +30,7 @@ const selector = (s: ReactDiagramState) => {
 function DiagramRenderer({
    children,
    multiSelectionKeyCode,
+   dragSelectionKeyCode,
    noPanClassName,
    panning,
    defaultViewport,
@@ -44,7 +46,7 @@ function DiagramRenderer({
    useGlobalKeyHandler(multiSelectionKeyCode);
 
    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Shift') {
+      if (e.key === dragSelectionKeyCode) {
          setDragSelectionKeyPressed(true);
       }
    };
