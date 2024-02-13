@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/taehunlim/react-diagram/compare/v0.5.3...v0.6.0) (2024-02-13)
+
+
+### Features
+
+* dragSelectionKeyCode to change key for drag selecting ([5c37c21](https://github.com/taehunlim/react-diagram/commit/5c37c21790a0fa004cc8cd410658330b969bf6ab))
+
+
+### Docs
+
+* add demo to README.md ([5263a33](https://github.com/taehunlim/react-diagram/commit/5263a3304a9c44a02b94cc83cd4612f5a205c109))
+
+
+### Adding Something
+
+* example page for select func ([bbd4854](https://github.com/taehunlim/react-diagram/commit/bbd4854d24dea33e3d7f708c661de2a60f3d1b47))
+
 ### [0.5.3](https://github.com/taehunlim/react-diagram/compare/v0.5.2...v0.5.3) (2024-02-06)
 
 
