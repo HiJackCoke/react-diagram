@@ -4,24 +4,16 @@ import ReactDiagram, {
    MarkerType,
 } from 'react-cosmos-diagram';
 
-import Node from 'components/Node';
-
 import 'react-cosmos-diagram/dist/style.css';
-
-const nodeTypes = {
-   c: Node,
-};
 
 const initialNodes = [
    {
       id: '1',
-      type: 'c',
-      data: { label: 'Custom Node' },
+      data: { label: 'Node1' },
       position: { x: 100, y: 100 },
    },
    {
       id: '2',
-
       data: { label: 'Node2' },
       position: { x: 300, y: 50 },
    },
@@ -30,7 +22,7 @@ const initialNodes = [
       width: 100,
       height: 100,
       data: { label: 'Node3' },
-      position: { x: 110, y: 210 },
+      position: { x: 10, y: 210 },
    },
    {
       id: '4',
@@ -70,7 +62,7 @@ const initialEdges = [
    },
    {
       id: 'e-3-4',
-      type: 'c',
+
       source: '3',
       target: '4',
       markerEnd: {
@@ -82,22 +74,19 @@ const initialEdges = [
    },
 ];
 
-function CustomNodeP() {
+function Select() {
    const [nodes, _setNodes, onNodesChange] = useNodesState(initialNodes);
-   const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges);
+   const [edges] = useEdgesState(initialEdges);
 
    return (
       <ReactDiagram
          nodes={nodes}
          edges={edges}
-         nodeTypes={nodeTypes}
-         connectionRadius={30}
-         minZoom={1}
-         maxZoom={2}
+         multiSelectionKeyCode="x"
+         dragSelectionKeyCode="z"
          onNodesChange={onNodesChange}
-         onEdgesChange={onEdgesChange}
       />
    );
 }
 
-export default CustomNodeP;
+export default Select;

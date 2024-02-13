@@ -101,9 +101,9 @@ function Diagram() {
       edgeConnected.current = false;
    }, []);
 
-   const onEdgeUpdateEnd = useCallback((_e: any, edge: Edge) => {
+   const onEdgeUpdateEnd = useCallback((_e: any, currentEdge: Edge) => {
       if (!edgeConnected.current) {
-         setEdges((edges) => edges.filter((e) => e.id !== edge.id));
+         setEdges((edges) => edges.filter((edge) => edge.id !== currentEdge.id));
       }
 
       edgeConnected.current = true;
