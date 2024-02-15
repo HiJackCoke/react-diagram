@@ -42,7 +42,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          nodeExtent,
          defaultViewport = initViewport,
 
-         multiSelectionKeyCode,
+         multiSelectionKeyCode = 'Meta',
          dragSelectionKeyCode = 'Shift',
 
          onlyRenderVisibleElements = false,
