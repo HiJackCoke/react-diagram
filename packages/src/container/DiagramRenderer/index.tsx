@@ -12,7 +12,7 @@ import DragSelection from '../DragSelection';
 
 export type DiagramRendererProps = Omit<
    PaneProps,
-   'translateExtent' | 'minZoom' | 'maxZoom'
+   'translateExtent' | 'minZoom' | 'maxZoom' | 'selection'
 > & {
    multiSelectionKeyCode?: KeyCode;
    dragSelectionKeyCode?: KeyCode;
@@ -45,6 +45,10 @@ function DiagramRenderer({
 
    useGlobalKeyHandler(multiSelectionKeyCode);
 
+   // useKeyPress
+   const isSelecting = dragSelectionKeyPressed,
+      isPanning = panning && !isSelecting;
+
    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === dragSelectionKeyCode) {
          setDragSelectionKeyPressed(true);
@@ -68,7 +72,8 @@ function DiagramRenderer({
    return (
       <Pane
          noPanClassName={noPanClassName}
-         panning={panning && !dragSelectionKeyPressed}
+         panning={isPanning}
+         selection={isSelecting}
          minZoom={minZoom}
          maxZoom={maxZoom}
          translateExtent={translateExtent}

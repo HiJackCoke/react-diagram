@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 
+import cc from 'classcat';
 import { ZoomTransform } from 'd3';
 import { zoom, zoomIdentity } from 'd3-zoom';
 import type { D3ZoomEvent } from 'd3-zoom';
@@ -26,6 +27,7 @@ export type PaneProps = Required<
       | 'translateExtent'
    > & {
       children: ReactNode;
+      selection: boolean;
    }
 > &
    Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'>;
@@ -59,6 +61,7 @@ const selector = (s: ReactDiagramState) => ({
 function Pane({
    noPanClassName,
    panning,
+   selection,
    minZoom,
    maxZoom,
    defaultViewport,
@@ -220,7 +223,13 @@ function Pane({
    }, [d3Zoom, panning]);
 
    return (
-      <div className="react-diagram__pane react-diagram__container" ref={Pane}>
+      <div
+         className={cc([
+            'react-diagram__pane react-diagram__container',
+            { selection },
+         ])}
+         ref={Pane}
+      >
          {children}
       </div>
    );

@@ -161,6 +161,10 @@
    cursor: grab;
 }
 
+.react-diagram__pane.selection {
+   cursor: pointer;
+}
+
 .react-diagram .react-diagram__edges,
 .react-diagram .react-diagram__connection-line {
    pointer-events: none;
