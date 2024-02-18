@@ -8,7 +8,6 @@ import { WrapNodeProps } from './NodeWrapper/type';
 
 export type Node<T = any, U extends string | undefined = string | undefined> = {
    id: string;
-   position: XYPosition;
    data: T;
    type?: U;
    style?: CSSProperties;
@@ -30,7 +29,8 @@ export type Node<T = any, U extends string | undefined = string | undefined> = {
    zIndex?: number;
    extent?: 'parent' | CoordinateExtent;
    expandParent?: boolean;
-   positionAbsolute?: XYPosition;
+   position: XYPosition;
+   positionAbsolute: XYPosition;
    ariaLabel?: string;
    focusable?: boolean;
    resizing?: boolean;

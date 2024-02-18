@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import { select } from 'd3-selection';
 import { drag } from 'd3-drag';

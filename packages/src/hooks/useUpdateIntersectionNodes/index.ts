@@ -50,26 +50,30 @@ function useUpdateIntersectionNodes() {
          const intersectedDraggingNodeIds: string[] = [];
          const intersectedNodes: NodeIntersectionChange[] = getNodes()
             .filter((node) => {
-               const { width, height, position, parentNode } = node;
+               const { width, height, positionAbsolute, parentNode } = node;
 
                if (parentNode) return;
 
                if (width && height) {
                   return dragItems.current?.some((dragItem) => {
                      const {
-                        position: dPosition,
+                        positionAbsolute: dPositionAbsolute,
                         width: dWidth,
                         height: dHeight,
                      } = dragItem;
 
                      if (node.id === dragItem.id) return;
-                     if (dragItem.parentNode) return;
+                     // if (dragItem.parentNode) return;
                      if (!dWidth || !dHeight) return;
 
-                     const leftIn = dPosition.x + dWidth >= position.x,
-                        rightIn = position.x + width >= dPosition.x,
-                        topIn = dPosition.y + dHeight >= position.y,
-                        bottomIn = position.y + height >= dPosition.y;
+                     const leftIn =
+                           dPositionAbsolute.x + dWidth >= positionAbsolute.x,
+                        rightIn =
+                           positionAbsolute.x + width >= dPositionAbsolute.x,
+                        topIn =
+                           dPositionAbsolute.y + dHeight >= positionAbsolute.y,
+                        bottomIn =
+                           positionAbsolute.y + height >= dPositionAbsolute.y;
 
                      const isIn = leftIn && rightIn && topIn && bottomIn;
 

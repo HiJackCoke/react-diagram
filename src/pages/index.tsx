@@ -166,16 +166,7 @@ function Index() {
             connectionRadius={30}
             minZoom={1}
             maxZoom={2}
-            onNodesChange={(e) => {
-               e.forEach((element) => {
-                  if (element.type === 'intersect') console.log(e);
-               });
-
-               e.forEach((element) => {
-                  if (element.type === 'select') console.log(e);
-               });
-               onNodesChange(e);
-            }}
+            onNodesChange={onNodesChange}
             // onNodeDrag={(a, node) => {
             //    console.log(node);
             // }}
