@@ -52,7 +52,10 @@ function useUpdateIntersectionNodes() {
             .filter((node) => {
                const { width, height, positionAbsolute, parentNode } = node;
 
-               if (parentNode) return;
+               const isChildNode = dragItems.current?.some(
+                  (dragItem) => dragItem.id === parentNode,
+               );
+               if (isChildNode) return;
 
                if (width && height) {
                   return dragItems.current?.some((dragItem) => {
