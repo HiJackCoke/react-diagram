@@ -3,6 +3,7 @@ import { RefObject, useCallback, useRef } from 'react';
 import { useStoreApi } from '../useStore';
 
 import { deepEqual } from '../../utils/deepEqual';
+import { isParentSelected } from '../useDrag/utils';
 
 import { Node } from '../../types';
 import { NodeDragItem } from '../useDrag/type';
@@ -45,10 +46,40 @@ function useUpdateIntersectionNodes() {
 
    const updateNodesIntersection = useCallback(
       (dragItems: RefObject<Node[] | NodeDragItem[]>) => {
-         const { getNodes, triggerNodeChanges } = store.getState();
+         const { nodeInternals, triggerNodeChanges } = store.getState();
 
+         const getSplittedNodes = () => {
+            const allNodes = Array.from(nodeInternals.values());
+            const childNodes = [];
+
+            for (let i = 0; i < allNodes.length; i++) {
+               const value = allNodes[i];
+
+               const isChildNode = isParentSelected(value, nodeInternals);
+               const isSelectedNode = dragItems.current?.some(
+                  (dragItem) => dragItem.id === value.id,
+               );
+
+               if (isChildNode) {
+                  childNodes.push(value);
+               }
+
+               if (isChildNode || isSelectedNode) allNodes.splice(i, 1);
+            }
+
+            return {
+               childNodes,
+               otherNodes: allNodes,
+            };
+         };
+
+         const { childNodes, otherNodes } = getSplittedNodes();
+
+         console.log(childNodes, otherNodes);
+
+         // isParentSelected
          const intersectedDraggingNodeIds: string[] = [];
-         const intersectedNodes: NodeIntersectionChange[] = getNodes()
+         const intersectedNodes: NodeIntersectionChange[] = otherNodes
             .filter((node) => {
                const { width, height, positionAbsolute, parentNode } = node;
 
