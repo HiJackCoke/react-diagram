@@ -67,46 +67,10 @@ export const calcNextPosition = (
    nodeInternals: NodeInternals,
    nodeExtent?: CoordinateExtent,
    nodeOrigin: NodeOrigin = [0, 0],
-   onError?: OnError,
 ): { position: XYPosition; positionAbsolute: XYPosition } => {
    let currentExtent = node.extent || nodeExtent;
 
-   if (node.extent === 'parent') {
-      if (node.parentNode && node.width && node.height) {
-         const parent = nodeInternals.get(node.parentNode);
-         const { x: parentX, y: parentY } = getNodePositionWithOrigin(
-            parent,
-            nodeOrigin,
-         ).positionAbsolute;
-         currentExtent =
-            parent &&
-            isNumeric(parentX) &&
-            isNumeric(parentY) &&
-            isNumeric(parent.width) &&
-            isNumeric(parent.height)
-               ? [
-                    [
-                       parentX + node.width * nodeOrigin[0],
-                       parentY + node.height * nodeOrigin[1],
-                    ],
-                    [
-                       parentX +
-                          parent.width -
-                          node.width +
-                          node.width * nodeOrigin[0],
-                       parentY +
-                          parent.height -
-                          node.height +
-                          node.height * nodeOrigin[1],
-                    ],
-                 ]
-               : currentExtent;
-      } else {
-         onError?.('011');
-
-         currentExtent = nodeExtent;
-      }
-   } else if (node.extent && node.parentNode) {
+   if (node.extent && node.parentNode) {
       const parent = nodeInternals.get(node.parentNode);
       const { x: parentX, y: parentY } = getNodePositionWithOrigin(
          parent,

@@ -95,7 +95,6 @@ function useDrag({
             nodeInternals,
             nodeExtent,
             nodeOrigin,
-            onError,
          );
 
          const hasChange = hasChangedPosition(

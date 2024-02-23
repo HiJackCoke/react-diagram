@@ -1,28 +1,13 @@
-// import { StoreApi } from 'zustand';
-
 import { internalsSymbol, isNumeric } from '../utils';
 
 import { getNodePositionWithOrigin } from '../utils/graph';
 
 import { XYZPosition } from '../types';
-// import {
-//    NodeSelectionChange,
-//    EdgeSelectionChange,
-// } from '../hooks/useNodesEdgesState/type';
-
 import { NodeInternals } from './type';
-// import { ReactDiagramState } from '../components/ReactDiagramProvider/type';
 import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';
-// import { Edge } from '../components/Edges/type';
 
 type ParentNodes = Record<string, boolean>;
-
-// type UpdateNodesParams = {
-//    changedNodes: NodeSelectionChange[] | null;
-//    get: StoreApi<ReactDiagramState>['getState'];
-//    set: StoreApi<ReactDiagramState>['setState'];
-// };
 
 function calculateXYZPosition(
    node: Node,
@@ -132,45 +117,3 @@ export function createNodeInternals(
 
    return nextNodeInternals;
 }
-
-// export function handleControlledNodeSelectionChange(
-//    nodeChanges: NodeSelectionChange[],
-//    nodeInternals: NodeInternals,
-// ) {
-//    nodeChanges.forEach((change) => {
-//       const node = nodeInternals.get(change.id);
-//       if (node) {
-//          nodeInternals.set(node.id, {
-//             ...node,
-//             [internalsSymbol]: node[internalsSymbol],
-//             selected: change.selected,
-//          });
-//       }
-//    });
-
-//    return new Map(nodeInternals);
-// }
-
-// export function handleControlledEdgeSelectionChange(
-//    edgeChanges: EdgeSelectionChange[],
-//    edges: Edge[],
-// ) {
-//    return edges.map((e) => {
-//       const change = edgeChanges.find((change) => change.id === e.id);
-//       if (change) {
-//          e.selected = change.selected;
-//       }
-//       return e;
-//    });
-// }
-
-// export function updateNodesSelections({
-//    changedNodes,
-//    get,
-// }: UpdateNodesParams) {
-//    const { onNodesChange } = get();
-
-//    if (changedNodes?.length) {
-//       onNodesChange?.(changedNodes);
-//    }
-// }
