@@ -135,8 +135,8 @@ function NodeRenderer({
                id,
                className,
                style,
-               width,
-               height,
+               width: width ?? 120,
+               height: height ?? 60,
                ariaLabel,
             };
 
