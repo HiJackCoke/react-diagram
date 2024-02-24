@@ -1,18 +1,48 @@
-import { RefObject, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { useStoreApi } from '../useStore';
 
 import { deepEqual } from '../../utils/deepEqual';
-import { isParentSelected } from '../useDrag/utils';
 
 import { Node } from '../../types';
-import { NodeDragItem } from '../useDrag/type';
 import { NodeIntersectionChange } from '../../types';
+import { NodeInternals } from '../../store/type';
 
 function useUpdateIntersectionNodes() {
    const store = useStoreApi();
 
    const intersectionChanges = useRef<NodeIntersectionChange[]>([]);
+
+   const isIntersected = useCallback(
+      (node: Node, nodeInternals: NodeInternals) => {
+         const allNodes = Array.from(nodeInternals.values());
+         const { id, width, height, positionAbsolute } = node;
+
+         if (!width || !height) return;
+
+         return allNodes.some((compareNode) => {
+            if (id === compareNode.id) return;
+
+            const {
+               positionAbsolute: dPositionAbsolute,
+               width: dWidth,
+               height: dHeight,
+            } = compareNode;
+
+            if (!dWidth || !dHeight) return;
+
+            const leftIn = dPositionAbsolute.x + dWidth >= positionAbsolute.x,
+               rightIn = positionAbsolute.x + width >= dPositionAbsolute.x,
+               topIn = dPositionAbsolute.y + dHeight >= positionAbsolute.y,
+               bottomIn = positionAbsolute.y + height >= dPositionAbsolute.y;
+
+            const isIn = leftIn && rightIn && topIn && bottomIn;
+
+            return isIn;
+         });
+      },
+      [],
+   );
 
    const resetIntersectedNodes = useCallback(
       (intersectedNodes: NodeIntersectionChange[]) => {
@@ -44,81 +74,19 @@ function useUpdateIntersectionNodes() {
       [],
    );
 
-   const updateNodesIntersection = useCallback(
-      (dragItems: RefObject<Node[] | NodeDragItem[]>) => {
-         const { nodeInternals, triggerNodeChanges } = store.getState();
+   const updateNodesIntersection = useCallback(() => {
+      const { nodeInternals, triggerNodeChanges } = store.getState();
 
-         const getSplittedNodes = () => {
-            const allNodes = Array.from(nodeInternals.values());
-            const childNodes = [];
+      const getIntersectedNodes = (): NodeIntersectionChange[] => {
+         const allNodes = Array.from(nodeInternals.values());
 
-            for (let i = 0; i < allNodes.length; i++) {
-               const value = allNodes[i];
+         const intersectedNodes: NodeIntersectionChange[] = allNodes
+            .filter((filterNode) => {
+               const { width, height } = filterNode;
 
-               const isChildNode = isParentSelected(value, nodeInternals);
-               const isSelectedNode = dragItems.current?.some(
-                  (dragItem) => dragItem.id === value.id,
-               );
+               if (!width || !height) return;
 
-               if (isChildNode) {
-                  childNodes.push(value);
-               }
-
-               if (isChildNode || isSelectedNode) allNodes.splice(i, 1);
-            }
-
-            return {
-               childNodes,
-               otherNodes: allNodes,
-            };
-         };
-
-         const { childNodes, otherNodes } = getSplittedNodes();
-
-         console.log(childNodes, otherNodes);
-
-         // isParentSelected
-         const intersectedDraggingNodeIds: string[] = [];
-         const intersectedNodes: NodeIntersectionChange[] = otherNodes
-            .filter((node) => {
-               const { width, height, positionAbsolute, parentNode } = node;
-
-               const isChildNode = dragItems.current?.some(
-                  (dragItem) => dragItem.id === parentNode,
-               );
-               if (isChildNode) return;
-
-               if (width && height) {
-                  return dragItems.current?.some((dragItem) => {
-                     const {
-                        positionAbsolute: dPositionAbsolute,
-                        width: dWidth,
-                        height: dHeight,
-                     } = dragItem;
-
-                     if (node.id === dragItem.id) return;
-                     // if (dragItem.parentNode) return;
-                     if (!dWidth || !dHeight) return;
-
-                     const leftIn =
-                           dPositionAbsolute.x + dWidth >= positionAbsolute.x,
-                        rightIn =
-                           positionAbsolute.x + width >= dPositionAbsolute.x,
-                        topIn =
-                           dPositionAbsolute.y + dHeight >= positionAbsolute.y,
-                        bottomIn =
-                           positionAbsolute.y + height >= dPositionAbsolute.y;
-
-                     const isIn = leftIn && rightIn && topIn && bottomIn;
-
-                     if (isIn) {
-                        if (!intersectedDraggingNodeIds.includes(dragItem.id)) {
-                           intersectedDraggingNodeIds.push(dragItem.id);
-                        }
-                     }
-                     return isIn;
-                  });
-               }
+               return isIntersected(filterNode, nodeInternals);
             })
             .map((node) => {
                return {
@@ -128,27 +96,19 @@ function useUpdateIntersectionNodes() {
                };
             });
 
-         const intersectedDraggingNodes: NodeIntersectionChange[] =
-            intersectedDraggingNodeIds.map((id) => {
-               return {
-                  id,
-                  type: 'intersect',
-                  intersected: true,
-               };
-            });
+         return intersectedNodes;
+      };
 
-         const changes = [...intersectedNodes, ...intersectedDraggingNodes];
+      const changes = getIntersectedNodes();
 
-         if (!deepEqual(changes, intersectionChanges.current)) {
-            const beforeChanges = resetIntersectedNodes(changes);
+      if (!deepEqual(changes, intersectionChanges.current)) {
+         const beforeChanges = resetIntersectedNodes(changes);
 
-            intersectionChanges.current = changes;
+         intersectionChanges.current = changes;
 
-            triggerNodeChanges([...changes, ...beforeChanges]);
-         }
-      },
-      [],
-   );
+         triggerNodeChanges([...changes, ...beforeChanges]);
+      }
+   }, []);
 
    return updateNodesIntersection;
 }

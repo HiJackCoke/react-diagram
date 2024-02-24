@@ -113,6 +113,8 @@ export function createNodeInternals(
       nextNodeInternals.set(node.id, internals);
    });
 
+   // console.log(parentNodes, nextNodeInternals);
+
    updateAbsoluteNodePositions(nextNodeInternals, nodeOrigin, parentNodes);
 
    return nextNodeInternals;

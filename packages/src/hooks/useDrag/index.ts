@@ -232,7 +232,7 @@ function useDrag({
 
                   updateNodes(pointerPosition);
 
-                  updateNodesIntersection(dragItems);
+                  updateNodesIntersection();
                }
             })
             .on('end', (event: UseDragEvent) => {
@@ -260,7 +260,7 @@ function useDrag({
                         false,
                         updateNodePosition(pointerPosition, true),
                      );
-                     updateNodesIntersection(dragItems);
+                     // updateNodesIntersection(dragItems);
                   } else {
                      updateNodesPosition(dragItems.current, false);
                   }

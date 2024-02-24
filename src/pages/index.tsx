@@ -62,6 +62,14 @@ const initialNodes = [
       data: { label: 'Node5' },
       position: { x: 550, y: 400 },
    },
+   {
+      id: '6',
+      width: 100,
+      height: 100,
+      data: { label: 'Node6' },
+      parentNode: '3',
+      position: { x: 30, y: 30 },
+   },
 ];
 
 const initialEdges = [
@@ -202,9 +210,9 @@ function Index() {
             //    [-100, -100],
             //    [100, 100],
             // ]}
-            centerStep
-            smoothStep
-            gridStep={[150, 150]}
+            // centerStep
+            // smoothStep
+            // gridStep={[150, 150]}
          >
             <Background />
          </ReactDiagram>
