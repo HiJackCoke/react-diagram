@@ -8,7 +8,7 @@ import { Node } from '../../types';
 import { NodeIntersectionChange } from '../../types';
 import { NodeInternals } from '../../store/type';
 
-function useUpdateIntersectionNodes() {
+function useUpdateNodesIntersection() {
    const store = useStoreApi();
 
    const intersectionChanges = useRef<NodeIntersectionChange[]>([]);
@@ -113,4 +113,4 @@ function useUpdateIntersectionNodes() {
    return updateNodesIntersection;
 }
 
-export default useUpdateIntersectionNodes;
+export default useUpdateNodesIntersection;

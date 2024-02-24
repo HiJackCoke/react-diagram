@@ -22,7 +22,7 @@ import { getEventPosition, calcAutoPanPosition } from '../../utils';
 import { Node, XYPosition } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
-import useUpdateIntersectionNodes from '../useUpdateIntersectionNodes';
+import useUpdateIntersectionNodes from '../useUpdateNodesIntersection';
 
 type UseDragParams = {
    nodeRef: RefObject<Element>;
