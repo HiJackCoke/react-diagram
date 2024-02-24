@@ -22,7 +22,6 @@ import { getEventPosition, calcAutoPanPosition } from '../../utils';
 import { Node, XYPosition } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
-import useUpdateIntersectionNodes from '../useUpdateNodesIntersection';
 
 type UseDragParams = {
    nodeRef: RefObject<Element>;
@@ -53,21 +52,14 @@ function useDrag({
    const [dragging, setDragging] = useState<boolean>(false);
 
    const getPointerPosition = useGetPointerPosition();
-   const updateNodesIntersection = useUpdateIntersectionNodes();
 
    const updateNodePosition =
       (pointerPositions: PointerPosition, dragEnd = false) =>
       (dragItem: Node | NodeDragItem) => {
          if (!isDragItem(dragItem)) return;
 
-         const {
-            nodeInternals,
-            nodeExtent,
-            nodeOrigin,
-            smoothStep,
-            gridStep,
-            onError,
-         } = store.getState();
+         const { nodeInternals, nodeExtent, nodeOrigin, smoothStep, gridStep } =
+            store.getState();
 
          const { distance, width, height } = dragItem;
          const { x, y, getStepPosition } = pointerPositions;
@@ -211,7 +203,8 @@ function useDrag({
             .on('drag', (e: UseDragEvent) => {
                const pointerPosition = getPointerPosition(e);
 
-               const { autoPanOnNodeDrag } = store.getState();
+               const { autoPanOnNodeDrag, updateNodesIntersection } =
+                  store.getState();
 
                if (!autoPanStarted.current && autoPanOnNodeDrag) {
                   autoPanStarted.current = true;
@@ -247,6 +240,7 @@ function useDrag({
                      smoothStep,
                      gridStep,
                      updateNodesPosition,
+                     updateNodesIntersection,
                      onNodeDragEnd,
                   } = store.getState();
 
@@ -260,7 +254,7 @@ function useDrag({
                         false,
                         updateNodePosition(pointerPosition, true),
                      );
-                     // updateNodesIntersection(dragItems);
+                     updateNodesIntersection();
                   } else {
                      updateNodesPosition(dragItems.current, false);
                   }

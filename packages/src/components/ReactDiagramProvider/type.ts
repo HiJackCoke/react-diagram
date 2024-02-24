@@ -97,6 +97,7 @@ export type ReactDiagramActions = {
       dragging: boolean,
       updateFunc?: (node: NodeDragItem | Node) => void,
    ) => void;
+   updateNodesIntersection: () => void;
    triggerNodeChanges: (changes: NodeChange[]) => void;
 
    cancelConnection: () => void;
