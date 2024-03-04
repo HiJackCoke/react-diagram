@@ -119,3 +119,30 @@ export function createNodeInternals(
 
    return nextNodeInternals;
 }
+
+export const isIntersected = (nodes: Node[], compareNode: Node) => {
+   const { id, width, height, positionAbsolute } = compareNode;
+
+   if (!width || !height) return;
+
+   return nodes.some((node) => {
+      if (id === node.id) return;
+
+      const {
+         positionAbsolute: dPositionAbsolute,
+         width: dWidth,
+         height: dHeight,
+      } = node;
+
+      if (!dWidth || !dHeight) return;
+
+      const leftIn = dPositionAbsolute.x + dWidth >= positionAbsolute.x,
+         rightIn = positionAbsolute.x + width >= dPositionAbsolute.x,
+         topIn = dPositionAbsolute.y + dHeight >= positionAbsolute.y,
+         bottomIn = positionAbsolute.y + height >= dPositionAbsolute.y;
+
+      const isIn = leftIn && rightIn && topIn && bottomIn;
+
+      return isIn;
+   });
+};

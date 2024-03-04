@@ -1,7 +1,11 @@
 import { createStore } from 'zustand';
 import { zoomIdentity } from 'd3-zoom';
 
-import { updateAbsoluteNodePositions, createNodeInternals } from './utils';
+import {
+   updateAbsoluteNodePositions,
+   createNodeInternals,
+   isIntersected,
+} from './utils';
 
 import { clampPosition, getDimensions, internalsSymbol } from '../utils';
 import { createSelectionChange, getSelectionChanges } from '../utils/changes';
@@ -162,39 +166,13 @@ const createRFStore = () =>
       updateNodesIntersection: () => {
          const { nodeInternals, triggerNodeChanges } = get();
 
-         const allNodes = Array.from(nodeInternals.values());
-
-         const isIntersected = (node: Node) => {
-            const { id, width, height, positionAbsolute } = node;
-
-            if (!width || !height) return;
-
-            return allNodes.some((compareNode) => {
-               if (id === compareNode.id) return;
-
-               const {
-                  positionAbsolute: dPositionAbsolute,
-                  width: dWidth,
-                  height: dHeight,
-               } = compareNode;
-
-               if (!dWidth || !dHeight) return;
-
-               const leftIn =
-                     dPositionAbsolute.x + dWidth >= positionAbsolute.x,
-                  rightIn = positionAbsolute.x + width >= dPositionAbsolute.x,
-                  topIn = dPositionAbsolute.y + dHeight >= positionAbsolute.y,
-                  bottomIn = positionAbsolute.y + height >= dPositionAbsolute.y;
-
-               const isIn = leftIn && rightIn && topIn && bottomIn;
-
-               return isIn;
-            });
-         };
+         const nodes = Array.from(nodeInternals.values());
 
          const unIntersectNodes = (): NodeIntersectionChange[] => {
-            return allNodes
-               .filter((node) => node.intersected && !isIntersected(node))
+            return nodes
+               .filter(
+                  (node) => node.intersected && !isIntersected(nodes, node),
+               )
                .map((node) => ({
                   id: node.id,
                   type: 'intersect',
@@ -203,13 +181,15 @@ const createRFStore = () =>
          };
 
          const addIntersectNodes = (): NodeIntersectionChange[] => {
-            return allNodes.filter(isIntersected).map((node) => {
-               return {
-                  id: node.id,
-                  type: 'intersect',
-                  intersected: true,
-               };
-            });
+            return nodes
+               .filter((node) => isIntersected(nodes, node))
+               .map((node) => {
+                  return {
+                     id: node.id,
+                     type: 'intersect',
+                     intersected: true,
+                  };
+               });
          };
 
          const intersectedNodes = addIntersectNodes();

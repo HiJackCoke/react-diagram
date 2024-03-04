@@ -16,6 +16,7 @@ type ExtractState = StoreApi<ReactDiagramState> extends {
    ? T
    : never;
 
+// 변경 사항이 발생할때 값을 구독
 function useStore<StateSlice = ExtractState>(
    selector: (state: ReactDiagramState) => StateSlice,
    equalityFn?: (a: StateSlice, b: StateSlice) => boolean,
@@ -29,6 +30,7 @@ function useStore<StateSlice = ExtractState>(
    return useZustandStore(store, selector, equalityFn);
 }
 
+// 필요에 따라 값을 계산
 const useStoreApi = () => {
    const store = useContext(StoreContext);
 
