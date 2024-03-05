@@ -171,7 +171,8 @@ const createRFStore = () =>
          const unIntersectNodes = (): NodeIntersectionChange[] => {
             return nodes
                .filter(
-                  (node) => node.intersected && !isIntersected(nodes, node),
+                  (node) =>
+                     node.intersected && !isIntersected(node, nodeInternals),
                )
                .map((node) => ({
                   id: node.id,
@@ -182,7 +183,7 @@ const createRFStore = () =>
 
          const addIntersectNodes = (): NodeIntersectionChange[] => {
             return nodes
-               .filter((node) => isIntersected(nodes, node))
+               .filter((node) => isIntersected(node, nodeInternals))
                .map((node) => {
                   return {
                      id: node.id,
