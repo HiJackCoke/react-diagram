@@ -54,7 +54,13 @@ const createRFStore = () =>
       },
 
       updateNodeDimensions: (updates: NodeDimensionUpdate[]) => {
-         const { onNodesChange, nodeInternals, domNode, nodeOrigin } = get();
+         const {
+            onNodesChange,
+            updateNodesIntersection,
+            nodeInternals,
+            domNode,
+            nodeOrigin,
+         } = get();
          const viewportNode = domNode?.querySelector(
             '.react-diagram__viewport',
          );
@@ -116,6 +122,7 @@ const createRFStore = () =>
             return res;
          }, []);
 
+         updateNodesIntersection();
          updateAbsoluteNodePositions(nodeInternals, nodeOrigin);
 
          set({

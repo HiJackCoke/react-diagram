@@ -109,11 +109,8 @@ export function createNodeInternals(
          },
       });
 
-      // console.log('create', currInternals, node);
       nextNodeInternals.set(node.id, internals);
    });
-
-   // console.log(parentNodes, nextNodeInternals);
 
    updateAbsoluteNodePositions(nextNodeInternals, nodeOrigin, parentNodes);
 
@@ -121,30 +118,31 @@ export function createNodeInternals(
 }
 
 export const isIntersected = (
-   compareNode: Node,
+   targetNode: Node,
    nodeInternals: NodeInternals,
 ): boolean => {
-   const { id, width, height, positionAbsolute } = compareNode;
+   const { id, width, height, positionAbsolute } = targetNode;
 
    if (!width || !height) return false;
 
    let intersected = false;
-   for (const [key, node] of nodeInternals) {
-      // key == node.id
+   for (const [key, sourceNode] of nodeInternals) {
       if (id === key) continue;
 
       const {
-         positionAbsolute: dPositionAbsolute,
-         width: dWidth,
-         height: dHeight,
-      } = node;
+         positionAbsolute: sPositionAbsolute,
+         width: sWidth,
+         height: sHeight,
+      } = sourceNode;
 
-      if (!dWidth || !dHeight) continue;
+      if (!sWidth || !sHeight) continue;
+      // if (sourceNode.parentNode === targetNode.id) continue;
+      // if (targetNode.parentNode === sourceNode.id) continue;
 
-      const leftIn = dPositionAbsolute.x + dWidth >= positionAbsolute.x,
-         rightIn = positionAbsolute.x + width >= dPositionAbsolute.x,
-         topIn = dPositionAbsolute.y + dHeight >= positionAbsolute.y,
-         bottomIn = positionAbsolute.y + height >= dPositionAbsolute.y;
+      const leftIn = sPositionAbsolute.x + sWidth >= positionAbsolute.x,
+         rightIn = positionAbsolute.x + width >= sPositionAbsolute.x,
+         topIn = sPositionAbsolute.y + sHeight >= positionAbsolute.y,
+         bottomIn = positionAbsolute.y + height >= sPositionAbsolute.y;
 
       const isIn = leftIn && rightIn && topIn && bottomIn;
 
