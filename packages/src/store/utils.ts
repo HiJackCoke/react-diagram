@@ -136,6 +136,8 @@ export const isIntersected = (
       } = sourceNode;
 
       if (!sWidth || !sHeight) continue;
+      if (!sPositionAbsolute || !positionAbsolute) continue;
+
       // if (sourceNode.parentNode === targetNode.id) continue;
       // if (targetNode.parentNode === sourceNode.id) continue;
 

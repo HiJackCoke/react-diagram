@@ -30,7 +30,7 @@ export type Node<T = any, U extends string | undefined = string | undefined> = {
    extent?: CoordinateExtent;
    expandParent?: boolean;
    position: XYPosition;
-   positionAbsolute: XYPosition;
+   positionAbsolute?: XYPosition;
    ariaLabel?: string;
    focusable?: boolean;
    resizing?: boolean;
