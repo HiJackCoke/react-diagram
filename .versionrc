@@ -70,6 +70,11 @@
          "type": "clean",
          "section": "Clean Up Unnecessary Code",
          "hidden": true
+      },
+      {
+         "type": "example",
+         "section": "Example Page",
+         "hidden": true
       }
    ]
 }
