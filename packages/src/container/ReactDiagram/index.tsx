@@ -100,6 +100,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onConnectEnd,
 
          onError,
+         ...rest
       },
       ref,
    ) => {
@@ -108,7 +109,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
       const edgeTypesWrapped = useNodeOrEdgeTypes(edgeTypes, createEdgeTypes);
 
       return (
-         <div ref={ref} className="react-diagram">
+         <div {...rest} ref={ref} className="react-diagram">
             <Wrapper>
                <DiagramView
                   rfId={rfId}
