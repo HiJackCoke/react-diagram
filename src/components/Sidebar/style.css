@@ -1,0 +1,57 @@
+.dnd-container {
+   flex-direction: column;
+   display: flex;
+   flex-grow: 1;
+   height: 100%;
+}
+
+.dnd-container aside {
+   border-right: 1px solid #ffffff;
+   padding: 15px 10px;
+   font-size: 12px;
+   background: #fcfcfc;
+}
+
+.dnd-container aside .description {
+   margin-bottom: 10px;
+}
+
+.dnd-container .dndnode {
+   height: 30px;
+   padding: 4px;
+   border: 1px solid #1a192b;
+   border-radius: 2px;
+   margin-bottom: 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: grab;
+}
+
+.dnd-container .dndnode.input {
+   border-color: blue;
+}
+
+.dnd-container .dndnode.output {
+   border-color: red;
+}
+
+.dnd-container .reactdiagram-wrapper {
+   flex-grow: 1;
+   height: 100%;
+}
+
+.dnd-container .selectall {
+   margin-top: 10px;
+}
+
+@media screen and (min-width: 768px) {
+   .dnd-container {
+      flex-direction: row;
+   }
+
+   .dnd-container aside {
+      width: 20%;
+      max-width: 250px;
+   }
+}
