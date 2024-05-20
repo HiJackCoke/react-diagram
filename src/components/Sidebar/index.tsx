@@ -4,9 +4,26 @@ import './style.css';
 function Sidebar() {
    const onDragStart =
       (nodeType: string) => (event: DragEvent<HTMLDivElement>) => {
+         const node = event.target as HTMLDivElement;
+         // const { width, height } = node.getBoundingClientRect();
+
+         const x = event.clientX - node.offsetLeft;
+         const y = event.clientY - node.offsetTop;
+         const distance = {
+            x,
+            y,
+         };
+         // node.offsetLeft
+         // node.offsetTop
+         console.log(event);
+         console.log(x, y);
          event.dataTransfer.setData(
             'application/react-cosmos-diagram',
             nodeType,
+         );
+         event.dataTransfer.setData(
+            'application/node',
+            JSON.stringify(distance),
          );
          event.dataTransfer.effectAllowed = 'move';
       };

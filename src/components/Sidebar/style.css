@@ -17,7 +17,9 @@
 }
 
 .dnd-container .dndnode {
-   height: 30px;
+   box-sizing: border-box;
+   width: 120px;
+   height: 60px;
    padding: 4px;
    border: 1px solid #1a192b;
    border-radius: 2px;

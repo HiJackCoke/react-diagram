@@ -33,12 +33,17 @@ function Index() {
          'application/react-cosmos-diagram',
       );
 
+      const distance = JSON.parse(
+         event.dataTransfer.getData('application/node'),
+      );
+
       if (typeof type === 'undefined' || !type) {
          return;
       }
+
       const position = {
-         x: event.clientX,
-         y: event.clientY,
+         x: event.clientX - distance.x,
+         y: event.clientY - distance.y,
       };
 
       const newNode = {
