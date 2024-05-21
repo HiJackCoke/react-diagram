@@ -1,4 +1,4 @@
 module.exports = {
    root: true,
-   extends: ['@reactdiagram/eslint-config'],
+   extends: ['@diagram/eslint-config'],
 };

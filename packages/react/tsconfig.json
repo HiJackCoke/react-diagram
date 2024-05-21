@@ -1,5 +1,5 @@
 {
-   "extends": "@reactdiagram/tsconfig/react.json",
+   "extends": "@diagram/tsconfig/react.json",
    "display": "react-cosmos-diagram",
    "include": ["**/*.ts", "**/*.tsx"],
    "exclude": ["node_modules", "dist"]
