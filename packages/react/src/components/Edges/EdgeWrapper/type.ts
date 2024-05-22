@@ -4,7 +4,8 @@ import {
    MouseEvent as ReactMouseEvent,
 } from 'react';
 
-import { Position, Connection } from '../../../types';
+import { Position } from '@diagram/core';
+import { Connection } from '../../../types';
 import { PortType } from '../../Port/type';
 import { Edge } from '../type';
 

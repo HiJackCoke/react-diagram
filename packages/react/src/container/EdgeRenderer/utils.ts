@@ -7,7 +7,7 @@ import BezierEdge from '../../components/Edges/BezierEdge';
 import wrapEdge from '../../components/Edges/EdgeWrapper';
 import { internalsSymbol, rectToBox } from '../../utils';
 
-import { Rect, Transform, Position, XYPosition } from '../../types';
+import { Rect, Transform, Position, XYPosition } from '@diagram/core';
 
 import { Node } from '../../components/Node/type';
 import { PortElement, PortBounds } from '../../components/Port/type';

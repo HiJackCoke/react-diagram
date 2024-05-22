@@ -109,6 +109,46 @@ importers:
         specifier: ^4.2.1
         version: 4.4.11(@types/node@18.18.4)(terser@5.21.0)
 
+  packages/core:
+    dependencies:
+      d3:
+        specifier: ^7.8.4
+        version: 7.8.5
+      d3-drag:
+        specifier: ^3.0.0
+        version: 3.0.0
+      d3-selection:
+        specifier: ^3.0.0
+        version: 3.0.0
+      d3-zoom:
+        specifier: ^3.0.0
+        version: 3.0.0
+    devDependencies:
+      '@diagram/rollup-config':
+        specifier: workspace:*
+        version: link:../../tooling/rollup-config
+      '@diagram/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/tsconfig
+      '@types/d3':
+        specifier: ^7.4.0
+        version: 7.4.1
+      '@types/d3-drag':
+        specifier: ^3.0.2
+        version: 3.0.4
+      '@types/d3-selection':
+        specifier: ^3.0.5
+        version: 3.0.7
+      '@types/d3-zoom':
+        specifier: ^3.0.1
+        version: 3.0.5
+      '@types/node':
+        specifier: ^18.7.16
+        version: 18.18.4
+      typescript:
+        specifier: ^4.9.4
+        version: 4.9.5
+
   packages/react:
     dependencies:
       classcat:
@@ -133,6 +173,9 @@ importers:
         specifier: ^4.3.7
         version: 4.4.3(@types/react@18.2.25)(react@18.2.0)
     devDependencies:
+      '@diagram/core':
+        specifier: workspace:*
+        version: link:../core
       '@diagram/rollup-config':
         specifier: workspace:*
         version: link:../../tooling/rollup-config

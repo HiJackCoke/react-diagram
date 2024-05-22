@@ -1,4 +1,4 @@
-import type { XYPosition, Position, Dimensions } from '../../types';
+import type { XYPosition, Position, Dimensions } from '@diagram/core';
 
 export type PortType = 'source' | 'target';
 

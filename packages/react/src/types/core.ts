@@ -4,8 +4,8 @@ import type {
    MouseEvent as ReactMouseEvent,
 } from 'react';
 
+import { CoordinateExtent } from '@diagram/core';
 import {
-   CoordinateExtent,
    GridStep,
    Viewport,
    Node,

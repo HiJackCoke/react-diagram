@@ -4,7 +4,7 @@ import BaseEdge from './BaseEdge';
 import { getEdgeCenter } from './utils';
 
 import { EdgeProps } from './type';
-import { Position, XYPosition } from '../../types';
+import { Position, XYPosition } from '@diagram/core';
 
 interface StepPathOptions {
    offset?: number;

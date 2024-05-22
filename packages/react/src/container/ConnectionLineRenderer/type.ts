@@ -1,5 +1,6 @@
 import { ComponentType } from 'react';
-import { Node, Position } from '../../types';
+import { Position } from '@diagram/core';
+import { Node } from '../../types';
 
 import { PortElement } from '../../components/Port/type';
 

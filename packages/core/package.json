@@ -1,7 +1,7 @@
 {
-   "name": "react-cosmos-diagram",
-   "version": "0.6.0",
-   "description": "React Diagram",
+   "name": "@diagram/core",
+   "version": "0.0.0",
+   "description": "diagram core",
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production && npm run css",
       "css": "postcss styles/style.css --config ../tooling/postcss-config/postcss.config.js --dir dist",
@@ -42,40 +42,28 @@
       "directory": "packages/react"
    },
    "dependencies": {
-      "classcat": "^5.0.4",
       "d3": "^7.8.4",
       "d3-drag": "^3.0.0",
       "d3-selection": "^3.0.0",
-      "d3-zoom": "^3.0.0",
-      "zustand": "^4.3.7"
-   },
-   "peerDependencies": {
-      "react": ">=17",
-      "react-dom": ">=17"
+      "d3-zoom": "^3.0.0"
    },
    "devDependencies": {
       "@types/d3": "^7.4.0",
       "@types/d3-drag": "^3.0.2",
       "@types/d3-selection": "^3.0.5",
       "@types/d3-zoom": "^3.0.1",
-      "@diagram/core": "workspace:*",
       "@diagram/rollup-config": "workspace:*",
       "@diagram/tsconfig": "workspace:*",
       "@types/node": "^18.7.16",
-      "@types/react": ">=17",
-      "@types/react-dom": ">=17",
-      "react": "^18.2.0",
       "typescript": "^4.9.4"
    },
    "rollup": {
       "globals": {
-         "classcat": "cc",
          "d3-selection": "d3Selection",
          "d3-zoom": "d3Zoom",
-         "d3-drag": "d3Drag",
-         "zustand": "zustand",
-         "zustand/shallow": "zustandShallow"
+         "d3-drag": "d3Drag"
       },
+      "vanilla": true,
       "name": "ReactCosmosDiagram"
    }
 }

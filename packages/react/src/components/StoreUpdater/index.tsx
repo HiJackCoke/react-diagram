@@ -7,7 +7,8 @@ import { useStore, useStoreApi } from '../../hooks/useStore';
 
 import { onErrorWrapper } from '../../utils';
 
-import { CoordinateExtent, ReactDiagramProps } from '../../types';
+import { CoordinateExtent } from '@diagram/core';
+import { ReactDiagramProps } from '../../types';
 import { Edge } from '../../components/Edges/type';
 import { Node } from '../../components/Node/type';
 import {

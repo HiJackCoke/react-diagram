@@ -5,7 +5,8 @@ import { useStore } from '../../hooks/useStore';
 
 import { internalsSymbol } from '../../utils';
 
-import { Edge, Position } from '../../types';
+import { Position } from '@diagram/core';
+import { Edge } from '../../types';
 import { ReactDiagramStore } from '../../components/ReactDiagramProvider/type';
 
 import { PortType } from '../../components/Port/type';

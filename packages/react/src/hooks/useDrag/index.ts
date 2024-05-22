@@ -19,7 +19,8 @@ import {
 } from './utils';
 import { getEventPosition, calcAutoPanPosition } from '../../utils';
 
-import { Node, XYPosition } from '../../types';
+import { XYPosition } from '@diagram/core';
+import { Node } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
 import { UseDragEvent } from './type';
 

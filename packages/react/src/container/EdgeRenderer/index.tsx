@@ -8,9 +8,10 @@ import MarkerComponent from './MarkerComponent';
 
 import { getEdgePositions, getPort, getNodeData } from './utils';
 
+import { Position } from '@diagram/core';
 import { Edge } from '../../components/Edges/type';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import { Position, ReactDiagramProps } from '../../types';
+import { ReactDiagramProps } from '../../types';
 import { EdgeTypesWrapped } from './type';
 
 type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &

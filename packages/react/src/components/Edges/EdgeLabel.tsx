@@ -7,7 +7,7 @@ import type {
 } from 'react';
 import cc from 'classcat';
 
-import { Rect } from '../../types';
+import { Rect } from '@diagram/core';
 
 export type EdgeLabelOptions = {
    label?: string | ReactNode;

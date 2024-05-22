@@ -6,7 +6,8 @@ import {
    getBoundsOfBoxes,
 } from '../utils';
 
-import { XYPosition, Rect, Transform, Edge, Connection } from '../types';
+import { XYPosition, Rect, Transform } from '@diagram/core';
+import { Edge, Connection } from '../types';
 import { NodeInternals } from '../store/type';
 import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';

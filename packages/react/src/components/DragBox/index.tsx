@@ -1,4 +1,4 @@
-import { Rect } from '../../types';
+import { Rect } from '@diagram/core';
 
 function DragBox({ rect }: { rect: Rect }) {
    const { width, height, x, y } = rect;

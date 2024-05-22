@@ -2,7 +2,7 @@ import Port from '../../components/Port';
 
 import { NodeProps } from './type';
 
-import { Position } from '../../types';
+import { Position } from '@diagram/core';
 
 function Nodes({ data }: NodeProps) {
    return (

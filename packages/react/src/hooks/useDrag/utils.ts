@@ -2,7 +2,7 @@ import { RefObject } from 'react';
 import { getNodePositionWithOrigin } from '../../utils/graph';
 import { clampPosition } from '../../utils';
 
-import { XYPosition, CoordinateExtent } from '../../types';
+import { XYPosition, CoordinateExtent } from '@diagram/core';
 
 import { NodeInternals } from '../../store/type';
 import { Node } from '../../components/Node/type';

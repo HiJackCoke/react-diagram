@@ -13,7 +13,8 @@ import { useStore, useStoreApi } from '../../hooks/useStore';
 
 import { clamp } from '../../utils';
 
-import { ReactDiagramProps, CoordinateExtent, Viewport } from '../../types';
+import { CoordinateExtent } from '@diagram/core';
+import { ReactDiagramProps, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
 export type PaneProps = Required<

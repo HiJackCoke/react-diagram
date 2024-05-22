@@ -1,14 +1,12 @@
 import { ZoomBehavior, Selection as D3Selection } from 'd3';
 
+import { Transform, CoordinateExtent, XYPosition } from '@diagram/core';
 import {
    Node,
    Edge,
    DefaultEdgeOptions,
-   Transform,
    GridStep,
-   CoordinateExtent,
    OnError,
-   XYPosition,
    OnConnect,
    OnConnectStart,
    OnConnectEnd,

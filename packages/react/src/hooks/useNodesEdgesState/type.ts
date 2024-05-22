@@ -1,4 +1,4 @@
-import { Dimensions, XYPosition } from '../../types';
+import { Dimensions, XYPosition } from '@diagram/core';
 import { Node } from '../../components/Node/type';
 import { Edge } from '../../components/Edges/type';
 

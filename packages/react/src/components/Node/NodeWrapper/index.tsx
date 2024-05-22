@@ -11,7 +11,7 @@ import { ARIA_NODE_DESC_KEY } from '../../A11yDescriptions';
 
 import { getMouseHandler, handleNodeClick } from '../utils';
 
-import { XYPosition } from '../../../types';
+import { XYPosition } from '@diagram/core';
 import { NodeProps } from '../type';
 import { WrapNodeProps } from './type';
 

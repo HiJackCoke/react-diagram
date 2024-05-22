@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 
 import { useStoreApi } from './useStore';
 
+import { XYPosition } from '@diagram/core';
 import { UseDragEvent } from './useDrag/type';
-import { XYPosition } from '../types';
 
 type NodeSize = {
    width: number;

@@ -2,7 +2,7 @@ import { internalsSymbol, isNumeric } from '../utils';
 
 import { getNodePositionWithOrigin } from '../utils/graph';
 
-import { XYZPosition } from '../types';
+import { XYZPosition } from '@diagram/core';
 import { NodeInternals } from './type';
 import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';

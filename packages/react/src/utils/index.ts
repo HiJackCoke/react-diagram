@@ -3,16 +3,15 @@ import {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
-import { ErrorMessageCode, errorMessages } from '../fixtures/errorMessages';
-
 import {
    Dimensions,
    Rect,
    XYPosition,
    CoordinateExtent,
    Box,
-   OnError,
-} from '../types';
+} from '@diagram/core';
+import { ErrorMessageCode, errorMessages } from '../fixtures/errorMessages';
+import { OnError } from '../types';
 
 export const internalsSymbol = Symbol.for('internals');
 

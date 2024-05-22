@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import BaseEdge from './BaseEdge';
 import { getBezierEdgeCenter } from './utils';
-import { Position } from '../../types';
+import { Position } from '@diagram/core';
 
 import { EdgeProps } from './type';
 

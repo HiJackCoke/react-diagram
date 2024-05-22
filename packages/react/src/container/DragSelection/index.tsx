@@ -12,9 +12,9 @@ import { getEventPosition } from '../../utils';
 import { getNodesInside, getRectOfNodes } from '../../utils/graph';
 import { getSelectionChanges } from '../../utils/changes';
 
+import { Rect, XYPosition } from '@diagram/core';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-
-import { NodeChange, Rect, XYPosition } from '../../types';
+import { NodeChange } from '../../types';
 
 type DragSelectionProps = {
    children: ReactNode;

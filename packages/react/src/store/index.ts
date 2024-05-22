@@ -14,6 +14,7 @@ import { getPortBounds } from '../components/Node/utils';
 
 import initialState, { infiniteExtent } from './initialState';
 
+import { CoordinateExtent, XYPosition } from '@diagram/core';
 import { NodeDimensionUpdate } from './type';
 import {
    NodeDimensionChange,
@@ -29,7 +30,6 @@ import {
    ReactDiagramState,
    UnSelectNodesParams,
 } from '../components/ReactDiagramProvider/type';
-import { CoordinateExtent, XYPosition } from '../types';
 
 const createRFStore = () =>
    createStore<ReactDiagramState>((set, get) => ({

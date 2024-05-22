@@ -3,7 +3,7 @@ import { StoreApi } from 'zustand';
 
 import { getDimensions } from '../../utils';
 
-import { Position } from '../../types';
+import { Position } from '@diagram/core';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { PortElement } from '../Port/type';
 import { Node } from './type';

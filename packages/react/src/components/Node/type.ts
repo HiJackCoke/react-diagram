@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 
 import { internalsSymbol } from '../../utils';
 
-import { Position, XYPosition, CoordinateExtent } from '../../types';
+import { Position, XYPosition, CoordinateExtent } from '@diagram/core';
 import { PortBounds } from '../Port/type';
 import { WrapNodeProps } from './NodeWrapper/type';
 

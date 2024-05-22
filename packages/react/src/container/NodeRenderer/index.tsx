@@ -8,7 +8,8 @@ import useVisibleNodes from '../../hooks/useVisibleNodes';
 
 import { internalsSymbol } from '../../utils';
 
-import { Position, ReactDiagramProps } from '../../types';
+import { Position } from '@diagram/core';
+import { ReactDiagramProps } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { WrapNodeProps } from '../../components/Node/NodeWrapper/type';
 import { NodeTypesWrapped } from './type';

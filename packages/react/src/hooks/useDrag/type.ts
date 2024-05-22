@@ -1,7 +1,7 @@
 import { MouseEvent as ReactMouseEvent } from 'react';
 import { D3DragEvent, SubjectPosition } from 'd3';
 
-import { XYPosition } from '../../types';
+import { XYPosition } from '@diagram/core';
 import { Node } from '../../types';
 
 export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;

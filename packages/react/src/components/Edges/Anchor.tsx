@@ -1,7 +1,7 @@
 import { MouseEvent as ReactMouseEvent, SVGAttributes } from 'react';
 import cc from 'classcat';
 
-import { Position } from '../../types';
+import { Position } from '@diagram/core';
 
 type EventNames = 'onMouseDown';
 // | 'onMouseEnter' | 'onMouseOut';

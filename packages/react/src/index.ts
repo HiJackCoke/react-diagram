@@ -27,6 +27,19 @@ export {
 // export { applyNodeChanges, applyEdgeChanges } from './utils/changes';
 
 export * from './types';
+
+// types
+export type {
+   XYPosition,
+   XYZPosition,
+   Dimensions,
+   CoordinateExtent,
+   Transform,
+   Rect,
+   Box,
+} from '@diagram/core';
+export { Position } from '@diagram/core';
+
 export default ReactDiagram;
 
 export { default as Background } from './components/Background';
