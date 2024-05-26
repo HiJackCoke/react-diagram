@@ -2,9 +2,9 @@ import { DragEvent, useCallback } from 'react';
 
 import ReactDiagram, { useNodesState, Background } from 'react-cosmos-diagram';
 
-import 'react-cosmos-diagram/dist/style.css';
-
 import Sidebar from 'components/Sidebar';
+
+import 'react-cosmos-diagram/dist/style.css';
 
 const initialNodes = [
    {
@@ -17,6 +17,21 @@ const initialNodes = [
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
+function getTranslateValues(transformString: string) {
+   // Regular expression to match the translate function and capture x and y values
+   const translateRegex = /translate\(\s*([^\s,]+)px\s*,\s*([^\s,]+)px\s*\)/;
+
+   // Execute the regex on the transform string
+   const matches = transformString.match(translateRegex);
+
+   // If matches found, parse x and y values
+   if (matches) {
+      const x = parseFloat(matches[1]);
+      const y = parseFloat(matches[2]);
+      return { x, y };
+   }
+   return { x: 0, y: 0 };
+}
 
 function Index() {
    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -41,9 +56,16 @@ function Index() {
          return;
       }
 
+      const container = event.target as HTMLDivElement;
+      const viewport = container.querySelector(
+         '.react-diagram__viewport',
+      ) as HTMLDivElement;
+
+      const translate = getTranslateValues(viewport?.style.transform);
+
       const position = {
-         x: event.clientX - distance.x,
-         y: event.clientY - distance.y,
+         x: event.clientX - distance.x - translate.x,
+         y: event.clientY - distance.y - translate.y,
       };
 
       const newNode = {
