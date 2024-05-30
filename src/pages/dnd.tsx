@@ -18,19 +18,25 @@ const initialNodes = [
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 function getTranslateValues(transformString: string) {
-   // Regular expression to match the translate function and capture x and y values
    const translateRegex = /translate\(\s*([^\s,]+)px\s*,\s*([^\s,]+)px\s*\)/;
+   const scaleRegex = /scale\(\s*([^\s,]+)\s*(?:,\s*([^\s,]+))?\s*\)/;
 
-   // Execute the regex on the transform string
    const matches = transformString.match(translateRegex);
+   const scaleMatches = transformString.match(scaleRegex);
 
-   // If matches found, parse x and y values
+   let x = 0,
+      y = 0,
+      scale = 1;
+
    if (matches) {
-      const x = parseFloat(matches[1]);
-      const y = parseFloat(matches[2]);
-      return { x, y };
+      x = parseFloat(matches[1]);
+      y = parseFloat(matches[2]);
    }
-   return { x: 0, y: 0 };
+
+   if (scaleMatches) {
+      scale = parseFloat(scaleMatches[1]);
+   }
+   return { x, y, scale };
 }
 
 function Index() {
@@ -64,8 +70,8 @@ function Index() {
       const translate = getTranslateValues(viewport?.style.transform);
 
       const position = {
-         x: event.clientX - distance.x - translate.x,
-         y: event.clientY - distance.y - translate.y,
+         x: (event.clientX - distance.x - translate.x) / translate.scale,
+         y: (event.clientY - distance.y - translate.y) / translate.scale,
       };
 
       const newNode = {
