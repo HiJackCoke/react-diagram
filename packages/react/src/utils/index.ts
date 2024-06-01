@@ -10,7 +10,7 @@ import {
    CoordinateExtent,
    Box,
 } from '@diagram/core';
-import { ErrorMessageCode, errorMessages } from '../fixtures/errorMessages';
+import { ErrorMessageCode, errorMessages } from '@diagram/core';
 import { OnError } from '../types';
 
 export const internalsSymbol = Symbol.for('internals');

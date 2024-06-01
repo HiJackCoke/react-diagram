@@ -3,8 +3,7 @@
    "version": "0.0.0",
    "description": "diagram core",
    "scripts": {
-      "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production && npm run css",
-      "css": "postcss styles/style.css --config ../tooling/postcss-config/postcss.config.js --dir dist",
+      "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production",
       "release": "standard-version --release-as minor && node:../conventionalGithubReleaser",
       "release-major": "standard-version --release-as major && node:../conventionalGithubReleaser",
       "release-patch": "standard-version && node:../conventionalGithubReleaser"

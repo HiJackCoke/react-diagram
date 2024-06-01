@@ -3,7 +3,7 @@ import {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 import { PortType } from '../components/Port/type';
-import { ErrorMessageCode } from '../fixtures/errorMessages';
+import { ErrorMessageCode } from '@diagram/core';
 
 export type OnError = (id: ErrorMessageCode, message?: string) => void;
 

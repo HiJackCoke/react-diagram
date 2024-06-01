@@ -4,7 +4,7 @@ import type { StoreApi } from 'zustand';
 
 import StoreContext from '../contexts/RFStoreContext';
 
-import { errorMessages } from '../fixtures/errorMessages';
+import { errorMessages } from '@diagram/core';
 
 import { ReactDiagramState } from '../components/ReactDiagramProvider/type';
 
