@@ -1,9 +1,4 @@
 import {
-   MouseEvent as ReactMouseEvent,
-   TouchEvent as ReactTouchEvent,
-} from 'react';
-
-import {
    Dimensions,
    Rect,
    XYPosition,
@@ -79,24 +74,6 @@ export const getBoundsOfBoxes = (box1: Box, box2: Box): Box => ({
    x2: Math.max(box1.x2, box2.x2),
    y2: Math.max(box1.y2, box2.y2),
 });
-
-export const isMouseEvent = (
-   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
-): event is MouseEvent | ReactMouseEvent => 'clientX' in event;
-
-export const getEventPosition = (
-   event: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent,
-   bounds?: DOMRect,
-) => {
-   const isMouseTriggered = isMouseEvent(event);
-   const eventX = isMouseTriggered ? event.clientX : event.touches?.[0].clientX;
-   const eventY = isMouseTriggered ? event.clientY : event.touches?.[0].clientY;
-
-   return {
-      x: eventX - (bounds?.left ?? 0),
-      y: eventY - (bounds?.top ?? 0),
-   };
-};
 
 const calcAutoPanVelocity = (
    value: number,

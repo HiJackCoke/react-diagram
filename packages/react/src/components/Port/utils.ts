@@ -2,15 +2,16 @@ import {
    MouseEvent as ReactMouseEvent,
    TouchEvent as ReactTouchEvent,
 } from 'react';
-import { NodePortBounds, PortType } from '@diagram/core';
+import {
+   NodePortBounds,
+   PortType,
+   getEventPosition,
+   getHostForElement,
+} from '@diagram/core';
 
 import { StoreApi } from 'zustand';
 
-import {
-   calcAutoPanPosition,
-   getEventPosition,
-   internalsSymbol,
-} from '../../utils';
+import { calcAutoPanPosition, internalsSymbol } from '../../utils';
 
 import { Transform, XYPosition } from '@diagram/core';
 import { Connection, Node, OnConnect } from '../../types';
@@ -35,11 +36,6 @@ type ConnectionPort = {
    y: number;
 };
 
-export const getHostForElement = (
-   element: HTMLElement,
-): Document | ShadowRoot =>
-   (element.getRootNode?.() as Document | ShadowRoot) || window?.document;
-
 const getPortType = (PortDomNode: Element | null): PortType | null => {
    if (PortDomNode?.classList.contains('target')) {
       return 'target';
@@ -51,7 +47,7 @@ const getPortType = (PortDomNode: Element | null): PortType | null => {
 };
 
 const getConnection = (
-   event: MouseEvent | TouchEvent | ReactMouseEvent | ReactTouchEvent,
+   event: MouseEvent | TouchEvent,
    port: Pick<ConnectionPort, 'nodeId' | 'type'> | null,
    fromNodeId: string,
    fromType: PortType,

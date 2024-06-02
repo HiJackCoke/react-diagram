@@ -1,3 +1,4 @@
+import React from 'react';
 import { Dimensions, Position } from '../types';
 import { NodeOrigin } from '../types/nodes';
 import { PortElement } from '../types/ports';
@@ -37,4 +38,29 @@ export const getPortBounds = (
          ...getDimensions(port),
       };
    });
+};
+
+export const getHostForElement = (
+   element: HTMLElement,
+): Document | ShadowRoot =>
+   (element.getRootNode?.() as Document | ShadowRoot) || window?.document;
+
+// 추후에 React 마우스 이벤트 제거
+export const isMouseEvent = (
+   event: MouseEvent | TouchEvent | React.MouseEvent | React.TouchEvent,
+): event is MouseEvent | React.MouseEvent => 'clientX' in event;
+
+// 추후에 React 마우스 이벤트 제거
+export const getEventPosition = (
+   event: MouseEvent | TouchEvent | React.MouseEvent | React.TouchEvent,
+   bounds?: DOMRect,
+) => {
+   const isMouseTriggered = isMouseEvent(event);
+   const eventX = isMouseTriggered ? event.clientX : event.touches?.[0].clientX;
+   const eventY = isMouseTriggered ? event.clientY : event.touches?.[0].clientY;
+
+   return {
+      x: eventX - (bounds?.left ?? 0),
+      y: eventY - (bounds?.top ?? 0),
+   };
 };

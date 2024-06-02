@@ -4,12 +4,10 @@ import type {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
-import { PortProps } from '@diagram/core';
+import { PortProps, isMouseEvent } from '@diagram/core';
 
 import { useNodeId } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';
-
-import { isMouseEvent } from '../../utils';
 
 import { handlePointerDown } from './utils';
 

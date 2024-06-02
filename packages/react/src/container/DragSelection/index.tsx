@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import type { ReactNode, MouseEvent as ReactMouseEvent } from 'react';
+import { Rect, XYPosition, getEventPosition } from '@diagram/core';
 
 import { shallow } from 'zustand/shallow';
 
@@ -8,11 +9,9 @@ import { useStore, useStoreApi } from '../../hooks/useStore';
 import DragBox from '../../components/DragBox';
 import SelectionBox from '../../components/SelectionBox';
 
-import { getEventPosition } from '../../utils';
 import { getNodesInside, getRectOfNodes } from '../../utils/graph';
 import { getSelectionChanges } from '../../utils/changes';
 
-import { Rect, XYPosition } from '@diagram/core';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { NodeChange } from '../../types';
 
