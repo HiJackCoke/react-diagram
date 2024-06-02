@@ -1,8 +1,6 @@
 import { ComponentType } from 'react';
-import { Position } from '@diagram/core';
+import { PortElement, Position } from '@diagram/core';
 import { Node } from '../../types';
-
-import { PortElement } from '../../components/Port/type';
 
 export type ConnectionLineComponentProps = {
    fromNode?: Node;

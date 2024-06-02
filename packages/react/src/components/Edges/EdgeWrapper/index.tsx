@@ -2,6 +2,7 @@ import { memo, useMemo, useRef, useState } from 'react';
 import type { ComponentType, MouseEvent as ReactMouseEvent } from 'react';
 import cc from 'classcat';
 import { StoreApi } from 'zustand';
+import { PortType } from '@diagram/core';
 
 import { useStoreApi } from '../../../hooks/useStore';
 import { ARIA_EDGE_DESC_KEY } from '../../../components/A11yDescriptions';
@@ -11,8 +12,6 @@ import Anchor from '../Anchor';
 import { getMarkerId } from '../../../utils/graph';
 import { ReactDiagramState } from '../../ReactDiagramProvider/type';
 import { Connection } from '../../../types';
-
-import { PortType } from '../../Port/type';
 
 import { Edge, EdgeProps } from '../type';
 

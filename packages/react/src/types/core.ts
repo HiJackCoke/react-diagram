@@ -4,7 +4,7 @@ import type {
    MouseEvent as ReactMouseEvent,
 } from 'react';
 
-import { CoordinateExtent } from '@diagram/core';
+import { CoordinateExtent, PortType } from '@diagram/core';
 import {
    GridStep,
    Viewport,
@@ -30,7 +30,6 @@ import {
    OnEdgeUpdateFunc,
 } from '../components/Edges/EdgeWrapper/type';
 import { EdgeTypes } from '../container/EdgeRenderer/type';
-import { PortType } from '../components/Port/type';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;

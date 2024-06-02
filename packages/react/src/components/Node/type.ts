@@ -3,7 +3,7 @@ import { CSSProperties } from 'react';
 import { internalsSymbol } from '../../utils';
 
 import { Position, XYPosition, CoordinateExtent } from '@diagram/core';
-import { PortBounds } from '../Port/type';
+import { NodePortBounds } from '@diagram/core';
 import { WrapNodeProps } from './NodeWrapper/type';
 
 export type Node<T = any, U extends string | undefined = string | undefined> = {
@@ -37,7 +37,7 @@ export type Node<T = any, U extends string | undefined = string | undefined> = {
 
    [internalsSymbol]?: {
       z?: number;
-      portBounds?: PortBounds;
+      portBounds?: NodePortBounds;
       isParent?: boolean;
    };
 };

@@ -2,6 +2,7 @@ import {
    MouseEvent as ReactMouseEvent,
    TouchEvent as ReactTouchEvent,
 } from 'react';
+import { NodePortBounds, PortType } from '@diagram/core';
 
 import { StoreApi } from 'zustand';
 
@@ -14,7 +15,6 @@ import {
 import { Transform, XYPosition } from '@diagram/core';
 import { Connection, Node, OnConnect } from '../../types';
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
-import { PortType, PortBounds } from './type';
 
 type getConnectionResult = {
    isValid: boolean;
@@ -102,7 +102,7 @@ const getConnection = (
 
 const getPorts = (
    node: Node,
-   portBounds: PortBounds,
+   portBounds: NodePortBounds,
    type: PortType,
    currentPort: string,
 ): ConnectionPort[] =>

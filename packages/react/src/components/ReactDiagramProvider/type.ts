@@ -1,6 +1,11 @@
 import { ZoomBehavior, Selection as D3Selection } from 'd3';
 
-import { Transform, CoordinateExtent, XYPosition } from '@diagram/core';
+import {
+   Transform,
+   CoordinateExtent,
+   XYPosition,
+   PortType,
+} from '@diagram/core';
 import {
    Node,
    Edge,
@@ -22,7 +27,6 @@ import {
 
 import { NodeDragItem, NodeDragHandler } from '../../hooks/useDrag/type';
 import { NodeOrigin } from '../Node/utils';
-import { PortType } from '../Port/type';
 
 export type UnSelectNodesParams = {
    nodes?: Node[];

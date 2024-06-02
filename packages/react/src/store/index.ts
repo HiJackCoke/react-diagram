@@ -1,16 +1,16 @@
 import { createStore } from 'zustand';
 import { zoomIdentity } from 'd3-zoom';
 
+import { getDimensions, getPortBounds } from '@diagram/core';
+
 import {
    updateAbsoluteNodePositions,
    createNodeInternals,
    isIntersected,
 } from './utils';
 
-import { clampPosition, getDimensions, internalsSymbol } from '../utils';
+import { clampPosition, internalsSymbol } from '../utils';
 import { createSelectionChange, getSelectionChanges } from '../utils/changes';
-
-import { getPortBounds } from '../components/Node/utils';
 
 import initialState, { infiniteExtent } from './initialState';
 

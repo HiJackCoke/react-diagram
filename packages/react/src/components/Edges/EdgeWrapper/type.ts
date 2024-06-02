@@ -4,9 +4,9 @@ import {
    MouseEvent as ReactMouseEvent,
 } from 'react';
 
-import { Position } from '@diagram/core';
+import { Position, PortType } from '@diagram/core';
 import { Connection } from '../../../types';
-import { PortType } from '../../Port/type';
+
 import { Edge } from '../type';
 
 export type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;

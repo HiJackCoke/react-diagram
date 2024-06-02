@@ -28,10 +28,10 @@ export const onErrorWrapper =
 
 export const isNumeric = (n: any): n is number => !isNaN(n) && isFinite(n);
 
-export const getDimensions = (node: HTMLDivElement): Dimensions => ({
-   width: node.offsetWidth,
-   height: node.offsetHeight,
-});
+// export const getDimensions = (node: HTMLDivElement): Dimensions => ({
+//    width: node.offsetWidth,
+//    height: node.offsetHeight,
+// });
 
 export const getOverlappingArea = (rectA: Rect, rectB: Rect): number => {
    const xOverlap = Math.max(

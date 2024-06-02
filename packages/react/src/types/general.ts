@@ -2,8 +2,8 @@ import {
    MouseEvent as ReactMouseEvent,
    TouchEvent as ReactTouchEvent,
 } from 'react';
-import { PortType } from '../components/Port/type';
-import { ErrorMessageCode } from '@diagram/core';
+
+import { ErrorMessageCode, PortType } from '@diagram/core';
 
 export type OnError = (id: ErrorMessageCode, message?: string) => void;
 

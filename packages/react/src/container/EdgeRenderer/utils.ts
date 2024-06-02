@@ -1,5 +1,7 @@
 import type { ComponentType } from 'react';
 
+import { PortElement, NodePortBounds } from '@diagram/core';
+
 import StraightEdge from '../../components/Edges/StraightEdge';
 import StepEdge from '../../components/Edges/StepEdge';
 import BezierEdge from '../../components/Edges/BezierEdge';
@@ -10,7 +12,6 @@ import { internalsSymbol, rectToBox } from '../../utils';
 import { Rect, Transform, Position, XYPosition } from '@diagram/core';
 
 import { Node } from '../../components/Node/type';
-import { PortElement, PortBounds } from '../../components/Port/type';
 import { EdgeProps } from '../../components/Edges/type';
 import { EdgeTypes, EdgeTypesWrapped } from './type';
 
@@ -185,7 +186,9 @@ export function isEdgeVisible({
    return overlappingArea > 0;
 }
 
-export function getNodeData(node?: Node): [Rect, PortBounds | null, boolean] {
+export function getNodeData(
+   node?: Node,
+): [Rect, NodePortBounds | null, boolean] {
    const portBounds = node?.[internalsSymbol]?.portBounds || null;
 
    const isValid =

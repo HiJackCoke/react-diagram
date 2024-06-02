@@ -4,6 +4,8 @@ import type {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
+import { PortProps } from '@diagram/core';
+
 import { useNodeId } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';
 
@@ -12,8 +14,6 @@ import { isMouseEvent } from '../../utils';
 import { handlePointerDown } from './utils';
 
 import { Connection } from '../../types';
-
-import { PortProps } from './type';
 
 function Port({ type, position }: PortProps) {
    const store = useStoreApi();
