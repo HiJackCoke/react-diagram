@@ -4,6 +4,7 @@ import { useStoreApi } from './useStore';
 
 import { XYPosition } from '@diagram/core';
 import { UseDragEvent } from './useDrag/type';
+import { pointToRendererPoint } from '../components/Port/utils';
 
 type NodeSize = {
    width: number;
@@ -35,10 +36,7 @@ function useGetPointerPosition() {
          ? sourceEvent.changedTouches[0].clientY
          : sourceEvent.clientY;
 
-      const pointerPos = {
-         x: (x - transform[0]) / transform[2],
-         y: (y - transform[1]) / transform[2],
-      };
+      const pointerPos = pointToRendererPoint({ x, y }, transform);
 
       const getStepPosition: GetStepPosition = (
          params = {
