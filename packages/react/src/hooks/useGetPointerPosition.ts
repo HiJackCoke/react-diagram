@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 
+import { XYPosition, getEventPosition } from '@diagram/core';
+
 import { useStoreApi } from './useStore';
 
-import { XYPosition } from '@diagram/core';
 import { UseDragEvent } from './useDrag/type';
 import { pointToRendererPoint } from '../components/Port/utils';
 
@@ -29,12 +30,7 @@ function useGetPointerPosition() {
    const getPointerPosition = useCallback(({ sourceEvent }: UseDragEvent) => {
       const { transform, gridStep, centerStep } = store.getState();
 
-      const x = sourceEvent.changedTouches
-         ? sourceEvent.changedTouches[0].clientX
-         : sourceEvent.clientX;
-      const y = sourceEvent.changedTouches
-         ? sourceEvent.changedTouches[0].clientY
-         : sourceEvent.clientY;
+      const { x, y } = getEventPosition(sourceEvent);
 
       const pointerPos = pointToRendererPoint({ x, y }, transform);
 
