@@ -1,11 +1,9 @@
 import { useCallback } from 'react';
 
-import { XYPosition, getEventPosition } from '@diagram/core';
+import { Transform, XYPosition, getEventPosition } from '@diagram/core';
 
-import { useStoreApi } from './useStore';
-
-import { UseDragEvent } from './useDrag/type';
 import { pointToRendererPoint } from '../components/Port/utils';
+import { GridStep } from '../types';
 
 type NodeSize = {
    width: number;
@@ -14,7 +12,6 @@ type NodeSize = {
 
 type StepPositionParams = {
    position: XYPosition;
-
    nodeSize?: NodeSize;
 };
 
@@ -24,50 +21,58 @@ export type PointerPosition = XYPosition & {
    getStepPosition?: GetStepPosition;
 };
 
+export type GetPointerPositionParams = {
+   transform: Transform;
+   gridStep?: GridStep;
+   centerStep?: boolean;
+};
+
 function useGetPointerPosition() {
-   const store = useStoreApi();
-
-   const getPointerPosition = useCallback(({ sourceEvent }: UseDragEvent) => {
-      const { transform, gridStep, centerStep } = store.getState();
-
-      const { x, y } = getEventPosition(sourceEvent);
-
-      const pointerPos = pointToRendererPoint({ x, y }, transform);
-
-      const getStepPosition: GetStepPosition = (
-         params = {
-            position: pointerPos,
-         },
+   const getPointerPosition = useCallback(
+      (
+         event: MouseEvent | TouchEvent,
+         { transform, gridStep, centerStep }: GetPointerPositionParams,
       ) => {
-         const { position, nodeSize } = params;
+         const { x, y } = getEventPosition(event);
 
-         if (!gridStep) return position;
+         const pointerPos = pointToRendererPoint({ x, y }, transform);
 
-         let x = gridStep[0] * Math.round(position.x / gridStep[0]),
-            y = gridStep[1] * Math.round(position.y / gridStep[1]);
+         const getStepPosition: GetStepPosition = (
+            params = {
+               position: pointerPos,
+            },
+         ) => {
+            const { position, nodeSize } = params;
 
-         if (centerStep && nodeSize) {
-            const centerX = (gridStep[0] - nodeSize.width) / 2;
-            const centerY = (gridStep[1] - nodeSize.height) / 2;
+            if (!gridStep) return position;
 
-            const positionX = position.x - centerX;
-            const positionY = position.y - centerY;
+            let x = gridStep[0] * Math.round(position.x / gridStep[0]),
+               y = gridStep[1] * Math.round(position.y / gridStep[1]);
 
-            x = gridStep[0] * Math.round(positionX / gridStep[0]) + centerX;
-            y = gridStep[1] * Math.round(positionY / gridStep[1]) + centerY;
-         }
+            if (centerStep && nodeSize) {
+               const centerX = (gridStep[0] - nodeSize.width) / 2;
+               const centerY = (gridStep[1] - nodeSize.height) / 2;
+
+               const positionX = position.x - centerX;
+               const positionY = position.y - centerY;
+
+               x = gridStep[0] * Math.round(positionX / gridStep[0]) + centerX;
+               y = gridStep[1] * Math.round(positionY / gridStep[1]) + centerY;
+            }
+
+            return {
+               x,
+               y,
+            };
+         };
 
          return {
-            x,
-            y,
+            getStepPosition,
+            ...pointerPos,
          };
-      };
-
-      return {
-         getStepPosition,
-         ...pointerPos,
-      };
-   }, []);
+      },
+      [],
+   );
 
    return getPointerPosition;
 }

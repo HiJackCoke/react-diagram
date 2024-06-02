@@ -154,12 +154,15 @@ function useDrag({
          };
 
          const dragHandle = drag()
-            .on('start', (e: UseDragEvent) => {
+            .on('start', (event: UseDragEvent) => {
                const {
                   nodeInternals,
                   nodesDraggable,
                   domNode,
                   onNodeDragStart,
+                  transform,
+                  gridStep,
+                  centerStep,
                } = store.getState();
 
                if (nodeId) {
@@ -171,7 +174,11 @@ function useDrag({
                   });
                }
 
-               const pointerPosition = getPointerPosition(e);
+               const pointerPosition = getPointerPosition(event.sourceEvent, {
+                  transform,
+                  gridStep,
+                  centerStep,
+               });
 
                dragItems.current = getDragItems(
                   nodeInternals,
@@ -188,7 +195,7 @@ function useDrag({
                   });
 
                   onNodeDragStart(
-                     e.sourceEvent as MouseEvent,
+                     event.sourceEvent as MouseEvent,
                      currentNode,
                      nodes,
                   );
@@ -197,15 +204,24 @@ function useDrag({
                containerBounds.current =
                   domNode?.getBoundingClientRect() || null;
                mousePosition.current = getEventPosition(
-                  e.sourceEvent,
+                  event.sourceEvent,
                   containerBounds.current!,
                );
             })
-            .on('drag', (e: UseDragEvent) => {
-               const pointerPosition = getPointerPosition(e);
+            .on('drag', (event: UseDragEvent) => {
+               const {
+                  transform,
+                  gridStep,
+                  centerStep,
+                  autoPanOnNodeDrag,
+                  updateNodesIntersection,
+               } = store.getState();
 
-               const { autoPanOnNodeDrag, updateNodesIntersection } =
-                  store.getState();
+               const pointerPosition = getPointerPosition(event.sourceEvent, {
+                  transform,
+                  gridStep,
+                  centerStep,
+               });
 
                if (!autoPanStarted.current && autoPanOnNodeDrag) {
                   autoPanStarted.current = true;
@@ -218,9 +234,9 @@ function useDrag({
                );
 
                if (isChanged && dragItems.current) {
-                  dragEvent.current = e.sourceEvent as MouseEvent;
+                  dragEvent.current = event.sourceEvent as MouseEvent;
                   mousePosition.current = getEventPosition(
-                     e.sourceEvent,
+                     event.sourceEvent,
                      containerBounds.current!,
                   );
 
@@ -238,8 +254,10 @@ function useDrag({
                if (dragItems.current) {
                   const {
                      nodeInternals,
-                     smoothStep,
+                     transform,
                      gridStep,
+                     centerStep,
+                     smoothStep,
                      updateNodesPosition,
                      updateNodesIntersection,
                      onNodeDragEnd,
@@ -248,7 +266,14 @@ function useDrag({
                   const isSmoothStep = !!gridStep && smoothStep;
 
                   if (isSmoothStep) {
-                     const pointerPosition = getPointerPosition(event);
+                     const pointerPosition = getPointerPosition(
+                        event.sourceEvent,
+                        {
+                           transform,
+                           gridStep,
+                           centerStep,
+                        },
+                     );
 
                      updateNodesPosition(
                         dragItems.current,
