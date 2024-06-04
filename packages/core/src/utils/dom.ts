@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Position } from '../types';
+import { Dimensions, Position, Transform, XYPosition } from '../types';
 import { NodeOrigin } from '../types/nodes';
 import { PortElement } from '../types/ports';
 
@@ -62,5 +62,27 @@ export const getEventPosition = (
    return {
       x: eventX - (bounds?.left ?? 0),
       y: eventY - (bounds?.top ?? 0),
+   };
+};
+
+export const pointToRendererPoint = (
+   { x, y }: XYPosition,
+   [tx, ty, tScale]: Transform,
+): XYPosition => {
+   const position: XYPosition = {
+      x: (x - tx) / tScale,
+      y: (y - ty) / tScale,
+   };
+
+   return position;
+};
+
+export const rendererPointToPoint = (
+   { x, y }: XYPosition,
+   [tx, ty, tScale]: Transform,
+): XYPosition => {
+   return {
+      x: x * tScale + tx,
+      y: y * tScale + ty,
    };
 };

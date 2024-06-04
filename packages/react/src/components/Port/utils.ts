@@ -7,13 +7,15 @@ import {
    PortType,
    getEventPosition,
    getHostForElement,
+   pointToRendererPoint,
+   rendererPointToPoint,
 } from '@diagram/core';
 
 import { StoreApi } from 'zustand';
 
 import { calcAutoPanPosition, internalsSymbol } from '../../utils';
 
-import { Transform, XYPosition } from '@diagram/core';
+import { XYPosition } from '@diagram/core';
 import { Connection, Node, OnConnect } from '../../types';
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
 
@@ -160,28 +162,6 @@ export const getClosestPort = (
    });
 
    return closestPort;
-};
-
-export const pointToRendererPoint = (
-   { x, y }: XYPosition,
-   [tx, ty, tScale]: Transform,
-): XYPosition => {
-   const position: XYPosition = {
-      x: (x - tx) / tScale,
-      y: (y - ty) / tScale,
-   };
-
-   return position;
-};
-
-const rendererPointToPoint = (
-   { x, y }: XYPosition,
-   [tx, ty, tScale]: Transform,
-): XYPosition => {
-   return {
-      x: x * tScale + tx,
-      y: y * tScale + ty,
-   };
 };
 
 export const handlePointerDown = ({

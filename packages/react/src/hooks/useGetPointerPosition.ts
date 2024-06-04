@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { Transform, XYPosition, getEventPosition } from '@diagram/core';
 
-import { pointToRendererPoint } from '../components/Port/utils';
+import { pointToRendererPoint } from '@diagram/core';
 import { GridStep } from '../types';
 
 type NodeSize = {
