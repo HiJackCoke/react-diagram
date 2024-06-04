@@ -5,12 +5,12 @@ import {
    CoordinateExtent,
    XYPosition,
    PortType,
+   GridStep,
 } from '@diagram/core';
 import {
    Node,
    Edge,
    DefaultEdgeOptions,
-   GridStep,
    OnError,
    OnConnect,
    OnConnectStart,

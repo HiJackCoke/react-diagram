@@ -1,9 +1,13 @@
 import { useCallback } from 'react';
 
-import { Transform, XYPosition, getEventPosition } from '@diagram/core';
+import {
+   Transform,
+   XYPosition,
+   getEventPosition,
+   getPointerPosition,
+} from '@diagram/core';
 
-import { pointToRendererPoint } from '@diagram/core';
-import { GridStep } from '../types';
+import { pointToRendererPoint, GridStep } from '@diagram/core';
 
 type NodeSize = {
    width: number;
@@ -27,54 +31,8 @@ export type GetPointerPositionParams = {
    centerStep?: boolean;
 };
 
-function useGetPointerPosition() {
-   const getPointerPosition = useCallback(
-      (
-         event: MouseEvent | TouchEvent,
-         { transform, gridStep, centerStep }: GetPointerPositionParams,
-      ) => {
-         const { x, y } = getEventPosition(event);
-
-         const pointerPos = pointToRendererPoint({ x, y }, transform);
-
-         const getStepPosition: GetStepPosition = (
-            params = {
-               position: pointerPos,
-            },
-         ) => {
-            const { position, nodeSize } = params;
-
-            if (!gridStep) return position;
-
-            let x = gridStep[0] * Math.round(position.x / gridStep[0]),
-               y = gridStep[1] * Math.round(position.y / gridStep[1]);
-
-            if (centerStep && nodeSize) {
-               const centerX = (gridStep[0] - nodeSize.width) / 2;
-               const centerY = (gridStep[1] - nodeSize.height) / 2;
-
-               const positionX = position.x - centerX;
-               const positionY = position.y - centerY;
-
-               x = gridStep[0] * Math.round(positionX / gridStep[0]) + centerX;
-               y = gridStep[1] * Math.round(positionY / gridStep[1]) + centerY;
-            }
-
-            return {
-               x,
-               y,
-            };
-         };
-
-         return {
-            getStepPosition,
-            ...pointerPos,
-         };
-      },
-      [],
-   );
-
-   return getPointerPosition;
-}
+const useGetPointerPosition = () => {
+   return useCallback(getPointerPosition, []);
+};
 
 export default useGetPointerPosition;
