@@ -1,13 +1,8 @@
 import { useCallback } from 'react';
 
-import {
-   Transform,
-   XYPosition,
-   getEventPosition,
-   getPointerPosition,
-} from '@diagram/core';
+import { Transform, XYPosition, getPointerPosition } from '@diagram/core';
 
-import { pointToRendererPoint, GridStep } from '@diagram/core';
+import { GridStep } from '@diagram/core';
 
 type NodeSize = {
    width: number;

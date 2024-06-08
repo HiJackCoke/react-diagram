@@ -1,4 +1,3 @@
-import React from 'react';
 import {
    Dimensions,
    GetPointerPositionParams,
@@ -54,12 +53,12 @@ export const getHostForElement = (
 
 // 추후에 React 마우스 이벤트 제거
 export const isMouseEvent = (
-   event: MouseEvent | TouchEvent | React.MouseEvent | React.TouchEvent,
-): event is MouseEvent | React.MouseEvent => 'clientX' in event;
+   event: MouseEvent | TouchEvent,
+): event is MouseEvent => 'clientX' in event;
 
 // 추후에 React 마우스 이벤트 제거
 export const getEventPosition = (
-   event: MouseEvent | TouchEvent | React.MouseEvent | React.TouchEvent,
+   event: MouseEvent | TouchEvent,
    bounds?: DOMRect,
 ) => {
    const isMouseTriggered = isMouseEvent(event);

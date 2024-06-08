@@ -170,7 +170,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
             handlePointerDown({
                isAnchor: true,
-               event,
+               event: event.nativeEvent,
                nodeId,
                portType: fromPortType,
                getState: store.getState,

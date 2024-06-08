@@ -1,8 +1,4 @@
 import {
-   MouseEvent as ReactMouseEvent,
-   TouchEvent as ReactTouchEvent,
-} from 'react';
-import {
    NodePortBounds,
    PortType,
    getEventPosition,
@@ -175,7 +171,7 @@ export const handlePointerDown = ({
    onEdgeUpdateEnd,
 }: {
    isAnchor?: boolean;
-   event: ReactMouseEvent | ReactTouchEvent;
+   event: MouseEvent | TouchEvent;
    nodeId: string;
    portType: PortType;
    getState: StoreApi<ReactDiagramState>['getState'];

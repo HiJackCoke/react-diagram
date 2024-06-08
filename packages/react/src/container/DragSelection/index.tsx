@@ -104,7 +104,10 @@ function DragSelection({
          return;
       }
 
-      const { x, y } = getEventPosition(event, containerBounds.current);
+      const { x, y } = getEventPosition(
+         event.nativeEvent,
+         containerBounds.current,
+      );
 
       resetSelectedElements();
 
@@ -143,7 +146,10 @@ function DragSelection({
 
       setDragBoxActive(true);
 
-      const mousePos = getEventPosition(event, containerBounds.current);
+      const mousePos = getEventPosition(
+         event.nativeEvent,
+         containerBounds.current,
+      );
       const startX = dragBoxStartPosition.x ?? 0;
       const startY = dragBoxStartPosition.y ?? 0;
 

@@ -1,8 +1,3 @@
-import {
-   MouseEvent as ReactMouseEvent,
-   TouchEvent as ReactTouchEvent,
-} from 'react';
-
 import { ErrorMessageCode, PortType } from '@diagram/core';
 
 export type OnError = (id: ErrorMessageCode, message?: string) => void;
@@ -25,7 +20,7 @@ export type OnConnectStartParams = {
 };
 
 export type OnConnectStart = (
-   event: ReactMouseEvent | ReactTouchEvent,
+   event: MouseEvent | TouchEvent,
    params: OnConnectStartParams,
 ) => void;
 

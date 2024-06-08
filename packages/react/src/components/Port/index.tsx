@@ -33,11 +33,12 @@ function Port({ type, position }: PortProps) {
    const onPointerDown = (
       event: ReactMouseEvent<HTMLDivElement> | ReactTouchEvent<HTMLDivElement>,
    ) => {
-      const isMouseTriggered = isMouseEvent(event);
+      const isMouseTriggered = isMouseEvent(event.nativeEvent);
+      const { button } = event as ReactMouseEvent<HTMLDivElement>;
 
-      if ((isMouseTriggered && event.button === 0) || !isMouseTriggered) {
+      if ((isMouseTriggered && button === 0) || !isMouseTriggered) {
          handlePointerDown({
-            event,
+            event: event.nativeEvent,
             nodeId,
             portType: type,
             getState: store.getState,
