@@ -11,7 +11,7 @@ import { internalsSymbol } from '../../utils';
 import { Position } from '@diagram/core';
 import { ReactDiagramProps } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import { WrapNodeProps } from '../../components/Node/NodeWrapper/type';
+import { NodeWrapperProps } from '../../components/Node/NodeWrapper/type';
 import { NodeTypesWrapped } from './type';
 
 type RequiredProps = Required<
@@ -121,7 +121,7 @@ function NodeRenderer({
             }
 
             const NodeComponent = (nodeTypes[nodeType] ||
-               nodeTypes.default) as ComponentType<WrapNodeProps>;
+               nodeTypes.default) as ComponentType<NodeWrapperProps>;
 
             const isDraggable = !!(
                draggable ||

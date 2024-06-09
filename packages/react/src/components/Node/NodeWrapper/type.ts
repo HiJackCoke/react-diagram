@@ -4,8 +4,10 @@ import { Node } from '../type';
 
 export type NodeMouseHandler = (event: MouseEvent, node: Node) => void;
 
-export type WrapNodeProps<T = any> = Pick<
-   Node<T>,
+export type NodeWrapperProps<
+   NodeData extends Record<string, unknown> = Record<string, unknown>,
+> = Pick<
+   Node<NodeData>,
    | 'id'
    | 'data'
    | 'style'
@@ -20,7 +22,7 @@ export type WrapNodeProps<T = any> = Pick<
    | 'width'
    | 'height'
 > &
-   Required<Pick<Node<T>, 'type' | 'zIndex'>> & {
+   Required<Pick<Node<NodeData>, 'type' | 'zIndex'>> & {
       positionX: number;
       positionY: number;
 

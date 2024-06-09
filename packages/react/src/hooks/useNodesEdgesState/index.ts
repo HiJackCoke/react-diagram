@@ -14,7 +14,7 @@ export type OnChange<ChangesType> = (changes: ChangesType[]) => void;
 
 function createUseItemsState(
    applyChanges: ApplyChanges<Node, NodeChange>,
-): <NodeData = any>(
+): <NodeData extends Record<string, unknown> = Record<string, unknown>>(
    initialItems: Node<NodeData>[],
 ) => [
    Node<NodeData>[],

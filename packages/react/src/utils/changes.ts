@@ -133,10 +133,9 @@ const applyChanges = (changes: any[], elements: any[]): any[] => {
    }, initElements);
 };
 
-export function applyNodeChanges<NodeData = any>(
-   changes: NodeChange[],
-   nodes: Node<NodeData>[],
-): Node<NodeData>[] {
+export function applyNodeChanges<
+   NodeData extends Record<string, unknown> = Record<string, unknown>,
+>(changes: NodeChange[], nodes: Node<NodeData>[]): Node<NodeData>[] {
    return applyChanges(changes, nodes) as Node<NodeData>[];
 }
 

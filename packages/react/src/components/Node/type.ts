@@ -1,40 +1,16 @@
-import { CSSProperties } from 'react';
-
 import { internalsSymbol } from '../../utils';
 
-import { Position, XYPosition, CoordinateExtent } from '@diagram/core';
+import { Position, CoreNode } from '@diagram/core';
 import { NodePortBounds } from '@diagram/core';
-import { WrapNodeProps } from './NodeWrapper/type';
+import { NodeWrapperProps } from './NodeWrapper/type';
+import { CSSProperties } from 'react';
 
-export type Node<T = any, U extends string | undefined = string | undefined> = {
-   id: string;
-   data: T;
-   type?: U;
+export type Node<
+   NodeData extends Record<string, unknown> = Record<string, unknown>,
+   NodeType extends string = string,
+> = CoreNode<NodeData, NodeType> & {
    style?: CSSProperties;
    className?: string;
-   sourcePosition?: Position;
-   targetPosition?: Position;
-   hidden?: boolean;
-   selected?: boolean;
-   intersected?: boolean;
-   dragging?: boolean;
-   draggable?: boolean;
-   selectable?: boolean;
-   connectable?: boolean;
-   deletable?: boolean;
-   dragHandle?: string;
-   width?: number;
-   height?: number;
-   parentNode?: string;
-   zIndex?: number;
-   extent?: CoordinateExtent;
-   expandParent?: boolean;
-   position: XYPosition;
-   positionAbsolute?: XYPosition;
-   ariaLabel?: string;
-   focusable?: boolean;
-   resizing?: boolean;
-
    [internalsSymbol]?: {
       z?: number;
       portBounds?: NodePortBounds;
@@ -42,8 +18,10 @@ export type Node<T = any, U extends string | undefined = string | undefined> = {
    };
 };
 
-export type NodeProps<T = any> = Pick<
-   WrapNodeProps<T>,
+export type NodeProps<
+   NodeData extends Record<string, unknown> = Record<string, unknown>,
+> = Pick<
+   NodeWrapperProps<NodeData>,
    | 'id'
    | 'data'
    | 'dragHandle'

@@ -13,7 +13,7 @@ import { getMouseHandler, handleNodeClick } from '../utils';
 
 import { XYPosition } from '@diagram/core';
 import { NodeProps } from '../type';
-import { WrapNodeProps } from './type';
+import { NodeWrapperProps } from './type';
 
 export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowUp: { x: 0, y: -1 },
@@ -63,7 +63,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
 
       noDragClassName,
       noPanClassName,
-   }: WrapNodeProps) {
+   }: NodeWrapperProps) {
       const store = useStoreApi();
 
       const nodeRef = useRef<HTMLDivElement>(null);

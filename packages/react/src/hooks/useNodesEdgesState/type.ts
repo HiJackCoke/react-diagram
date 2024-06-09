@@ -35,12 +35,16 @@ export type NodeRemoveChange = {
    type: 'remove';
 };
 
-export type NodeAddChange<NodeData = any> = {
+export type NodeAddChange<
+   NodeData extends Record<string, unknown> = Record<string, unknown>,
+> = {
    item: Node<NodeData>;
    type: 'add';
 };
 
-export type NodeResetChange<NodeData = any> = {
+export type NodeResetChange<
+   NodeData extends Record<string, unknown> = Record<string, unknown>,
+> = {
    item: Node<NodeData>;
    type: 'reset';
 };
