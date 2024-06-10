@@ -6,9 +6,7 @@ import { shallow } from 'zustand/shallow';
 import { useStore } from '../../hooks/useStore';
 import useVisibleNodes from '../../hooks/useVisibleNodes';
 
-import { internalsSymbol } from '../../utils';
-
-import { Position } from '@diagram/core';
+import { internalsSymbol, Position } from '@diagram/core';
 import { ReactDiagramProps } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { NodeWrapperProps } from '../../components/Node/NodeWrapper/type';

@@ -9,12 +9,12 @@ import {
    isIntersected,
 } from './utils';
 
-import { clampPosition, internalsSymbol } from '../utils';
+import { clampPosition } from '../utils';
 import { createSelectionChange, getSelectionChanges } from '../utils/changes';
 
 import initialState, { infiniteExtent } from './initialState';
 
-import { CoordinateExtent, XYPosition } from '@diagram/core';
+import { internalsSymbol, CoordinateExtent, XYPosition } from '@diagram/core';
 import { NodeDimensionUpdate } from './type';
 import {
    NodeDimensionChange,

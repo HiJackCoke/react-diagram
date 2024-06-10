@@ -3,13 +3,10 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore } from '../../hooks/useStore';
 
-import { internalsSymbol } from '../../utils';
-
-import { Position } from '@diagram/core';
+import { Position, PortType, internalsSymbol } from '@diagram/core';
 import { Edge } from '../../types';
 import { ReactDiagramStore } from '../../components/ReactDiagramProvider/type';
 
-import { PortType } from '@diagram/core';
 import { EdgeWrapperComponent } from '../../components/Edges/EdgeWrapper/type';
 import { ConnectionLineComponent } from './type';
 

@@ -1,4 +1,4 @@
-import { internalsSymbol } from '../../utils';
+import { internalsSymbol } from '@diagram/core';
 
 import { Position, CoreNode } from '@diagram/core';
 import { NodePortBounds } from '@diagram/core';

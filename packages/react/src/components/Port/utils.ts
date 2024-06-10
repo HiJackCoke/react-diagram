@@ -9,9 +9,9 @@ import {
 
 import { StoreApi } from 'zustand';
 
-import { calcAutoPanPosition, internalsSymbol } from '../../utils';
+import { calcAutoPanPosition } from '../../utils';
 
-import { XYPosition } from '@diagram/core';
+import { XYPosition, internalsSymbol } from '@diagram/core';
 import { Connection, Node, OnConnect } from '../../types';
 import { ReactDiagramState } from '../ReactDiagramProvider/type';
 

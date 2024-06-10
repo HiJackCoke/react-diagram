@@ -8,8 +8,6 @@ import {
 import { ErrorMessageCode, errorMessages } from '@diagram/core';
 import { OnError } from '../types';
 
-export const internalsSymbol = Symbol.for('internals');
-
 export const devWarn = (id: ErrorMessageCode, value = '') => {
    if (process.env.NODE_ENV === 'development') {
       console.warn(`[React Diagram]: ${id}-${errorMessages[id](value)}`);

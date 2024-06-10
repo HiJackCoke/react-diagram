@@ -1,7 +1,8 @@
 import { PortElement } from './ports';
 import { CoordinateExtent, Position, XYPosition } from './utils';
 
-//BaseNode??
+export const internalsSymbol = Symbol.for('internals');
+
 export type CoreNode<
    NodeData extends Record<string, unknown> = Record<string, unknown>,
    NodeType extends string = string,
