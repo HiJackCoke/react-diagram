@@ -11,9 +11,7 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 
-import { clamp } from '../../utils';
-
-import { CoordinateExtent } from '@diagram/core';
+import { CoordinateExtent, clamp } from '@diagram/core';
 import { ReactDiagramProps, Viewport } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 

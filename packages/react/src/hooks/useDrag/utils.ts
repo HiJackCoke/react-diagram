@@ -2,16 +2,15 @@ import { RefObject } from 'react';
 import { getNodePositionWithOrigin } from '../../utils/graph';
 import { clampPosition } from '../../utils';
 
-import { XYPosition, CoordinateExtent } from '@diagram/core';
+import { XYPosition, CoordinateExtent, NodeInternals } from '@diagram/core';
 
-import { NodeInternals } from '../../store/type';
 import { Node } from '../../components/Node/type';
 import { NodeOrigin } from '../../components/Node/utils';
 import { FilteredNode, NodeDragItem } from './type';
 
 export const isParentSelected = (
    node: Node,
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
 ): boolean => {
    if (!node.parentNode) {
       return false;
@@ -31,7 +30,7 @@ export const isParentSelected = (
 };
 
 export const getDragItems = (
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
    nodesDraggable: boolean,
    mousePosition: XYPosition,
    nodeId?: string,
@@ -64,7 +63,7 @@ export const getDragItems = (
 export const calcNextPosition = (
    node: NodeDragItem | Node,
    nextPosition: XYPosition,
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
    nodeExtent?: CoordinateExtent,
    nodeOrigin: NodeOrigin = [0, 0],
 ): { position: XYPosition; positionAbsolute: XYPosition } => {
@@ -112,7 +111,7 @@ export const getEventHandlerParams = ({
 }: {
    nodeId?: string;
    dragItems: NodeDragItem[];
-   nodeInternals: NodeInternals;
+   nodeInternals: NodeInternals<Node>;
 }): [Node, Node[]] => {
    const extentedDragItems: Node[] = dragItems.map((n) => {
       const node = nodeInternals.get(n.id)!;

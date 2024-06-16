@@ -251,6 +251,17 @@ const createRFStore = () =>
             connectionPortType: initialState.connectionPortType,
          }),
 
+      updateConnection: (params) => {
+         const { connectionPosition } = get();
+
+         const currentConnection = {
+            ...params,
+            connectionPosition: params.connectionPosition ?? connectionPosition,
+         };
+
+         set(currentConnection);
+      },
+
       panBy: (delta: XYPosition) => {
          const { transform, width, height, d3Zoom, d3Selection } = get();
 

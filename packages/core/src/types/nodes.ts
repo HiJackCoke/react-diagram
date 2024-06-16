@@ -1,7 +1,16 @@
 import { PortElement } from './ports';
 import { CoordinateExtent, Position, XYPosition } from './utils';
 
-export const internalsSymbol = Symbol.for('internals');
+// export const internalsSymbol = Symbol.for('internals');
+export const internalsSymbol = 'internals';
+
+export type NodeInternals<Node = CoreNode> = Map<string, Node>;
+
+export type InternalCoreNode = {
+   z?: number;
+   portBounds?: NodePortBounds;
+   isParent?: boolean;
+};
 
 export type CoreNode<
    NodeData extends Record<string, unknown> = Record<string, unknown>,
@@ -32,6 +41,7 @@ export type CoreNode<
    ariaLabel?: string;
    focusable?: boolean;
    resizing?: boolean;
+   [internalsSymbol]?: InternalCoreNode;
 };
 
 export type NodeOrigin = [number, number];

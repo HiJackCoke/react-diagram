@@ -1,7 +1,5 @@
-import { internalsSymbol } from '@diagram/core';
-
 import { Position, CoreNode } from '@diagram/core';
-import { NodePortBounds } from '@diagram/core';
+
 import { NodeWrapperProps } from './NodeWrapper/type';
 import { CSSProperties } from 'react';
 
@@ -11,11 +9,6 @@ export type Node<
 > = CoreNode<NodeData, NodeType> & {
    style?: CSSProperties;
    className?: string;
-   [internalsSymbol]?: {
-      z?: number;
-      portBounds?: NodePortBounds;
-      isParent?: boolean;
-   };
 };
 
 export type NodeProps<

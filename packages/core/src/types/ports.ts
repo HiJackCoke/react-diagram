@@ -13,10 +13,27 @@ export interface PortProps {
    position: Position;
 }
 
-export type ConnectionPort = {
-   // id: string | null;
-   type: PortType;
-   nodeId: string;
-   x: number;
-   y: number;
+export interface Connection {
+   source: string | null;
+   target: string | null;
+}
+
+type OnConnectStartParams = {
+   nodeId: string | null;
+   portType: PortType | null;
 };
+
+export type OnConnectStart = (
+   event: MouseEvent | TouchEvent,
+   params: OnConnectStartParams,
+) => void;
+
+export type OnConnect = (connection: Connection) => void;
+
+export type OnConnectEnd = (event: MouseEvent | TouchEvent) => void;
+
+export type UpdateConnection = (params: {
+   connectionPosition: XYPosition | null;
+   connectionNodeId?: string | null;
+   connectionPortType?: PortType | null;
+}) => void;

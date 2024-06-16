@@ -2,8 +2,8 @@ import { isNumeric } from '../utils';
 
 import { getNodePositionWithOrigin } from '../utils/graph';
 
-import { internalsSymbol, XYZPosition } from '@diagram/core';
-import { NodeInternals } from './type';
+import { internalsSymbol, NodeInternals, XYZPosition } from '@diagram/core';
+
 import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';
 
@@ -11,7 +11,7 @@ type ParentNodes = Record<string, boolean>;
 
 function calculateXYZPosition(
    node: Node,
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
    result: XYZPosition,
    nodeOrigin: NodeOrigin,
 ): XYZPosition {
@@ -37,7 +37,7 @@ function calculateXYZPosition(
 }
 
 export function updateAbsoluteNodePositions(
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
    nodeOrigin: NodeOrigin,
    parentNodes?: ParentNodes,
 ) {
@@ -72,10 +72,10 @@ export function updateAbsoluteNodePositions(
 
 export function createNodeInternals(
    nodes: Node[],
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
    nodeOrigin: NodeOrigin,
    elevateNodesOnSelect: boolean,
-): NodeInternals {
+): NodeInternals<Node> {
    const nextNodeInternals = new Map<string, Node>();
    const parentNodes: ParentNodes = {};
    const selectedNodeZ: number = elevateNodesOnSelect ? 1000 : 0;
@@ -119,7 +119,7 @@ export function createNodeInternals(
 
 export const isIntersected = (
    targetNode: Node,
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
 ): boolean => {
    const { id, width, height, positionAbsolute } = targetNode;
 

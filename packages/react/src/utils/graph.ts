@@ -6,9 +6,15 @@ import {
    getBoundsOfBoxes,
 } from '../utils';
 
-import { XYPosition, Rect, Transform } from '@diagram/core';
-import { Edge, Connection } from '../types';
-import { NodeInternals } from '../store/type';
+import {
+   XYPosition,
+   Rect,
+   Transform,
+   Connection,
+   NodeInternals,
+} from '@diagram/core';
+import { Edge } from '../types';
+
 import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';
 import { EdgeMarker } from '../components/Edges/type';
@@ -54,7 +60,7 @@ export const getNodePositionWithOrigin = (
 };
 
 export const getNodesInside = (
-   nodeInternals: NodeInternals,
+   nodeInternals: NodeInternals<Node>,
    rect: Rect,
    [tx, ty, tScale]: Transform = [0, 0, 1],
    partially = false,

@@ -16,7 +16,8 @@ export * from './hooks/useNodesEdgesState';
 // export { default as useGetPointerPosition } from './hooks/useGetPointerPosition';
 // export { useNodeId } from './contexts/NodeIdContext';
 
-export { rectToBox, boxToRect, clamp } from './utils';
+export { clamp } from '@diagram/core';
+export { rectToBox, boxToRect, internalsSymbol } from './utils';
 export {
    isNode,
    isEdge,
@@ -39,7 +40,6 @@ export type {
    Box,
 } from '@diagram/core';
 export { Position } from '@diagram/core';
-export { internalsSymbol } from '@diagram/core';
 
 export default ReactDiagram;
 

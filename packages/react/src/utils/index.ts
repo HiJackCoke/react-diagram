@@ -1,12 +1,8 @@
-import {
-   Dimensions,
-   Rect,
-   XYPosition,
-   CoordinateExtent,
-   Box,
-} from '@diagram/core';
+import { Rect, XYPosition, CoordinateExtent, Box, clamp } from '@diagram/core';
 import { ErrorMessageCode, errorMessages } from '@diagram/core';
 import { OnError } from '../types';
+
+export const internalsSymbol = Symbol.for('internals');
 
 export const devWarn = (id: ErrorMessageCode, value = '') => {
    if (process.env.NODE_ENV === 'development') {
@@ -20,11 +16,6 @@ export const onErrorWrapper =
       onError?.(id, errorMessages[id](value));
 
 export const isNumeric = (n: any): n is number => !isNaN(n) && isFinite(n);
-
-// export const getDimensions = (node: HTMLDivElement): Dimensions => ({
-//    width: node.offsetWidth,
-//    height: node.offsetHeight,
-// });
 
 export const getOverlappingArea = (rectA: Rect, rectB: Rect): number => {
    const xOverlap = Math.max(
@@ -40,9 +31,6 @@ export const getOverlappingArea = (rectA: Rect, rectB: Rect): number => {
 
    return Math.ceil(xOverlap * yOverlap);
 };
-
-export const clamp = (val: number, min = 0, max = 1): number =>
-   Math.min(Math.max(val, min), max);
 
 export const clampPosition = (
    position: XYPosition = { x: 0, y: 0 },
@@ -72,29 +60,3 @@ export const getBoundsOfBoxes = (box1: Box, box2: Box): Box => ({
    x2: Math.max(box1.x2, box2.x2),
    y2: Math.max(box1.y2, box2.y2),
 });
-
-const calcAutoPanVelocity = (
-   value: number,
-   bound: number,
-   radius: number,
-   velocity: number,
-): number => {
-   const maxRadius = bound - radius;
-   if (value < radius) {
-      return (clamp(Math.abs(value - radius), 1, 50) / 50) * velocity;
-   } else if (value > maxRadius) {
-      return (-clamp(Math.abs(value - maxRadius), 1, 50) / 50) * velocity;
-   }
-
-   return 0;
-};
-
-export const calcAutoPanPosition = (
-   pos: XYPosition,
-   bounds: Dimensions,
-): number[] => {
-   const xMovement = calcAutoPanVelocity(pos.x, bounds.width, 30, 10);
-   const yMovement = calcAutoPanVelocity(pos.y, bounds.height, 30, 10);
-
-   return [xMovement, yMovement];
-};

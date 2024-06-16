@@ -2,7 +2,11 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
-import { XYPosition, getEventPosition } from '@diagram/core';
+import {
+   XYPosition,
+   calcAutoPanPosition,
+   getEventPosition,
+} from '@diagram/core';
 
 import { useStoreApi } from '../../hooks/useStore';
 import useGetPointerPosition, {
@@ -18,7 +22,6 @@ import {
    hasSelector,
    hasChangedPosition,
 } from './utils';
-import { calcAutoPanPosition } from '../../utils';
 
 import { Node } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';

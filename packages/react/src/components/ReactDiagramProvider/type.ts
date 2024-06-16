@@ -6,18 +6,16 @@ import {
    XYPosition,
    PortType,
    GridStep,
-} from '@diagram/core';
-import {
-   Node,
-   Edge,
-   DefaultEdgeOptions,
-   OnError,
-   OnConnect,
    OnConnectStart,
+   OnConnect,
    OnConnectEnd,
-} from '../../types';
+   PanBy,
+   NodeInternals,
+   UpdateConnection,
+} from '@diagram/core';
+import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
 
-import { NodeInternals, NodeDimensionUpdate } from '../../store/type';
+import { NodeDimensionUpdate } from '../../store/type';
 
 import {
    NodeChange,
@@ -103,7 +101,9 @@ export type ReactDiagramActions = {
    triggerNodeChanges: (changes: NodeChange[]) => void;
 
    cancelConnection: () => void;
-   panBy: (delta: XYPosition) => void;
+   updateConnection: UpdateConnection;
+
+   panBy: PanBy;
 
    setNodeExtent: (nodeExtent: CoordinateExtent) => void;
    setTranslateExtent: (translateExtent: CoordinateExtent) => void;

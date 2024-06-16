@@ -4,16 +4,20 @@ import type {
    MouseEvent as ReactMouseEvent,
 } from 'react';
 
-import { CoordinateExtent, PortType, GridStep } from '@diagram/core';
+import {
+   CoordinateExtent,
+   PortType,
+   GridStep,
+   OnConnectStart,
+   OnConnect,
+   OnConnectEnd,
+} from '@diagram/core';
 import {
    Viewport,
    Node,
    Edge,
    OnNodesChange,
    OnEdgesChange,
-   OnConnect,
-   OnConnectStart,
-   OnConnectEnd,
    OnMove,
    OnError,
    ConnectionLineComponent,

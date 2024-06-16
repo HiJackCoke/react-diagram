@@ -4,14 +4,10 @@ import type {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
-import { PortProps, isMouseEvent } from '@diagram/core';
+import { Connection, PortProps, RDPort, isMouseEvent } from '@diagram/core';
 
 import { useNodeId } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';
-
-import { handlePointerDown } from './utils';
-
-import { Connection } from '../../types';
 
 function Port({ type, position }: PortProps) {
    const store = useStoreApi();
@@ -37,13 +33,34 @@ function Port({ type, position }: PortProps) {
       const { button } = event as ReactMouseEvent<HTMLDivElement>;
 
       if ((isMouseTriggered && button === 0) || !isMouseTriggered) {
-         handlePointerDown({
+         const {
+            domNode,
+            autoPanOnConnect,
+            connectionRadius,
+            transform,
+            getNodes,
+            cancelConnection,
+            updateConnection,
+            onConnectStart,
+            onConnectEnd,
+            panBy,
+         } = store.getState();
+
+         RDPort.onPointerDown({
             event: event.nativeEvent,
             nodeId,
             portType: type,
-            getState: store.getState,
-            setState: store.setState,
+            domNode,
+            autoPanOnConnect,
+            connectionRadius,
+            nodes: getNodes(),
+            cancelConnection,
+            updateConnection,
             onConnect: handleOnConnect,
+            onConnectStart,
+            onConnectEnd,
+            panBy,
+            getTransform: () => transform,
          });
       }
    };

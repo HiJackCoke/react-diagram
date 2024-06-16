@@ -2,16 +2,15 @@ import { memo, useMemo, useRef, useState } from 'react';
 import type { ComponentType, MouseEvent as ReactMouseEvent } from 'react';
 import cc from 'classcat';
 import { StoreApi } from 'zustand';
-import { PortType } from '@diagram/core';
+import { Connection, PortType, RDPort } from '@diagram/core';
 
 import { useStoreApi } from '../../../hooks/useStore';
 import { ARIA_EDGE_DESC_KEY } from '../../../components/A11yDescriptions';
-import { handlePointerDown } from '../../../components/Port/utils';
+
 import Anchor from '../Anchor';
 
 import { getMarkerId } from '../../../utils/graph';
 import { ReactDiagramState } from '../../ReactDiagramProvider/type';
-import { Connection } from '../../../types';
 
 import { Edge, EdgeProps } from '../type';
 
@@ -152,7 +151,19 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                return;
             }
 
-            const { edges } = store.getState();
+            const {
+               edges,
+               domNode,
+               autoPanOnConnect,
+               connectionRadius,
+               transform,
+               getNodes,
+               cancelConnection,
+               updateConnection,
+               onConnectStart,
+               onConnectEnd,
+               panBy,
+            } = store.getState();
 
             const nodeId = props[fromPortType];
             const edge = edges.find((e) => e.id === id)!;
@@ -168,15 +179,23 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                onEdgeUpdateEnd?.(evt, edge, fromPortType);
             };
 
-            handlePointerDown({
+            RDPort.onPointerDown({
                isAnchor: true,
                event: event.nativeEvent,
                nodeId,
                portType: fromPortType,
-               getState: store.getState,
-               setState: store.setState,
-               onConnect: onConnectEdge,
+               domNode,
+               autoPanOnConnect,
+               connectionRadius,
+               nodes: getNodes(),
                onEdgeUpdateEnd: handleEdgeUpdateEnd,
+               cancelConnection,
+               updateConnection,
+               onConnect: onConnectEdge,
+               onConnectStart,
+               onConnectEnd,
+               panBy,
+               getTransform: () => transform,
             });
          };
 
