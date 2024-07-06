@@ -127,7 +127,7 @@ export const getMarkerId = (
 
    return `${idPrefix}${Object.keys(marker)
       .sort()
-      .map((key: string) => `${key}=${(marker as any)[key]}`)
+      .map((key) => `${key}=${marker[key as keyof EdgeMarker]}`)
       .join('&')}`;
 };
 
