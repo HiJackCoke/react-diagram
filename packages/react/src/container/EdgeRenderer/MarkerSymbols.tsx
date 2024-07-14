@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 
-import { MarkerType, EdgeMarker } from '../../components/Edges/type';
-
 import { useStoreApi } from '../../hooks/useStore';
+import { EdgeMarker, MarkerType } from '@diagram/core';
 
 type SymbolProps = Omit<EdgeMarker, 'type'>;
 

@@ -3,22 +3,11 @@ import { CSSProperties } from 'react';
 import { EdgeLabelOptions } from './EdgeLabel';
 
 import { WrapEdgeProps } from './EdgeWrapper/type';
+import { EdgeMarker } from '@diagram/core';
 
 export enum MarkerType {
    Arrow = 'arrow',
 }
-
-export type EdgeMarker = {
-   type: MarkerType;
-   color?: string;
-   width?: number;
-   height?: number;
-   markerUnits?: string;
-   orient?: string;
-   strokeWidth?: number;
-};
-
-// export type EdgeMarkerType = string | EdgeMarker; //
 
 interface DefaultEdge<T = any> {
    id: string;

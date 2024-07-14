@@ -12,12 +12,12 @@ import {
    Transform,
    Connection,
    NodeInternals,
+   EdgeMarker,
 } from '@diagram/core';
 import { Edge } from '../types';
 
 import { Node } from '../components/Node/type';
 import { NodeOrigin } from '../components/Node/utils';
-import { EdgeMarker } from '../components/Edges/type';
 
 export const isNode = (element: Node | Connection | Edge): element is Node =>
    'id' in element && !('source' in element) && !('target' in element);
@@ -109,26 +109,6 @@ export const getNodesInside = (
    });
 
    return visibleNodes;
-};
-
-export const getMarkerId = (
-   marker: EdgeMarker | undefined,
-   rfId?: string,
-): string => {
-   if (typeof marker === 'undefined') {
-      return '';
-   }
-
-   if (typeof marker === 'string') {
-      return marker;
-   }
-
-   const idPrefix = rfId ? `${rfId}__` : '';
-
-   return `${idPrefix}${Object.keys(marker)
-      .sort()
-      .map((key) => `${key}=${marker[key as keyof EdgeMarker]}`)
-      .join('&')}`;
 };
 
 const getEdgeId = ({ source, target }: Connection): string =>

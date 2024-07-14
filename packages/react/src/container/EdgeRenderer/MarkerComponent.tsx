@@ -3,10 +3,8 @@ import { memo, useCallback } from 'react';
 import { useStore } from '../../hooks/useStore';
 import { useMarkerSymbol } from './MarkerSymbols';
 
-import { getMarkerId } from '../../utils/graph';
-
-import { EdgeMarker } from '../../components/Edges/type';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
+import { EdgeMarker, getMarkerId } from '@diagram/core';
 
 type MarkerProps = EdgeMarker & {
    id: string;
