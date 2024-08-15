@@ -2,67 +2,36 @@ import { CSSProperties } from 'react';
 
 import { EdgeLabelOptions } from './EdgeLabel';
 
-import { WrapEdgeProps } from './EdgeWrapper/type';
-import { EdgeMarker } from '@diagram/core';
+import { CoreEdge, DefaultCoreEdgeOptions, EdgePosition } from '@diagram/core';
 
-export enum MarkerType {
-   Arrow = 'arrow',
-}
+export type DefaultEdgeOptions = DefaultCoreEdgeOptions<Edge>;
 
-interface DefaultEdge<T = any> {
-   id: string;
-   type?: string;
-   source: string;
-   target: string;
-   sourcePort?: string | null;
-   targetPort?: string | null;
-   style?: CSSProperties;
+export type Edge<
+   EdgeData extends Record<string, unknown> = Record<string, unknown>,
+   EdgeType extends string | undefined = string | undefined,
+> = CoreEdge<EdgeData, EdgeType> &
+   EdgeLabelOptions & {
+      style?: CSSProperties;
+      className?: string;
+      focusable?: boolean;
+   };
 
-   data?: T;
-   className?: string;
-   sourceNode?: Node;
-   targetNode?: Node;
-   selected?: boolean;
-   markerStart?: EdgeMarker;
-   markerEnd?: EdgeMarker;
-   zIndex?: number;
-   ariaLabel?: string;
-
-   focusable?: boolean;
-   hidden?: boolean;
-   deletable?: boolean;
-}
-
-export type Edge<T = any> = DefaultEdge<T> & EdgeLabelOptions;
-
-export type EdgeProps<T = any> = Pick<
-   Edge<T>,
+export type EdgeProps<EdgeType extends Edge = Edge> = Pick<
+   EdgeType,
    'id' | 'data' | 'style' | 'selected' | 'source' | 'target'
 > &
-   Pick<
-      WrapEdgeProps,
-      | 'sourceX'
-      | 'sourceY'
-      | 'targetX'
-      | 'targetY'
-      | 'sourcePosition'
-      | 'targetPosition'
-      | 'sourcePort'
-      | 'targetPort'
-   > &
+   EdgePosition &
    EdgeLabelOptions & {
       markerStart?: string;
       markerEnd?: string;
       pathOptions?: any;
    };
 
-export type DefaultEdgeOptions = Omit<
+export type EdgeComponentProps<PathOptions> = Pick<
    Edge,
-   | 'id'
-   | 'source'
-   | 'target'
-   | 'sourcePort'
-   | 'targetPort'
-   | 'sourceNode'
-   | 'targetNode'
->;
+   'id' | 'markerStart' | 'markerEnd' | 'style' | 'sourcePort' | 'targetPort'
+> &
+   EdgePosition &
+   EdgeLabelOptions & {
+      pathOptions?: PathOptions;
+   };

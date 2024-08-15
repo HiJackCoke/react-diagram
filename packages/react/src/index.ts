@@ -39,7 +39,8 @@ export type {
    Rect,
    Box,
 } from '@diagram/core';
-export { Position } from '@diagram/core';
+
+export { Position, MarkerType } from '@diagram/core';
 
 export default ReactDiagram;
 

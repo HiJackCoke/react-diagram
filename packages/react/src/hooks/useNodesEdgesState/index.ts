@@ -24,7 +24,7 @@ function createUseItemsState(
 
 function createUseItemsState(
    applyChanges: ApplyChanges<Edge, EdgeChange>,
-): <EdgeData = any>(
+): <EdgeData extends Record<string, unknown> = any>(
    initialItems: Edge<EdgeData>[],
 ) => [
    Edge<EdgeData>[],

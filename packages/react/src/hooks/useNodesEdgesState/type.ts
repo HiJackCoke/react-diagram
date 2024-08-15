@@ -1,4 +1,4 @@
-import { Dimensions, XYPosition } from '@diagram/core';
+import { CoreEdge, Dimensions, XYPosition } from '@diagram/core';
 import { Node } from '../../components/Node/type';
 import { Edge } from '../../components/Edges/type';
 
@@ -60,12 +60,12 @@ export type NodeChange =
 
 export type EdgeSelectionChange = NodeSelectionChange;
 export type EdgeRemoveChange = NodeRemoveChange;
-export type EdgeAddChange<EdgeData = any> = {
-   item: Edge<EdgeData>;
+export type EdgeAddChange<EdgeType extends CoreEdge = CoreEdge> = {
+   item: Edge<EdgeType>;
    type: 'add';
 };
-export type EdgeResetChange<EdgeData = any> = {
-   item: Edge<EdgeData>;
+export type EdgeResetChange<EdgeType extends CoreEdge = CoreEdge> = {
+   item: Edge<EdgeType>;
    type: 'reset';
 };
 

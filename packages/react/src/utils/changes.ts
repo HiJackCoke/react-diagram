@@ -139,10 +139,9 @@ export function applyNodeChanges<
    return applyChanges(changes, nodes) as Node<NodeData>[];
 }
 
-export function applyEdgeChanges<EdgeData = any>(
-   changes: EdgeChange[],
-   edges: Edge<EdgeData>[],
-): Edge<EdgeData>[] {
+export function applyEdgeChanges<
+   EdgeData extends Record<string, unknown> = any,
+>(changes: EdgeChange[], edges: Edge<EdgeData>[]): Edge<EdgeData>[] {
    return applyChanges(changes, edges) as Edge<EdgeData>[];
 }
 

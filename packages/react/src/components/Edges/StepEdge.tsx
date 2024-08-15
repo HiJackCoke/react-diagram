@@ -3,7 +3,7 @@ import { memo } from 'react';
 import BaseEdge from './BaseEdge';
 import { getEdgeCenter } from './utils';
 
-import { EdgeProps } from './type';
+import { Edge, EdgeProps } from './type';
 import { Position, XYPosition } from '@diagram/core';
 
 interface StepPathOptions {
@@ -11,7 +11,8 @@ interface StepPathOptions {
    borderRadius?: number;
 }
 
-interface StepEdgeProps<T = any> extends EdgeProps<T> {
+interface StepEdgeProps<EdgeType extends Edge = Edge>
+   extends EdgeProps<EdgeType> {
    pathOptions?: StepPathOptions;
 }
 

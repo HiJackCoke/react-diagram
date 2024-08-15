@@ -4,13 +4,14 @@ import BaseEdge from './BaseEdge';
 import { getBezierEdgeCenter } from './utils';
 import { Position } from '@diagram/core';
 
-import { EdgeProps } from './type';
+import { Edge, EdgeProps } from './type';
 
 interface BezierPathOptions {
    curvature?: number;
 }
 
-interface BezierEdgeProps<T = any> extends EdgeProps<T> {
+interface BezierEdgeProps<EdgeType extends Edge = Edge>
+   extends EdgeProps<EdgeType> {
    pathOptions?: BezierPathOptions;
 }
 

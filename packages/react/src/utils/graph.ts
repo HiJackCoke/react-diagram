@@ -12,7 +12,6 @@ import {
    Transform,
    Connection,
    NodeInternals,
-   EdgeMarker,
 } from '@diagram/core';
 import { Edge } from '../types';
 
