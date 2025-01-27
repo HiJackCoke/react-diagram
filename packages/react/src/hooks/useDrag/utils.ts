@@ -2,32 +2,16 @@ import { RefObject } from 'react';
 import { getNodePositionWithOrigin } from '../../utils/graph';
 import { clampPosition } from '../../utils';
 
-import { XYPosition, CoordinateExtent, NodeInternals } from '@diagram/core';
+import {
+   XYPosition,
+   CoordinateExtent,
+   NodeInternals,
+   isParentSelected,
+} from '@diagram/core';
 
 import { Node } from '../../components/Node/type';
 import { NodeOrigin } from '../../components/Node/utils';
 import { FilteredNode, NodeDragItem } from './type';
-
-export const isParentSelected = (
-   node: Node,
-   nodeInternals: NodeInternals<Node>,
-): boolean => {
-   if (!node.parentNode) {
-      return false;
-   }
-
-   const parentNode = nodeInternals.get(node.parentNode);
-
-   if (!parentNode) {
-      return false;
-   }
-
-   if (parentNode.selected) {
-      return true;
-   }
-
-   return isParentSelected(parentNode, nodeInternals);
-};
 
 export const getDragItems = (
    nodeInternals: NodeInternals<Node>,
