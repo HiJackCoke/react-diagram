@@ -1,4 +1,3 @@
-import { RefObject } from 'react';
 import { getNodePositionWithOrigin } from '../../utils/graph';
 import { clampPosition } from '../../utils';
 
@@ -115,9 +114,3 @@ export const getEventHandlerParams = ({
    ];
 };
 
-export const hasChangedPosition = (
-   beforePositions: XYPosition,
-   currentPosition: XYPosition,
-): boolean =>
-   beforePositions.x !== currentPosition.x ||
-   beforePositions.y !== currentPosition.y;

@@ -1,4 +1,4 @@
-import { CoreNode, NodeInternals } from '../types';
+import { CoreNode, NodeInternals, XYPosition } from '../types';
 
 export const isParentSelected = <NodeType extends CoreNode>(
    node: NodeType,
@@ -36,3 +36,10 @@ export const hasSelector = (
 
    return false;
 };
+
+export const hasChangedPosition = (
+   beforePositions: XYPosition,
+   currentPosition: XYPosition,
+): boolean =>
+   beforePositions.x !== currentPosition.x ||
+   beforePositions.y !== currentPosition.y;

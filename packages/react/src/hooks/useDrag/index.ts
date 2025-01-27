@@ -6,6 +6,7 @@ import {
    XYPosition,
    calcAutoPanPosition,
    getEventPosition,
+   hasChangedPosition,
    hasSelector,
 } from '@diagram/core';
 
@@ -16,12 +17,7 @@ import useGetPointerPosition, {
 
 import { handleNodeClick } from '../../components/Node/utils';
 
-import {
-   getDragItems,
-   calcNextPosition,
-   getEventHandlerParams,
-   hasChangedPosition,
-} from './utils';
+import { getDragItems, calcNextPosition, getEventHandlerParams } from './utils';
 
 import { Node } from '../../types';
 import { NodeDragItem } from '../../hooks/useDrag/type';
