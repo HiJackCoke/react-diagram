@@ -1,11 +1,11 @@
 import { getEdgeCenter } from './general';
 
-export interface GetStraightPathParams {
+export type GetStraightPathParams = {
    sourceX: number;
    sourceY: number;
    targetX: number;
    targetY: number;
-}
+};
 
 /**
  * Get a straight path from source to target port

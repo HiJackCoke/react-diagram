@@ -3,6 +3,7 @@ export {
    getStepPath,
    getStraightPath,
    getBezierEdgeCenter,
+   getBezierPath,
 } from '@diagram/core';
 
 import ReactDiagram from './container/ReactDiagram';
@@ -14,10 +15,7 @@ export { default as Port } from './components/Port';
 export { default as BaseEdge } from './components/Edges/BaseEdge';
 export { default as StepEdge } from './components/Edges/StepEdge';
 
-export {
-   default as BezierEdge,
-   getBezierPath,
-} from './components/Edges/BezierEdge';
+export { default as BezierEdge } from './components/Edges/BezierEdge';
 
 export * from './hooks/useNodesEdgesState';
 // export { useStore, useStoreApi } from './hooks/useStore';
@@ -47,6 +45,8 @@ export type {
    Box,
    GetStepPosition,
    GetStepPathParams,
+   GetBezierPathParams,
+   GetControlWithCurvatureParams,
 } from '@diagram/core';
 
 export { Position, MarkerType } from '@diagram/core';

@@ -1,7 +1,7 @@
 import { Position, XYPosition } from '../../types';
 import { getEdgeCenter } from './general';
 
-export interface GetStepPathParams {
+export type GetStepPathParams = {
    sourceX: number;
    sourceY: number;
    sourcePosition?: Position;
@@ -12,7 +12,7 @@ export interface GetStepPathParams {
    centerX?: number;
    centerY?: number;
    offset?: number;
-}
+};
 
 const HANDLE_DIRECTIONS = {
    [Position.Left]: { x: -1, y: 0 },
