@@ -1,7 +1,8 @@
 import { memo } from 'react';
+import { getEdgeCenter } from '@diagram/core';
 
 import BaseEdge from './BaseEdge';
-import { getEdgeCenter } from './utils';
+
 import type { EdgeProps } from '../../types';
 
 interface GetStraightPathParams {

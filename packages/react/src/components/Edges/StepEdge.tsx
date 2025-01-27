@@ -1,10 +1,9 @@
 import { memo } from 'react';
+import { Position, XYPosition, getEdgeCenter } from '@diagram/core';
 
 import BaseEdge from './BaseEdge';
-import { getEdgeCenter } from './utils';
 
 import { Edge, EdgeProps } from './type';
-import { Position, XYPosition } from '@diagram/core';
 
 interface StepPathOptions {
    offset?: number;
