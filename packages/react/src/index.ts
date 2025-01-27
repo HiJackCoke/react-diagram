@@ -1,3 +1,5 @@
+export { getStepPath, clamp } from '@diagram/core';
+
 import ReactDiagram from './container/ReactDiagram';
 
 export { default as ReactDiagramProvider } from './components/ReactDiagramProvider';
@@ -5,7 +7,8 @@ export { default as ReactDiagramProvider } from './components/ReactDiagramProvid
 export { default as Port } from './components/Port';
 
 export { default as BaseEdge } from './components/Edges/BaseEdge';
-export { default as StepEdge, getStepPath } from './components/Edges/StepEdge';
+export { default as StepEdge } from './components/Edges/StepEdge';
+
 export {
    default as BezierEdge,
    getBezierPath,
@@ -16,7 +19,6 @@ export * from './hooks/useNodesEdgesState';
 // export { default as useGetPointerPosition } from './hooks/useGetPointerPosition';
 // export { useNodeId } from './contexts/NodeIdContext';
 
-export { clamp } from '@diagram/core';
 export { rectToBox, boxToRect, internalsSymbol } from './utils';
 export {
    isNode,
@@ -42,6 +44,6 @@ export type {
 
 export { Position, MarkerType } from '@diagram/core';
 
-export default ReactDiagram;
-
 export { default as Background } from './components/Background';
+
+export default ReactDiagram;
