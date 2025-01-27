@@ -1,6 +1,6 @@
 import { getEdgeCenter } from './general';
 
-interface GetStraightPathParams {
+export interface GetStraightPathParams {
    sourceX: number;
    sourceY: number;
    targetX: number;

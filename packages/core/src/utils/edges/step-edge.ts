@@ -1,7 +1,7 @@
 import { Position, XYPosition } from '../../types';
 import { getEdgeCenter } from './general';
 
-interface GetStepPathParams {
+export interface GetStepPathParams {
    sourceX: number;
    sourceY: number;
    sourcePosition?: Position;

@@ -45,6 +45,8 @@ export type {
    Transform,
    Rect,
    Box,
+   GetStepPosition,
+   GetStepPathParams,
 } from '@diagram/core';
 
 export { Position, MarkerType } from '@diagram/core';
