@@ -1,4 +1,9 @@
-export { clamp, getStepPath, getStraightPath } from '@diagram/core';
+export {
+   clamp,
+   getStepPath,
+   getStraightPath,
+   getBezierEdgeCenter,
+} from '@diagram/core';
 
 import ReactDiagram from './container/ReactDiagram';
 

@@ -1,8 +1,7 @@
 import { memo } from 'react';
+import { Position, getBezierEdgeCenter } from '@diagram/core';
 
 import BaseEdge from './BaseEdge';
-import { getBezierEdgeCenter } from './utils';
-import { Position } from '@diagram/core';
 
 import { Edge, EdgeProps } from './type';
 
