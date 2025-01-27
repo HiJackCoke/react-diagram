@@ -1,44 +1,9 @@
 import { memo } from 'react';
-import { getEdgeCenter } from '@diagram/core';
+import { getStraightPath } from '@diagram/core';
 
 import BaseEdge from './BaseEdge';
 
 import type { EdgeProps } from '../../types';
-
-interface GetStraightPathParams {
-   sourceX: number;
-   sourceY: number;
-   targetX: number;
-   targetY: number;
-}
-
-export const getStraightPath = ({
-   sourceX,
-   sourceY,
-   targetX,
-   targetY,
-}: GetStraightPathParams): [
-   path: string,
-   labelX: number,
-   labelY: number,
-   offsetX: number,
-   offsetY: number,
-] => {
-   const [labelX, labelY, offsetX, offsetY] = getEdgeCenter({
-      sourceX,
-      sourceY,
-      targetX,
-      targetY,
-   });
-
-   return [
-      `M ${sourceX},${sourceY}L ${targetX},${targetY}`,
-      labelX,
-      labelY,
-      offsetX,
-      offsetY,
-   ];
-};
 
 const StraightEdge = memo(
    ({
