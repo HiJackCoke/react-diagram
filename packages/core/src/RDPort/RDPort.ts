@@ -1,5 +1,6 @@
 import {
    Connection,
+   ConnectionPort,
    CoreNode,
    OnConnect,
    OnConnectEnd,
@@ -21,7 +22,6 @@ import {
    getClosestPort,
    getConnection,
    getPortType,
-   type ConnectionPort,
 } from './utils';
 
 export type OnPointerDown = {

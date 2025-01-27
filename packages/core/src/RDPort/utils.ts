@@ -1,6 +1,7 @@
 import { XYPosition } from 'react-cosmos-diagram';
 import {
    Connection,
+   ConnectionPort,
    CoreNode,
    NodePortBounds,
    PortType,
@@ -17,14 +18,6 @@ type GetAllPortParams = {
 type getConnectionResult = {
    isValid: boolean;
    connection: Connection;
-};
-
-export type ConnectionPort = {
-   // id: string | null;
-   type: PortType;
-   nodeId: string;
-   x: number;
-   y: number;
 };
 
 const getPorts = (

@@ -37,3 +37,11 @@ export type UpdateConnection = (params: {
    connectionNodeId?: string | null;
    connectionPortType?: PortType | null;
 }) => void;
+
+export type ConnectionPort = {
+   // id: string | null;
+   type: PortType;
+   nodeId: string;
+   x: number;
+   y: number;
+};
