@@ -6,6 +6,7 @@ import {
    XYPosition,
    calcAutoPanPosition,
    getEventPosition,
+   hasSelector,
 } from '@diagram/core';
 
 import { useStoreApi } from '../../hooks/useStore';
@@ -19,7 +20,6 @@ import {
    getDragItems,
    calcNextPosition,
    getEventHandlerParams,
-   hasSelector,
    hasChangedPosition,
 } from './utils';
 
@@ -305,10 +305,16 @@ function useDrag({
             .filter((event: MouseEvent) => {
                const target = event.target as HTMLDivElement;
 
+               if (!nodeRef.current) return false;
+
                const isDraggable =
                   !event.button &&
                   (!noDragClassName ||
-                     !hasSelector(target, `.${noDragClassName}`, nodeRef));
+                     !hasSelector(
+                        target,
+                        `.${noDragClassName}`,
+                        nodeRef.current,
+                     ));
 
                return isDraggable;
             });

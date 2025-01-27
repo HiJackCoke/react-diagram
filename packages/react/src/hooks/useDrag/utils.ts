@@ -115,22 +115,6 @@ export const getEventHandlerParams = ({
    ];
 };
 
-export const hasSelector = (
-   target: Element,
-   selector: string,
-   nodeRef: RefObject<Element>,
-): boolean => {
-   let current = target;
-
-   do {
-      if (current?.matches(selector)) return true;
-      if (current === nodeRef.current) return false;
-      current = current.parentElement as Element;
-   } while (current);
-
-   return false;
-};
-
 export const hasChangedPosition = (
    beforePositions: XYPosition,
    currentPosition: XYPosition,

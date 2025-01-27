@@ -20,3 +20,19 @@ export const isParentSelected = <NodeType extends CoreNode>(
 
    return isParentSelected(parentNode, nodeInternals);
 };
+
+export const hasSelector = (
+   target: Element,
+   selector: string,
+   domNode: Element,
+): boolean => {
+   let current = target;
+
+   do {
+      if (current?.matches(selector)) return true;
+      if (current === domNode) return false;
+      current = current.parentElement as Element;
+   } while (current);
+
+   return false;
+};
