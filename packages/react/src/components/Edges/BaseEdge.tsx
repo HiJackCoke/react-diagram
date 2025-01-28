@@ -1,6 +1,6 @@
-import EdgeLabel from './EdgeLabel';
+import { isNumeric } from '@diagram/core';
 
-import { isNumeric } from '../../utils';
+import EdgeLabel from './EdgeLabel';
 
 import { EdgeProps } from './type';
 

@@ -1,5 +1,6 @@
 import { getNodePositionWithOrigin } from '../../utils/graph';
-import { clampPosition } from '../../utils';
+
+import { clampPosition } from '@diagram/core';
 
 import type {
    XYPosition,

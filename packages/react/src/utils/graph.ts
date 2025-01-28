@@ -4,9 +4,8 @@ import {
    rectToBox,
    boxToRect,
    getBoundsOfBoxes,
-} from '../utils';
-
-import {
+} from '@diagram/core';
+import type {
    XYPosition,
    Rect,
    Transform,

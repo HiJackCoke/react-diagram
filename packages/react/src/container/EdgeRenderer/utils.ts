@@ -1,13 +1,13 @@
 import type { ComponentType } from 'react';
 
-import { PortElement, NodePortBounds } from '@diagram/core';
+import { rectToBox } from '@diagram/core';
+import type { PortElement, NodePortBounds } from '@diagram/core';
 
 import StraightEdge from '../../components/Edges/StraightEdge';
 import StepEdge from '../../components/Edges/StepEdge';
 import BezierEdge from '../../components/Edges/BezierEdge';
 
 import wrapEdge from '../../components/Edges/EdgeWrapper';
-import { rectToBox } from '../../utils';
 
 import {
    internalsSymbol,

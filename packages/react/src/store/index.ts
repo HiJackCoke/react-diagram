@@ -1,7 +1,7 @@
 import { createStore } from 'zustand';
 import { zoomIdentity } from 'd3-zoom';
 
-import { getDimensions, getPortBounds } from '@diagram/core';
+import { getDimensions, getPortBounds, clampPosition } from '@diagram/core';
 import type { NodeDragItem } from '@diagram/core';
 
 import {
@@ -10,7 +10,6 @@ import {
    isIntersected,
 } from './utils';
 
-import { clampPosition } from '../utils';
 import { createSelectionChange, getSelectionChanges } from '../utils/changes';
 
 import initialState, { infiniteExtent } from './initialState';

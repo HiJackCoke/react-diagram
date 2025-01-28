@@ -4,6 +4,8 @@ export {
    getStraightPath,
    getBezierEdgeCenter,
    getBezierPath,
+   rectToBox,
+   boxToRect,
 } from '@diagram/core';
 
 import ReactDiagram from './container/ReactDiagram';
@@ -22,7 +24,7 @@ export * from './hooks/useNodesEdgesState';
 // export { default as useGetPointerPosition } from './hooks/useGetPointerPosition';
 // export { useNodeId } from './contexts/NodeIdContext';
 
-export { rectToBox, boxToRect, internalsSymbol } from './utils';
+export { internalsSymbol } from './utils';
 export {
    isNode,
    isEdge,

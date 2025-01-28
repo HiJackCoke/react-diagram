@@ -1,5 +1,5 @@
-import { devWarn } from '../utils';
-import { CoordinateExtent } from '@diagram/core';
+import { devWarn } from '@diagram/core';
+import type { CoordinateExtent } from '@diagram/core';
 import { ReactDiagramStore } from '../components/ReactDiagramProvider/type';
 
 export const infiniteExtent: CoordinateExtent = [

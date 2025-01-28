@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { shallow } from 'zustand/shallow';
+import { devWarn } from '@diagram/core';
 
-import { devWarn } from '../utils';
 import { EdgeTypes, EdgeTypesWrapped } from '../container/EdgeRenderer/type';
 import { NodeTypes, NodeTypesWrapped } from '../container/NodeRenderer/type';
 
