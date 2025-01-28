@@ -1,3 +1,4 @@
+import { MouseEvent as ReactMouseEvent } from 'react';
 import { ZoomBehavior, Selection as D3Selection } from 'd3';
 
 import type {
@@ -25,8 +26,11 @@ import {
    OnEdgesChange,
 } from '../../hooks/useNodesEdgesState/type';
 
-import { NodeDragHandler } from '../../hooks/useDrag/type';
-
+export type NodeDragHandler = (
+   event: ReactMouseEvent,
+   node: Node,
+   nodes: Node[],
+) => void;
 
 export type UnSelectNodesParams = {
    nodes?: Node[];

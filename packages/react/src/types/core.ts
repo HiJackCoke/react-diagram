@@ -24,7 +24,6 @@ import {
    ConnectionLineComponent,
 } from '.';
 
-import { NodeDragHandler } from '../hooks/useDrag/type';
 import { KeyCode } from '../hooks/useGlobalKeyHandler';
 
 import { NodeMouseHandler } from '../components/Node/NodeWrapper/type';
@@ -34,6 +33,7 @@ import {
    OnEdgeUpdateFunc,
 } from '../components/Edges/EdgeWrapper/type';
 import { EdgeTypes } from '../container/EdgeRenderer/type';
+import { NodeDragHandler } from '../components/ReactDiagramProvider/type';
 
 export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;

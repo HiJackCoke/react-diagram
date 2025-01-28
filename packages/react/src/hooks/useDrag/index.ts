@@ -11,7 +11,7 @@ import {
    hasChangedPosition,
    hasSelector,
 } from '@diagram/core';
-import type { NodeDragItem, XYPosition } from '@diagram/core';
+import type { NodeDragItem, UseDragEvent, XYPosition } from '@diagram/core';
 
 import { useStoreApi } from '../../hooks/useStore';
 import useGetPointerPosition, {
@@ -21,8 +21,6 @@ import useGetPointerPosition, {
 import { handleNodeClick } from '../../components/Node/utils';
 
 import { Node } from '../../types';
-
-import { UseDragEvent } from './type';
 
 type UseDragParams = {
    nodeRef: RefObject<Element>;
