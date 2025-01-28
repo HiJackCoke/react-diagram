@@ -3,10 +3,10 @@ import {
    isNumeric,
    getNodePositionWithOrigin,
 } from '@diagram/core';
-import type { NodeInternals, XYZPosition } from '@diagram/core';
+import type { NodeInternals, NodeOrigin, XYZPosition } from '@diagram/core';
 
 import { Node } from '../components/Node/type';
-import { NodeOrigin } from '../components/Node/utils';
+
 
 type ParentNodes = Record<string, boolean>;
 

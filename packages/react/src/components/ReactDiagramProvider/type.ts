@@ -13,6 +13,7 @@ import type {
    NodeInternals,
    UpdateConnection,
    NodeDragItem,
+   NodeOrigin,
 } from '@diagram/core';
 import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
 
@@ -25,7 +26,7 @@ import {
 } from '../../hooks/useNodesEdgesState/type';
 
 import { NodeDragHandler } from '../../hooks/useDrag/type';
-import { NodeOrigin } from '../Node/utils';
+
 
 export type UnSelectNodesParams = {
    nodes?: Node[];

@@ -5,8 +5,6 @@ import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
 import { Node } from './type';
 
-export type NodeOrigin = [number, number];
-
 export function getMouseHandler(
    id: string,
    getState: StoreApi<ReactDiagramState>['getState'],
