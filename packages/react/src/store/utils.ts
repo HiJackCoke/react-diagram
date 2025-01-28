@@ -1,6 +1,8 @@
-import { getNodePositionWithOrigin } from '../utils/graph';
-
-import { internalsSymbol, isNumeric } from '@diagram/core';
+import {
+   internalsSymbol,
+   isNumeric,
+   getNodePositionWithOrigin,
+} from '@diagram/core';
 import type { NodeInternals, XYZPosition } from '@diagram/core';
 
 import { Node } from '../components/Node/type';

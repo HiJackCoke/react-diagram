@@ -1,30 +1,31 @@
 import {
-   devWarn,
    getOverlappingArea,
    rectToBox,
    boxToRect,
    getBoundsOfBoxes,
-} from '@diagram/core';
+} from './general';
 import type {
    XYPosition,
    Rect,
    Transform,
    Connection,
    NodeInternals,
-} from '@diagram/core';
-import { Edge } from '../types';
+   CoreEdge,
+   CoreNode,
+   NodeOrigin,
+} from '../types';
 
-import { Node } from '../components/Node/type';
-import { NodeOrigin } from '../components/Node/utils';
-
-export const isNode = (element: Node | Connection | Edge): element is Node =>
+export const isCoreNode = (
+   element: CoreNode | Connection | CoreEdge,
+): element is CoreNode =>
    'id' in element && !('source' in element) && !('target' in element);
 
-export const isEdge = (element: Node | Connection | Edge): element is Edge =>
-   'source' in element && 'target' in element;
+export const isCoreEdge = (
+   element: CoreNode | Connection | CoreEdge,
+): element is CoreEdge => 'source' in element && 'target' in element;
 
 export const getNodePositionWithOrigin = (
-   node: Node | undefined,
+   node: CoreNode | undefined,
    nodeOrigin: NodeOrigin = [0, 0],
 ): XYPosition & { positionAbsolute: XYPosition } => {
    if (!node) {
@@ -58,13 +59,13 @@ export const getNodePositionWithOrigin = (
 };
 
 export const getNodesInside = (
-   nodeInternals: NodeInternals<Node>,
+   nodeInternals: NodeInternals<CoreNode>,
    rect: Rect,
    [tx, ty, tScale]: Transform = [0, 0, 1],
    partially = false,
    excludeNonSelectableNodes = false,
    nodeOrigin: NodeOrigin = [0, 0],
-): Node[] => {
+): CoreNode[] => {
    const paneRect = {
       x: (rect.x - tx) / tScale,
       y: (rect.y - ty) / tScale,
@@ -72,7 +73,7 @@ export const getNodesInside = (
       height: rect.height / tScale,
    };
 
-   const visibleNodes: Node[] = [];
+   const visibleNodes: CoreNode[] = [];
 
    nodeInternals.forEach((node) => {
       const { width, height, selectable = true, hidden = false } = node;
@@ -109,64 +110,8 @@ export const getNodesInside = (
    return visibleNodes;
 };
 
-const getEdgeId = ({ source, target }: Connection): string =>
-   `react-diagram__edge-${source}-${target}`;
-
-const isExistsConnection = (edge: Edge, edges: Edge[]) =>
-   edges.some((el) => el.source === edge.source && el.target === edge.target);
-
-export const addEdge = (
-   edgeParams: Edge | Connection,
-   edges: Edge[],
-): Edge[] => {
-   if (!isEdge(edgeParams)) {
-      devWarn('020');
-
-      return edges;
-   }
-
-   if (isExistsConnection(edgeParams, edges)) {
-      return edges;
-   }
-
-   let edge: Edge;
-
-   if (edgeParams.id) edge = { ...edgeParams };
-   else
-      edge = {
-         ...edgeParams,
-         id: getEdgeId(edgeParams),
-      };
-
-   return edges.concat(edge);
-};
-
-export const updateEdge = (
-   originEdge: Edge,
-   newConnection: Connection,
-   edges: Edge[],
-   options = { shouldReplaceId: true },
-): Edge[] => {
-   const { id: oldEdgeId, ...rest } = originEdge;
-
-   if (!newConnection.source || !newConnection.target) devWarn('020');
-
-   const foundEdge = edges.find((e) => e.id === oldEdgeId) as Edge;
-
-   if (!foundEdge) devWarn('021', oldEdgeId);
-
-   const edge = {
-      ...rest,
-      id: options.shouldReplaceId ? getEdgeId(newConnection) : oldEdgeId,
-      source: newConnection.source,
-      target: newConnection.target,
-   } as Edge;
-
-   return edges.filter((e) => e.id !== oldEdgeId).concat(edge);
-};
-
 export const getRectOfNodes = (
-   nodes: Node[],
+   nodes: CoreNode[],
    nodeOrigin: NodeOrigin = [0, 0],
 ): Rect => {
    if (nodes.length === 0) {

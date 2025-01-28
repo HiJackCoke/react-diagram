@@ -6,6 +6,10 @@ export {
    getBezierPath,
    rectToBox,
    boxToRect,
+   isCoreNode,
+   isCoreEdge,
+   addEdge,
+   updateEdge,
 } from '@diagram/core';
 
 import ReactDiagram from './container/ReactDiagram';
@@ -25,13 +29,7 @@ export * from './hooks/useNodesEdgesState';
 // export { useNodeId } from './contexts/NodeIdContext';
 
 export { internalsSymbol } from './utils';
-export {
-   isNode,
-   isEdge,
-   addEdge,
-   updateEdge,
-   // getNodePositionWithOrigin,
-} from './utils/graph';
+
 // export { applyNodeChanges, applyEdgeChanges } from './utils/changes';
 
 export * from './types';
@@ -42,6 +40,7 @@ export type {
    XYZPosition,
    Dimensions,
    CoordinateExtent,
+   Connection,
    Transform,
    Rect,
    Box,
