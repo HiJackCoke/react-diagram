@@ -5,6 +5,7 @@ import { drag } from 'd3-drag';
 import {
    calcAutoPanPosition,
    getDragItems,
+   getEventHandlerParams,
    getEventPosition,
    hasChangedPosition,
    hasSelector,
@@ -18,7 +19,7 @@ import useGetPointerPosition, {
 
 import { handleNodeClick } from '../../components/Node/utils';
 
-import { calcNextPosition, getEventHandlerParams } from './utils';
+import { calcNextPosition } from './utils';
 
 import { Node } from '../../types';
 

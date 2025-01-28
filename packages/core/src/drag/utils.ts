@@ -75,3 +75,29 @@ export const getDragItems = (
    }));
 };
 
+export const getEventHandlerParams = ({
+   nodeId,
+   dragItems,
+   nodeInternals,
+}: {
+   nodeId?: string;
+   dragItems: NodeDragItem[];
+   nodeInternals: NodeInternals<CoreNode>;
+}): [CoreNode, CoreNode[]] => {
+   const extentedDragItems: CoreNode[] = dragItems.map((n) => {
+      const node = nodeInternals.get(n.id)!;
+
+      return {
+         ...node,
+         position: n.position,
+         positionAbsolute: n.positionAbsolute,
+      };
+   });
+
+   return [
+      nodeId
+         ? extentedDragItems.find((n) => n.id === nodeId)!
+         : extentedDragItems[0],
+      extentedDragItems,
+   ];
+};
