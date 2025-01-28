@@ -50,3 +50,10 @@ export type NodePortBounds = {
    source: PortElement[] | null;
    target: PortElement[] | null;
 };
+
+export type NodeDragItem = Required<
+   Pick<CoreNode, 'id' | 'position' | 'positionAbsolute' | 'width' | 'height'>
+> &
+   Pick<CoreNode, 'extent' | 'parentNode' | 'dragging'> & {
+      distance: XYPosition;
+   };

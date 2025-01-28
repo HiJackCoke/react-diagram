@@ -3,12 +3,13 @@ import type { MouseEvent } from 'react';
 import { select } from 'd3-selection';
 import { drag } from 'd3-drag';
 import {
-   XYPosition,
    calcAutoPanPosition,
+   getDragItems,
    getEventPosition,
    hasChangedPosition,
    hasSelector,
 } from '@diagram/core';
+import type { NodeDragItem, XYPosition } from '@diagram/core';
 
 import { useStoreApi } from '../../hooks/useStore';
 import useGetPointerPosition, {
@@ -17,10 +18,10 @@ import useGetPointerPosition, {
 
 import { handleNodeClick } from '../../components/Node/utils';
 
-import { getDragItems, calcNextPosition, getEventHandlerParams } from './utils';
+import { calcNextPosition, getEventHandlerParams } from './utils';
 
 import { Node } from '../../types';
-import { NodeDragItem } from '../../hooks/useDrag/type';
+
 import { UseDragEvent } from './type';
 
 type UseDragParams = {
@@ -41,7 +42,7 @@ function useDrag({
 }: UseDragParams) {
    const store = useStoreApi();
 
-   const dragItems = useRef<NodeDragItem[]>([]);
+   let dragItems: NodeDragItem[] = [];
    const containerBounds = useRef<DOMRect | null>(null);
    const mousePosition = useRef<XYPosition>({ x: 0, y: 0 });
    const lastPosition = useRef<XYPosition>({ x: 0, y: 0 });
@@ -113,7 +114,7 @@ function useDrag({
             lastPosition.current = { x, y };
 
             updateNodesPosition(
-               dragItems.current,
+               dragItems,
                true,
                updateNodePosition(pointerPosition),
             );
@@ -123,7 +124,7 @@ function useDrag({
             if (onNodeDrag && dragEvent.current) {
                const [currentNode, nodes] = getEventHandlerParams({
                   nodeId,
-                  dragItems: dragItems.current,
+                  dragItems: dragItems,
                   nodeInternals,
                });
                onNodeDrag(dragEvent.current as MouseEvent, currentNode, nodes);
@@ -179,17 +180,17 @@ function useDrag({
                   centerStep,
                });
 
-               dragItems.current = getDragItems(
+               dragItems = getDragItems(
                   nodeInternals,
                   nodesDraggable,
                   pointerPosition,
                   nodeId,
                );
 
-               if (onNodeDragStart && dragItems.current) {
+               if (onNodeDragStart && dragItems) {
                   const [currentNode, nodes] = getEventHandlerParams({
                      nodeId,
-                     dragItems: dragItems.current,
+                     dragItems: dragItems,
                      nodeInternals,
                   });
 
@@ -232,7 +233,7 @@ function useDrag({
                   pointerPosition.getStepPosition(), // only when not gridStep
                );
 
-               if (isChanged && dragItems.current) {
+               if (isChanged && dragItems) {
                   dragEvent.current = event.sourceEvent as MouseEvent;
                   mousePosition.current = getEventPosition(
                      event.sourceEvent,
@@ -250,7 +251,7 @@ function useDrag({
                autoPanStarted.current = false;
                cancelAnimationFrame(autoPanId.current);
 
-               if (dragItems.current) {
+               if (dragItems) {
                   const {
                      nodeInternals,
                      transform,
@@ -275,19 +276,19 @@ function useDrag({
                      );
 
                      updateNodesPosition(
-                        dragItems.current,
+                        dragItems,
                         false,
                         updateNodePosition(pointerPosition, true),
                      );
                      updateNodesIntersection();
                   } else {
-                     updateNodesPosition(dragItems.current, false);
+                     updateNodesPosition(dragItems, false);
                   }
 
                   if (onNodeDragEnd) {
                      const [currentNode, nodes] = getEventHandlerParams({
                         nodeId,
-                        dragItems: dragItems.current,
+                        dragItems: dragItems,
                         nodeInternals,
                      });
                      onNodeDragEnd(

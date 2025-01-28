@@ -1,6 +1,6 @@
 import { ZoomBehavior, Selection as D3Selection } from 'd3';
 
-import {
+import type {
    Transform,
    CoordinateExtent,
    XYPosition,
@@ -12,6 +12,7 @@ import {
    PanBy,
    NodeInternals,
    UpdateConnection,
+   NodeDragItem,
 } from '@diagram/core';
 import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
 
@@ -23,7 +24,7 @@ import {
    OnEdgesChange,
 } from '../../hooks/useNodesEdgesState/type';
 
-import { NodeDragItem, NodeDragHandler } from '../../hooks/useDrag/type';
+import { NodeDragHandler } from '../../hooks/useDrag/type';
 import { NodeOrigin } from '../Node/utils';
 
 export type UnSelectNodesParams = {

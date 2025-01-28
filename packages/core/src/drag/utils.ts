@@ -1,4 +1,4 @@
-import { CoreNode, NodeInternals, XYPosition } from '../types';
+import { CoreNode, NodeDragItem, NodeInternals, XYPosition } from '../types';
 
 export const isParentSelected = <NodeType extends CoreNode>(
    node: NodeType,
@@ -43,3 +43,35 @@ export const hasChangedPosition = (
 ): boolean =>
    beforePositions.x !== currentPosition.x ||
    beforePositions.y !== currentPosition.y;
+
+export const getDragItems = (
+   nodeInternals: NodeInternals<CoreNode>,
+   nodesDraggable: boolean,
+   mousePosition: XYPosition,
+   nodeId?: string,
+): NodeDragItem[] => {
+   const filteredNode = Array.from(nodeInternals.values()).filter((n) => {
+      const hasSize = n.width && n.height;
+      const isSelected = n.selected || n.id === nodeId;
+      const hasNoParent = !n.parentNode || !isParentSelected(n, nodeInternals);
+      const isDraggable =
+         n.draggable || (nodesDraggable && typeof n.draggable === 'undefined');
+
+      return hasSize && isSelected && hasNoParent && isDraggable;
+   });
+
+   return filteredNode.map((n) => ({
+      id: n.id,
+      position: n.position || { x: 0, y: 0 },
+      positionAbsolute: n.positionAbsolute || { x: 0, y: 0 },
+      distance: {
+         x: mousePosition.x - (n.positionAbsolute?.x ?? 0),
+         y: mousePosition.y - (n.positionAbsolute?.y ?? 0),
+      },
+      extent: n.extent,
+      parentNode: n.parentNode,
+      width: n.width || 0,
+      height: n.height || 0,
+   }));
+};
+

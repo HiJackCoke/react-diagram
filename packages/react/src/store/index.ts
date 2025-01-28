@@ -2,6 +2,7 @@ import { createStore } from 'zustand';
 import { zoomIdentity } from 'd3-zoom';
 
 import { getDimensions, getPortBounds } from '@diagram/core';
+import type { NodeDragItem } from '@diagram/core';
 
 import {
    updateAbsoluteNodePositions,
@@ -24,7 +25,7 @@ import {
    NodeIntersectionChange,
 } from '../hooks/useNodesEdgesState/type';
 import { Node } from '../components/Node/type';
-import { NodeDragItem } from '../hooks/useDrag/type';
+
 import { Edge } from '../components/Edges/type';
 import {
    ReactDiagramState,

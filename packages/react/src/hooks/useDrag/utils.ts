@@ -1,52 +1,20 @@
 import { getNodePositionWithOrigin } from '../../utils/graph';
 import { clampPosition } from '../../utils';
 
-import {
+import type {
    XYPosition,
    CoordinateExtent,
    NodeInternals,
-   isParentSelected,
+   CoreNode,
+   NodeDragItem,
 } from '@diagram/core';
 
-import { Node } from '../../components/Node/type';
 import { NodeOrigin } from '../../components/Node/utils';
-import { FilteredNode, NodeDragItem } from './type';
-
-export const getDragItems = (
-   nodeInternals: NodeInternals<Node>,
-   nodesDraggable: boolean,
-   mousePosition: XYPosition,
-   nodeId?: string,
-): NodeDragItem[] => {
-   const filteredNode = Array.from(nodeInternals.values()).filter((n) => {
-      const hasSize = n.width && n.height;
-      const isSelected = n.selected || n.id === nodeId;
-      const hasNoParent = !n.parentNode || !isParentSelected(n, nodeInternals);
-      const isDraggable =
-         n.draggable || (nodesDraggable && typeof n.draggable === 'undefined');
-
-      return hasSize && isSelected && hasNoParent && isDraggable;
-   }) as FilteredNode[];
-
-   return filteredNode.map((n) => ({
-      id: n.id,
-      position: n.position || { x: 0, y: 0 },
-      positionAbsolute: n.positionAbsolute || { x: 0, y: 0 },
-      distance: {
-         x: mousePosition.x - (n.positionAbsolute?.x ?? 0),
-         y: mousePosition.y - (n.positionAbsolute?.y ?? 0),
-      },
-      extent: n.extent,
-      parentNode: n.parentNode,
-      width: n.width,
-      height: n.height,
-   }));
-};
 
 export const calcNextPosition = (
-   node: NodeDragItem | Node,
+   node: NodeDragItem | CoreNode,
    nextPosition: XYPosition,
-   nodeInternals: NodeInternals<Node>,
+   nodeInternals: NodeInternals<CoreNode>,
    nodeExtent?: CoordinateExtent,
    nodeOrigin: NodeOrigin = [0, 0],
 ): { position: XYPosition; positionAbsolute: XYPosition } => {
@@ -94,9 +62,9 @@ export const getEventHandlerParams = ({
 }: {
    nodeId?: string;
    dragItems: NodeDragItem[];
-   nodeInternals: NodeInternals<Node>;
-}): [Node, Node[]] => {
-   const extentedDragItems: Node[] = dragItems.map((n) => {
+   nodeInternals: NodeInternals<CoreNode>;
+}): [CoreNode, CoreNode[]] => {
+   const extentedDragItems: CoreNode[] = dragItems.map((n) => {
       const node = nodeInternals.get(n.id)!;
 
       return {
@@ -113,4 +81,3 @@ export const getEventHandlerParams = ({
       extentedDragItems,
    ];
 };
-
