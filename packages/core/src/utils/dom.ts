@@ -51,12 +51,10 @@ export const getHostForElement = (
 ): Document | ShadowRoot =>
    (element.getRootNode?.() as Document | ShadowRoot) || window?.document;
 
-// 추후에 React 마우스 이벤트 제거
 export const isMouseEvent = (
    event: MouseEvent | TouchEvent,
 ): event is MouseEvent => 'clientX' in event;
 
-// 추후에 React 마우스 이벤트 제거
 export const getEventPosition = (
    event: MouseEvent | TouchEvent,
    bounds?: DOMRect,

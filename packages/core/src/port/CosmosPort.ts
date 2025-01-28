@@ -171,6 +171,6 @@ export const onPointerDown = ({
    doc.addEventListener('touchend', onPointerUp as EventListener);
 };
 
-export const RDPort = {
+export const CosmosPort = {
    onPointerDown,
 };

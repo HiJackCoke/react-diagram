@@ -127,6 +127,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       const dragging = useDrag({
          nodeRef,
          nodeId: id,
+         disabled: hidden || !isDraggable,
          isSelectable,
          noDragClassName,
       });

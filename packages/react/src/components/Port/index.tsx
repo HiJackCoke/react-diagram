@@ -4,7 +4,7 @@ import type {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
-import { Connection, PortProps, RDPort, isMouseEvent } from '@diagram/core';
+import { Connection, PortProps, CosmosPort, isMouseEvent } from '@diagram/core';
 
 import { useNodeId } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';
@@ -46,7 +46,7 @@ function Port({ type, position }: PortProps) {
             panBy,
          } = store.getState();
 
-         RDPort.onPointerDown({
+         CosmosPort.onPointerDown({
             event: event.nativeEvent,
             nodeId,
             portType: type,

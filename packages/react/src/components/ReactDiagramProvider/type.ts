@@ -40,18 +40,18 @@ export type ReactDiagramStore = {
    rfId: string;
    width: number;
    height: number;
-   transform: Transform;
-   nodeInternals: NodeInternals;
+   transform: Transform; //
+   nodeInternals: NodeInternals; //
    edges: Edge[];
    defaultEdgeOptions?: DefaultEdgeOptions;
 
-   domNode: HTMLDivElement | null;
-   nodeOrigin: NodeOrigin;
-   smoothStep: boolean;
-   centerStep: boolean;
-   gridStep?: GridStep;
+   domNode: HTMLDivElement | null; //
+   nodeOrigin: NodeOrigin; //
+   smoothStep: boolean; //
+   centerStep: boolean; //
+   gridStep?: GridStep; //
    elevateNodesOnSelect: boolean;
-   nodesDraggable: boolean;
+   nodesDraggable: boolean; //
 
    multiSelectionActive: boolean;
    elementsSelectable: boolean;
@@ -79,10 +79,10 @@ export type ReactDiagramStore = {
    onConnectStart?: OnConnectStart;
    onConnectEnd?: OnConnectEnd;
 
-   autoPanOnNodeDrag: boolean;
+   autoPanOnNodeDrag: boolean; //
    autoPanOnConnect: boolean;
 
-   nodeExtent: CoordinateExtent;
+   nodeExtent: CoordinateExtent; //
    translateExtent: CoordinateExtent;
 
    connectionRadius: number;
@@ -102,14 +102,14 @@ export type ReactDiagramActions = {
       nodeDragItems: NodeDragItem[] | Node[],
       dragging: boolean,
       updateFunc?: (node: NodeDragItem | Node) => void,
-   ) => void;
-   updateNodesIntersection: () => void;
+   ) => void; //
+   updateNodesIntersection: () => void; //
    triggerNodeChanges: (changes: NodeChange[]) => void;
 
    cancelConnection: () => void;
    updateConnection: UpdateConnection;
 
-   panBy: PanBy;
+   panBy: PanBy; //
 
    setNodeExtent: (nodeExtent: CoordinateExtent) => void;
    setTranslateExtent: (translateExtent: CoordinateExtent) => void;
