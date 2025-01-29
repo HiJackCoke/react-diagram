@@ -3,7 +3,7 @@ import { useStoreApi } from './useStore';
 
 export type KeyCode = string | Array<string> | null;
 
-function useGlobalKeyHandler(multiSelectionKeyCode: KeyCode = 'Meta') {
+const useGlobalKeyHandler = (multiSelectionKeyCode: KeyCode = 'Meta') => {
    const store = useStoreApi();
 
    const [multiSelectionActivate, setMultiSelectionActivate] = useState(false);
@@ -33,6 +33,6 @@ function useGlobalKeyHandler(multiSelectionKeyCode: KeyCode = 'Meta') {
          multiSelectionActive: multiSelectionActivate,
       });
    }, [multiSelectionActivate]);
-}
+};
 
 export default useGlobalKeyHandler;

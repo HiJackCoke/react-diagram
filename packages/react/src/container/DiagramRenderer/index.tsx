@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react';
+import { memo } from 'react';
 
 import { useStore } from '../../hooks/useStore';
 import useGlobalKeyHandler, { KeyCode } from '../../hooks/useGlobalKeyHandler';
@@ -9,6 +9,7 @@ import Viewport from '../../container/Viewport';
 import { PaneProps } from '../Pane';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import DragSelection from '../DragSelection';
+import useDragSelectionKeyPress from '../../hooks/useDragSelectionKeyPress';
 
 export type DiagramRendererProps = Omit<
    PaneProps,
@@ -40,34 +41,14 @@ function DiagramRenderer({
 }: DiagramRendererProps) {
    const { minZoom, maxZoom, translateExtent } = useStore(selector);
 
-   const [dragSelectionKeyPressed, setDragSelectionKeyPressed] =
-      useState(false);
-
    useGlobalKeyHandler(multiSelectionKeyCode);
 
+   const dragSelectionKeyPressed =
+      useDragSelectionKeyPress(dragSelectionKeyCode);
+
    // useKeyPress
-   const isSelecting = dragSelectionKeyPressed,
-      isPanning = panning && !isSelecting;
-
-   const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === dragSelectionKeyCode) {
-         setDragSelectionKeyPressed(true);
-      }
-   };
-
-   const handleKeyUp = () => {
-      setDragSelectionKeyPressed(false);
-   };
-
-   useEffect(() => {
-      document.addEventListener('keydown', handleKeyDown);
-      document.addEventListener('keyup', handleKeyUp);
-
-      return () => {
-         document.removeEventListener('keydown', handleKeyDown);
-         document.removeEventListener('keyup', handleKeyUp);
-      };
-   }, []);
+   const isSelecting = dragSelectionKeyPressed;
+   const isPanning = panning && !isSelecting;
 
    return (
       <Pane

@@ -13,14 +13,13 @@ import {
    OnConnectEnd,
    NodeOrigin,
    Viewport,
+   OnMove,
 } from '@diagram/core';
 import {
-
    Node,
    Edge,
    OnNodesChange,
    OnEdgesChange,
-   OnMove,
    OnError,
    ConnectionLineComponent,
 } from '.';

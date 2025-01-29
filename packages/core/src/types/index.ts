@@ -4,3 +4,4 @@ export * from './ports';
 export * from './dom';
 export * from './general';
 export * from './edges';
+export * from './panZoom';

@@ -21,12 +21,12 @@ const useDrag = ({
 }: UseDragParams) => {
    const store = useStoreApi();
 
-   const rdDrag = useRef<DragInstance>();
+   const cosmosDrag = useRef<DragInstance>();
 
    const [dragging, setDragging] = useState<boolean>(false);
 
    useEffect(() => {
-      rdDrag.current = CosmosDrag({
+      cosmosDrag.current = CosmosDrag({
          getStore: () => store.getState(),
          onNodeMouseDown: (id: string) => {
             handleNodeClick({
@@ -46,9 +46,9 @@ const useDrag = ({
 
    useEffect(() => {
       if (disabled) {
-         rdDrag.current?.destroy();
+         cosmosDrag.current?.destroy();
       } else if (nodeRef.current) {
-         rdDrag.current?.update({
+         cosmosDrag.current?.update({
             noDragClassName,
 
             domNode: nodeRef.current,
@@ -56,7 +56,7 @@ const useDrag = ({
             nodeId,
          });
          return () => {
-            rdDrag.current?.destroy();
+            cosmosDrag.current?.destroy();
          };
       }
    }, [noDragClassName, disabled, isSelectable, nodeRef, nodeId]);

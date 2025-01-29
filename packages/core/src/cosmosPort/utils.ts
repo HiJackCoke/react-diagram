@@ -1,10 +1,10 @@
-import { XYPosition } from 'react-cosmos-diagram';
 import {
    Connection,
    ConnectionPort,
    CoreNode,
    NodePortBounds,
    PortType,
+   XYPosition,
    internalsSymbol,
 } from '../types';
 import { getEventPosition } from '../utils';
