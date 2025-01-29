@@ -4,3 +4,9 @@ import { XYPosition } from 'react-cosmos-diagram';
 export type PanBy = (delta: XYPosition) => void;
 
 export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
+
+export type Viewport = {
+   x: number;
+   y: number;
+   zoom: number;
+};

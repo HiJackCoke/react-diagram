@@ -12,9 +12,10 @@ import {
    OnConnect,
    OnConnectEnd,
    NodeOrigin,
+   Viewport,
 } from '@diagram/core';
 import {
-   Viewport,
+
    Node,
    Edge,
    OnNodesChange,

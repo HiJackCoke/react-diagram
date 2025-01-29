@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { NodeOrigin } from '@diagram/core';
+import { NodeOrigin, Viewport } from '@diagram/core';
 
 import DiagramView from './DiagramView';
 import StoreUpdater from '../../components/StoreUpdater';
@@ -14,7 +14,7 @@ import { createEdgeTypes } from '../../container/EdgeRenderer/utils';
 
 import Wrapper from './Wrapper';
 
-import { ReactDiagramRefType, ReactDiagramProps, Viewport } from '../../types';
+import { ReactDiagramRefType, ReactDiagramProps, } from '../../types';
 import { NodeTypes } from '../NodeRenderer/type';
 import { EdgeTypes } from '../EdgeRenderer/type';
 

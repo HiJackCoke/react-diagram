@@ -11,8 +11,8 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore, useStoreApi } from '../../hooks/useStore';
 
-import { CoordinateExtent, clamp } from '@diagram/core';
-import { ReactDiagramProps, Viewport } from '../../types';
+import { CoordinateExtent, Viewport, clamp } from '@diagram/core';
+import { ReactDiagramProps,  } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
 export type PaneProps = Required<
