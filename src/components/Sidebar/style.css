@@ -1,3 +1,7 @@
+input {
+   width: 80%;
+}
+
 .dnd-container {
    flex-direction: column;
    display: flex;

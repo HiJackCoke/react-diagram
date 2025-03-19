@@ -142,6 +142,7 @@ export const CosmosPanZoom = ({
       const wheelZoomHandler = createZoomOnScrollHandler({ d3ZoomHandler });
       d3Selection.on('wheel.zoom', wheelZoomHandler, { passive: false });
 
+      console.log('selection-------', selection);
       if (!selection) {
          const panZoomStartHandler = createPanZoomStartHandler({
             zoomPanValues,

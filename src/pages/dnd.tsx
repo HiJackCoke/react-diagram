@@ -1,7 +1,8 @@
 import { DragEvent, useCallback } from 'react';
 
-import ReactDiagram, { useNodesState, Background } from 'react-cosmos-diagram';
+import ReactDiagram, { useNodesState } from 'react-cosmos-diagram';
 
+import CustomNode from 'components/Node';
 import Sidebar from 'components/Sidebar';
 
 import 'react-cosmos-diagram/dist/style.css';
@@ -9,11 +10,14 @@ import 'react-cosmos-diagram/dist/style.css';
 const initialNodes = [
    {
       id: '1',
-
-      data: { label: 'Custom Node' },
+      data: { element: <span>Custom Node</span> },
       position: { x: 100, y: 100 },
    },
 ];
+
+const nodeTypes = {
+   custom: CustomNode,
+};
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -62,6 +66,8 @@ function Index() {
          return;
       }
 
+      const el = event.dataTransfer.getData('text/plain');
+
       const container = event.target as HTMLDivElement;
       const viewport = container.querySelector(
          '.react-diagram__viewport',
@@ -78,7 +84,18 @@ function Index() {
          id: getId(),
          type,
          position,
-         data: { label: `${type} node` },
+         data: {
+            element: (
+               <div
+                  style={{
+                     width: '100%',
+                     display: 'flex',
+                     justifyContent: 'center',
+                  }}
+                  dangerouslySetInnerHTML={{ __html: el }}
+               />
+            ),
+         },
       };
 
       setNodes((nds) => nds.concat(newNode));
@@ -89,15 +106,14 @@ function Index() {
          <div className="reactdiagram-wrapper">
             <ReactDiagram
                nodes={nodes}
+               nodeTypes={nodeTypes}
                connectionRadius={30}
                minZoom={1}
                maxZoom={2}
                onNodesChange={onNodesChange}
                onDrop={onDrop}
                onDragOver={onDragOver}
-            >
-               <Background />
-            </ReactDiagram>
+            ></ReactDiagram>
          </div>
 
          <Sidebar />

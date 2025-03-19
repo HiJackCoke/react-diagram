@@ -100,9 +100,6 @@ const initialEdges = [
       markerEnd: {
          type: MarkerType.Arrow,
       },
-      data: {
-         label: 'label',
-      },
    },
 ];
 
