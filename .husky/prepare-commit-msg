@@ -1,0 +1,74 @@
+
+commit_message_file="$1"
+commit_message=$(cat "$commit_message_file")
+commit_type="(Feat|Fix|Docs|Style|Refactor|Test|Chore|Design|Add|Rename|Remove|Clean|Type): (.*)"
+
+
+if ! [[ "$commit_message" =~ $commit_type ]]; then
+  echo ""
+  echo " Commit Message 포맷을 아래 예시와 같이 지켜주세요."
+  echo " 사용가능한 commit의 Prefix는 아래와 같습니다."
+  echo ""
+  echo "======================= 반드시 콜론(:) 을 붙여야 합니다. ========================="
+  echo ""
+  echo "  Feat:             새로운 기능을 추가"
+  echo "  Fix:              버그 수정"
+  echo "  Docs:             문서 수정"
+  echo "  Style:            코드 포맷 변경, 세미 콜론 누락, 코드 수정이 없는 경우"
+  echo "  Refactor:         코드 리팩토링"
+  echo "  Test:             테스트 코드 추가"
+  echo "  Chore:            프로젝트 설정, 빌드 설정, 패키지 매니저 수정 등"
+  echo "  Design:           CSS 등 사용자 UI 디자인 변경"
+  echo "  Add:              단순한 코드 추가"
+  echo "  Rename:           파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우"
+  echo "  Remove:           파일을 삭제하는 작업만 수행한 경우"
+  echo "  Clean:            console 등 불필요한 코드 삭제"
+  echo "  Type:             Type 추가, 삭제, 수정"
+  echo "  Example:          예제 코드 및 페이지 추가"
+  echo ""
+  echo "=================================================================================="
+  echo ""
+  echo -e " 아래 EXAMPLE과 같이 첫째 줄에 Prefix와 함께 요약을 남기고 한 줄 개행 후 상세 내용을 작성해주세요. \n Merge Request 시 Overview에 자동으로 Title, Description 작성이 완료됩니다."
+  echo ""
+  echo "================================== E X A M P L E ================================="
+  echo ""
+  echo -e " git commit -m \"Feat: 기능 A 추가\""
+  echo ""
+  echo "=================================================================================="
+  echo ""
+  exit 1
+
+
+  elif [[ "$commit_message" =~ $commit_type ]]; then
+    type="${BASH_REMATCH[1]}"
+    case $type in
+        "Feat") emoji="✨" ;;
+        "Fix") emoji="🚑" ;;
+        "Docs") emoji="📚" ;;
+        "Style") emoji="🎨" ;;
+        "Refactor") emoji="🔨" ;;
+        "Test") emoji="☔️" ;;
+        "Chore") emoji="🚀" ;;
+        "Design") emoji="💄" ;;
+        "Add") emoji="📝" ;;
+        "Rename") emoji="🚜" ;;
+        "Remove") emoji="🔥" ;;
+        "Clean") emoji="🗑️" ;;
+        "Type") emoji="🇹" ;;
+        "Example") emoji="💡" ;;
+    esac
+    
+    new_commit_message="$emoji ${commit_message}"
+    echo "$new_commit_message" > "$commit_message_file"
+fi
+
+
+; branch_name=$(git symbolic-ref --short HEAD)
+; card_id=$(echo "$branch_name" | awk -F '/' '{print $2}')
+; last_line=$(tail -n1 "$commit_message_file")
+
+; if [[ "$last_line" != *"$card_id"* ]]; then
+;     subject=$(echo $commit_message | cut -d':' -f2)
+;     echo "" >> "$commit_message_file"
+;     echo "$card_id" >> "$commit_message_file"
+; fi
