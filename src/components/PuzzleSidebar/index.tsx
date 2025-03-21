@@ -8,8 +8,11 @@ import PuzzleGenerator, {
 } from 'components/PuzzleGenerator';
 
 import PuzzleNodeView from 'components/Node/PuzzleNode/View';
+import { useDragContext } from 'contexts/DragContext';
 
 function PuzzleSidebar() {
+   const dragCtx = useDragContext();
+
    const [pieces, setPieces] = useState<PuzzlePiece[]>([]);
    const [sizes, setSizes] = useState<PieceSize>({
       totalSize: 0,
@@ -19,7 +22,12 @@ function PuzzleSidebar() {
 
    const onDragStart =
       (nodeType: string) => (event: DragEvent<HTMLDivElement>) => {
+         if (!dragCtx) return;
+         const { draggedElementRef } = dragCtx;
+
          const node = event.target as HTMLDivElement;
+
+         draggedElementRef.current = node;
 
          const x = event.clientX - node.offsetLeft;
          const y = event.clientY - node.offsetTop;
