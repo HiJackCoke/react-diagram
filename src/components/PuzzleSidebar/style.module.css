@@ -1,0 +1,13 @@
+.container {
+   max-width: 300px !important;
+   width: 300px !important;
+   height: 100vh;
+   overflow-y: scroll;
+   padding: 20px !important;
+}
+
+.puzzle-wrapper {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 30px;
+}

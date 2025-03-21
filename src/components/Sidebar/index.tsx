@@ -31,10 +31,6 @@ function Sidebar() {
 
    return (
       <aside>
-         <div className="description">
-            You can drag these nodes to the pane on the right.
-         </div>
-
          <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
             <SidebarNode
                className="dndnode input"
