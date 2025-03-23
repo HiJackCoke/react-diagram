@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react';
 
-type Edge = 'in' | 'out' | 'flat';
+export type PuzzleEdge = 'flat' | 'tab' | 'blank';
 export type PuzzlePiece = {
    id: number;
    dataUrl: string;
+   edge: PuzzleEdgeMap;
 };
 
-type PuzzleEdgeMap = {
-   top: Edge;
-   right: Edge;
-   bottom: Edge;
-   left: Edge;
+export type PuzzleEdgeMap = {
+   top: PuzzleEdge;
+   right: PuzzleEdge;
+   bottom: PuzzleEdge;
+   left: PuzzleEdge;
 };
 
 export type PieceSize = {
@@ -107,7 +108,11 @@ const PuzzleGenerator = ({ onImageUpdate }: Props) => {
             ctx.restore();
 
             const dataUrl = canvas.toDataURL();
-            newPieces.push({ id: row * cols + col, dataUrl });
+            newPieces.push({
+               id: row * cols + col,
+               dataUrl,
+               edge: pieceMap[row][col],
+            });
          }
       }
 
@@ -137,13 +142,13 @@ const PuzzleGenerator = ({ onImageUpdate }: Props) => {
    const drawEdge = (
       ctx: CanvasRenderingContext2D,
       size: number,
-      type: Edge,
+      type: PuzzleEdge,
       direction: 'top' | 'right' | 'bottom' | 'left',
       tabSize: number,
       curve: number,
    ) => {
       const center = size / 2;
-      const tabDir = type === 'out' ? 1 : -1;
+      const tabDir = type === 'tab' ? -1 : 1;
 
       if (type === 'flat') {
          switch (direction) {
@@ -216,11 +221,11 @@ const PuzzleGenerator = ({ onImageUpdate }: Props) => {
       }
    };
 
-   const randomEdge = (): Edge => (Math.random() > 0.5 ? 'in' : 'out');
+   const randomEdge = (): PuzzleEdge => (Math.random() > 0.5 ? 'blank' : 'tab');
 
-   const invert = (edge: Edge): Edge => {
-      if (edge === 'in') return 'out';
-      if (edge === 'out') return 'in';
+   const invert = (edge: PuzzleEdge): PuzzleEdge => {
+      if (edge === 'blank') return 'tab';
+      if (edge === 'tab') return 'blank';
       return 'flat';
    };
 

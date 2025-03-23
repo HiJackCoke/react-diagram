@@ -21,7 +21,8 @@ function PuzzleSidebar() {
    });
 
    const onDragStart =
-      (nodeType: string) => (event: DragEvent<HTMLDivElement>) => {
+      (nodeType: string, piece: PuzzlePiece) =>
+      (event: DragEvent<HTMLDivElement>) => {
          if (!dragCtx) return;
          const { draggedElementRef } = dragCtx;
 
@@ -36,8 +37,6 @@ function PuzzleSidebar() {
             y,
          };
 
-         const element = event.target as HTMLDivElement;
-
          event.dataTransfer.setData(
             'application/react-cosmos-diagram',
             nodeType,
@@ -47,7 +46,13 @@ function PuzzleSidebar() {
             JSON.stringify(distance),
          );
 
-         event.dataTransfer.setData('text/plain', element.outerHTML);
+         event.dataTransfer.setData('application/piece', JSON.stringify(piece));
+
+         event.dataTransfer.setData(
+            'application/pieceSize',
+            JSON.stringify(sizes),
+         );
+
          event.dataTransfer.effectAllowed = 'move';
       };
 
@@ -64,7 +69,7 @@ function PuzzleSidebar() {
             {pieces.map((piece) => (
                <PuzzleNodeView
                   key={piece.id}
-                  onDragStart={onDragStart('puzzle')}
+                  onDragStart={onDragStart('puzzle', piece)}
                >
                   <img
                      src={piece.dataUrl}

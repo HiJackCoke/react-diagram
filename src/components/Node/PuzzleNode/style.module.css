@@ -2,6 +2,41 @@
    width: 100%;
 }
 
-.container.wrapper {
+.container .wrapper {
    width: 100%;
+   display: flex;
+}
+
+/* .container :global(.react-diagram__port-left) {
+   left: 22.27px;
+}
+
+.container :global(.react-diagram__port-right) {
+   right: 22.27px;
+} */
+
+.container .blank-left > div {
+   left: 22.27px;
+}
+.container .blank-right > div {
+   right: 22.27px;
+}
+.container .blank-top > div {
+   top: 22.27px;
+}
+.container .blank-bottom > div {
+   bottom: 22.27px;
+}
+
+.container .tab-left > div {
+   left: 0;
+}
+.container .tab-right > div {
+   right: 0;
+}
+.container .tab-top > div {
+   top: 0;
+}
+.container .tab-bottom > div {
+   bottom: 0;
 }

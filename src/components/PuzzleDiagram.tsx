@@ -10,8 +10,7 @@ const nodeTypes = {
    puzzle: PuzzleNode,
 };
 
-let id = 0;
-const getId = () => `dndnode_${id++}`;
+const getId = (pieceId: number) => `puzzle-node-${pieceId}`;
 function getTranslateValues(transformString: string) {
    const translateRegex = /translate\(\s*([^\s,]+)px\s*,\s*([^\s,]+)px\s*\)/;
    const scaleRegex = /scale\(\s*([^\s,]+)\s*(?:,\s*([^\s,]+))?\s*\)/;
@@ -66,11 +65,15 @@ function PuzzleDiagram() {
          event.dataTransfer.getData('application/node'),
       );
 
+      const piece = JSON.parse(event.dataTransfer.getData('application/piece'));
+
+      const pieceSize = JSON.parse(
+         event.dataTransfer.getData('application/pieceSize'),
+      );
+
       if (typeof type === 'undefined' || !type) {
          return;
       }
-
-      const el = event.dataTransfer.getData('text/plain');
 
       const container = event.target as HTMLDivElement;
       const viewport = container.querySelector(
@@ -85,20 +88,12 @@ function PuzzleDiagram() {
       };
 
       const newNode = {
-         id: getId(),
+         id: getId(piece.id),
          type,
          position,
          data: {
-            element: (
-               <div
-                  style={{
-                     width: '100%',
-                     display: 'flex',
-                     justifyContent: 'center',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: el }}
-               />
-            ),
+            piece,
+            size: pieceSize,
          },
       };
 
