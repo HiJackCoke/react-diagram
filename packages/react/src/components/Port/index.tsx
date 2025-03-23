@@ -9,7 +9,8 @@ import { Connection, PortProps, CosmosPort, isMouseEvent } from '@diagram/core';
 import { useNodeId } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';
 
-function Port({ type, position }: PortProps) {
+function Port({ id, type, position }: PortProps) {
+   const portId = id || null;
    const store = useStoreApi();
    const nodeId = useNodeId();
 
@@ -49,6 +50,7 @@ function Port({ type, position }: PortProps) {
          CosmosPort.onPointerDown({
             event: event.nativeEvent,
             nodeId,
+            portId,
             portType: type,
             domNode,
             autoPanOnConnect,
@@ -68,7 +70,8 @@ function Port({ type, position }: PortProps) {
    return (
       <div
          data-nodeid={nodeId}
-         data-id={`${nodeId}-${type}`}
+         data-id={`${nodeId}-${portId}-${type}`}
+         data-portid={portId}
          data-port-position={position}
          className={`react-diagram__port react-diagram__port-${position} ${type} nodrag`}
          onMouseDown={onPointerDown}

@@ -1,4 +1,5 @@
 import {
+   ConnectingPort,
    Connection,
    ConnectionPort,
    CoreNode,
@@ -12,12 +13,14 @@ import { getEventPosition } from '../utils';
 type GetAllPortParams = {
    nodes: CoreNode[];
    nodeId: string;
-   portType: string;
+   portId: string | null;
+   portType: PortType;
 };
 
 type getConnectionResult = {
    isValid: boolean;
-   connection: Connection;
+   connection: Connection | null;
+   endPort: ConnectingPort | null;
 };
 
 const getPorts = (
@@ -27,9 +30,10 @@ const getPorts = (
    currentPort: string,
 ): ConnectionPort[] =>
    (portBounds[type] || []).reduce<ConnectionPort[]>((res, h) => {
-      if (`${node.id}-${type}` !== currentPort) {
+      if (`${node.id}-${h.id}-${type}` !== currentPort) {
          res.push({
-            type,
+            portId: h.id || null,
+            portType: type,
             nodeId: node.id,
             x: (node.positionAbsolute?.x ?? 0) + h.x + h.width / 2,
             y: (node.positionAbsolute?.y ?? 0) + h.y + h.height / 2,
@@ -48,7 +52,12 @@ export const getPortType = (PortDomNode: Element | null): PortType | null => {
    return null;
 };
 
-export const getAllPort = ({ nodes, nodeId, portType }: GetAllPortParams) =>
+export const getAllPort = ({
+   nodes,
+   nodeId,
+   portId,
+   portType,
+}: GetAllPortParams) =>
    nodes.reduce<ConnectionPort[]>((res, node) => {
       if (node[internalsSymbol]) {
          const { portBounds } = node[internalsSymbol];
@@ -60,13 +69,13 @@ export const getAllPort = ({ nodes, nodeId, portType }: GetAllPortParams) =>
                node,
                portBounds,
                'source',
-               `${nodeId}-${portType}`,
+               `${nodeId}-${portId}-${portType}`,
             );
             targetPorts = getPorts(
                node,
                portBounds,
                'target',
-               `${nodeId}-${portType}`,
+               `${nodeId}-${portId}-${portType}`,
             );
          }
 
@@ -98,7 +107,7 @@ export const getClosestPort = (
 
 export const getConnection = (
    event: MouseEvent | TouchEvent,
-   port: Pick<ConnectionPort, 'nodeId' | 'type'> | null,
+   port: ConnectionPort | null,
    fromNodeId: string,
    fromType: PortType,
    doc: Document | ShadowRoot,
@@ -107,14 +116,12 @@ export const getConnection = (
 
    const result: getConnectionResult = {
       isValid: false,
-      connection: {
-         source: null,
-         target: null,
-      },
+      connection: null,
+      endPort: null,
    };
 
    const PortDomNode = doc.querySelector(
-      `.react-diagram__port[data-id="${port?.nodeId}-${port?.type}"]`,
+      `.react-diagram__port[data-id="${port?.nodeId}-${port?.portId}-${port?.portType}"]`,
    );
 
    const { x, y } = getEventPosition(event);
@@ -126,6 +133,7 @@ export const getConnection = (
    if (Port) {
       const portType = getPortType(Port);
       const toNodeId = Port.getAttribute('data-nodeid');
+      const toPortId = Port.getAttribute('data-portid');
 
       const connection = {
          source: isTarget ? toNodeId : fromNodeId,
@@ -140,6 +148,11 @@ export const getConnection = (
 
       if (isValid) {
          result.isValid = true;
+         result.endPort = {
+            nodeId: toNodeId,
+            portId: toPortId,
+            portType,
+         };
       }
    }
 

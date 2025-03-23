@@ -1,4 +1,5 @@
 import {
+   ConnectingPort,
    Connection,
    ConnectionPort,
    CoreNode,
@@ -28,6 +29,7 @@ export type OnPointerDown = {
    isAnchor?: boolean;
    event: MouseEvent | TouchEvent;
    nodeId: string;
+   portId: string | null;
    portType: PortType;
    // getState: StoreApi<ReactDiagramState>['getState'];
    domNode: HTMLDivElement | null;
@@ -45,10 +47,13 @@ export type OnPointerDown = {
    onEdgeUpdateEnd?: (evt: MouseEvent | TouchEvent) => void;
 };
 
+let connectionStartPort: ConnectingPort | null = null;
+
 export const onPointerDown = ({
    isAnchor = false,
    event,
    nodeId,
+   portId,
    portType,
    domNode,
    autoPanOnConnect,
@@ -73,8 +78,10 @@ export const onPointerDown = ({
    const allPort = getAllPort({
       nodes,
       nodeId,
+      portId,
       portType,
    });
+
 
    let connectionPosition = getEventPosition(event, containerBounds);
    let closestPort: ConnectionPort | null = null;
@@ -101,13 +108,18 @@ export const onPointerDown = ({
       autoPanId = requestAnimationFrame(autoPan);
    };
 
+   connectionStartPort = {
+      nodeId,
+      portId,
+      portType: clickedPortType,
+   };
    updateConnection({
       connectionPosition,
-      connectionNodeId: nodeId,
-      connectionPortType: clickedPortType,
+      connectionStartPort,
+      connectionEndPort: null,
    });
 
-   onConnectStart?.(event, { nodeId, portType });
+   onConnectStart?.(event, { nodeId, portId, portType });
 
    const onPointerMove = (event: MouseEvent | TouchEvent) => {
       const transform = getTransform();
@@ -116,7 +128,6 @@ export const onPointerDown = ({
 
       closestPort = getClosestPort(
          pointToRendererPoint(connectionPosition, transform),
-
          connectionRadius,
          allPort,
       );
@@ -136,8 +147,9 @@ export const onPointerDown = ({
             closestPort && isValid
                ? rendererPointToPoint(closestPort, transform)
                : connectionPosition,
-         // connectionNodeId: null,
-         // connectionPortType: null,
+
+         connectionStartPort,
+         connectionEndPort: result.endPort,
       });
    };
 

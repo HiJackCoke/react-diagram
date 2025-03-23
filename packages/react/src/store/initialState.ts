@@ -34,8 +34,11 @@ const initialState: ReactDiagramStore = {
    maxZoom: 2,
 
    connectionPosition: { x: 0, y: 0 },
-   connectionNodeId: null,
-   connectionPortType: 'source',
+
+
+   connectionStartPort: null,
+   connectionEndPort: null,
+
    autoPanOnNodeDrag: true,
    autoPanOnConnect: true,
    nodeExtent: infiniteExtent,

@@ -18,14 +18,15 @@ export interface Connection {
    target: string | null;
 }
 
-type OnConnectStartParams = {
+export type ConnectingPort = {
    nodeId: string | null;
+   portId: string | null;
    portType: PortType | null;
 };
 
 export type OnConnectStart = (
    event: MouseEvent | TouchEvent,
-   params: OnConnectStartParams,
+   params: ConnectingPort,
 ) => void;
 
 export type OnConnect = (connection: Connection) => void;
@@ -34,14 +35,8 @@ export type OnConnectEnd = (event: MouseEvent | TouchEvent) => void;
 
 export type UpdateConnection = (params: {
    connectionPosition: XYPosition | null;
-   connectionNodeId?: string | null;
-   connectionPortType?: PortType | null;
+   connectionStartPort: ConnectingPort | null;
+   connectionEndPort: ConnectingPort | null;
 }) => void;
 
-export type ConnectionPort = {
-   // id: string | null;
-   type: PortType;
-   nodeId: string;
-   x: number;
-   y: number;
-};
+export type ConnectionPort = ConnectingPort & XYPosition;

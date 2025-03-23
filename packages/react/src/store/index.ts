@@ -94,6 +94,7 @@ const createRFStore = () =>
                      [internalsSymbol]: {
                         ...node[internalsSymbol],
                         portBounds: {
+                           id: node[internalsSymbol]?.portBounds?.id || null,
                            source: getPortBounds(
                               '.source',
                               update.nodeElement,
@@ -247,8 +248,10 @@ const createRFStore = () =>
 
       cancelConnection: () =>
          set({
-            connectionNodeId: initialState.connectionNodeId,
-            connectionPortType: initialState.connectionPortType,
+
+
+            connectionStartPort: null,
+            connectionEndPort: null,
          }),
 
       updateConnection: (params) => {

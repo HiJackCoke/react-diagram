@@ -75,6 +75,7 @@
    width: 6px;
    height: 6px;
    background: #000000;
+   box-sizing: border-box;
    border: 1px solid #ffffff;
    border-radius: 100%;
 

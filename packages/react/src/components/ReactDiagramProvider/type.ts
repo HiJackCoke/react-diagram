@@ -15,6 +15,7 @@ import type {
    UpdateConnection,
    NodeDragItem,
    NodeOrigin,
+   ConnectingPort,
 } from '@diagram/core';
 import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
 
@@ -72,8 +73,9 @@ export type ReactDiagramStore = {
    onEdgesChange?: OnEdgesChange;
 
    connectionPosition: XYPosition;
-   connectionNodeId: string | null;
-   connectionPortType: PortType | null;
+
+   connectionStartPort: ConnectingPort | null;
+   connectionEndPort: ConnectingPort | null;
 
    onConnect?: OnConnect;
    onConnectStart?: OnConnectStart;

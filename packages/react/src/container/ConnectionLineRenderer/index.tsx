@@ -17,8 +17,7 @@ type ConnectionLineRendererProps = {
 
 const selector = (s: ReactDiagramState) => ({
    edges: s.edges,
-   nodeId: s.connectionNodeId,
-   portType: s.connectionPortType,
+   startPort: s.connectionStartPort,
 });
 
 function ConnectionLineRenderer({
@@ -26,7 +25,10 @@ function ConnectionLineRenderer({
    edgeTypes,
    component,
 }: ConnectionLineRendererProps) {
-   const { nodeId, portType, edges } = useStore(selector, shallow);
+   const { startPort, edges } = useStore(selector, shallow);
+   if (!startPort) return null;
+
+   const { nodeId, portType } = startPort;
    const isValid = !!(nodeId && portType);
 
    if (!isValid) {

@@ -166,6 +166,8 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
             const nodeId = props[fromPortType];
             const edge = edges.find((e) => e.id === id)!;
+            const portId =
+               (fromPortType === 'source' ? sourcePort : targetPort) || null;
 
             setUpdating(true);
             onEdgeUpdateStart?.(event, edge, fromPortType);
@@ -182,6 +184,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
                isAnchor: true,
                event: event.nativeEvent,
                nodeId,
+               portId,
                portType: fromPortType,
                domNode,
                autoPanOnConnect,

@@ -32,11 +32,11 @@ function ConnectionPath({
    Component,
    EdgeWrapper,
 }: ConnectionPathProps) {
-   const { fromNode, toX, toY } = useStore(
+   const { fromNode, toX, toY, startPort } = useStore(
       useCallback(
          (s: ReactDiagramStore) => ({
             fromNode: s.nodeInternals.get(nodeId),
-
+            startPort: s.connectionStartPort,
             toX: (s.connectionPosition.x - s.transform[0]) / s.transform[2],
             toY: (s.connectionPosition.y - s.transform[1]) / s.transform[2],
          }),
@@ -52,7 +52,10 @@ function ConnectionPath({
       return null;
    }
 
-   const fromPort = portBounds[0];
+   const fromPort =
+      portBounds.find((bound) => bound.id === startPort?.portId) ||
+      portBounds[0];
+
    const fromPortX = fromPort
       ? fromPort.x + fromPort.width / 2
       : (fromNode.width ?? 0) / 2;

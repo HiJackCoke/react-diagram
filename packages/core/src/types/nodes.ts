@@ -47,6 +47,7 @@ export type CoreNode<
 export type NodeOrigin = [number, number];
 
 export type NodePortBounds = {
+   id: string | null;
    source: PortElement[] | null;
    target: PortElement[] | null;
 };
