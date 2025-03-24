@@ -8,24 +8,24 @@
 }
 
 /* .container :global(.react-diagram__port-left) {
-   left: 22.27px;
+   left: var(--position);
 }
 
 .container :global(.react-diagram__port-right) {
-   right: 22.27px;
+   right: var(--position);
 } */
 
 .container .blank-left > div {
-   left: 22.27px;
+   left: var(--position);
 }
 .container .blank-right > div {
-   right: 22.27px;
+   right: var(--position);
 }
 .container .blank-top > div {
-   top: 22.27px;
+   top: var(--position);
 }
 .container .blank-bottom > div {
-   bottom: 22.27px;
+   bottom: var(--position);
 }
 
 .container .tab-left > div {

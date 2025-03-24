@@ -2,6 +2,7 @@ import { NodeProps, Port, Position } from 'react-cosmos-diagram';
 
 import styles from './style.module.css';
 import { PieceSize, PuzzleEdge, PuzzlePiece } from 'components/PuzzleGenerator';
+import { CSSProperties } from 'react';
 
 type Props = {
    piece: PuzzlePiece;
@@ -36,23 +37,38 @@ function PuzzleNode({ data }: NodeProps<Props>) {
                   return null;
                case 'blank':
                   return (
-                     <div className={`${styles[`blank-${key}`]}`}>
+                     <div
+                        key={`${key}-${value}`}
+                        className={`${styles[`blank-${key}`]}`}
+                        style={{
+                           '--position': `${
+                           data.size.tabSize + data.size.tabSize / 2
+                        }px`
+                        } as CSSProperties}
+                     >
                         <Port
                            key={key}
                            id={key}
                            position={Position[capitalizeFirstLetter(key)]}
                            type="target"
+                      
                         />
                      </div>
                   );
                case 'tab':
                   return (
-                     <div className={`${styles[`tab-${key}`]}`}>
+                     <div
+                        key={`${key}-${value}`}
+                        className={`${styles[`tab-${key}`]}`}
+                     >
                         <Port
                            key={key}
                            id={key}
                            position={Position[capitalizeFirstLetter(key)]}
                            type="source"
+                           data-position={`${
+                              data.size.tabSize + data.size.tabSize / 2
+                           }px`}
                         />
                      </div>
                   );
