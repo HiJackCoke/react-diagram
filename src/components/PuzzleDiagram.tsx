@@ -1,6 +1,13 @@
-import { DragEvent, useCallback } from 'react';
+import { DragEvent, useCallback, useRef } from 'react';
 
-import ReactDiagram, { useNodesState } from 'react-cosmos-diagram';
+import ReactDiagram, {
+   addEdge,
+   Connection,
+   Edge,
+   updateEdge,
+   useEdgesState,
+   useNodesState,
+} from 'react-cosmos-diagram';
 
 import PuzzleSidebar from 'components/PuzzleSidebar';
 import PuzzleNode from 'components/Node/PuzzleNode';
@@ -34,9 +41,37 @@ function getTranslateValues(transformString: string) {
 }
 
 function PuzzleDiagram() {
+   const edgeUpdateSuccessful = useRef(true);
+
    const dragCtx = useDragContext();
 
    const [nodes, setNodes, onNodesChange] = useNodesState([]);
+   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+   const onConnect = useCallback((params: Connection) => {
+      setEdges((eds) => addEdge({ ...params }, eds));
+   }, []);
+
+   const onEdgeUpdateStart = useCallback(() => {
+      edgeUpdateSuccessful.current = false;
+   }, []);
+
+   const onEdgeUpdate = useCallback(
+      (originEdge: Edge, newConnection: Connection) => {
+         edgeUpdateSuccessful.current = true;
+
+         setEdges((els) => updateEdge(originEdge, newConnection, els));
+      },
+      [],
+   );
+
+   const onEdgeUpdateEnd = useCallback((_c: any, edge: Edge) => {
+      if (!edgeUpdateSuccessful.current) {
+         setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+      }
+
+      edgeUpdateSuccessful.current = true;
+   }, []);
 
    const onDragOver = useCallback((event: DragEvent<HTMLDivElement>) => {
       event.preventDefault();
@@ -105,6 +140,7 @@ function PuzzleDiagram() {
          <div className="reactdiagram-wrapper">
             <ReactDiagram
                nodes={nodes}
+               edges={edges}
                nodeTypes={nodeTypes}
                connectionRadius={30}
                minZoom={1}
@@ -112,6 +148,11 @@ function PuzzleDiagram() {
                onNodesChange={onNodesChange}
                onDrop={onDrop}
                onDragOver={onDragOver}
+               onEdgeUpdate={onEdgeUpdate}
+               onEdgeUpdateStart={onEdgeUpdateStart}
+               onEdgeUpdateEnd={onEdgeUpdateEnd}
+               onEdgesChange={onEdgesChange}
+               onConnect={onConnect}
             ></ReactDiagram>
          </div>
 

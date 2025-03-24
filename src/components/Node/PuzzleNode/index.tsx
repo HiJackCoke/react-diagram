@@ -32,49 +32,27 @@ function PuzzleNode({ data }: NodeProps<Props>) {
          </div>
 
          {edgeMap.map(([key, value]) => {
-            switch (value) {
-               case 'flat':
-                  return null;
-               case 'blank':
-                  return (
-                     <div
-                        key={`${key}-${value}`}
-                        className={`${styles[`blank-${key}`]}`}
-                        style={{
-                           '--position': `${
+            console.log;
+            if (value === 'flat') return null;
+            return (
+               <div
+                  key={`${key}-${value}`}
+                  className={`${styles[`${value}-${key}`]}`}
+                  style={
+                     {
+                        '--position': `${
                            data.size.tabSize + data.size.tabSize / 2
-                        }px`
-                        } as CSSProperties}
-                     >
-                        <Port
-                           key={key}
-                           id={key}
-                           position={Position[capitalizeFirstLetter(key)]}
-                           type="target"
-                      
-                        />
-                     </div>
-                  );
-               case 'tab':
-                  return (
-                     <div
-                        key={`${key}-${value}`}
-                        className={`${styles[`tab-${key}`]}`}
-                     >
-                        <Port
-                           key={key}
-                           id={key}
-                           position={Position[capitalizeFirstLetter(key)]}
-                           type="source"
-                           data-position={`${
-                              data.size.tabSize + data.size.tabSize / 2
-                           }px`}
-                        />
-                     </div>
-                  );
-               default:
-                  return null;
-            }
+                        }px`,
+                     } as CSSProperties
+                  }
+               >
+                  <Port
+                     id={`${key}-${value}`}
+                     position={Position[capitalizeFirstLetter(key)]}
+                     type={value === 'tab' ? 'target' : 'source'}
+                  />
+               </div>
+            );
          })}
       </div>
    );
