@@ -23,8 +23,13 @@ export const getEdgeCenter = ({
    return [centerX, centerY, xOffset, yOffset];
 };
 
-const getEdgeId = ({ source, target }: CoreEdge | Connection): string =>
-   `react-diagram__edge-${source}-${target}`;
+const getEdgeId = ({
+   source,
+   sourcePort,
+   target,
+   targetPort,
+}: CoreEdge | Connection): string =>
+   `react-diagram__edge-${source}${sourcePort}-${target}${targetPort}`;
 
 const isExistsConnection = (edge: CoreEdge, edges: CoreEdge[]) =>
    edges.some(
