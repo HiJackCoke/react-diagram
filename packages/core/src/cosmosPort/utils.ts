@@ -109,6 +109,7 @@ export const getConnection = (
    event: MouseEvent | TouchEvent,
    port: ConnectionPort | null,
    fromNodeId: string,
+   fromPortId: string | null,
    fromType: PortType,
    doc: Document | ShadowRoot,
 ) => {
@@ -138,6 +139,8 @@ export const getConnection = (
       const connection = {
          source: isTarget ? toNodeId : fromNodeId,
          target: isTarget ? fromNodeId : toNodeId,
+         sourcePort: isTarget ? port?.portId || null : fromPortId,
+         targetPort: isTarget ? fromPortId : port?.portId || null,
       };
 
       result.connection = connection;

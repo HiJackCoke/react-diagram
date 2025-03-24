@@ -23,11 +23,19 @@ export const getEdgeCenter = ({
    return [centerX, centerY, xOffset, yOffset];
 };
 
-const getEdgeId = ({ source, target }: Connection): string =>
+const getEdgeId = ({ source, target }: CoreEdge | Connection): string =>
    `react-diagram__edge-${source}-${target}`;
 
 const isExistsConnection = (edge: CoreEdge, edges: CoreEdge[]) =>
-   edges.some((el) => el.source === edge.source && el.target === edge.target);
+   edges.some(
+      (el) =>
+         el.source === edge.source &&
+         el.target === edge.target &&
+         (el.sourcePort === edge.sourcePort ||
+            (!el.sourcePort && !edge.sourcePort)) &&
+         (el.targetPort === edge.targetPort ||
+            (!el.targetPort && !edge.targetPort)),
+   );
 
 export const addEdge = (
    edgeParams: CoreEdge | Connection,
@@ -44,6 +52,14 @@ export const addEdge = (
    }
 
    let edge: CoreEdge;
+
+   if (edgeParams.sourcePort === null) {
+      delete edgeParams.sourcePort;
+   }
+
+   if (edgeParams.targetPort === null) {
+      delete edgeParams.targetPort;
+   }
 
    if (edgeParams.id) edge = { ...edgeParams };
    else

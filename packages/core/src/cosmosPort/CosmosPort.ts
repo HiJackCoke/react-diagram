@@ -82,7 +82,6 @@ export const onPointerDown = ({
       portType,
    });
 
-
    let connectionPosition = getEventPosition(event, containerBounds);
    let closestPort: ConnectionPort | null = null;
    let isValid = false;
@@ -137,7 +136,7 @@ export const onPointerDown = ({
          autoPanStarted = true;
       }
 
-      const result = getConnection(event, closestPort, nodeId, portType, doc);
+      const result = getConnection(event, closestPort, nodeId, portId, portType, doc);
 
       isValid = result.isValid;
       connection = result.connection;

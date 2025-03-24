@@ -16,6 +16,8 @@ export interface PortProps {
 export interface Connection {
    source: string | null;
    target: string | null;
+   sourcePort: string | null;
+   targetPort: string | null;
 }
 
 export type ConnectingPort = {
