@@ -18,6 +18,23 @@ const nodeTypes = {
 };
 
 const getId = (pieceId: number) => `puzzle-node-${pieceId}`;
+
+type Position = 'left' | 'right' | 'top' | 'bottom';
+
+const isOppositePosition = (
+   sourcePosition: Position,
+   targetPosition: Position,
+): boolean => {
+   const opposites: Record<Position, Position> = {
+      left: 'right',
+      right: 'left',
+      top: 'bottom',
+      bottom: 'top',
+   };
+
+   return opposites[sourcePosition] === targetPosition;
+};
+
 function getTranslateValues(transformString: string) {
    const translateRegex = /translate\(\s*([^\s,]+)px\s*,\s*([^\s,]+)px\s*\)/;
    const scaleRegex = /scale\(\s*([^\s,]+)\s*(?:,\s*([^\s,]+))?\s*\)/;
@@ -49,6 +66,13 @@ function PuzzleDiagram() {
    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
    const onConnect = useCallback((params: Connection) => {
+      const { sourcePort, targetPort } = params;
+
+      const sourcePosition = sourcePort?.split('-')[0] as Position;
+      const targetPosition = targetPort?.split('-')[0] as Position;
+
+      if (!isOppositePosition(sourcePosition, targetPosition)) return;
+
       setEdges((eds) => addEdge({ ...params }, eds));
    }, []);
 

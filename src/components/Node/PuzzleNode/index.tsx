@@ -9,7 +9,7 @@ type Props = {
    size: PieceSize;
 };
 
-const capitalizeFirstLetter = (
+export const capitalizeFirstLetter = (
    str: Lowercase<keyof typeof Position>,
 ): keyof typeof Position => {
    return (str[0].toUpperCase() + str.slice(1)) as keyof typeof Position;
