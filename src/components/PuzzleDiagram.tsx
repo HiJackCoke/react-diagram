@@ -66,14 +66,29 @@ function PuzzleDiagram() {
    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
    const onConnect = useCallback((params: Connection) => {
-      const { sourcePort, targetPort } = params;
+      const { source, target, sourcePort, targetPort } = params;
 
       const sourcePosition = sourcePort?.split('-')[0] as Position;
       const targetPosition = targetPort?.split('-')[0] as Position;
 
       if (!isOppositePosition(sourcePosition, targetPosition)) return;
 
-      setEdges((eds) => addEdge({ ...params }, eds));
+      setEdges((eds) => {
+         const isAlreadyConnected = eds.some((edge) => {
+            return (
+               (edge.source === source && edge.target === target) ||
+               (edge.source === target && edge.target === source)
+            );
+         });
+
+         if (isAlreadyConnected) {
+            console.log(
+               'These are pieces that are already connected to each other.',
+            );
+            return eds;
+         }
+         return addEdge({ ...params }, eds);
+      });
    }, []);
 
    const onEdgeUpdateStart = useCallback(() => {
@@ -157,6 +172,7 @@ function PuzzleDiagram() {
       };
 
       setNodes((nds) => nds.concat(newNode));
+      event.dataTransfer.effectAllowed = 'none';
    }, []);
 
    return (

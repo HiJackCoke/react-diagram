@@ -26,7 +26,7 @@ function PuzzleNode({ data }: NodeProps<Props>) {
    ][];
 
    return (
-      <div className={styles.container}>
+      <div className={styles.container} onDrag={(e) => e.preventDefault()}>
          <div className={styles.wrapper}>
             <img src={dataUrl} alt={`piece-${id}`} />
          </div>
