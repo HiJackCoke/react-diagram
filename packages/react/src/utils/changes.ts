@@ -17,7 +17,7 @@ const handleParentExpand = (res: any[], updateItem: any) => {
          updateItem.position.x < 0 ||
          updateItem.position.y < 0
       ) {
-         parent.style = { ...parent.style } || {};
+         parent.style = { ...parent.style };
 
          parent.style.width = parent.style.width ?? parent.width;
          parent.style.height = parent.style.height ?? parent.height;

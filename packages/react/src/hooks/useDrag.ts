@@ -33,6 +33,7 @@ const useDrag = ({
                id,
                store,
                nodeRef,
+               isSelectable,
             });
          },
          onDragStart: () => {
@@ -50,7 +51,6 @@ const useDrag = ({
       } else if (nodeRef.current) {
          cosmosDrag.current?.update({
             noDragClassName,
-
             domNode: nodeRef.current,
             isSelectable,
             nodeId,

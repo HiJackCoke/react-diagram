@@ -79,6 +79,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
                id,
                store,
                nodeRef,
+               isSelectable,
             });
          }
 
