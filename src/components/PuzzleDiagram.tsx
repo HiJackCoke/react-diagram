@@ -12,6 +12,7 @@ import ReactDiagram, {
 import PuzzleSidebar from 'components/PuzzleSidebar';
 import PuzzleNode from 'components/Node/PuzzleNode';
 import { useDragContext } from 'contexts/DragContext';
+import { PieceSize } from './PuzzleGenerator';
 
 const nodeTypes = {
    puzzle: PuzzleNode,
@@ -35,7 +36,7 @@ const isOppositePosition = (
    return opposites[sourcePosition] === targetPosition;
 };
 
-function getTranslateValues(transformString: string) {
+const getTranslateValues = (transformString: string) => {
    const translateRegex = /translate\(\s*([^\s,]+)px\s*,\s*([^\s,]+)px\s*\)/;
    const scaleRegex = /scale\(\s*([^\s,]+)\s*(?:,\s*([^\s,]+))?\s*\)/;
 
@@ -55,10 +56,16 @@ function getTranslateValues(transformString: string) {
       scale = parseFloat(scaleMatches[1]);
    }
    return { x, y, scale };
-}
+};
 
 function PuzzleDiagram() {
    const edgeUpdateSuccessful = useRef(true);
+
+   const pieceSizeRef = useRef<PieceSize>({
+      tabSize: 0,
+      totalSize: 0,
+      pieceSize: 0,
+   });
 
    const dragCtx = useDragContext();
 
@@ -88,6 +95,65 @@ function PuzzleDiagram() {
             return eds;
          }
          return addEdge({ ...params }, eds);
+      });
+
+      let isAlreadyParent = false;
+      setNodes((nodes) => {
+         return nodes.map((node) => {
+            if (node.id === target) {
+               if (!node.parentNode) {
+                  if (source) node.parentNode = source;
+
+                  if (targetPosition === 'left') {
+                     node.position.x = pieceSizeRef.current.pieceSize;
+                     node.position.y = 0;
+                  }
+
+                  if (targetPosition === 'right') {
+                     node.position.x = -pieceSizeRef.current.pieceSize;
+                     node.position.y = 0;
+                  }
+
+                  if (targetPosition === 'top') {
+                     node.position.x = 0;
+                     node.position.y = pieceSizeRef.current.pieceSize;
+                  }
+
+                  if (targetPosition === 'bottom') {
+                     node.position.x = 0;
+                     node.position.y = -pieceSizeRef.current.pieceSize;
+                  }
+               } else {
+                  isAlreadyParent = true;
+               }
+            }
+
+            if (node.id === source && isAlreadyParent) {
+               if (target) node.parentNode = target;
+
+               if (sourcePosition === 'left') {
+                  node.position.x = pieceSizeRef.current.pieceSize;
+                  node.position.y = 0;
+               }
+
+               if (sourcePosition === 'right') {
+                  node.position.x = -pieceSizeRef.current.pieceSize;
+                  node.position.y = 0;
+               }
+
+               if (sourcePosition === 'top') {
+                  node.position.x = 0;
+                  node.position.y = pieceSizeRef.current.pieceSize;
+               }
+
+               if (sourcePosition === 'bottom') {
+                  node.position.x = 0;
+                  node.position.y = -pieceSizeRef.current.pieceSize;
+               }
+            }
+
+            return node;
+         });
       });
    }, []);
 
@@ -171,6 +237,7 @@ function PuzzleDiagram() {
          },
       };
 
+      pieceSizeRef.current = pieceSize;
       setNodes((nds) => nds.concat(newNode));
       event.dataTransfer.effectAllowed = 'none';
    }, []);
