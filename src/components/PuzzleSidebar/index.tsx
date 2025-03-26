@@ -1,4 +1,4 @@
-import { useState, type DragEvent } from 'react';
+import { useRef, useState, type DragEvent } from 'react';
 import styles from './style.module.css';
 
 import PuzzleGenerator, {
@@ -11,6 +11,7 @@ import PuzzleNodeView from 'components/Node/PuzzleNode/View';
 import { useDragContext } from 'contexts/DragContext';
 
 function PuzzleSidebar() {
+   const ref = useRef<HTMLElement>(null);
    const dragCtx = useDragContext();
 
    const [pieces, setPieces] = useState<PuzzlePiece[]>([]);
@@ -31,7 +32,8 @@ function PuzzleSidebar() {
          draggedElementRef.current = node;
 
          const x = event.clientX - node.offsetLeft;
-         const y = event.clientY - node.offsetTop;
+         const y =
+            event.clientY - node.offsetTop + (ref.current?.scrollTop || 0);
          const distance = {
             x,
             y,
@@ -62,7 +64,7 @@ function PuzzleSidebar() {
    };
 
    return (
-      <aside className={styles.container}>
+      <aside ref={ref} className={styles.container}>
          <PuzzleGenerator onImageUpdate={handlePuzzleUpdate} />
 
          <div className={styles['puzzle-wrapper']}>
