@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { resize } from 'utils';
 
 export type PuzzleEdge = 'flat' | 'tab' | 'blank';
 export type PuzzlePiece = {
@@ -29,6 +30,7 @@ interface Props {
    onImageUpdate: OnImageUpdate;
 }
 const PIECE_COUNT = 16;
+const PIECE_SIZE = 500;
 
 const PuzzleGenerator = ({ onImageUpdate }: Props) => {
    const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,8 +42,18 @@ const PuzzleGenerator = ({ onImageUpdate }: Props) => {
       if (!file) return;
 
       const img = new Image();
+      const blob = URL.createObjectURL(file);
       img.src = URL.createObjectURL(file);
+
       img.onload = () => splitImage(img);
+
+      resize(blob, { maxSize: PIECE_SIZE }).onload((resized) => {
+         const img = new Image();
+         img.src =
+            resized instanceof Blob ? URL.createObjectURL(resized) : resized;
+
+         img.onload = () => splitImage(img);
+      });
    };
 
    const splitImage = (img: HTMLImageElement) => {
@@ -52,9 +64,11 @@ const PuzzleGenerator = ({ onImageUpdate }: Props) => {
 
       const cols = Math.ceil(Math.sqrt(pieceCount));
       const rows = Math.ceil(pieceCount / cols);
+
       const pieceSize = Math.floor(
          Math.min(img.width / cols, img.height / rows),
       );
+
       const tabSize = pieceSize * 0.33;
       const curve = pieceSize * 0.33;
 
