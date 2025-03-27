@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import type { ReactNode, MouseEvent as ReactMouseEvent } from 'react';
+import type { MouseEvent as ReactMouseEvent } from 'react';
 import {
    Rect,
    XYPosition,
@@ -7,6 +7,7 @@ import {
    getNodesInside,
    getRectOfNodes,
 } from '@diagram/core';
+import cc from 'classcat';
 
 import { shallow } from 'zustand/shallow';
 
@@ -21,7 +22,6 @@ import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { NodeChange } from '../../types';
 
 type DragSelectionProps = {
-   children: ReactNode;
    dragSelectionKeyPressed?: boolean;
 };
 
@@ -37,10 +37,7 @@ const selector = (s: ReactDiagramState) => {
    };
 };
 
-function DragSelection({
-   children,
-   dragSelectionKeyPressed,
-}: DragSelectionProps) {
+function DragSelection({ dragSelectionKeyPressed }: DragSelectionProps) {
    const store = useStoreApi();
 
    const dragSelection = useRef<HTMLDivElement>(null);
@@ -218,14 +215,16 @@ function DragSelection({
    return (
       <div
          ref={dragSelection}
-         className="react-diagram__container react-diagram__drag-selection"
+         className={cc([
+            'react-diagram__container react-diagram__drag-selection',
+            { selection: isPossibleDragSelection },
+         ])}
          onClick={onClick}
          onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
          onMouseMove={isPossibleDragSelection ? onMouseMove : undefined}
          onMouseUp={elementsSelectable && dragBoxRect ? onMouseUp : undefined}
          onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
       >
-         {children}
          {dragBoxActive && <DragBox rect={dragBoxRect} />}
          {selectionBoxActive && (
             <SelectionBox rect={selectionBoxRect} transform={transformString} />

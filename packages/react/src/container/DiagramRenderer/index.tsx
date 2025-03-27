@@ -51,22 +51,24 @@ function DiagramRenderer({
    const isPanning = panning && !isSelecting;
 
    return (
-      <Pane
-         noPanClassName={noPanClassName}
-         panning={isPanning}
-         selection={isSelecting}
-         minZoom={minZoom}
-         maxZoom={maxZoom}
-         translateExtent={translateExtent}
-         defaultViewport={defaultViewport}
-         onMove={onMove}
-         onMoveStart={onMoveStart}
-         onMoveEnd={onMoveEnd}
-      >
-         <DragSelection dragSelectionKeyPressed={dragSelectionKeyPressed}>
+      <>
+         <Pane
+            noPanClassName={noPanClassName}
+            panning={isPanning}
+            selection={isSelecting}
+            minZoom={minZoom}
+            maxZoom={maxZoom}
+            translateExtent={translateExtent}
+            defaultViewport={defaultViewport}
+            onMove={onMove}
+            onMoveStart={onMoveStart}
+            onMoveEnd={onMoveEnd}
+         >
             <Viewport>{children}</Viewport>
-         </DragSelection>
-      </Pane>
+         </Pane>
+
+         <DragSelection dragSelectionKeyPressed={dragSelectionKeyPressed} />
+      </>
    );
 }
 
