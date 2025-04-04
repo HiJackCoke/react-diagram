@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import {
    Rect,
@@ -67,7 +67,17 @@ function DragSelection({ dragSelectionKeyPressed }: DragSelectionProps) {
 
    const [dragBoxActive, setDragBoxActive] = useState(false);
 
+   useEffect(() => {
+      if (!dragSelectionKeyPressed) {
+         resetDragBox();
+      }
+   }, [dragSelectionKeyPressed]);
+
    const resetDragBox = () => {
+      store.setState({
+         selectionBoxActive: prevSelectedNodesCount.current > 0,
+      });
+
       setDragBoxStartPosition({
          x: 0,
          y: 0,
@@ -195,17 +205,10 @@ function DragSelection({ dragSelectionKeyPressed }: DragSelectionProps) {
          return;
       }
 
-      store.setState({
-         selectionBoxActive: prevSelectedNodesCount.current > 0,
-      });
-
       resetDragBox();
    };
 
    const onMouseLeave = () => {
-      store.setState({
-         selectionBoxActive: prevSelectedNodesCount.current > 0,
-      });
       resetDragBox();
    };
 
