@@ -29,6 +29,7 @@ function PuzzleNode({ data }: NodeProps<Props>) {
       <div className={styles.container} onDragStart={(e) => e.preventDefault()}>
          <div className={styles.wrapper}>
             <img src={dataUrl} alt={`piece-${id}`} />
+            {/* <div className={styles.id}>{id}</div> */}
          </div>
 
          {edgeMap.map(([key, value]) => {
@@ -49,7 +50,7 @@ function PuzzleNode({ data }: NodeProps<Props>) {
                   <Port
                      id={`${key}-${value}`}
                      position={Position[capitalizeFirstLetter(key)]}
-                     type={value === 'tab' ? 'target' : 'source'}
+                     type={value === 'tab' ? 'source' : 'target'}
                   />
                </div>
             );

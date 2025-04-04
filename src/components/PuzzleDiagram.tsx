@@ -60,6 +60,7 @@ const getTranslateValues = (transformString: string) => {
 
 function PuzzleDiagram() {
    const edgeUpdateSuccessful = useRef(true);
+   const nodeMap = useRef(new Map<string, string[]>([]));
 
    const pieceSizeRef = useRef<PieceSize>({
       tabSize: 0,
@@ -97,58 +98,97 @@ function PuzzleDiagram() {
          return addEdge({ ...params }, eds);
       });
 
-      let isAlreadyParent = false;
+      if (target && source) {
+         const sourceNodes = nodeMap.current.get(source) ?? [];
+         const targetNodes = nodeMap.current.get(target) ?? [];
+
+         const targets = new Set([...sourceNodes, ...targetNodes, target]);
+         const sources = new Set([...sourceNodes, ...targetNodes, source]);
+
+         nodeMap.current.set(source, Array.from(targets));
+         nodeMap.current.set(target, Array.from(sources));
+      }
+
       setNodes((nodes) => {
+         const connectedNodes = target
+            ? nodeMap.current
+                 .get(target)
+                 ?.flatMap((node) => nodeMap.current.get(node) ?? [])
+            : [];
+
+         const filteredConnectedNodes = [...new Set(connectedNodes)];
+
+         const sourceNode = nodes.find((node) => node.id === source);
+
+         const sourceNodeX = sourceNode?.position.x || 0;
+         const sourceNodeY = sourceNode?.position.y || 0;
+
+         const childNodes = nodes.filter(
+            (node) => filteredConnectedNodes?.includes(node.id),
+         );
+
+         let offsetX = 0;
+         let offsetY = 0;
+
+         const unCaughtNodes = nodes.filter(
+            (node) =>
+               !childNodes.some(
+                  (childNodes) =>
+                     childNodes.id === node.id && childNodes.id !== source,
+               ),
+         );
+
          return nodes.map((node) => {
             if (node.id === target) {
-               if (!node.parentNode) {
-                  if (source) node.parentNode = source;
+               if (targetPosition === 'left') {
+                  offsetX = sourceNodeX + pieceSizeRef.current.pieceSize;
+                  offsetY = sourceNodeY;
+               }
 
-                  if (targetPosition === 'left') {
-                     node.position.x = pieceSizeRef.current.pieceSize;
-                     node.position.y = 0;
-                  }
+               if (targetPosition === 'right') {
+                  offsetX = sourceNodeX - pieceSizeRef.current.pieceSize;
+                  offsetY = sourceNodeY;
+               }
 
-                  if (targetPosition === 'right') {
-                     node.position.x = -pieceSizeRef.current.pieceSize;
-                     node.position.y = 0;
-                  }
+               if (targetPosition === 'top') {
+                  offsetX = sourceNodeX;
+                  offsetY = sourceNodeY + pieceSizeRef.current.pieceSize;
+               }
 
-                  if (targetPosition === 'top') {
-                     node.position.x = 0;
-                     node.position.y = pieceSizeRef.current.pieceSize;
-                  }
+               if (targetPosition === 'bottom') {
+                  offsetX = sourceNodeX;
+                  offsetY = sourceNodeY - pieceSizeRef.current.pieceSize;
+               }
 
-                  if (targetPosition === 'bottom') {
-                     node.position.x = 0;
-                     node.position.y = -pieceSizeRef.current.pieceSize;
-                  }
+               if (childNodes.some((childNodes) => childNodes.id === source)) {
+                  childNodes
+                     .filter((childNodes) => childNodes.id === target)
+                     .forEach((childNode) => {
+                        childNode.position.x = offsetX;
+                        childNode.position.y = offsetY;
+                     });
                } else {
-                  isAlreadyParent = true;
-               }
-            }
+                  childNodes
+                     .filter((childNodes) => childNodes.id !== target)
+                     .forEach((childNode) => {
+                        childNode.position.x =
+                           offsetX + (childNode.position.x - node.position.x);
+                        childNode.position.y =
+                           offsetY + (childNode.position.y - node.position.y);
+                     });
+                  unCaughtNodes
+                     .filter((unCaughtNode) => unCaughtNode.id !== source)
+                     .forEach((unCaughtNode) => {
+                        unCaughtNode.position.x =
+                           offsetX +
+                           (unCaughtNode.position.x - node.position.x);
+                        unCaughtNode.position.y =
+                           offsetY +
+                           (unCaughtNode.position.y - node.position.y);
+                     });
 
-            if (node.id === source && isAlreadyParent) {
-               if (target) node.parentNode = target;
-
-               if (sourcePosition === 'left') {
-                  node.position.x = pieceSizeRef.current.pieceSize;
-                  node.position.y = 0;
-               }
-
-               if (sourcePosition === 'right') {
-                  node.position.x = -pieceSizeRef.current.pieceSize;
-                  node.position.y = 0;
-               }
-
-               if (sourcePosition === 'top') {
-                  node.position.x = 0;
-                  node.position.y = pieceSizeRef.current.pieceSize;
-               }
-
-               if (sourcePosition === 'bottom') {
-                  node.position.x = 0;
-                  node.position.y = -pieceSizeRef.current.pieceSize;
+                  node.position.x = offsetX;
+                  node.position.y = offsetY;
                }
             }
 
