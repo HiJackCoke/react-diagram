@@ -73,7 +73,7 @@ const Pane = ({
          },
       });
 
-      const { x, y, zoom } = cosmosPanZoom.current!.getViewport();
+      const { x, y, zoom } = cosmosPanZoom.current.getViewport();
 
       store.setState({
          // 지워야할 목록

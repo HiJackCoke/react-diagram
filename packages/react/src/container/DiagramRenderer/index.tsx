@@ -64,10 +64,10 @@ function DiagramRenderer({
             onMoveStart={onMoveStart}
             onMoveEnd={onMoveEnd}
          >
-            <Viewport>{children}</Viewport>
+            <DragSelection dragSelectionKeyPressed={dragSelectionKeyPressed}>
+               <Viewport>{children}</Viewport>
+            </DragSelection>
          </Pane>
-
-         <DragSelection dragSelectionKeyPressed={dragSelectionKeyPressed} />
       </>
    );
 }

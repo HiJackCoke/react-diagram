@@ -166,10 +166,6 @@
    cursor: pointer;
 }
 
-.react-diagram__drag-selection.selection {
-   z-index: 10;
-}
-
 .react-diagram .react-diagram__edges,
 .react-diagram .react-diagram__connection-line {
    pointer-events: none;
