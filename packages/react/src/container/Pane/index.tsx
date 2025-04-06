@@ -99,11 +99,11 @@ const Pane = ({
 
    return (
       <div
+         ref={Pane}
          className={cc([
             'react-diagram__pane react-diagram__container',
             { selection },
          ])}
-         ref={Pane}
       >
          {children}
       </div>

@@ -185,7 +185,7 @@
 }
 
 .react-diagram__selection-box {
-   z-index: 3;
+   z-index: 10;
    transform-origin: left top;
    pointer-events: none;
 }
