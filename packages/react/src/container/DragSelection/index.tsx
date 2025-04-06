@@ -71,12 +71,6 @@ function DragSelection({
 
    const [dragBoxActive, setDragBoxActive] = useState(false);
 
-   useEffect(() => {
-      if (!dragSelectionKeyPressed) {
-         resetDragBox();
-      }
-   }, [dragSelectionKeyPressed]);
-
    const resetDragBox = () => {
       store.setState({
          selectionBoxActive: prevSelectedNodesCount.current > 0,
@@ -149,9 +143,9 @@ function DragSelection({
 
       if (
          // !hasDragBoxPosition ||
+         // !dragSelectionKeyPressed ||
          !hasDragBoxStartPosition ||
-         !containerBounds.current ||
-         !dragSelectionKeyPressed
+         !containerBounds.current
       ) {
          return;
       }
@@ -216,8 +210,7 @@ function DragSelection({
       resetDragBox();
    };
 
-   const isPossibleDragSelection =
-      elementsSelectable && dragSelectionKeyPressed;
+   const isPossibleDragSelection = elementsSelectable;
 
    return (
       <div
