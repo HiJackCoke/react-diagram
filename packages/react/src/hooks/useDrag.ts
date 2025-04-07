@@ -36,10 +36,19 @@ const useDrag = ({
                isSelectable,
             });
          },
-         onDragStart: () => {
+         onDrag: (e, _, node, nodes) => {
+            const { onNodeDrag } = store.getState();
+            onNodeDrag?.(e, node, nodes);
+         },
+         onDragStart: (e, _, node, nodes) => {
+            const { onNodeDragStart } = store.getState();
+            onNodeDragStart?.(e, node, nodes);
             setDragging(true);
          },
-         onDragEnd: () => {
+         onDragEnd: (e, _, node, nodes) => {
+            const { onNodeDragEnd } = store.getState();
+            onNodeDragEnd?.(e, node, nodes);
+
             setDragging(false);
          },
       });
