@@ -14,7 +14,7 @@ import { createEdgeTypes } from '../../container/EdgeRenderer/utils';
 
 import Wrapper from './Wrapper';
 
-import { ReactDiagramRefType, ReactDiagramProps, } from '../../types';
+import { ReactDiagramRefType, ReactDiagramProps } from '../../types';
 import { NodeTypes } from '../NodeRenderer/type';
 import { EdgeTypes } from '../EdgeRenderer/type';
 
@@ -155,6 +155,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   autoPanOnNodeDrag={autoPanOnNodeDrag}
                   autoPanOnConnect={autoPanOnConnect}
                   connectionRadius={connectionRadius}
+                  nodeOrigin={nodeOrigin}
                   nodeExtent={nodeExtent}
                   translateExtent={translateExtent}
                   minZoom={minZoom}

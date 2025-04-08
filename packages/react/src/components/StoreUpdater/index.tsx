@@ -18,6 +18,7 @@ import {
 
 export type StoreUpdaterProps = Pick<
    ReactDiagramProps,
+   | 'nodeOrigin'
    | 'nodes'
    | 'onNodesChange'
    | 'onNodeDrag'
@@ -96,6 +97,7 @@ const StoreUpdater = ({
    onNodeDragEnd,
    edges,
    onEdgesChange,
+   nodeOrigin,
    smoothStep,
    centerStep,
    gridStep,
@@ -126,10 +128,13 @@ const StoreUpdater = ({
    useStoreUpdater<Node[]>(nodes, setNodes);
    useStoreUpdater<Edge[]>(edges, setEdges);
    useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
+
+   useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
    useStoreUpdater<CoordinateExtent>(translateExtent, setTranslateExtent);
    useStoreUpdater<number>(minZoom, setMinZoom);
    useStoreUpdater<number>(maxZoom, setMaxZoom);
 
+   useDirectStoreUpdater('nodeOrigin', nodeOrigin, store.setState);
    useDirectStoreUpdater('smoothStep', smoothStep, store.setState);
    useDirectStoreUpdater('centerStep', centerStep, store.setState);
    useDirectStoreUpdater('gridStep', gridStep, store.setState);
