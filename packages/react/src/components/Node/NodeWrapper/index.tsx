@@ -11,7 +11,11 @@ import { ARIA_NODE_DESC_KEY } from '../../A11yDescriptions';
 
 import { getMouseHandler, handleNodeClick } from '../utils';
 
-import { XYPosition } from '@diagram/core';
+import {
+   clampPosition,
+   getNodePositionWithOrigin,
+   XYPosition,
+} from '@diagram/core';
 import { NodeProps } from '../type';
 import { NodeWrapperProps } from './type';
 
@@ -48,6 +52,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       isDraggable,
       intersected,
 
+      nodeOrigin,
+      nodeExtent,
       hidden,
 
       resizeObserver,
@@ -65,6 +71,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       noPanClassName,
    }: NodeWrapperProps) {
       const store = useStoreApi();
+      const node = store.getState().nodeInternals.get(id)!;
 
       const nodeRef = useRef<HTMLDivElement>(null);
       const prevSourcePosition = useRef(sourcePosition);
@@ -84,7 +91,6 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          }
 
          if (onClick) {
-            const node = store.getState().nodeInternals.get(id)!;
             onClick(event, { ...node });
          }
       };
@@ -125,6 +131,15 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          }
       }, [id, type, sourcePosition, targetPosition]);
 
+      const clampedPosition = nodeExtent
+         ? clampPosition(node.positionAbsolute, nodeExtent)
+         : node.positionAbsolute;
+
+      const positionWithOrigin = getNodePositionWithOrigin(
+         { ...node, ...clampedPosition },
+         nodeOrigin,
+      );
+
       const dragging = useDrag({
          nodeRef,
          nodeId: id,
@@ -154,7 +169,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
 
       const wrapperStyle: CSSProperties = {
          zIndex,
-         transform: `translate(${positionX}px,${positionY}px)`,
+         transform: `translate(${positionWithOrigin.x}px,${positionWithOrigin.y}px)`,
          pointerEvents: hasPointerEvents ? 'all' : 'none',
          visibility: initialized ? 'visible' : 'hidden',
          width,

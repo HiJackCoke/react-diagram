@@ -18,6 +18,7 @@ type RequiredProps = Required<
       | 'onlyRenderVisibleElements'
       | 'disableKeyboardA11y'
       | 'nodeOrigin'
+      | 'nodeExtent'
       | 'noDragClassName'
       | 'noPanClassName'
    >

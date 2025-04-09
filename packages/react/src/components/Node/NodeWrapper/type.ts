@@ -1,6 +1,7 @@
 import { MouseEvent } from 'react';
 
 import { Node } from '../type';
+import { CoordinateExtent, NodeOrigin } from '@diagram/core';
 
 export type NodeMouseHandler = (event: MouseEvent, node: Node) => void;
 
@@ -42,4 +43,6 @@ export type NodeWrapperProps<
       disableKeyboardA11y: boolean;
       noDragClassName: string;
       noPanClassName: string;
+      nodeOrigin: NodeOrigin;
+      nodeExtent: CoordinateExtent
    };

@@ -136,7 +136,14 @@ export const onPointerDown = ({
          autoPanStarted = true;
       }
 
-      const result = getConnection(event, closestPort, nodeId, portId, portType, doc);
+      const result = getConnection(
+         event,
+         closestPort,
+         nodeId,
+         portId,
+         portType,
+         doc,
+      );
 
       isValid = result.isValid;
       connection = result.connection;

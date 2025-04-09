@@ -25,6 +25,7 @@ export type DiagramViewProps = ReactDiagramCommonProps &
          | 'noDragClassName'
          | 'noPanClassName'
          | 'nodeOrigin'
+         | 'nodeExtent'
       >
    > & {
       nodeTypes: NodeTypesWrapped;
@@ -54,6 +55,7 @@ function DiagramView({
    disableKeyboardA11y,
    noDragClassName,
    nodeOrigin,
+   nodeExtent,
    nodeTypes,
    onNodeClick,
    onNodeDoubleClick,
@@ -96,6 +98,7 @@ function DiagramView({
             onlyRenderVisibleElements={onlyRenderVisibleElements}
             disableKeyboardA11y={disableKeyboardA11y}
             nodeOrigin={nodeOrigin}
+            nodeExtent={nodeExtent}
             noDragClassName={noDragClassName}
             noPanClassName={noPanClassName}
             onNodeClick={onNodeClick}

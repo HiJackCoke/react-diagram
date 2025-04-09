@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { NodeOrigin, Viewport } from '@diagram/core';
+import { CoordinateExtent, NodeOrigin, Viewport } from '@diagram/core';
 
 import DiagramView from './DiagramView';
 import StoreUpdater from '../../components/StoreUpdater';
@@ -17,9 +17,11 @@ import Wrapper from './Wrapper';
 import { ReactDiagramRefType, ReactDiagramProps } from '../../types';
 import { NodeTypes } from '../NodeRenderer/type';
 import { EdgeTypes } from '../EdgeRenderer/type';
+import { infiniteExtent } from '../../store/initialState';
 
 const initViewport: Viewport = { x: 0, y: 0, zoom: 1 };
 const initNodeOrigin: NodeOrigin = [0, 0];
+
 
 const defaultNodeTypes: NodeTypes = {
    default: Nodes,
@@ -39,7 +41,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          minZoom,
          maxZoom,
          translateExtent,
-         nodeExtent,
+         nodeExtent = infiniteExtent,
          defaultViewport = initViewport,
 
          multiSelectionKeyCode = 'Meta',
@@ -122,6 +124,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   noDragClassName={noDragClassName}
                   noPanClassName={noPanClassName}
                   nodeOrigin={nodeOrigin}
+                  nodeExtent={nodeExtent}
                   nodeTypes={nodeTypesWrapped}
                   edgeTypes={edgeTypesWrapped}
                   edgeUpdaterRadius={edgeUpdaterRadius}
