@@ -2,6 +2,80 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/taehunlim/react-diagram/compare/v0.6.0...v0.7.0) (2025-04-09)
+
+
+### Features
+
+* getSplittedNodes to get childNodes and otherNodes of dragItems ([b3013f4](https://github.com/taehunlim/react-diagram/commit/b3013f4ab23c4d31387aeddecdfa46d5fe10c423))
+* PuzzleGenerator ([6d08b25](https://github.com/taehunlim/react-diagram/commit/6d08b2511cade9222350dc41a6bea840db27448a))
+* to add multiple Ports to Node ([88f03d6](https://github.com/taehunlim/react-diagram/commit/88f03d6047bcdd4df735193e44b71a7640a551d8))
+* to add multiple Ports to Node [#2](https://github.com/taehunlim/react-diagram/issues/2) ([9b4b06e](https://github.com/taehunlim/react-diagram/commit/9b4b06ee7e65eac7e211425277e1327c2980301a))
+* to complete puzzle when all edges are correctly matched ([2341f72](https://github.com/taehunlim/react-diagram/commit/2341f725075f1e0e6f241e707bf289973eeab9d8))
+* to keep drag selection active after dragSelectionKey is released ([dc8575a](https://github.com/taehunlim/react-diagram/commit/dc8575ab11f4c55a9e61522148524df6863af136))
+* to remove used piece ([82438d1](https://github.com/taehunlim/react-diagram/commit/82438d10de39e4d5b01562cf3e8f5438d3dae886))
+* update Nodes Intersection after initial rendering ([f7675ea](https://github.com/taehunlim/react-diagram/commit/f7675ea94c0dda44f640156dd95dce0354081316))
+* useDragSelectionKeyPress ([2baa9b9](https://github.com/taehunlim/react-diagram/commit/2baa9b9ad874f33e2bfb1c9e6a792d6d2bebfab0))
+
+
+### Bug Fixes
+
+* default size in CustomNode ([9f305bb](https://github.com/taehunlim/react-diagram/commit/9f305bbbcf75352445e51968656d49656403cf87))
+* drag selection not resetting on dragSelectionKey keyup ([078160a](https://github.com/taehunlim/react-diagram/commit/078160ac0de2c1d4ec422b6579bf99b95fda1962))
+* ensure edge id uniqueness with multi-port support ([d81a595](https://github.com/taehunlim/react-diagram/commit/d81a59565f49c78d448cd7e5540875b3485785ae))
+* issue where DragSelection was not working ([95bade9](https://github.com/taehunlim/react-diagram/commit/95bade90a1511e2279738a666ee45beaf84a4998))
+* issue where Node was not selected ([fb0d822](https://github.com/taehunlim/react-diagram/commit/fb0d822a0b70c104710f87929bdda9cc8f11fef7))
+* issue where state do not change when child Node(It has parentNode) is intersected ([eb0ad47](https://github.com/taehunlim/react-diagram/commit/eb0ad474879e10e37c522441d8e8b2ed58f8b345))
+* issue where state of intersected Node do not change when intersecting with a child Node(It has parentNode) is intersecting ([3d43505](https://github.com/taehunlim/react-diagram/commit/3d43505b740ed3ce11aeac6a6fd6b0fffc586b82))
+* restore onNodeDrag, onNodeDragStart, onNodeDragEnd event ([feffc38](https://github.com/taehunlim/react-diagram/commit/feffc38de26bd811c5fb39fdce29761e58581daa))
+* to ensure node moves along with port when nodeExtent is set ([01ed8e6](https://github.com/taehunlim/react-diagram/commit/01ed8e6fe97c6a0036cba3db4aecfbb516cbc55d))
+* type error caused by adding intersected function ([f2710ee](https://github.com/taehunlim/react-diagram/commit/f2710eecd48cdd7cc6119f13494a7032cb5bfb35))
+* unable to drag SelectionBox due to Pane focus conflict ([29d16d3](https://github.com/taehunlim/react-diagram/commit/29d16d3fc41d2149fa0ebd61cefb0a8273e458c0))
+
+
+### UI Styling
+
+* selection mode css ([7179e7e](https://github.com/taehunlim/react-diagram/commit/7179e7e305b83e90519ccbeb866d150d8546c503))
+
+
+### Docs
+
+* git commit ([7dcce60](https://github.com/taehunlim/react-diagram/commit/7dcce60ca99849ac190287d2354dfb15079bd86d))
+
+
+### Code Refactoring
+
+* getPointerPosition to pass transform, gridStep, centerStep as parameters ([a66d569](https://github.com/taehunlim/react-diagram/commit/a66d569f62fabd5654e1d334069641c3d66446c2))
+* to move DOM-related code to @diagram/core [#1](https://github.com/taehunlim/react-diagram/issues/1) ([e48b2c2](https://github.com/taehunlim/react-diagram/commit/e48b2c2ff29d225c55f692936a46c950c6169fb6))
+* to move DOM-related code to @diagram/core [#2](https://github.com/taehunlim/react-diagram/issues/2) ([ef677f3](https://github.com/taehunlim/react-diagram/commit/ef677f3d63d4d87e1a3a191838c2e072b1fed601))
+* to move DOM-related code to @diagram/core [#3](https://github.com/taehunlim/react-diagram/issues/3) ([6101790](https://github.com/taehunlim/react-diagram/commit/61017904b7c5fcc880a5f4c59a8915f5cbc360d6))
+* to move DOM-related code to @diagram/core [#4](https://github.com/taehunlim/react-diagram/issues/4) ([892ea2b](https://github.com/taehunlim/react-diagram/commit/892ea2bc88a56cce54f0a5146e65054df6f7f76d))
+* to move Drag-related code to @diagram/core [#1](https://github.com/taehunlim/react-diagram/issues/1) ([aae8e10](https://github.com/taehunlim/react-diagram/commit/aae8e1040f5a5ea5c0b56e8a124ed58bd9520165))
+* to move Drag-related code to @diagram/core [#2](https://github.com/taehunlim/react-diagram/issues/2) ([6c76036](https://github.com/taehunlim/react-diagram/commit/6c76036822e8e7ab61904073c83f22a50a6c61ef))
+* to move Drag-related code to @diagram/core [#3](https://github.com/taehunlim/react-diagram/issues/3) ([05efde1](https://github.com/taehunlim/react-diagram/commit/05efde1652b8cbf1119f59c0e8caa4d879b70d4c))
+* to move Drag-related code to @diagram/core [#4](https://github.com/taehunlim/react-diagram/issues/4) ([ed572a3](https://github.com/taehunlim/react-diagram/commit/ed572a37f63bfaa9bcf714263eb2fa97b0a24dd5))
+* to move Drag-related code to @diagram/core [#5](https://github.com/taehunlim/react-diagram/issues/5) ([6fb4825](https://github.com/taehunlim/react-diagram/commit/6fb48259161d2ebe3058613436b28dbf35632d0d))
+* to move Drag-related code to @diagram/core [#6](https://github.com/taehunlim/react-diagram/issues/6) ([4298eb5](https://github.com/taehunlim/react-diagram/commit/4298eb530f50bb8701c04abd6f0dfa9811fa9ed1))
+* to move Drag-related code to @diagram/core [#7](https://github.com/taehunlim/react-diagram/issues/7) ([90af807](https://github.com/taehunlim/react-diagram/commit/90af807ea10ffa58a0f79af3da2cf52e82542382))
+* to move getMarkerId to @diagram/core ([5e5e07e](https://github.com/taehunlim/react-diagram/commit/5e5e07ef22467357308c587ebd37f8b57bec6da2))
+* to move handlePointerDown to @diagram/core ([b363a01](https://github.com/taehunlim/react-diagram/commit/b363a01b01281776494f3ff880f4ac72ffe1edfd))
+* to move internalsSymbol to @diagram/core ([63398b0](https://github.com/taehunlim/react-diagram/commit/63398b0944cdd432d10aef99ba4088f2466fc9e0))
+* to move Node type to @diagram/core ([a2de6c7](https://github.com/taehunlim/react-diagram/commit/a2de6c746ca04911a740f5144fa10c176a20d34d))
+* to move Panzoom-related code to @diagram/core [#1](https://github.com/taehunlim/react-diagram/issues/1) ([ff4cd50](https://github.com/taehunlim/react-diagram/commit/ff4cd504ca162838a2ec279a805f157cd708b339))
+* to restore DragSelection logic after identifying root issue ([e608437](https://github.com/taehunlim/react-diagram/commit/e608437b863ca44fb6b206deac74024034fca365))
+* updateNodesIntersection to fix issue already intersected Nodes would not intersect when new Node(dragging Node) was intersected and then unintersected ([1557e41](https://github.com/taehunlim/react-diagram/commit/1557e41be1691dbb743654c13f31e865e86f16a7))
+
+
+### Adding Something
+
+* default value to dragSelectionKeyCode ([93bf94e](https://github.com/taehunlim/react-diagram/commit/93bf94e25b45b465c5363a0e035006d0c7008fe8))
+* default value to multiSelectionKeyCode ([de7b7ce](https://github.com/taehunlim/react-diagram/commit/de7b7ce57086e5677386844e9edba9e19b92c88c))
+* default width, height to Node to prevent dimensions from occurring twice initially ([6efae90](https://github.com/taehunlim/react-diagram/commit/6efae90a10cc551f6e4627e53d3569fd607b5b90))
+* example type to .versionrc ([10302d2](https://github.com/taehunlim/react-diagram/commit/10302d2aac48f04f91c5bb71b213486c276e0e3b))
+* GetStepPosition, GetStepPathParams to packages make it available to users of this library ([b41a582](https://github.com/taehunlim/react-diagram/commit/b41a5822083925fab6fc468d5fc148874e38c83a))
+* nodeOrigin props to react-cosmos-diagram ([e325e51](https://github.com/taehunlim/react-diagram/commit/e325e51f33f50d0297aebce650660aee4a9ee5eb))
+* rest params to ReactDiagram ([2608319](https://github.com/taehunlim/react-diagram/commit/2608319c339b0ade2bc1e27ffb40195a04a3c1ab))
+
 ## [0.6.0](https://github.com/taehunlim/react-diagram/compare/v0.5.3...v0.6.0) (2024-02-13)
 
 
