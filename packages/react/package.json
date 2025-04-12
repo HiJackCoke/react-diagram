@@ -38,8 +38,8 @@
       "directory": "packages/react"
    },
    "dependencies": {
-      "cosmos-diagram": "^0.1.0",
       "classcat": "^5.0.4",
+      "cosmos-diagram": "^0.1.0",
       "d3": "^7.8.4",
       "d3-drag": "^3.0.0",
       "d3-selection": "^3.0.0",
