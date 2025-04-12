@@ -1,6 +1,6 @@
 {
    "name": "cosmos-diagram",
-   "version": "0.0.0",
+   "version": "0.1.0",
    "description": "diagram core",
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production",
