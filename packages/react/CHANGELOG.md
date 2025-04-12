@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.4](https://github.com/taehunlim/react-diagram/compare/v0.7.3...v0.7.4) (2025-04-12)
+
+
+### Bug Fixes
+
+* type error when adding  CustomNode to nodeTypes ([bc29f1b](https://github.com/taehunlim/react-diagram/commit/bc29f1b97f01f4bfd9a02b5972d767492616e5c6))
+
 ### [0.7.3](https://github.com/taehunlim/react-diagram/compare/v0.7.2...v0.7.3) (2025-04-12)
 
 ### [0.7.3](https://github.com/taehunlim/react-diagram/compare/v0.7.2...v0.7.3) (2025-04-12)
