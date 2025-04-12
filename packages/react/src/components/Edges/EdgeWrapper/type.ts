@@ -46,6 +46,6 @@ export type WrapEdgeProps<
       ) => void;
    };
 
-export type EdgeWrapperComponent = MemoExoticComponent<
+export type EdgeWrapperProps = MemoExoticComponent<
    ComponentType<WrapEdgeProps>
 >;

@@ -1,10 +1,8 @@
 import { ComponentType } from 'react';
 
 import { EdgeProps } from '../../components/Edges/type';
-import { EdgeWrapperComponent } from '../../components/Edges/EdgeWrapper/type';
+import { EdgeWrapperProps } from '../../components/Edges/EdgeWrapper/type';
 
-export type EdgeTypes = { [key: string]: ComponentType<EdgeProps> };
+export type EdgeTypes = Record<string, ComponentType<EdgeProps>>;
 
-export type EdgeTypesWrapped = {
-   [key: string]: EdgeWrapperComponent;
-};
+export type EdgeTypesWrapped = Record<string, EdgeWrapperProps>;

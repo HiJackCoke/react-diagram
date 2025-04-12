@@ -7,7 +7,7 @@ import { Position, PortType, internalsSymbol } from 'cosmos-diagram';
 import { Edge } from '../../types';
 import { ReactDiagramStore } from '../../components/ReactDiagramProvider/type';
 
-import { EdgeWrapperComponent } from '../../components/Edges/EdgeWrapper/type';
+import { EdgeWrapperProps } from '../../components/Edges/EdgeWrapper/type';
 import { ConnectionLineComponent } from './type';
 
 type ConnectionPathProps = {
@@ -15,7 +15,7 @@ type ConnectionPathProps = {
    portType: PortType;
    edge?: Edge;
    Component?: ConnectionLineComponent;
-   EdgeWrapper: EdgeWrapperComponent;
+   EdgeWrapper: EdgeWrapperProps;
 };
 
 const oppositePosition = {
