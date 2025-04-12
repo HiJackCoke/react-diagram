@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import StoreContext from '../../contexts/RFStoreContext';
+import StoreContext from '../../contexts/RCDStoreContext';
 import ReactDiagramProvider from '../../components/ReactDiagramProvider';
 
 function Wrapper({ children }: PropsWithChildren) {

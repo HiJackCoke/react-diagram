@@ -2,7 +2,7 @@ import { useContext, useMemo } from 'react';
 import { useStore as useZustandStore } from 'zustand';
 import type { StoreApi } from 'zustand';
 
-import StoreContext from '../contexts/RFStoreContext';
+import StoreContext from '../contexts/RCDStoreContext';
 
 import { errorMessages } from '@diagram/core';
 

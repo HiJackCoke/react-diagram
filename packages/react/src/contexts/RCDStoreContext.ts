@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
-import { createRFStore } from '../store';
+import { createRCDStore } from '../store';
 
-const StoreContext = createContext<ReturnType<typeof createRFStore> | null>(
+const StoreContext = createContext<ReturnType<typeof createRCDStore> | null>(
    null,
 );
 

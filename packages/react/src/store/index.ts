@@ -31,7 +31,7 @@ import {
    UnSelectNodesParams,
 } from '../components/ReactDiagramProvider/type';
 
-const createRFStore = () =>
+const createRCDStore = () =>
    createStore<ReactDiagramState>((set, get) => ({
       ...initialState,
       setNodes: (nodes: Node[]) => {
@@ -248,8 +248,6 @@ const createRFStore = () =>
 
       cancelConnection: () =>
          set({
-
-
             connectionStartPort: null,
             connectionEndPort: null,
          }),
@@ -319,4 +317,4 @@ const createRFStore = () =>
       },
    }));
 
-export { createRFStore };
+export { createRCDStore };
