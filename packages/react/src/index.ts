@@ -10,7 +10,7 @@ export {
    isCoreEdge,
    addEdge,
    updateEdge,
-} from '@diagram/core';
+} from 'cosmos-diagram';
 
 import ReactDiagram from './container/ReactDiagram';
 
@@ -48,9 +48,9 @@ export type {
    GetStepPathParams,
    GetBezierPathParams,
    GetControlWithCurvatureParams,
-} from '@diagram/core';
+} from 'cosmos-diagram';
 
-export { Position, MarkerType } from '@diagram/core';
+export { Position, MarkerType } from 'cosmos-diagram';
 
 export { default as Background } from './components/Background';
 

@@ -4,7 +4,7 @@ import { useStore } from '../../hooks/useStore';
 import { useMarkerSymbol } from './MarkerSymbols';
 
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import { EdgeMarker, getMarkerId } from '@diagram/core';
+import { EdgeMarker, getMarkerId } from 'cosmos-diagram';
 
 type MarkerProps = EdgeMarker & {
    id: string;

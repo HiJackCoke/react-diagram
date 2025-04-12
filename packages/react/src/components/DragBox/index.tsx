@@ -1,4 +1,4 @@
-import { Rect } from '@diagram/core';
+import { Rect } from 'cosmos-diagram';
 
 function DragBox({ rect }: { rect: Rect }) {
    const { width, height, x, y } = rect;

@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 
 import { EdgeLabelOptions } from './EdgeLabel';
 
-import { CoreEdge, DefaultCoreEdgeOptions, EdgePosition } from '@diagram/core';
+import { CoreEdge, DefaultCoreEdgeOptions, EdgePosition } from 'cosmos-diagram';
 
 export type DefaultEdgeOptions = DefaultCoreEdgeOptions<Edge>;
 

@@ -2,8 +2,8 @@ import {
    internalsSymbol,
    isNumeric,
    getNodePositionWithOrigin,
-} from '@diagram/core';
-import type { NodeInternals, NodeOrigin, XYZPosition } from '@diagram/core';
+} from 'cosmos-diagram';
+import type { NodeInternals, NodeOrigin, XYZPosition } from 'cosmos-diagram';
 
 import { Node } from '../components/Node/type';
 

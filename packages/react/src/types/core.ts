@@ -14,7 +14,7 @@ import {
    NodeOrigin,
    Viewport,
    OnMove,
-} from '@diagram/core';
+} from 'cosmos-diagram';
 import {
    Node,
    Edge,

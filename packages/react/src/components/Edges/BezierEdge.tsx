@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Position, getBezierPath } from '@diagram/core';
+import { Position, getBezierPath } from 'cosmos-diagram';
 
 import BaseEdge from './BaseEdge';
 

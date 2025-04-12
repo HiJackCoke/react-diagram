@@ -4,7 +4,7 @@ import type {
    TouchEvent as ReactTouchEvent,
 } from 'react';
 
-import { Connection, PortProps, CosmosPort, isMouseEvent } from '@diagram/core';
+import { Connection, PortProps, CosmosPort, isMouseEvent } from 'cosmos-diagram';
 
 import { useNodeId } from '../../contexts/NodeIdContext';
 import { useStoreApi } from '../../hooks/useStore';

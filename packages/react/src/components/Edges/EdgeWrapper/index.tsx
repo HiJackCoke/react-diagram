@@ -2,7 +2,7 @@ import { memo, useMemo, useRef, useState } from 'react';
 import type { ComponentType, MouseEvent as ReactMouseEvent } from 'react';
 import cc from 'classcat';
 import { StoreApi } from 'zustand';
-import { Connection, PortType, CosmosPort, getMarkerId } from '@diagram/core';
+import { Connection, PortType, CosmosPort, getMarkerId } from 'cosmos-diagram';
 
 import { useStoreApi } from '../../../hooks/useStore';
 import { ARIA_EDGE_DESC_KEY } from '../../../components/A11yDescriptions';

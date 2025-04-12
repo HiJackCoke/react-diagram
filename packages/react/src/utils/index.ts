@@ -1,5 +1,5 @@
 
-import { errorMessages } from '@diagram/core';
+import { errorMessages } from 'cosmos-diagram';
 import { OnError } from '../types';
 
 export const internalsSymbol = Symbol.for('internals');

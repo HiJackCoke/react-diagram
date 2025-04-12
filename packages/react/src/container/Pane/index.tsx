@@ -5,7 +5,7 @@ import cc from 'classcat';
 
 import { useStoreApi } from '../../hooks/useStore';
 
-import { CosmosPanZoom, PanZoomInstance, Transform } from '@diagram/core';
+import { CosmosPanZoom, PanZoomInstance, Transform } from 'cosmos-diagram';
 import { ReactDiagramProps } from '../../types';
 // import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 

@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow';
 
 import { useStore } from '../../hooks/useStore';
 
-import { Position, PortType, internalsSymbol } from '@diagram/core';
+import { Position, PortType, internalsSymbol } from 'cosmos-diagram';
 import { Edge } from '../../types';
 import { ReactDiagramStore } from '../../components/ReactDiagramProvider/type';
 

@@ -1,3 +1,3 @@
-import { Rect } from '@diagram/core';
+import { Rect } from 'cosmos-diagram';
 
 export type SelectionBoxRect = Rect;

@@ -8,7 +8,7 @@ import MarkerComponent from './MarkerComponent';
 
 import { getEdgePositions, getPort, getNodeData } from './utils';
 
-import { Position } from '@diagram/core';
+import { Position } from 'cosmos-diagram';
 import { Edge } from '../../components/Edges/type';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { ReactDiagramProps } from '../../types';

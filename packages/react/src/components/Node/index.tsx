@@ -2,7 +2,7 @@ import Port from '../../components/Port';
 
 import { NodeProps } from './type';
 
-import { Position } from '@diagram/core';
+import { Position } from 'cosmos-diagram';
 
 function Nodes({ data }: NodeProps) {
    return (

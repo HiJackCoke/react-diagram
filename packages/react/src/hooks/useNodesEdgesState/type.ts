@@ -1,4 +1,4 @@
-import { CoreEdge, Dimensions, XYPosition } from '@diagram/core';
+import { CoreEdge, Dimensions, XYPosition } from 'cosmos-diagram';
 import { Node } from '../../components/Node/type';
 import { Edge } from '../../components/Edges/type';
 

@@ -1,5 +1,5 @@
 import { ComponentType } from 'react';
-import { PortElement, Position } from '@diagram/core';
+import { PortElement, Position } from 'cosmos-diagram';
 import { Node } from '../../types';
 
 export type ConnectionLineComponentProps = {

@@ -154,6 +154,9 @@ importers:
       classcat:
         specifier: ^5.0.4
         version: 5.0.4
+      cosmos-diagram:
+        specifier: workspace:*
+        version: link:../core
       d3:
         specifier: ^7.8.4
         version: 7.8.5
@@ -173,9 +176,6 @@ importers:
         specifier: ^4.3.7
         version: 4.4.3(@types/react@18.2.25)(react@18.2.0)
     devDependencies:
-      '@diagram/core':
-        specifier: workspace:*
-        version: link:../core
       '@diagram/rollup-config':
         specifier: workspace:*
         version: link:../../tooling/rollup-config
@@ -1417,6 +1417,7 @@ packages:
 
   acorn-import-assertions@1.9.0:
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
+    deprecated: package has been renamed to acorn-import-attributes
     peerDependencies:
       acorn: ^8
 

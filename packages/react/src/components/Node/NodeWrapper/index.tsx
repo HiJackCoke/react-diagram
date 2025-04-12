@@ -15,7 +15,7 @@ import {
    clampPosition,
    getNodePositionWithOrigin,
    XYPosition,
-} from '@diagram/core';
+} from 'cosmos-diagram';
 import { NodeProps } from '../type';
 import { NodeWrapperProps } from './type';
 

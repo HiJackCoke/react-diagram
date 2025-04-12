@@ -4,7 +4,7 @@ import type { StoreApi } from 'zustand';
 
 import StoreContext from '../contexts/RCDStoreContext';
 
-import { errorMessages } from '@diagram/core';
+import { errorMessages } from 'cosmos-diagram';
 
 import { ReactDiagramState } from '../components/ReactDiagramProvider/type';
 

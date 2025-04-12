@@ -1,4 +1,4 @@
-import { Position, CoreNode } from '@diagram/core';
+import { Position, CoreNode } from 'cosmos-diagram';
 
 import { NodeWrapperProps } from './NodeWrapper/type';
 import { CSSProperties } from 'react';

@@ -7,7 +7,7 @@ import type {
 } from 'react';
 import cc from 'classcat';
 
-import { Rect } from '@diagram/core';
+import { Rect } from 'cosmos-diagram';
 
 export type EdgeLabelOptions = {
    label?: string | ReactNode;

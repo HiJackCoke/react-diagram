@@ -6,7 +6,7 @@ import {
    getEventPosition,
    getNodesInside,
    getRectOfNodes,
-} from '@diagram/core';
+} from 'cosmos-diagram';
 import cc from 'classcat';
 
 import { shallow } from 'zustand/shallow';

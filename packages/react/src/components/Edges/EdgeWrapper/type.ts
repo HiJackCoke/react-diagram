@@ -4,7 +4,7 @@ import {
    MouseEvent as ReactMouseEvent,
 } from 'react';
 
-import { PortType, Connection, EdgePosition } from '@diagram/core';
+import { PortType, Connection, EdgePosition } from 'cosmos-diagram';
 
 import { Edge } from '../type';
 

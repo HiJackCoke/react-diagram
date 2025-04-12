@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 
-import { rectToBox } from '@diagram/core';
-import type { PortElement, NodePortBounds } from '@diagram/core';
+import { rectToBox } from 'cosmos-diagram';
+import type { PortElement, NodePortBounds } from 'cosmos-diagram';
 
 import StraightEdge from '../../components/Edges/StraightEdge';
 import StepEdge from '../../components/Edges/StepEdge';
@@ -15,7 +15,7 @@ import {
    Transform,
    Position,
    XYPosition,
-} from '@diagram/core';
+} from 'cosmos-diagram';
 
 import { Node } from '../../components/Node/type';
 import { EdgeProps } from '../../components/Edges/type';

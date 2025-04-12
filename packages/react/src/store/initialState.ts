@@ -1,5 +1,5 @@
-import { devWarn } from '@diagram/core';
-import type { CoordinateExtent } from '@diagram/core';
+import { devWarn } from 'cosmos-diagram';
+import type { CoordinateExtent } from 'cosmos-diagram';
 import { ReactDiagramStore } from '../components/ReactDiagramProvider/type';
 
 export const infiniteExtent: CoordinateExtent = [

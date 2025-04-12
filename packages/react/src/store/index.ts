@@ -1,8 +1,8 @@
 import { createStore } from 'zustand';
 import { zoomIdentity } from 'd3-zoom';
 
-import { getDimensions, getPortBounds, clampPosition } from '@diagram/core';
-import type { NodeDragItem } from '@diagram/core';
+import { getDimensions, getPortBounds, clampPosition } from 'cosmos-diagram';
+import type { NodeDragItem } from 'cosmos-diagram';
 
 import {
    updateAbsoluteNodePositions,
@@ -14,7 +14,7 @@ import { createSelectionChange, getSelectionChanges } from '../utils/changes';
 
 import initialState, { infiniteExtent } from './initialState';
 
-import { internalsSymbol, CoordinateExtent, XYPosition } from '@diagram/core';
+import { internalsSymbol, CoordinateExtent, XYPosition } from 'cosmos-diagram';
 import { NodeDimensionUpdate } from './type';
 import {
    NodeDimensionChange,

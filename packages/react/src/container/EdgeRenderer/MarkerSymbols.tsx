@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useStoreApi } from '../../hooks/useStore';
-import { EdgeMarker, MarkerType } from '@diagram/core';
+import { EdgeMarker, MarkerType } from 'cosmos-diagram';
 
 type SymbolProps = Omit<EdgeMarker, 'type'>;
 

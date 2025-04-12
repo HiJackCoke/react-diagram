@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useRef, useState } from 'react';
 
-import { CosmosDrag } from '@diagram/core';
-import type { DragInstance, DragUpdateParams } from '@diagram/core';
+import { CosmosDrag } from 'cosmos-diagram';
+import type { DragInstance, DragUpdateParams } from 'cosmos-diagram';
 
 import { useStoreApi } from './useStore';
 

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { getStraightPath } from '@diagram/core';
+import { getStraightPath } from 'cosmos-diagram';
 
 import BaseEdge from './BaseEdge';
 

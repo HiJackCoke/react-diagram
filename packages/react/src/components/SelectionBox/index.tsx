@@ -3,7 +3,7 @@ import cc from 'classcat';
 
 import useDrag from '../../hooks/useDrag';
 
-import { Rect } from '@diagram/core';
+import { Rect } from 'cosmos-diagram';
 
 function SelectionBox({ rect, transform }: { rect: Rect; transform: string }) {
    const nodeRef = useRef<HTMLDivElement>(null);

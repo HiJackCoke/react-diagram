@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 
 import { Node } from '../type';
-import { CoordinateExtent, NodeOrigin } from '@diagram/core';
+import { CoordinateExtent, NodeOrigin } from 'cosmos-diagram';
 
 export type NodeMouseHandler = (event: MouseEvent, node: Node) => void;
 

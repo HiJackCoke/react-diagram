@@ -16,7 +16,7 @@ import type {
    NodeDragItem,
    NodeOrigin,
    ConnectingPort,
-} from '@diagram/core';
+} from 'cosmos-diagram';
 import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
 
 import { NodeDimensionUpdate } from '../../store/type';

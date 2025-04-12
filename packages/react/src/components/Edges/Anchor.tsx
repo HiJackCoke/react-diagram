@@ -1,7 +1,7 @@
 import { MouseEvent as ReactMouseEvent, SVGAttributes } from 'react';
 import cc from 'classcat';
 
-import { Position } from '@diagram/core';
+import { Position } from 'cosmos-diagram';
 
 type EventNames = 'onMouseDown';
 // | 'onMouseEnter' | 'onMouseOut';

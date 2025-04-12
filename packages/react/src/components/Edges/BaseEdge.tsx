@@ -1,4 +1,4 @@
-import { isNumeric } from '@diagram/core';
+import { isNumeric } from 'cosmos-diagram';
 
 import EdgeLabel from './EdgeLabel';
 

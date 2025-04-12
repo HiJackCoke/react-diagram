@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { CoordinateExtent, NodeOrigin, Viewport } from '@diagram/core';
+import { CoordinateExtent, NodeOrigin, Viewport } from 'cosmos-diagram';
 
 import DiagramView from './DiagramView';
 import StoreUpdater from '../../components/StoreUpdater';

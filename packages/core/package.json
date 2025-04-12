@@ -1,5 +1,5 @@
 {
-   "name": "@diagram/core",
+   "name": "cosmos-diagram",
    "version": "0.0.0",
    "description": "diagram core",
    "scripts": {
