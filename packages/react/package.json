@@ -1,6 +1,6 @@
 {
    "name": "react-cosmos-diagram",
-   "version": "0.7.1",
+   "version": "0.7.2",
    "description": "React Diagram",
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production && npm run css",
@@ -9,10 +9,6 @@
       "release-major": "standard-version --release-as major && node:../conventionalGithubReleaser",
       "release-patch": "standard-version && node:../conventionalGithubReleaser"
    },
-   "workspaces": [
-      "./packages/*",
-      "./tooling/*"
-   ],
    "keywords": [
       "react",
       "node-based UI",
