@@ -62,13 +62,11 @@ const Pane = ({
          },
          onPanZoomStart: (event, viewport) => {
             onMoveStart?.(event, viewport);
-            console.log('start', viewport);
          },
          onPanZoom: (event, viewport) => {
             onMove?.(event, viewport);
          },
          onPanZoomEnd: (event, viewport) => {
-            console.log('end', viewport);
             onMoveEnd?.(event, viewport);
          },
       });

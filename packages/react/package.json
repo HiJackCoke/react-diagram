@@ -1,6 +1,6 @@
 {
    "name": "react-cosmos-diagram",
-   "version": "0.7.4",
+   "version": "0.7.3",
    "description": "React Diagram",
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production && npm run css",
@@ -39,7 +39,7 @@
    },
    "dependencies": {
       "classcat": "^5.0.4",
-      "cosmos-diagram": "^0.1.0",
+      "cosmos-diagram": "workspace:*",
       "d3": "^7.8.4",
       "d3-drag": "^3.0.0",
       "d3-selection": "^3.0.0",

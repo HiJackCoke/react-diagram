@@ -1,18 +1,18 @@
 import {
+   NodeInternals,
+   XYZPosition,
+   NodeOrigin,
+   CoreNode,
    internalsSymbol,
-   isNumeric,
-   getNodePositionWithOrigin,
-} from 'cosmos-diagram';
-import type { NodeInternals, NodeOrigin, XYZPosition } from 'cosmos-diagram';
-
-import { Node } from '../components/Node/type';
-
+} from '../types';
+import { isNumeric } from './general';
+import { getNodePositionWithOrigin } from './graph';
 
 type ParentNodes = Record<string, boolean>;
 
-function calculateXYZPosition(
-   node: Node,
-   nodeInternals: NodeInternals<Node>,
+function calculateXYZPosition<NodeType extends CoreNode>(
+   node: NodeType,
+   nodeInternals: NodeInternals<NodeType>,
    result: XYZPosition,
    nodeOrigin: NodeOrigin,
 ): XYZPosition {
@@ -36,9 +36,8 @@ function calculateXYZPosition(
       nodeOrigin,
    );
 }
-
-export function updateAbsoluteNodePositions(
-   nodeInternals: NodeInternals<Node>,
+export function updateAbsoluteNodePositions<NodeType extends CoreNode>(
+   nodeInternals: NodeInternals<NodeType>,
    nodeOrigin: NodeOrigin,
    parentNodes?: ParentNodes,
 ) {
@@ -71,13 +70,13 @@ export function updateAbsoluteNodePositions(
    });
 }
 
-export function createNodeInternals(
-   nodes: Node[],
-   nodeInternals: NodeInternals<Node>,
+export function createNodeInternals<NodeType extends CoreNode>(
+   nodes: NodeType[],
+   nodeInternals: NodeInternals<NodeType>,
    nodeOrigin: NodeOrigin,
    elevateNodesOnSelect: boolean,
-): NodeInternals<Node> {
-   const nextNodeInternals = new Map<string, Node>();
+): NodeInternals<NodeType> {
+   const nextNodeInternals = new Map<string, NodeType>();
    const parentNodes: ParentNodes = {};
    const selectedNodeZ: number = elevateNodesOnSelect ? 1000 : 0;
 
@@ -87,7 +86,7 @@ export function createNodeInternals(
          (node.selected ? selectedNodeZ : 0);
       const currInternals = nodeInternals.get(node.id);
 
-      const internals: Node = {
+      const internals: NodeType = {
          width: currInternals?.width,
          height: currInternals?.height,
          ...node,
@@ -118,10 +117,10 @@ export function createNodeInternals(
    return nextNodeInternals;
 }
 
-export const isIntersected = (
-   targetNode: Node,
-   nodeInternals: NodeInternals<Node>,
-): boolean => {
+export function isIntersected<NodeType extends CoreNode>(
+   targetNode: NodeType,
+   nodeInternals: NodeInternals<NodeType>,
+): boolean {
    const { id, width, height, positionAbsolute } = targetNode;
 
    if (!width || !height) return false;
@@ -156,4 +155,4 @@ export const isIntersected = (
    }
 
    return intersected;
-};
+}
