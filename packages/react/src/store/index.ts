@@ -17,13 +17,13 @@ import { createSelectionChange, getSelectionChanges } from '../utils/changes';
 
 import initialState, { infiniteExtent } from './initialState';
 
-import { NodeDimensionUpdate } from './type';
 import {
    NodeDimensionChange,
    NodePositionChange,
    NodeChange,
    NodeSelectionChange,
    NodeIntersectionChange,
+   NodeDimensionUpdate,
 } from '../hooks/useNodesEdgesState/type';
 import { Node } from '../components/Node/type';
 

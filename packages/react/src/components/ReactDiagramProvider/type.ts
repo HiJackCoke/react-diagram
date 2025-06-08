@@ -5,7 +5,6 @@ import type {
    Transform,
    CoordinateExtent,
    XYPosition,
-   PortType,
    GridStep,
    OnConnectStart,
    OnConnect,
@@ -19,12 +18,13 @@ import type {
 } from 'cosmos-diagram';
 import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
 
-import { NodeDimensionUpdate } from '../../store/type';
+
 
 import {
    NodeChange,
    OnNodesChange,
    OnEdgesChange,
+   NodeDimensionUpdate,
 } from '../../hooks/useNodesEdgesState/type';
 
 export type NodeDragHandler = (

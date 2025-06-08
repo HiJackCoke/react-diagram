@@ -2,6 +2,13 @@ import { CoreEdge, Dimensions, XYPosition } from 'cosmos-diagram';
 import { Node } from '../../components/Node/type';
 import { Edge } from '../../components/Edges/type';
 
+export type NodeDimensionUpdate = {
+   id: string;
+   nodeElement: HTMLDivElement;
+   forceUpdate?: boolean;
+};
+
+
 export type NodeDimensionChange = {
    id: string;
    type: 'dimensions';
