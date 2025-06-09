@@ -22,7 +22,7 @@ import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { NodeChange } from '../../types';
 
 type DragSelectionProps = {
-   dragSelectionKeyPressed?: boolean;
+   isSelecting?: boolean;
    children: ReactNode;
 };
 
@@ -38,10 +38,7 @@ const selector = (s: ReactDiagramState) => {
    };
 };
 
-function DragSelection({
-   dragSelectionKeyPressed,
-   children,
-}: DragSelectionProps) {
+function DragSelection({ isSelecting, children }: DragSelectionProps) {
    const store = useStoreApi();
 
    const dragSelection = useRef<HTMLDivElement>(null);
@@ -109,7 +106,7 @@ function DragSelection({
          event.button !== 0 ||
          event.target !== dragSelection.current ||
          !containerBounds.current ||
-         !dragSelectionKeyPressed
+         !isSelecting
       ) {
          return;
       }
@@ -143,7 +140,7 @@ function DragSelection({
 
       if (
          // !hasDragBoxPosition ||
-         // !dragSelectionKeyPressed ||
+         // !isSelecting ||
          !hasDragBoxStartPosition ||
          !containerBounds.current
       ) {
@@ -210,7 +207,7 @@ function DragSelection({
       resetDragBox();
    };
 
-   const isPossibleDragSelection = elementsSelectable;
+   const isPossibleDragSelection = elementsSelectable && isSelecting;
 
    return (
       <div

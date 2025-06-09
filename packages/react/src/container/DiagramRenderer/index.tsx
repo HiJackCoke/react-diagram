@@ -64,7 +64,7 @@ function DiagramRenderer({
             onMoveStart={onMoveStart}
             onMoveEnd={onMoveEnd}
          >
-            <DragSelection dragSelectionKeyPressed={dragSelectionKeyPressed}>
+            <DragSelection isSelecting={isSelecting}>
                <Viewport>{children}</Viewport>
             </DragSelection>
          </Pane>
