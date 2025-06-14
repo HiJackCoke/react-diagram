@@ -23,7 +23,15 @@ export type PaneProps = Required<
       selection: boolean;
    }
 > &
-   Pick<ReactDiagramProps, 'onMove' | 'onMoveStart' | 'onMoveEnd'>;
+   Pick<
+      ReactDiagramProps,
+      | 'onMove'
+      | 'onMoveStart'
+      | 'onMoveEnd'
+      | 'onPaneMouseEnter'
+      | 'onPaneMouseMove'
+      | 'onPaneMouseLeave'
+   >;
 
 const Pane = ({
    noPanClassName,
@@ -38,6 +46,9 @@ const Pane = ({
    onMove,
    onMoveStart,
    onMoveEnd,
+   onPaneMouseEnter,
+   onPaneMouseMove,
+   onPaneMouseLeave,
 }: PaneProps) => {
    const store = useStoreApi();
 
@@ -95,6 +106,10 @@ const Pane = ({
       });
    }, [noPanClassName, selection]);
 
+   //onPaneMouseEnter
+   //onPaneMouseMove
+   //onPaneMouseLeave
+
    return (
       <div
          ref={Pane}
@@ -102,6 +117,9 @@ const Pane = ({
             'react-diagram__pane react-diagram__container',
             { selection },
          ])}
+         onMouseEnter={onPaneMouseEnter}
+         onMouseMove={onPaneMouseMove}
+         onMouseLeave={onPaneMouseLeave}
       >
          {children}
       </div>

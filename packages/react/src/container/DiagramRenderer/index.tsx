@@ -38,6 +38,9 @@ function DiagramRenderer({
    onMove,
    onMoveStart,
    onMoveEnd,
+   onPaneMouseEnter,
+   onPaneMouseMove,
+   onPaneMouseLeave,
 }: DiagramRendererProps) {
    const { minZoom, maxZoom, translateExtent } = useStore(selector);
 
@@ -63,6 +66,9 @@ function DiagramRenderer({
             onMove={onMove}
             onMoveStart={onMoveStart}
             onMoveEnd={onMoveEnd}
+            onPaneMouseEnter={onPaneMouseEnter}
+            onPaneMouseMove={onPaneMouseMove}
+            onPaneMouseLeave={onPaneMouseLeave}
          >
             <DragSelection isSelecting={isSelecting}>
                <Viewport>{children}</Viewport>

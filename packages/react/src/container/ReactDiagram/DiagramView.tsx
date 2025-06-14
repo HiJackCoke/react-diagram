@@ -77,6 +77,10 @@ function DiagramView({
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
 
+   onPaneMouseEnter,
+   onPaneMouseMove,
+   onPaneMouseLeave,
+
    // ConnectionLineWrapper
    ConnectionLineContainerStyle,
    ConnectionLineComponent,
@@ -91,6 +95,9 @@ function DiagramView({
          onMove={onMove}
          onMoveStart={onMoveStart}
          onMoveEnd={onMoveEnd}
+         onPaneMouseEnter={onPaneMouseEnter}
+         onPaneMouseMove={onPaneMouseMove}
+         onPaneMouseLeave={onPaneMouseLeave}
       >
          <NodeRenderer
             rfId={rfId}

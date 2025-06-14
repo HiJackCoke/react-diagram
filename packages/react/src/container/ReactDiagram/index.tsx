@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { CoordinateExtent, NodeOrigin, Viewport } from 'cosmos-diagram';
+import { NodeOrigin, Viewport } from 'cosmos-diagram';
 
 import DiagramView from './DiagramView';
 import StoreUpdater from '../../components/StoreUpdater';
@@ -21,7 +21,6 @@ import { infiniteExtent } from '../../store/initialState';
 
 const initViewport: Viewport = { x: 0, y: 0, zoom: 1 };
 const initNodeOrigin: NodeOrigin = [0, 0];
-
 
 const defaultNodeTypes: NodeTypes = {
    default: Nodes,
@@ -101,6 +100,10 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onConnectStart,
          onConnectEnd,
 
+         onPaneMouseEnter,
+         onPaneMouseMove,
+         onPaneMouseLeave,
+
          onError,
          ...rest
       },
@@ -148,6 +151,9 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onMove={onMove}
                   onMoveStart={onMoveStart}
                   onMoveEnd={onMoveEnd}
+                  onPaneMouseEnter={onPaneMouseEnter}
+                  onPaneMouseMove={onPaneMouseMove}
+                  onPaneMouseLeave={onPaneMouseLeave}
                />
                <StoreUpdater
                   rfId={rfId}

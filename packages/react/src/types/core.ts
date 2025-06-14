@@ -96,6 +96,10 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
    onMoveStart?: OnMove;
    onMoveEnd?: OnMove;
 
+   onPaneMouseEnter?: (event: ReactMouseEvent) => void;
+   onPaneMouseMove?: (event: ReactMouseEvent) => void;
+   onPaneMouseLeave?: (event: ReactMouseEvent) => void;
+
    onError?: OnError;
 
    minZoom?: number;

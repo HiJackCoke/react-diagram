@@ -214,6 +214,9 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
          ref={dragSelection}
          className={cc([
             'react-diagram__container react-diagram__drag-selection',
+            {
+               active: isPossibleDragSelection || selectionBoxActive,
+            },
          ])}
          onClick={onClick}
          onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}

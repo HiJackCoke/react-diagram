@@ -180,6 +180,10 @@
    user-select: none;
 }
 
+.react-diagram__drag-selection:not(.active) {
+   pointer-events: none;
+}
+
 .react-diagram__selection-box {
    z-index: 10;
    transform-origin: left top;
