@@ -28,6 +28,7 @@ export type PaneProps = Required<
       | 'onMove'
       | 'onMoveStart'
       | 'onMoveEnd'
+      | 'onPaneClick'
       | 'onPaneMouseEnter'
       | 'onPaneMouseMove'
       | 'onPaneMouseLeave'
@@ -46,6 +47,7 @@ const Pane = ({
    onMove,
    onMoveStart,
    onMoveEnd,
+   onPaneClick,
    onPaneMouseEnter,
    onPaneMouseMove,
    onPaneMouseLeave,
@@ -71,18 +73,10 @@ const Pane = ({
          onPanningChange: (panning: boolean) => {
             console.log(panning);
          },
-         onPaneClick: (event, viewport) => {
-            console.log('pane click', event, viewport);
-         },
-         onPanZoomStart: (event, viewport) => {
-            onMoveStart?.(event, viewport);
-         },
-         onPanZoom: (event, viewport) => {
-            onMove?.(event, viewport);
-         },
-         onPanZoomEnd: (event, viewport) => {
-            onMoveEnd?.(event, viewport);
-         },
+         onPaneClick,
+         onPanZoomStart: onMoveStart,
+         onPanZoom: onMove,
+         onPanZoomEnd: onMoveEnd,
       });
 
       const { x, y, zoom } = cosmosPanZoom.current.getViewport();

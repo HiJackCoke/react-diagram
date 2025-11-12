@@ -171,6 +171,7 @@ function Index() {
             connectionRadius={30}
             minZoom={1}
             maxZoom={2}
+            onPaneClick={console.log}
             onNodesChange={onNodesChange}
             // onNodeDrag={(a, node) => {
             //    console.log(node);

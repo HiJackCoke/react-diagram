@@ -46,10 +46,6 @@ function DiagramView({
    multiSelectionKeyCode,
    dragSelectionKeyCode,
 
-   onMove,
-   onMoveStart,
-   onMoveEnd,
-
    // NodeRenderer props
    onlyRenderVisibleElements,
    disableKeyboardA11y,
@@ -77,6 +73,10 @@ function DiagramView({
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
 
+   onMove,
+   onMoveStart,
+   onMoveEnd,
+   onPaneClick,
    onPaneMouseEnter,
    onPaneMouseMove,
    onPaneMouseLeave,
@@ -95,6 +95,7 @@ function DiagramView({
          onMove={onMove}
          onMoveStart={onMoveStart}
          onMoveEnd={onMoveEnd}
+         onPaneClick={onPaneClick}
          onPaneMouseEnter={onPaneMouseEnter}
          onPaneMouseMove={onPaneMouseMove}
          onPaneMouseLeave={onPaneMouseLeave}

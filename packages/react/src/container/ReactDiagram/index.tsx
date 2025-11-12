@@ -71,10 +71,6 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onEdgeUpdateStart,
          onEdgeUpdateEnd,
 
-         onMove,
-         onMoveStart,
-         onMoveEnd,
-
          ConnectionLineContainerStyle,
          ConnectionLineComponent,
 
@@ -100,6 +96,10 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
          onConnectStart,
          onConnectEnd,
 
+         onMove,
+         onMoveStart,
+         onMoveEnd,
+         onPaneClick,
          onPaneMouseEnter,
          onPaneMouseMove,
          onPaneMouseLeave,
@@ -151,6 +151,7 @@ const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
                   onMove={onMove}
                   onMoveStart={onMoveStart}
                   onMoveEnd={onMoveEnd}
+                  onPaneClick={onPaneClick}
                   onPaneMouseEnter={onPaneMouseEnter}
                   onPaneMouseMove={onPaneMouseMove}
                   onPaneMouseLeave={onPaneMouseLeave}

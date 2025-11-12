@@ -38,6 +38,7 @@ function DiagramRenderer({
    onMove,
    onMoveStart,
    onMoveEnd,
+   onPaneClick,
    onPaneMouseEnter,
    onPaneMouseMove,
    onPaneMouseLeave,
@@ -66,6 +67,7 @@ function DiagramRenderer({
             onMove={onMove}
             onMoveStart={onMoveStart}
             onMoveEnd={onMoveEnd}
+            onPaneClick={onPaneClick}
             onPaneMouseEnter={onPaneMouseEnter}
             onPaneMouseMove={onPaneMouseMove}
             onPaneMouseLeave={onPaneMouseLeave}
