@@ -20,10 +20,11 @@ import {
 } from './utils';
 import {
    ZoomPanValues,
+   createPaneClickHandler,
    createPanZoomEndHandler,
    createPanZoomHandler,
    createPanZoomStartHandler,
-   createZoomOnScrollHandler,
+   // createZoomOnScrollHandler,
 } from './eventHandler';
 
 export const CosmosPanZoom = ({
@@ -41,6 +42,7 @@ export const CosmosPanZoom = ({
    onPanZoom,
    onPanZoomStart,
    onPanZoomEnd,
+   onPaneClick,
 }: PanZoomParams): PanZoomInstance => {
    const zoomPanValues: ZoomPanValues = {
       isZoomingOrPanning: false,
@@ -58,8 +60,6 @@ export const CosmosPanZoom = ({
       .scaleExtent([minZoom, maxZoom])
       .translateExtent(translateExtent);
    const d3Selection = select(domNode).call(d3ZoomInstance);
-
-   const d3ZoomHandler = d3Selection.on('wheel.zoom')!;
 
    const setTransform = (
       transform: ZoomTransform,
@@ -108,9 +108,10 @@ export const CosmosPanZoom = ({
 
    const destroy = () => {
       d3ZoomInstance.on('zoom', null);
-      // d3ZoomInstance.on('start', null);
-      // d3ZoomInstance.on('end', null);
+      d3ZoomInstance.on('start', null);
+      d3ZoomInstance.on('end', null);
       // d3Selection.on('wheel.zoom', null);
+      d3Selection.on('click.zoom', null);
    };
 
    const update = ({ noPanClassName, selection }: PanZoomUpdateOptions) => {
@@ -123,10 +124,9 @@ export const CosmosPanZoom = ({
             return false;
          }
 
-         if (
-            isWrappedWithClass(event, noPanClassName) &&
-            event.type !== 'wheel'
-         ) {
+         const filterEvents = event.type === 'wheel' || event.type === 'click';
+
+         if (isWrappedWithClass(event, noPanClassName) && filterEvents) {
             return false;
          }
 
@@ -139,8 +139,18 @@ export const CosmosPanZoom = ({
          return true;
       };
 
-      const wheelZoomHandler = createZoomOnScrollHandler({ d3ZoomHandler });
-      d3Selection.on('wheel.zoom', wheelZoomHandler, { passive: false });
+      // const d3ZoomHandler = d3Selection.on('wheel.zoom')!;
+      // const wheelZoomHandler = createZoomOnScrollHandler({ d3ZoomHandler });
+
+      // const d3PanClickHandler = d3Selection.on('click.zoom')!;
+      const panClickHandler = createPaneClickHandler({
+         // d3PanClickHandler,
+         filter,
+         onPaneClick,
+      });
+
+      // d3Selection.on('wheel.zoom', wheelZoomHandler, { passive: false });
+      d3Selection.on('click.zoom', panClickHandler, { passive: false });
 
       if (!selection) {
          const panZoomStartHandler = createPanZoomStartHandler({

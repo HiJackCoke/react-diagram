@@ -1,9 +1,5 @@
-import { D3ZoomEvent } from 'd3-zoom';
-import {
-   isViewChanged,
-   isWrappedWithClass,
-   transformToViewport,
-} from './utils';
+import { D3ZoomEvent, zoomTransform } from 'd3-zoom';
+import { isViewChanged, transformToViewport } from './utils';
 import {
    D3ZoomHandler,
    OnPanningChange,
@@ -43,6 +39,12 @@ export type PanZoomOnScrollParams = {
    d3ZoomHandler: D3ZoomHandler;
 };
 
+export type PanClickHandlerParams = {
+   filter?: (event: any) => boolean;
+   onPaneClick?: OnMove;
+   // d3ClickHandler: D3ZoomHandler;
+};
+
 export const createPanZoomStartHandler = ({
    zoomPanValues,
    onPanningChange,
@@ -60,7 +62,8 @@ export const createPanZoomStartHandler = ({
       zoomPanValues.isZoomingOrPanning = true;
       zoomPanValues.prevViewport = viewport;
 
-      if (event.sourceEvent?.type === 'mousedown') {
+      const eventType = event.sourceEvent?.type;
+      if (eventType === 'mousedown' || eventType === 'touchstart') {
          onPanningChange(true);
       }
 
@@ -127,12 +130,36 @@ export const createPanZoomEndHandler = ({
    };
 };
 
-export function createZoomOnScrollHandler({
-   d3ZoomHandler,
-}: PanZoomOnScrollParams) {
-   return function (this: Element, event: any, d: unknown) {
-      event.preventDefault();
+// export function createZoomOnScrollHandler({
+//    d3ZoomHandler,
+// }: PanZoomOnScrollParams) {
+//    return function (this: Element, event: any, d: unknown) {
+//       console.log(event);
+//       event.preventDefault();
 
-      d3ZoomHandler.call(this, event, d);
+//       d3ZoomHandler.call(this, event, d);
+//    };
+// }
+
+export const createPaneClickHandler = ({
+   // d3ClickHandler,
+   filter,
+   onPaneClick,
+}: PanClickHandlerParams) => {
+   return function (this: Element, event: any) {
+      if (filter) {
+         if (!filter(event)) return null;
+      }
+
+      const transform = zoomTransform(this);
+      const viewport: Viewport = {
+         x: transform.x,
+         y: transform.y,
+         zoom: transform.k,
+      };
+
+      if (onPaneClick) {
+         onPaneClick?.(event as PointerEvent, viewport);
+      }
    };
-}
+};

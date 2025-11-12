@@ -71,6 +71,9 @@ const Pane = ({
          onPanningChange: (panning: boolean) => {
             console.log(panning);
          },
+         onPaneClick: (event, viewport) => {
+            console.log('pane click', event, viewport);
+         },
          onPanZoomStart: (event, viewport) => {
             onMoveStart?.(event, viewport);
          },

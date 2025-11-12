@@ -16,6 +16,7 @@ export type PanZoomParams = {
    onPanZoomStart?: OnMove;
    onPanZoom?: OnMove;
    onPanZoomEnd?: OnMove;
+   onPaneClick?: OnMove;
 };
 
 export type OnTransformChange = (transform: Transform) => void;
