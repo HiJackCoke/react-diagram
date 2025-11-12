@@ -20,7 +20,7 @@ export type ZoomPanValues = {
 
 export type PanZoomStartHandlerParams = {
    zoomPanValues: ZoomPanValues;
-   onPanningChange: OnPanningChange;
+   onPanningChange?: OnPanningChange;
    onPanZoomStart?: OnMove;
 };
 
@@ -31,8 +31,8 @@ export type PanZoomParamsHandlerParams = {
 
 export type PanZoomEndHandlerParams = {
    zoomPanValues: ZoomPanValues;
+   onPanningChange?: OnPanningChange;
    onPanZoomEnd?: OnMove;
-   onPanningChange: OnPanningChange;
 };
 
 export type PanZoomOnScrollParams = {
@@ -63,8 +63,10 @@ export const createPanZoomStartHandler = ({
       zoomPanValues.prevViewport = viewport;
 
       const eventType = event.sourceEvent?.type;
-      if (eventType === 'mousedown' || eventType === 'touchstart') {
-         onPanningChange(true);
+      if (onPanningChange) {
+         if (eventType === 'mousedown' || eventType === 'touchstart') {
+            onPanningChange(true);
+         }
       }
 
       if (onPanZoomStart) {
@@ -110,7 +112,9 @@ export const createPanZoomEndHandler = ({
 
       zoomPanValues.isZoomingOrPanning = false;
 
-      onPanningChange(false);
+      if (onPanningChange) {
+         onPanningChange(false);
+      }
 
       if (
          onPanZoomEnd &&

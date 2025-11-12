@@ -70,9 +70,6 @@ const Pane = ({
          onTransformChange: (transform: Transform) => {
             store.setState({ transform });
          },
-         onPanningChange: (panning: boolean) => {
-            console.log(panning);
-         },
          onPaneClick,
          onPanZoomStart: onMoveStart,
          onPanZoom: onMove,
