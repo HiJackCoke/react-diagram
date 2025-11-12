@@ -11,7 +11,7 @@ export type PanZoomParams = {
    viewport: Viewport;
    translateExtent: CoordinateExtent;
 
-   onTransformChange: OnTransformChange;
+   onTransformChange?: OnTransformChange;
    onPanningChange?: OnPanningChange;
    onPanZoomStart?: OnMove;
    onPanZoom?: OnMove;

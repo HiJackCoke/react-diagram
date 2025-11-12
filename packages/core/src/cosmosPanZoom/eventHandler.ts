@@ -26,7 +26,7 @@ export type PanZoomStartHandlerParams = {
 
 export type PanZoomParamsHandlerParams = {
    onPanZoom?: OnMove;
-   onTransformChange: OnTransformChange;
+   onTransformChange?: OnTransformChange;
 };
 
 export type PanZoomEndHandlerParams = {
@@ -83,12 +83,14 @@ export const createPanZoomHandler = ({
    onTransformChange,
 }: PanZoomParamsHandlerParams) => {
    return (event: D3ZoomEvent<HTMLDivElement, any>) => {
-      if (!event.sourceEvent?.sync) {
-         onTransformChange([
-            event.transform.x,
-            event.transform.y,
-            event.transform.k,
-         ]);
+      if (onTransformChange) {
+         if (!event.sourceEvent?.sync) {
+            onTransformChange([
+               event.transform.x,
+               event.transform.y,
+               event.transform.k,
+            ]);
+         }
       }
 
       if (onPanZoom && !event.sourceEvent?.internal) {
