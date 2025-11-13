@@ -79,11 +79,6 @@ const Pane = ({
       const { x, y, zoom } = cosmosPanZoom.current.getViewport();
 
       store.setState({
-         // 지워야할 목록
-         // d3Zoom: d3ZoomInstance,
-         // d3Selection: selection,
-
-         // we need to pass transform because zoom handler is not registered when we set the initial transform
          transform: [x, y, zoom],
          domNode: Pane.current.closest('.react-diagram') as HTMLDivElement,
       });
@@ -99,10 +94,6 @@ const Pane = ({
          selection,
       });
    }, [noPanClassName, selection]);
-
-   //onPaneMouseEnter
-   //onPaneMouseMove
-   //onPaneMouseLeave
 
    return (
       <div

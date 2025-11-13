@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './routes';
 
 import ErrorBoundary from './components/ErrorBoundary';
+import { ReactDiagramProvider } from 'react-cosmos-diagram';
 
 function Error() {
    return <h1 style={{ color: 'black' }}>Application Error</h1>;
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
    <BrowserRouter>
       <Suspense fallback={<Loading />}>
          <ErrorBoundary FallbackComponent={<Error />}>
-            <App />
+            <ReactDiagramProvider>
+               <App />
+            </ReactDiagramProvider>
          </ErrorBoundary>
       </Suspense>
    </BrowserRouter>,

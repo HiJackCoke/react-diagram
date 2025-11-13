@@ -2,6 +2,7 @@ import { useCallback, useRef } from 'react';
 
 import ReactDiagram, {
    useNodesState,
+   useStore,
    useEdgesState,
    addEdge,
    updateEdge,
@@ -112,6 +113,10 @@ function Index() {
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+   const resetSelectedElements = useStore(
+      (store) => store.resetSelectedElements,
+   );
+
    const addNode = () => {
       const newNode = {
          id: `${idIndex}`,
@@ -171,7 +176,7 @@ function Index() {
             connectionRadius={30}
             minZoom={1}
             maxZoom={2}
-            onPaneClick={console.log}
+            onPaneClick={() => resetSelectedElements()}
             onNodesChange={onNodesChange}
             // onNodeDrag={(a, node) => {
             //    console.log(node);

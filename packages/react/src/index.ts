@@ -24,7 +24,7 @@ export { default as StepEdge } from './components/Edges/StepEdge';
 export { default as BezierEdge } from './components/Edges/BezierEdge';
 
 export * from './hooks/useNodesEdgesState';
-// export { useStore, useStoreApi } from './hooks/useStore';
+export { useStore, useStoreApi } from './hooks/useStore';
 // export { default as useGetPointerPosition } from './hooks/useGetPointerPosition';
 // export { useNodeId } from './contexts/NodeIdContext';
 
