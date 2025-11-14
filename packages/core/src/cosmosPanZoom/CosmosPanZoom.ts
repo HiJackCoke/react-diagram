@@ -124,12 +124,12 @@ export const CosmosPanZoom = ({
             return false;
          }
 
-         const filterEvents = event.type === 'wheel' || event.type === 'click';
-
-         if (isWrappedWithClass(event, noPanClassName) && filterEvents) {
+         if (
+            isWrappedWithClass(event, noPanClassName) &&
+            event.type !== 'wheel'
+         ) {
             return false;
          }
-
          if (!panning) return false;
 
          const buttonAllowed = !event.button || event.button <= 1;
