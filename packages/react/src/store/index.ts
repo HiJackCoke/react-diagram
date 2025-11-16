@@ -292,7 +292,10 @@ const createRCDStore = () =>
          const { nodeInternals } = get();
 
          nodeInternals.forEach((node) => {
-            node.positionAbsolute = clampPosition(node.position, nodeExtent);
+            node.positionAbsolute = clampPosition(
+               node.positionAbsolute,
+               nodeExtent,
+            );
          });
 
          set({
