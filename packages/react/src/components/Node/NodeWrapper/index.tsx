@@ -12,8 +12,8 @@ import { ARIA_NODE_DESC_KEY } from '../../A11yDescriptions';
 import { getMouseHandler, handleNodeClick } from '../utils';
 
 import {
-   clampPosition,
-   getNodePositionWithOrigin,
+   // clampPosition,
+   // getNodePositionWithOrigin,
    XYPosition,
 } from 'cosmos-diagram';
 import { NodeProps } from '../type';
@@ -52,8 +52,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       isDraggable,
       intersected,
 
-      nodeOrigin,
-      nodeExtent,
+      // nodeOrigin,
+      // nodeExtent,
       hidden,
 
       resizeObserver,
@@ -131,14 +131,14 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
          }
       }, [id, type, sourcePosition, targetPosition]);
 
-      const clampedPosition = nodeExtent
-         ? clampPosition(node.positionAbsolute, nodeExtent)
-         : node.positionAbsolute;
+      // const clampedPosition = nodeExtent
+      //    ? clampPosition(node.positionAbsolute, nodeExtent)
+      //    : node.positionAbsolute;
 
-      const positionWithOrigin = getNodePositionWithOrigin(
-         { ...node, ...clampedPosition },
-         nodeOrigin,
-      );
+      // const positionWithOrigin = getNodePositionWithOrigin(
+      //    { ...node, ...clampedPosition },
+      //    nodeOrigin,
+      // );
 
       const dragging = useDrag({
          nodeRef,
@@ -169,7 +169,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
 
       const wrapperStyle: CSSProperties = {
          zIndex,
-         transform: `translate(${positionWithOrigin.x}px,${positionWithOrigin.y}px)`,
+         // transform: `translate(${positionWithOrigin.positionAbsolute.x}px,${positionWithOrigin.positionAbsolute.y}px)`,
+         transform: `translate(${positionX}px,${positionY}px)`,
          pointerEvents: hasPointerEvents ? 'all' : 'none',
          visibility: initialized ? 'visible' : 'hidden',
          width,
