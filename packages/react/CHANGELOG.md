@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/taehunlim/react-diagram/compare/v0.7.4...v0.8.0) (2025-11-17)
+
+
+### Features
+
+* add onPaneClick param to CosmosPanZoom ([0f497c6](https://github.com/taehunlim/react-diagram/commit/0f497c657a97bfbb715f9ebc522ff9919bcee039))
+* add onPaneClick param to ReactDiagram ([844cc9a](https://github.com/taehunlim/react-diagram/commit/844cc9a881760bb74333d4038fe67746e398a9fe))
+* onPaneMouseEnter, onPaneMouseMove, onPaneMouseLeave ([45319df](https://github.com/taehunlim/react-diagram/commit/45319dfd2d2c80e2d58d05bd21e84cdb0cecb8cf))
+
+
+### Bug Fixes
+
+* edges could not be reconfigured due to the inability to select a port on the node ([f899a21](https://github.com/taehunlim/react-diagram/commit/f899a219ff1b8085cadf3e5fd60c8cd084775dac))
+* restore behavior where child nodes move with parentNode ([73ca37c](https://github.com/taehunlim/react-diagram/commit/73ca37c92a8cf24fc4bdf50a5f5a742026dbe78d))
+* restore behavior where child nodes move with parentNode when using nodeExtent ([f2d3b60](https://github.com/taehunlim/react-diagram/commit/f2d3b60b13ce917915cccec95197b3328a11985b))
+
+
+### Code Refactoring
+
+* make onPanningChange param optional in cosmosPanZoom ([dc89b7a](https://github.com/taehunlim/react-diagram/commit/dc89b7a1a40dcec5fa06cd6d91438309ec7f74ad))
+* make onTransformChange param optional in cosmosPanZoom ([204827d](https://github.com/taehunlim/react-diagram/commit/204827daf53d17269affa1f8156989d300841074))
+* to move store's utils to @diagram/core ([35b413e](https://github.com/taehunlim/react-diagram/commit/35b413ecd2cffb16e9287cd0ba3ef6178fdb035e))
+
+
+### Adding Something
+
+* export useStore & useStoreApi to use in react-cosmos-diagram ([8823123](https://github.com/taehunlim/react-diagram/commit/8823123644fb1abd79a116132681c7e20735fd67))
+
 ### [0.7.4](https://github.com/taehunlim/react-diagram/compare/v0.7.3...v0.7.4) (2025-04-12)
 
 
