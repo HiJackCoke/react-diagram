@@ -5,9 +5,9 @@
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production && npm run css",
       "css": "postcss styles/style.css --config ../tooling/postcss-config/postcss.config.js --dir dist",
-      "release": "standard-version --release-as minor && node:../conventionalGithubReleaser",
-      "release-major": "standard-version --release-as major && node:../conventionalGithubReleaser",
-      "release-patch": "standard-version && node:../conventionalGithubReleaser"
+      "release": "standard-version --release-as minor --tag-prefix react@ && node:../conventionalGithubReleaser",
+      "release-major": "standard-version --release-as major --tag-prefix react@ && node:../conventionalGithubReleaser",
+      "release-patch": "standard-version --tag-prefix react@ && node:../conventionalGithubReleaser"
    },
    "keywords": [
       "react",
@@ -73,5 +73,8 @@
          "zustand/shallow": "zustandShallow"
       },
       "name": "ReactCosmosDiagram"
+   },
+   "standard-version": {
+      "tagPrefix": "react@"
    }
 }
