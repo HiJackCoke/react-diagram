@@ -4,22 +4,21 @@
    "description": "diagram core",
    "scripts": {
       "build": "rm -rf dist && rollup -c node:@diagram/rollup-config --environment NODE_ENV:production",
-      "release": "standard-version --release-as minor && node:../conventionalGithubReleaser",
-      "release-major": "standard-version --release-as major && node:../conventionalGithubReleaser",
-      "release-patch": "standard-version && node:../conventionalGithubReleaser"
+      "release": "standard-version --release-as minor --tag-prefix core@ && node:../conventionalGithubReleaser",
+      "release-major": "standard-version --release-as major --tag-prefix core@ && node:../conventionalGithubReleaser",
+      "release-patch": "standard-version --tag-prefix core@ && node:../conventionalGithubReleaser"
    },
    "workspaces": [
       "./packages/*",
       "./tooling/*"
    ],
    "keywords": [
-      "react",
       "node-based UI",
       "graph",
       "diagram",
       "workflow",
-      "react-diagram",
-      "react-cosmos-diagram"
+      "diagram",
+      "cosmos-diagram"
    ],
    "files": [
       "dist"
@@ -38,7 +37,7 @@
    "repository": {
       "type": "git",
       "url": "https://github.com/taehunlim/react-diagram.git",
-      "directory": "packages/react"
+      "directory": "packages/core"
    },
    "dependencies": {
       "d3": "^7.8.4",
@@ -63,6 +62,9 @@
          "d3-drag": "d3Drag"
       },
       "vanilla": true,
-      "name": "ReactCosmosDiagram"
+      "name": "CosmosDiagram"
+   },
+   "standard-version": {
+      "tagPrefix": "core@"
    }
 }
