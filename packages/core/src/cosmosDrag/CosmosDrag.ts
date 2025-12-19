@@ -26,25 +26,7 @@ import type {
    UseDragEvent,
    XYPosition,
 } from '../types';
-
-export type OnDrag = (
-   event: MouseEvent,
-   dragItems: NodeDragItem[],
-   node: CoreNode,
-   nodes: CoreNode[],
-) => void;
-
-export type DragUpdateParams = {
-   domNode: Element;
-   nodeId?: string;
-   isSelectable?: boolean;
-   noDragClassName?: string;
-};
-
-export type DragInstance = {
-   update: (params: DragUpdateParams) => void;
-   destroy: () => void;
-};
+import { DragUpdateParams, OnDrag } from '../types/drag';
 
 type NodeSize = {
    width: number;
