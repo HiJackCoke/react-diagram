@@ -1,4 +1,4 @@
-import { Viewport } from './general';
+import { D3ZoomHandler, Viewport } from './general';
 import { CoordinateExtent, Transform } from './utils';
 import { ZoomTransform } from 'd3-zoom';
 
@@ -45,4 +45,41 @@ export type PanZoomInstance = {
       extent: CoordinateExtent,
       translateExtent: CoordinateExtent,
    ) => ZoomTransform;
+};
+
+export type ZoomPanValues = {
+   isZoomingOrPanning: boolean;
+   // usedRightMouseButton: boolean;
+   prevViewport: Viewport;
+   mouseButton: number;
+   timerId: ReturnType<typeof setTimeout> | undefined;
+   // panScrollTimeout: ReturnType<typeof setTimeout> | undefined;
+   isPanScrolling: boolean;
+};
+
+export type PanZoomStartHandlerParams = {
+   zoomPanValues: ZoomPanValues;
+   onPanningChange?: OnPanningChange;
+   onPanZoomStart?: OnMove;
+};
+
+export type PanZoomParamsHandlerParams = {
+   onPanZoom?: OnMove;
+   onTransformChange?: OnTransformChange;
+};
+
+export type PanZoomEndHandlerParams = {
+   zoomPanValues: ZoomPanValues;
+   onPanningChange?: OnPanningChange;
+   onPanZoomEnd?: OnMove;
+};
+
+export type PanZoomOnScrollParams = {
+   d3ZoomHandler: D3ZoomHandler;
+};
+
+export type PanClickHandlerParams = {
+   filter?: (event: any) => boolean;
+   onPaneClick?: OnMove;
+   // d3ClickHandler: D3ZoomHandler;
 };

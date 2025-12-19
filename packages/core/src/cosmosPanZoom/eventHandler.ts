@@ -1,49 +1,12 @@
 import { D3ZoomEvent, zoomTransform } from 'd3-zoom';
 import { isViewChanged, transformToViewport } from './utils';
 import {
-   D3ZoomHandler,
-   OnPanningChange,
-   OnMove,
-   OnTransformChange,
    Viewport,
+   PanZoomStartHandlerParams,
+   PanZoomParamsHandlerParams,
+   PanZoomEndHandlerParams,
+   PanClickHandlerParams,
 } from '../types';
-
-export type ZoomPanValues = {
-   isZoomingOrPanning: boolean;
-   // usedRightMouseButton: boolean;
-   prevViewport: Viewport;
-   mouseButton: number;
-   timerId: ReturnType<typeof setTimeout> | undefined;
-   // panScrollTimeout: ReturnType<typeof setTimeout> | undefined;
-   isPanScrolling: boolean;
-};
-
-export type PanZoomStartHandlerParams = {
-   zoomPanValues: ZoomPanValues;
-   onPanningChange?: OnPanningChange;
-   onPanZoomStart?: OnMove;
-};
-
-export type PanZoomParamsHandlerParams = {
-   onPanZoom?: OnMove;
-   onTransformChange?: OnTransformChange;
-};
-
-export type PanZoomEndHandlerParams = {
-   zoomPanValues: ZoomPanValues;
-   onPanningChange?: OnPanningChange;
-   onPanZoomEnd?: OnMove;
-};
-
-export type PanZoomOnScrollParams = {
-   d3ZoomHandler: D3ZoomHandler;
-};
-
-export type PanClickHandlerParams = {
-   filter?: (event: any) => boolean;
-   onPaneClick?: OnMove;
-   // d3ClickHandler: D3ZoomHandler;
-};
 
 export const createPanZoomStartHandler = ({
    zoomPanValues,

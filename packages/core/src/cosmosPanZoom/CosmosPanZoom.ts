@@ -12,6 +12,7 @@ import {
    PanZoomTransformOptions,
    PanZoomUpdateOptions,
    PanZoomInstance,
+   ZoomPanValues,
 } from '../types';
 import {
    getD3Transition,
@@ -19,7 +20,6 @@ import {
    viewportToTransform,
 } from './utils';
 import {
-   ZoomPanValues,
    createPaneClickHandler,
    createPanZoomEndHandler,
    createPanZoomHandler,
