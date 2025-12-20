@@ -6,7 +6,6 @@ import {
    getPortBounds,
    clampPosition,
    createNodeInternals,
-   updateAbsoluteNodePositions,
    isIntersected,
    internalsSymbol,
    CoordinateExtent,
@@ -57,7 +56,7 @@ const createRCDStore = () =>
 
       updateNodeDimensions: (updates: NodeDimensionUpdate[]) => {
          const {
-            onNodesChange,
+            triggerNodeChanges,
             updateNodesIntersection,
             nodeInternals,
             domNode,
@@ -74,6 +73,8 @@ const createRCDStore = () =>
          const style = window.getComputedStyle(viewportNode);
          const { m22: zoom } = new window.DOMMatrixReadOnly(style.transform);
 
+         const intersectionChanges: NodeIntersectionChange[] = [];
+         const positionChanges: NodePositionChange[] = [];
          const changes: NodeDimensionChange[] = updates.reduce<
             NodeDimensionChange[]
          >((res, update) => {
@@ -91,7 +92,7 @@ const createRCDStore = () =>
                );
 
                if (doUpdate) {
-                  nodeInternals.set(node.id, {
+                  const dimensionedNode = {
                      ...node,
                      [internalsSymbol]: {
                         ...node[internalsSymbol],
@@ -113,7 +114,31 @@ const createRCDStore = () =>
                         },
                      },
                      ...dimensions,
+                  };
+
+                  nodeInternals.set(node.id, dimensionedNode);
+
+                  const nextIntersected = isIntersected(
+                     dimensionedNode,
+                     nodeInternals,
+                  );
+
+                  if (node.intersected !== nextIntersected) {
+                     intersectionChanges.push({
+                        id: node.id,
+                        type: 'intersect',
+                        intersected: nextIntersected,
+                     });
+                  }
+
+                  positionChanges.push({
+                     id: node.id,
+                     type: 'position',
+                     dragging: false,
+                     position: node.position,
+                     positionAbsolute: node.positionAbsolute,
                   });
+
                   res.push({
                      id: node.id,
                      type: 'dimensions',
@@ -125,16 +150,15 @@ const createRCDStore = () =>
             return res;
          }, []);
 
-         updateNodesIntersection();
-         updateAbsoluteNodePositions(nodeInternals, nodeOrigin);
-
          set({
             nodeInternals: new Map(nodeInternals),
          });
 
-         if (changes?.length > 0) {
-            onNodesChange?.(changes);
-         }
+         triggerNodeChanges([
+            ...changes,
+            ...intersectionChanges,
+            ...positionChanges,
+         ]);
       },
       updateNodesPosition: (
          nodes: NodeDragItem[] | Node[],
