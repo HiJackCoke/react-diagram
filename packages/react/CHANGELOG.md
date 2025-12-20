@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.2](https://github.com/taehunlim/react-diagram/compare/react@0.8.1...react@0.8.2) (2025-12-20)
+
+
+### Features
+
+* add positionAbsolute on nodes at initial render ([11fe281](https://github.com/taehunlim/react-diagram/commit/11fe281381d54be101f3ddd0023161b4e921c3fc))
+
+
+### Bug Fixes
+
+* issue where node width and height were not set ([429539d](https://github.com/taehunlim/react-diagram/commit/429539de23b5b3e5b6180f9ef1d8d2f24fcf857c))
+
+
+### Code Refactoring
+
+* optimize node intersection detection to single pass ([0b08ea3](https://github.com/taehunlim/react-diagram/commit/0b08ea3ca65f3da634f7e850adcbc1079a8c2916))
+
 ### 0.8.1 (2025-11-19)
 
 
