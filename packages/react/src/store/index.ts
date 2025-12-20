@@ -173,41 +173,29 @@ const createRCDStore = () =>
             onNodesChange?.(changes);
          }
       },
+
       updateNodesIntersection: () => {
          const { nodeInternals, triggerNodeChanges } = get();
 
          const nodes = Array.from(nodeInternals.values());
 
-         const unIntersectNodes = (): NodeIntersectionChange[] => {
-            return nodes
-               .filter(
-                  (node) =>
-                     node.intersected && !isIntersected(node, nodeInternals),
-               )
-               .map((node) => ({
+         const intersectionChanges: NodeIntersectionChange[] = [];
+
+         nodes.forEach((node) => {
+            const nextIntersected = isIntersected(node, nodeInternals);
+
+            if (node.intersected !== nextIntersected) {
+               intersectionChanges.push({
                   id: node.id,
                   type: 'intersect',
-                  intersected: false,
-               }));
-         };
-
-         const addIntersectNodes = (): NodeIntersectionChange[] => {
-            return nodes
-               .filter((node) => isIntersected(node, nodeInternals))
-               .map((node) => {
-                  return {
-                     id: node.id,
-                     type: 'intersect',
-                     intersected: true,
-                  };
+                  intersected: nextIntersected,
                });
-         };
+            }
+         });
 
-         const intersectedNodes = addIntersectNodes();
-         const unIntersectedNodes = unIntersectNodes();
-
-         triggerNodeChanges([...intersectedNodes, ...unIntersectedNodes]);
+         triggerNodeChanges(intersectionChanges);
       },
+
       addSelectedNodes: (selectedNodeIds: string[]) => {
          const { multiSelectionActive, getNodes, triggerNodeChanges } = get();
          let changedNodes: NodeSelectionChange[];
