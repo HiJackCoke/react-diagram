@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/taehunlim/react-diagram/compare/core@0.2.0...core@0.2.1) (2025-12-21)
+
+
+### Features
+
+* add positionAbsolute on nodes at initial render ([11fe281](https://github.com/taehunlim/react-diagram/commit/11fe281381d54be101f3ddd0023161b4e921c3fc))
+
+
+### Bug Fixes
+
+* issue where node width and height were not set ([429539d](https://github.com/taehunlim/react-diagram/commit/429539de23b5b3e5b6180f9ef1d8d2f24fcf857c))
+* issue where stepEdge was not displayed properly when using Left and Right Ports ([b7e9db2](https://github.com/taehunlim/react-diagram/commit/b7e9db23c89e902caa54b8ce2c6128270218ecfb))
+* resolve installation failure caused by “Unsupported URL Type 'workspace:*'” during npm instal ([79e1e8a](https://github.com/taehunlim/react-diagram/commit/79e1e8ac3e85d44b8c87e58543eb1fb4fbe09baf))
+
+
+### Code Refactoring
+
+* optimize node intersection detection to single pass ([0b08ea3](https://github.com/taehunlim/react-diagram/commit/0b08ea3ca65f3da634f7e850adcbc1079a8c2916))
+
 ## 0.2.0 (2025-11-19)
 
 
