@@ -1,5 +1,5 @@
-import { Position, XYPosition } from '../../types';
 import { getEdgeCenter } from './general';
+import { Position, type XYPosition } from '../../types';
 
 export type GetStepPathParams = {
    sourceX: number;
@@ -12,6 +12,7 @@ export type GetStepPathParams = {
    centerX?: number;
    centerY?: number;
    offset?: number;
+   stepPosition?: number;
 };
 
 const HANDLE_DIRECTIONS = {
@@ -31,10 +32,8 @@ const getDirection = ({
    target: XYPosition;
 }): XYPosition => {
    if (sourcePosition === Position.Left || sourcePosition === Position.Right) {
-      // when source Node position is on the left side of a Port of target Node => x = 1
       return source.x < target.x ? { x: 1, y: 0 } : { x: -1, y: 0 };
    }
-   //when source Node position is above of a Port of target Node => y = 1
    return source.y < target.y ? { x: 0, y: 1 } : { x: 0, y: -1 };
 };
 
@@ -48,6 +47,7 @@ const getPoints = ({
    targetPosition = Position.Top,
    center,
    offset,
+   stepPosition,
 }: {
    source: XYPosition;
    sourcePosition: Position;
@@ -55,6 +55,7 @@ const getPoints = ({
    targetPosition: Position;
    center: Partial<XYPosition>;
    offset: number;
+   stepPosition: number;
 }): [XYPosition[], number, number, number, number] => {
    const sourceDir = HANDLE_DIRECTIONS[sourcePosition];
    const targetDir = HANDLE_DIRECTIONS[targetPosition];
@@ -75,43 +76,152 @@ const getPoints = ({
    const currentDirection = direction[dirAccessor];
 
    let points: XYPosition[] = [];
-   let centerX = 0,
-      centerY = 0;
-   const [defaultCenterX, defaultCenterY, defaultOffsetX, defaultOffsetY] =
-      getEdgeCenter({
-         sourceX: source.x,
-         sourceY: source.y,
-         targetX: target.x,
-         targetY: target.y,
-      });
+   let centerX, centerY;
+   const sourceGapOffset = { x: 0, y: 0 };
+   const targetGapOffset = { x: 0, y: 0 };
 
-   const isSourceAndTargetPositionsParallel =
-      sourceDir[dirAccessor] * targetDir[dirAccessor] === -1;
+   const [, , defaultOffsetX, defaultOffsetY] = getEdgeCenter({
+      sourceX: source.x,
+      sourceY: source.y,
+      targetX: target.x,
+      targetY: target.y,
+   });
 
-   if (isSourceAndTargetPositionsParallel) {
-      centerX = center.x || defaultCenterX;
-      centerY = center.y || defaultCenterY;
+   // opposite handle positions, default case
+   if (sourceDir[dirAccessor] * targetDir[dirAccessor] === -1) {
+      if (dirAccessor === 'x') {
+         // Primary direction is horizontal, so stepPosition affects X coordinate
+         centerX =
+            center.x ??
+            sourceGapped.x + (targetGapped.x - sourceGapped.x) * stepPosition;
+         centerY = center.y ?? (sourceGapped.y + targetGapped.y) / 2;
+      } else {
+         // Primary direction is vertical, so stepPosition affects Y coordinate
+         centerX = center.x ?? (sourceGapped.x + targetGapped.x) / 2;
+         centerY =
+            center.y ??
+            sourceGapped.y + (targetGapped.y - sourceGapped.y) * stepPosition;
+      }
 
+      /*
+       *    --->
+       *    |
+       * >---
+       */
       const verticalSplit: XYPosition[] = [
          { x: centerX, y: sourceGapped.y },
          { x: centerX, y: targetGapped.y },
       ];
-
+      /*
+       *    |
+       *  ---
+       *  |
+       */
       const horizontalSplit: XYPosition[] = [
          { x: sourceGapped.x, y: centerY },
          { x: targetGapped.x, y: centerY },
       ];
 
-      const centerLineIsBent = sourceDir[dirAccessor] !== currentDirection;
-
-      if (centerLineIsBent) {
-         points = dirAccessor === 'x' ? horizontalSplit : verticalSplit;
-      } else {
+      if (sourceDir[dirAccessor] === currentDirection) {
          points = dirAccessor === 'x' ? verticalSplit : horizontalSplit;
+      } else {
+         points = dirAccessor === 'x' ? horizontalSplit : verticalSplit;
+      }
+   } else {
+      const sourceTarget: XYPosition[] = [
+         { x: sourceGapped.x, y: targetGapped.y },
+      ];
+      const targetSource: XYPosition[] = [
+         { x: targetGapped.x, y: sourceGapped.y },
+      ];
+
+      if (dirAccessor === 'x') {
+         points =
+            sourceDir.x === currentDirection ? targetSource : sourceTarget;
+      } else {
+         points =
+            sourceDir.y === currentDirection ? sourceTarget : targetSource;
+      }
+
+      if (sourcePosition === targetPosition) {
+         const diff = Math.abs(source[dirAccessor] - target[dirAccessor]);
+
+         if (diff <= offset) {
+            const gapOffset = Math.min(offset - 1, offset - diff);
+            if (sourceDir[dirAccessor] === currentDirection) {
+               sourceGapOffset[dirAccessor] =
+                  (sourceGapped[dirAccessor] > source[dirAccessor] ? -1 : 1) *
+                  gapOffset;
+            } else {
+               targetGapOffset[dirAccessor] =
+                  (targetGapped[dirAccessor] > target[dirAccessor] ? -1 : 1) *
+                  gapOffset;
+            }
+         }
+      }
+
+      if (sourcePosition !== targetPosition) {
+         const dirAccessorOpposite = dirAccessor === 'x' ? 'y' : 'x';
+         const isSameDir =
+            sourceDir[dirAccessor] === targetDir[dirAccessorOpposite];
+         const sourceGtTargetOppo =
+            sourceGapped[dirAccessorOpposite] >
+            targetGapped[dirAccessorOpposite];
+         const sourceLtTargetOppo =
+            sourceGapped[dirAccessorOpposite] <
+            targetGapped[dirAccessorOpposite];
+         const flipSourceTarget =
+            (sourceDir[dirAccessor] === 1 &&
+               ((!isSameDir && sourceGtTargetOppo) ||
+                  (isSameDir && sourceLtTargetOppo))) ||
+            (sourceDir[dirAccessor] !== 1 &&
+               ((!isSameDir && sourceLtTargetOppo) ||
+                  (isSameDir && sourceGtTargetOppo)));
+
+         if (flipSourceTarget) {
+            points = dirAccessor === 'x' ? sourceTarget : targetSource;
+         }
+      }
+
+      const sourceGapPoint = {
+         x: sourceGapped.x + sourceGapOffset.x,
+         y: sourceGapped.y + sourceGapOffset.y,
+      };
+      const targetGapPoint = {
+         x: targetGapped.x + targetGapOffset.x,
+         y: targetGapped.y + targetGapOffset.y,
+      };
+      const maxXDistance = Math.max(
+         Math.abs(sourceGapPoint.x - points[0].x),
+         Math.abs(targetGapPoint.x - points[0].x),
+      );
+      const maxYDistance = Math.max(
+         Math.abs(sourceGapPoint.y - points[0].y),
+         Math.abs(targetGapPoint.y - points[0].y),
+      );
+
+      if (maxXDistance >= maxYDistance) {
+         centerX = (sourceGapPoint.x + targetGapPoint.x) / 2;
+         centerY = points[0].y;
+      } else {
+         centerX = points[0].x;
+         centerY = (sourceGapPoint.y + targetGapPoint.y) / 2;
       }
    }
 
-   const pathPoints = [source, sourceGapped, ...points, targetGapped, target];
+   const pathPoints = [
+      source,
+      {
+         x: sourceGapped.x + sourceGapOffset.x,
+         y: sourceGapped.y + sourceGapOffset.y,
+      },
+      ...points,
+      {
+         x: targetGapped.x + targetGapOffset.x,
+         y: targetGapped.y + targetGapOffset.y,
+      },
+      target,
+   ];
 
    return [pathPoints, centerX, centerY, defaultOffsetX, defaultOffsetY];
 };
@@ -146,7 +256,7 @@ const getBend = (
    },${y}`;
 };
 
-export const getStepPath = ({
+export function getStepPath({
    sourceX,
    sourceY,
    sourcePosition = Position.Bottom,
@@ -157,13 +267,14 @@ export const getStepPath = ({
    centerX,
    centerY,
    offset = 20,
+   stepPosition = 0.5,
 }: GetStepPathParams): [
    path: string,
    labelX: number,
    labelY: number,
    offsetX: number,
    offsetY: number,
-] => {
+] {
    const [points, labelX, labelY, offsetX, offsetY] = getPoints({
       source: { x: sourceX, y: sourceY },
       sourcePosition,
@@ -171,6 +282,7 @@ export const getStepPath = ({
       targetPosition,
       center: { x: centerX, y: centerY },
       offset,
+      stepPosition,
    });
 
    const path = points.reduce<string>((res, p, i) => {
@@ -188,4 +300,4 @@ export const getStepPath = ({
    }, '');
 
    return [path, labelX, labelY, offsetX, offsetY];
-};
+}
