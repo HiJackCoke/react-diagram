@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/taehunlim/react-diagram/compare/react@0.8.2...react@0.9.0) (2025-12-21)
+
+
+### Bug Fixes
+
+* issue where stepEdge was not displayed properly when using Left and Right Ports ([b7e9db2](https://github.com/taehunlim/react-diagram/commit/b7e9db23c89e902caa54b8ce2c6128270218ecfb))
+
 ### [0.8.2](https://github.com/taehunlim/react-diagram/compare/react@0.8.1...react@0.8.2) (2025-12-20)
 
 
