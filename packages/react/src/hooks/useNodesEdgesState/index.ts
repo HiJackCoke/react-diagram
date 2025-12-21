@@ -14,11 +14,14 @@ export type OnChange<ChangesType> = (changes: ChangesType[]) => void;
 
 function createUseItemsState(
    applyChanges: ApplyChanges<Node, NodeChange>,
-): <NodeData extends Record<string, unknown> = Record<string, unknown>>(
-   initialItems: Node<NodeData>[],
+): <
+   NodeData extends Record<string, unknown> = Record<string, unknown>,
+   NodeType extends string = string,
+>(
+   initialItems: Node<NodeData, NodeType>[],
 ) => [
-   Node<NodeData>[],
-   Dispatch<SetStateAction<Node<NodeData>[]>>,
+   Node<NodeData, NodeType>[],
+   Dispatch<SetStateAction<Node<NodeData, NodeType>[]>>,
    OnChange<NodeChange>,
 ];
 

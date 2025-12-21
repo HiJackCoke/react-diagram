@@ -10,12 +10,17 @@ import ReactDiagram, {
    Edge,
    MarkerType,
    Background,
+   Node,
 } from 'react-cosmos-diagram';
 
 import CustomNode from 'components/Node';
 import CustomEdge from 'components/Edge';
 
 import 'react-cosmos-diagram/dist/style.css';
+
+type NodeType = 'a' | 'c';
+
+type TestNode = Node<{ label: string }, NodeType>;
 
 const nodeTypes = {
    c: CustomNode,
@@ -25,7 +30,7 @@ const edgeTypes = {
    c: CustomEdge,
 };
 
-const initialNodes = [
+const initialNodes: TestNode[] = [
    {
       id: '1',
       type: 'c',
@@ -76,7 +81,7 @@ const initialNodes = [
 const initialEdges = [
    {
       id: 'e-1-2',
-      type: 'bezier',
+      type: 'step',
       source: '1',
       target: '2',
       markerStart: {
@@ -116,6 +121,8 @@ function Index() {
    const resetSelectedElements = useStore(
       (store) => store.resetSelectedElements,
    );
+
+   nodes[0].type;
 
    const addNode = () => {
       const newNode = {
@@ -205,10 +212,7 @@ function Index() {
             // onMoveStart={console.log}
             // onMoveEnd={console.log}
             // onError={console.log}
-            nodeExtent={[
-               [-100, -100],
-               [100, 100],
-            ]}
+
             // translateExtent={[
             //    [-100, -100],
             //    [100, 100],
