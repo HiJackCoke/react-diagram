@@ -1,4 +1,3 @@
-import { MouseEvent as ReactMouseEvent } from 'react';
 import { ZoomBehavior, Selection as D3Selection } from 'd3';
 
 import type {
@@ -18,8 +17,6 @@ import type {
 } from 'cosmos-diagram';
 import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
 
-
-
 import {
    NodeChange,
    OnNodesChange,
@@ -28,7 +25,7 @@ import {
 } from '../../hooks/useNodesEdgesState/type';
 
 export type NodeDragHandler = (
-   event: ReactMouseEvent,
+   event: MouseEvent | TouchEvent,
    node: Node,
    nodes: Node[],
 ) => void;

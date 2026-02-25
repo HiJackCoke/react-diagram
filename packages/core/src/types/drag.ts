@@ -1,8 +1,7 @@
-import { MouseEvent } from 'react';
 import { CoreNode, NodeDragItem } from './nodes';
 
 export type OnDrag = (
-   event: MouseEvent,
+   event: MouseEvent | TouchEvent,
    dragItems: NodeDragItem[],
    node: CoreNode,
    nodes: CoreNode[],

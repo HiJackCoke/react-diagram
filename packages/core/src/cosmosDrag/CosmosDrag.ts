@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import { Selection, select } from 'd3-selection';
 import { drag } from 'd3-drag';
 import {
@@ -87,7 +86,7 @@ export const CosmosDrag = ({
    let containerBounds: DOMRect | null = null;
    let mousePosition: XYPosition = { x: 0, y: 0 };
    let lastPosition: XYPosition = { x: 0, y: 0 };
-   let dragEvent: MouseEvent | null = null;
+   let dragEvent: MouseEvent | TouchEvent | null = null;
    let autoPanStarted = false;
    let autoPanId = 0;
    let d3Selection: Selection<Element, unknown, null, undefined> | null = null;
@@ -166,7 +165,7 @@ export const CosmosDrag = ({
                dragItems: dragItems,
                nodeInternals,
             });
-            onDrag(dragEvent as MouseEvent, dragItems, currentNode, nodes);
+            onDrag(dragEvent, dragItems, currentNode, nodes);
          }
       };
 
@@ -264,7 +263,7 @@ export const CosmosDrag = ({
             );
 
             if (isChanged && dragItems) {
-               dragEvent = event.sourceEvent as MouseEvent;
+               dragEvent = event.sourceEvent;
                mousePosition = getEventPosition(
                   event.sourceEvent,
                   containerBounds!,
