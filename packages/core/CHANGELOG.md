@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/taehunlim/react-diagram/compare/core@0.2.1...core@0.3.0) (2026-02-25)
+
+
+### Features
+
+* add setScaleExtent to set minZoom, maxZomm ([62d4ce5](https://github.com/taehunlim/react-diagram/commit/62d4ce58ab4e5df0cc5c1584b186840e628f600e))
+
 ### [0.2.1](https://github.com/taehunlim/react-diagram/compare/core@0.2.0...core@0.2.1) (2025-12-21)
 
 
