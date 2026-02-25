@@ -40,6 +40,7 @@ export type PanZoomInstance = {
    destroy: () => void;
 
    getViewport: () => Viewport;
+   setScaleExtent: (scaleExtent: [number, number]) => void;
    setViewportConstrained?: (
       viewport: Viewport,
       extent: CoordinateExtent,

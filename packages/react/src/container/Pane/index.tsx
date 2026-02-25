@@ -95,6 +95,10 @@ const Pane = ({
       });
    }, [noPanClassName, selection]);
 
+   useEffect(() => {
+      cosmosPanZoom.current?.setScaleExtent([minZoom, maxZoom]);
+   }, [minZoom, maxZoom]);
+
    return (
       <div
          ref={Pane}

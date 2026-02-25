@@ -181,8 +181,8 @@ function Index() {
             // panning={false}
             // edgeUpdaterRadius={30}
             connectionRadius={30}
-            minZoom={1}
-            maxZoom={2}
+            minZoom={0.1}
+            maxZoom={4}
             onPaneClick={() => resetSelectedElements()}
             onNodesChange={onNodesChange}
             // onNodeDrag={(a, node) => {

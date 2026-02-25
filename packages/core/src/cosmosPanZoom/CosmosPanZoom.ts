@@ -185,10 +185,15 @@ export const CosmosPanZoom = ({
       return { x: transform.x, y: transform.y, zoom: transform.k };
    };
 
+   const setScaleExtent = (scaleExtent: [number, number]) => {
+      d3ZoomInstance?.scaleExtent(scaleExtent);
+   };
+
    return {
       update,
       destroy,
       getViewport,
       setViewportConstrained,
+      setScaleExtent,
    };
 };
