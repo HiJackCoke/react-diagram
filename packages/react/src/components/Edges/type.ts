@@ -27,11 +27,11 @@ export type EdgeProps<EdgeType extends Edge = Edge> = Pick<
       pathOptions?: any;
    };
 
-export type EdgeComponentProps<PathOptions> = Pick<
-   Edge,
-   'id' | 'markerStart' | 'markerEnd' | 'style' | 'sourcePort' | 'targetPort'
-> &
-   EdgePosition &
-   EdgeLabelOptions & {
-      pathOptions?: PathOptions;
-   };
+// export type EdgeComponentProps<PathOptions> = Pick<
+//    Edge,
+//    'id' | 'markerStart' | 'markerEnd' | 'style' | 'sourcePort' | 'targetPort'
+// > &
+//    EdgePosition &
+//    EdgeLabelOptions & {
+//       pathOptions?: PathOptions;
+//    };

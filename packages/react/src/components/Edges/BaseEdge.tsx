@@ -2,19 +2,21 @@ import { isNumeric } from 'cosmos-diagram';
 
 import EdgeLabel from './EdgeLabel';
 
-import { EdgeProps } from './type';
+import { Edge, EdgeProps } from './type';
 
 import { EdgeLabelOptions } from './EdgeLabel';
 
-interface BaseEdgeProps
-   extends Pick<EdgeProps, 'style' | 'markerStart' | 'markerEnd'>,
-      EdgeLabelOptions {
-   labelX?: number;
-   labelY?: number;
-   path: string;
-}
+type BaseEdgeProps<EdgeType extends Edge = Edge> = Pick<
+   EdgeProps<EdgeType>,
+   'style' | 'markerStart' | 'markerEnd'
+> &
+   EdgeLabelOptions & {
+      labelX?: number;
+      labelY?: number;
+      path: string;
+   };
 
-function BaseEdge({
+function BaseEdge<EdgeType extends Edge = Edge>({
    path,
    labelX,
    labelY,
@@ -27,7 +29,7 @@ function BaseEdge({
    style,
    markerEnd,
    markerStart,
-}: BaseEdgeProps) {
+}: BaseEdgeProps<EdgeType>) {
    return (
       <>
          <path

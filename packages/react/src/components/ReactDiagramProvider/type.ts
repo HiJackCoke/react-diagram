@@ -24,23 +24,26 @@ import {
    NodeDimensionUpdate,
 } from '../../hooks/useNodesEdgesState/type';
 
-export type NodeDragHandler = (
+export type NodeDragHandler<NodeType extends Node = Node> = (
    event: MouseEvent | TouchEvent,
-   node: Node,
-   nodes: Node[],
+   node: NodeType,
+   nodes: NodeType[],
 ) => void;
 
-export type UnSelectNodesParams = {
-   nodes?: Node[];
+export type UnSelectNodesParams<NodeType extends Node = Node> = {
+   nodes?: NodeType[];
 };
 
-export type ReactDiagramStore = {
+export type ReactDiagramStore<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+> = {
    rfId: string;
    width: number;
    height: number;
    transform: Transform; //
-   nodeInternals: NodeInternals; //
-   edges: Edge[];
+   nodeInternals: NodeInternals<NodeType>; //
+   edges: EdgeType[];
    defaultEdgeOptions?: DefaultEdgeOptions;
 
    domNode: HTMLDivElement | null; //
@@ -62,12 +65,12 @@ export type ReactDiagramStore = {
 
    onError?: OnError;
 
-   onNodesChange: OnNodesChange | null;
-   onNodeDragStart?: NodeDragHandler;
-   onNodeDrag?: NodeDragHandler;
-   onNodeDragEnd?: NodeDragHandler;
+   onNodesChange: OnNodesChange<NodeType> | null;
+   onNodeDragStart?: NodeDragHandler<NodeType>;
+   onNodeDrag?: NodeDragHandler<NodeType>;
+   onNodeDragEnd?: NodeDragHandler<NodeType>;
 
-   onEdgesChange?: OnEdgesChange;
+   onEdgesChange?: OnEdgesChange<EdgeType>;
 
    connectionPosition: XYPosition;
 
@@ -87,23 +90,26 @@ export type ReactDiagramStore = {
    connectionRadius: number;
 };
 
-export type ReactDiagramActions = {
-   setNodes: (nodes: Node[]) => void;
-   getNodes: () => Node[];
+export type ReactDiagramActions<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+> = {
+   setNodes: (nodes: NodeType[]) => void;
+   getNodes: () => NodeType[];
    addSelectedNodes: (nodeIds: string[]) => void;
-   unselectNodes: (params?: UnSelectNodesParams) => void;
+   unselectNodes: (params?: UnSelectNodesParams<NodeType>) => void;
    resetSelectedElements: () => void;
 
-   setEdges: (edges: Edge[]) => void;
+   setEdges: (edges: EdgeType[]) => void;
 
    updateNodeDimensions: (updates: NodeDimensionUpdate[]) => void;
    updateNodesPosition: (
-      nodeDragItems: NodeDragItem[] | Node[],
+      nodeDragItems: NodeDragItem[] | NodeType[],
       dragging: boolean,
-      updateFunc?: (node: NodeDragItem | Node) => void,
+      updateFunc?: (node: NodeDragItem | NodeType) => void,
    ) => void; //
    updateNodesIntersection: () => void; //
-   triggerNodeChanges: (changes: NodeChange[]) => void;
+   triggerNodeChanges: (changes: NodeChange<NodeType>[]) => void;
 
    cancelConnection: () => void;
    updateConnection: UpdateConnection;
@@ -116,4 +122,8 @@ export type ReactDiagramActions = {
    setMaxZoom: (minZoom: number) => void;
 };
 
-export type ReactDiagramState = ReactDiagramStore & ReactDiagramActions;
+export type ReactDiagramState<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+> = ReactDiagramStore<NodeType, EdgeType> &
+   ReactDiagramActions<NodeType, EdgeType>;

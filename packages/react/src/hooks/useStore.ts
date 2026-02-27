@@ -1,12 +1,14 @@
 import { useContext, useMemo } from 'react';
 import { useStore as useZustandStore } from 'zustand';
 import type { StoreApi } from 'zustand';
+import type { UseBoundStoreWithEqualityFn } from 'zustand/traditional';
 
 import StoreContext from '../contexts/RCDStoreContext';
 
 import { errorMessages } from 'cosmos-diagram';
 
 import { ReactDiagramState } from '../components/ReactDiagramProvider/type';
+import { Edge, Node } from '../types';
 
 const zustandErrorMessage = errorMessages['001']();
 
@@ -31,8 +33,13 @@ function useStore<StateSlice = ExtractState>(
 }
 
 // 필요에 따라 값을 계산
-const useStoreApi = () => {
-   const store = useContext(StoreContext);
+const useStoreApi = <
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+>() => {
+   const store = useContext(StoreContext) as UseBoundStoreWithEqualityFn<
+      StoreApi<ReactDiagramState<NodeType, EdgeType>>
+   > | null;
 
    if (store === null) {
       throw new Error(zustandErrorMessage);

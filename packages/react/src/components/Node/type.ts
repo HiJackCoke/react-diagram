@@ -11,10 +11,8 @@ export type Node<
    className?: string;
 };
 
-export type NodeProps<
-   NodeData extends Record<string, unknown> = Record<string, unknown>,
-> = Pick<
-   NodeWrapperProps<NodeData>,
+export type NodeProps<NodeType extends Node = Node> = Pick<
+   NodeWrapperProps<NodeType>,
    | 'id'
    | 'data'
    | 'dragHandle'

@@ -55,13 +55,8 @@ const createRCDStore = () =>
       },
 
       updateNodeDimensions: (updates: NodeDimensionUpdate[]) => {
-         const {
-            triggerNodeChanges,
-            updateNodesIntersection,
-            nodeInternals,
-            domNode,
-            nodeOrigin,
-         } = get();
+         const { triggerNodeChanges, nodeInternals, domNode, nodeOrigin } =
+            get();
          const viewportNode = domNode?.querySelector(
             '.react-diagram__viewport',
          );

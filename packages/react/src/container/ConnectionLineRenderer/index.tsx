@@ -8,27 +8,28 @@ import ConnectionPath from './ConnectionPath';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { ConnectionLineComponent } from './type';
 import { EdgeTypesWrapped } from '../EdgeRenderer/type';
+import { Edge } from '../../types';
 
-type ConnectionLineRendererProps = {
+type ConnectionLineRendererProps<EdgeType extends Edge = Edge> = {
    containerStyle?: CSSProperties;
-   edgeTypes: EdgeTypesWrapped;
+   edgeTypes: EdgeTypesWrapped<EdgeType>;
    component?: ConnectionLineComponent;
 };
 
 const selector = (s: ReactDiagramState) => ({
    edges: s.edges,
-   startPort: s.connectionStartPort,
+   connectionStartPort: s.connectionStartPort,
 });
 
-function ConnectionLineRenderer({
+function ConnectionLineRenderer<EdgeType extends Edge = Edge>({
    containerStyle,
    edgeTypes,
    component,
-}: ConnectionLineRendererProps) {
-   const { startPort, edges } = useStore(selector, shallow);
-   if (!startPort) return null;
+}: ConnectionLineRendererProps<EdgeType>) {
+   const { connectionStartPort, edges } = useStore(selector, shallow);
+   if (!connectionStartPort) return null;
 
-   const { nodeId, portType } = startPort;
+   const { nodeId, portType } = connectionStartPort;
    const isValid = !!(nodeId && portType);
 
    if (!isValid) {
@@ -47,7 +48,7 @@ function ConnectionLineRenderer({
          className="react-diagram__container react-diagram__connection-line"
       >
          <g className="react-diagram__connection">
-            <ConnectionPath
+            <ConnectionPath<EdgeType>
                nodeId={nodeId}
                portType={portType}
                edge={selectedEdge}

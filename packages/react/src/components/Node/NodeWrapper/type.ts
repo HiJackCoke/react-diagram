@@ -3,12 +3,16 @@ import { MouseEvent } from 'react';
 import { Node } from '../type';
 import { CoordinateExtent, NodeOrigin } from 'cosmos-diagram';
 
-export type NodeMouseHandler = (event: MouseEvent, node: Node) => void;
+export type NodeMouseHandler<NodeType extends Node = Node> = (
+   event: MouseEvent,
+   node: NodeType,
+) => void;
 
 export type NodeWrapperProps<
-   NodeData extends Record<string, unknown> = Record<string, unknown>,
+   NodeType extends Node = Node,
+   // NodeData extends Record<string, unknown> = Record<string, unknown>,
 > = Pick<
-   Node<NodeData>,
+   Node,
    | 'id'
    | 'data'
    | 'style'
@@ -23,7 +27,7 @@ export type NodeWrapperProps<
    | 'width'
    | 'height'
 > &
-   Required<Pick<Node<NodeData>, 'type' | 'zIndex'>> & {
+   Required<Pick<NodeType, 'type' | 'zIndex'>> & {
       positionX: number;
       positionY: number;
 
@@ -31,12 +35,12 @@ export type NodeWrapperProps<
       isSelectable: boolean;
       isDraggable: boolean;
 
-      onClick?: NodeMouseHandler;
-      onDoubleClick?: NodeMouseHandler;
-      onMouseEnter?: NodeMouseHandler;
-      onMouseMove?: NodeMouseHandler;
-      onMouseLeave?: NodeMouseHandler;
-      onContextMenu?: NodeMouseHandler;
+      onClick?: NodeMouseHandler<NodeType>;
+      onDoubleClick?: NodeMouseHandler<NodeType>;
+      onMouseEnter?: NodeMouseHandler<NodeType>;
+      onMouseMove?: NodeMouseHandler<NodeType>;
+      onMouseLeave?: NodeMouseHandler<NodeType>;
+      onContextMenu?: NodeMouseHandler<NodeType>;
       resizeObserver: ResizeObserver | null;
       isParent: boolean;
       rfId: string;
@@ -44,5 +48,5 @@ export type NodeWrapperProps<
       noDragClassName: string;
       noPanClassName: string;
       nodeOrigin: NodeOrigin;
-      nodeExtent: CoordinateExtent
+      nodeExtent: CoordinateExtent;
    };

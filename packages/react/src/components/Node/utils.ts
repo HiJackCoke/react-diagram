@@ -5,10 +5,10 @@ import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 
 import { Node } from './type';
 
-export function getMouseHandler(
+export function getMouseHandler<NodeType extends Node = Node>(
    id: string,
-   getState: StoreApi<ReactDiagramState>['getState'],
-   handler?: (event: MouseEvent, node: Node) => void,
+   getState: StoreApi<ReactDiagramState<NodeType>>['getState'],
+   handler?: (event: MouseEvent, node: NodeType) => void,
 ) {
    return handler === undefined
       ? handler
@@ -18,7 +18,7 @@ export function getMouseHandler(
         };
 }
 
-export function handleNodeClick({
+export function handleNodeClick<NodeType extends Node = Node>({
    id,
    store,
    isSelectable,
@@ -27,8 +27,8 @@ export function handleNodeClick({
 }: {
    id: string;
    store: {
-      getState: StoreApi<ReactDiagramState>['getState'];
-      setState: StoreApi<ReactDiagramState>['setState'];
+      getState: StoreApi<ReactDiagramState<NodeType>>['getState'];
+      setState: StoreApi<ReactDiagramState<NodeType>>['setState'];
    };
    isSelectable?: boolean;
    unselect?: boolean;

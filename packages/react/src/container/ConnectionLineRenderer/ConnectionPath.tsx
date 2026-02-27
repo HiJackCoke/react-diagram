@@ -7,15 +7,17 @@ import { Position, PortType, internalsSymbol } from 'cosmos-diagram';
 import { Edge } from '../../types';
 import { ReactDiagramStore } from '../../components/ReactDiagramProvider/type';
 
-import { EdgeWrapperProps } from '../../components/Edges/EdgeWrapper/type';
 import { ConnectionLineComponent } from './type';
 
-type ConnectionPathProps = {
+import { EdgeWrapperProps } from '../../components/Edges/EdgeWrapper/type';
+
+type ConnectionPathProps<EdgeType extends Edge = Edge> = {
    nodeId: string;
    portType: PortType;
    edge?: Edge;
+   // edgeTypes: EdgeTypesWrapped<EdgeType>;
    Component?: ConnectionLineComponent;
-   EdgeWrapper: EdgeWrapperProps;
+   EdgeWrapper: EdgeWrapperProps<EdgeType>;
 };
 
 const oppositePosition = {
@@ -25,13 +27,13 @@ const oppositePosition = {
    [Position.Bottom]: Position.Top,
 };
 
-function ConnectionPath({
+function ConnectionPath<EdgeType extends Edge = Edge>({
    nodeId,
    portType,
    edge,
    Component,
    EdgeWrapper,
-}: ConnectionPathProps) {
+}: ConnectionPathProps<EdgeType>) {
    const { fromNode, toX, toY, startPort } = useStore(
       useCallback(
          (s: ReactDiagramStore) => ({
@@ -97,6 +99,8 @@ function ConnectionPath({
          />
       );
    }
+
+   // const EdgeWrapper = edge?.type ? edgeTypes[edge.type] : edgeTypes.default;
 
    return (
       <EdgeWrapper

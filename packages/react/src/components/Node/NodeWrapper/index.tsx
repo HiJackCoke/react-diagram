@@ -16,7 +16,7 @@ import {
    // getNodePositionWithOrigin,
    XYPosition,
 } from 'cosmos-diagram';
-import { NodeProps } from '../type';
+import { Node, NodeProps } from '../type';
 import { NodeWrapperProps } from './type';
 
 export const arrowKeyDiffs: Record<string, XYPosition> = {
@@ -26,10 +26,12 @@ export const arrowKeyDiffs: Record<string, XYPosition> = {
    ArrowRight: { x: 1, y: 0 },
 };
 
-const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
+const wrapNode = <NodeType extends Node = Node>(
+   NodeComponent: ComponentType<NodeProps<NodeType>>,
+) => {
    function NodeWrapper({
       id,
-      type,
+      type = 'default',
       data,
 
       positionX,
@@ -59,7 +61,7 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
       resizeObserver,
 
       dragHandle,
-      zIndex,
+      zIndex = 0,
       isParent,
 
       initialized,
@@ -69,8 +71,8 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
 
       noDragClassName,
       noPanClassName,
-   }: NodeWrapperProps) {
-      const store = useStoreApi();
+   }: NodeWrapperProps<NodeType>) {
+      const store = useStoreApi<NodeType>();
       const node = store.getState().nodeInternals.get(id)!;
 
       const nodeRef = useRef<HTMLDivElement>(null);
@@ -180,11 +182,31 @@ const wrapNode = (NodeComponent: ComponentType<NodeProps>) => {
 
       const events = {
          onClick: onSelectNodeHandler,
-         onDoubleClick: getMouseHandler(id, store.getState, onDoubleClick),
-         onContextMenu: getMouseHandler(id, store.getState, onContextMenu),
-         onMouseEnter: getMouseHandler(id, store.getState, onMouseEnter),
-         onMouseMove: getMouseHandler(id, store.getState, onMouseMove),
-         onMouseLeave: getMouseHandler(id, store.getState, onMouseLeave),
+         onDoubleClick: getMouseHandler<NodeType>(
+            id,
+            store.getState,
+            onDoubleClick,
+         ),
+         onContextMenu: getMouseHandler<NodeType>(
+            id,
+            store.getState,
+            onContextMenu,
+         ),
+         onMouseEnter: getMouseHandler<NodeType>(
+            id,
+            store.getState,
+            onMouseEnter,
+         ),
+         onMouseMove: getMouseHandler<NodeType>(
+            id,
+            store.getState,
+            onMouseMove,
+         ),
+         onMouseLeave: getMouseHandler<NodeType>(
+            id,
+            store.getState,
+            onMouseLeave,
+         ),
       };
 
       const position = {

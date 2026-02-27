@@ -35,7 +35,12 @@ import {
 import { EdgeTypes } from '../container/EdgeRenderer/type';
 import { NodeDragHandler } from '../components/ReactDiagramProvider/type';
 
-export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
+type NoInfer<T> = [T][T extends any ? 0 : never];
+
+export type ReactDiagramProps<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+> = HTMLAttributes<HTMLDivElement> & {
    onlyRenderVisibleElements?: boolean;
    disableKeyboardA11y?: boolean;
 
@@ -47,44 +52,43 @@ export type ReactDiagramProps = HTMLAttributes<HTMLDivElement> & {
 
    elevateNodesOnSelect?: boolean;
 
-   nodes?: Node[];
-   nodeTypes?: NodeTypes;
-
-   edges?: Edge[];
-   edgeTypes?: EdgeTypes;
+   nodes?: NodeType[];
+   nodeTypes?: NodeTypes<NodeType>;
+   edges?: EdgeType[];
+   edgeTypes?: EdgeTypes<EdgeType>;
    edgeUpdaterRadius?: number;
    ConnectionLineContainerStyle?: CSSProperties;
    ConnectionLineComponent?: ConnectionLineComponent;
    connectionRadius?: number;
 
    onNodesChange?: OnNodesChange;
-   onNodeClick?: NodeMouseHandler;
-   onNodeDoubleClick?: NodeMouseHandler;
-   onNodeContextMenu?: NodeMouseHandler;
-   onNodeMouseEnter?: NodeMouseHandler;
-   onNodeMouseMove?: NodeMouseHandler;
-   onNodeMouseLeave?: NodeMouseHandler;
-   onNodeDragStart?: NodeDragHandler;
-   onNodeDrag?: NodeDragHandler;
-   onNodeDragEnd?: NodeDragHandler;
+   onNodeClick?: NodeMouseHandler<NodeType>;
+   onNodeDoubleClick?: NodeMouseHandler<NodeType>;
+   onNodeContextMenu?: NodeMouseHandler<NodeType>;
+   onNodeMouseEnter?: NodeMouseHandler<NodeType>;
+   onNodeMouseMove?: NodeMouseHandler<NodeType>;
+   onNodeMouseLeave?: NodeMouseHandler<NodeType>;
+   onNodeDragStart?: NodeDragHandler<NodeType>;
+   onNodeDrag?: NodeDragHandler<NodeType>;
+   onNodeDragEnd?: NodeDragHandler<NodeType>;
 
    onEdgesChange?: OnEdgesChange;
-   onEdgeClick?: (event: ReactMouseEvent, node: Edge) => void;
-   onEdgeDoubleClick?: EdgeMouseHandler;
-   onEdgeContextMenu?: EdgeMouseHandler;
-   onEdgeMouseEnter?: EdgeMouseHandler;
-   onEdgeMouseMove?: EdgeMouseHandler;
-   onEdgeMouseLeave?: EdgeMouseHandler;
+   onEdgeClick?: (event: ReactMouseEvent, edge: EdgeType) => void;
+   onEdgeDoubleClick?: EdgeMouseHandler<EdgeType>;
+   onEdgeContextMenu?: EdgeMouseHandler<EdgeType>;
+   onEdgeMouseEnter?: EdgeMouseHandler<EdgeType>;
+   onEdgeMouseMove?: EdgeMouseHandler<EdgeType>;
+   onEdgeMouseLeave?: EdgeMouseHandler<EdgeType>;
 
-   onEdgeUpdate?: OnEdgeUpdateFunc;
+   onEdgeUpdate?: OnEdgeUpdateFunc<EdgeType>;
    onEdgeUpdateStart?: (
       event: ReactMouseEvent,
-      edge: Edge,
+      edge: EdgeType,
       portType: PortType,
    ) => void;
    onEdgeUpdateEnd?: (
-      event: MouseEvent | TouchEvent,
-      edge: Edge,
+      event: ReactMouseEvent,
+      edge: NoInfer<EdgeType>,
       portType: PortType,
    ) => void;
 

@@ -5,16 +5,22 @@ import NodeRenderer from '../../container/NodeRenderer';
 import EdgeRenderer from '../../container/EdgeRenderer';
 import ConnectionLineRenderer from '../ConnectionLineRenderer';
 
-import { ReactDiagramProps } from '../../types';
+import { Edge, Node, ReactDiagramProps } from '../../types';
 import { NodeTypesWrapped } from '../NodeRenderer/type';
 import { EdgeTypesWrapped } from '../EdgeRenderer/type';
 
-export type ReactDiagramCommonProps = Omit<
-   ReactDiagramProps,
+export type ReactDiagramCommonProps<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+> = Omit<
+   ReactDiagramProps<NodeType, EdgeType>,
    'nodes' | 'edges' | 'nodeTypes' | 'edgeTypes'
 >;
 
-export type DiagramViewProps = ReactDiagramCommonProps &
+export type DiagramViewProps<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+> = ReactDiagramCommonProps<NodeType, EdgeType> &
    Required<
       Pick<
          ReactDiagramProps,
@@ -28,12 +34,15 @@ export type DiagramViewProps = ReactDiagramCommonProps &
          | 'nodeExtent'
       >
    > & {
-      nodeTypes: NodeTypesWrapped;
-      edgeTypes: EdgeTypesWrapped;
+      nodeTypes: NodeTypesWrapped<NodeType>;
+      edgeTypes: EdgeTypesWrapped<EdgeType>;
       rfId: string;
    };
 
-function DiagramView({
+function DiagramView<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+>({
    rfId,
 
    // DiagramRenderer props
@@ -84,7 +93,7 @@ function DiagramView({
    // ConnectionLineWrapper
    ConnectionLineContainerStyle,
    ConnectionLineComponent,
-}: DiagramViewProps) {
+}: DiagramViewProps<NodeType, EdgeType>) {
    return (
       <DiagramRenderer
          multiSelectionKeyCode={multiSelectionKeyCode}
@@ -100,7 +109,7 @@ function DiagramView({
          onPaneMouseMove={onPaneMouseMove}
          onPaneMouseLeave={onPaneMouseLeave}
       >
-         <NodeRenderer
+         <NodeRenderer<NodeType>
             rfId={rfId}
             nodeTypes={nodeTypes}
             onlyRenderVisibleElements={onlyRenderVisibleElements}
@@ -116,7 +125,7 @@ function DiagramView({
             onNodeMouseMove={onNodeMouseMove}
             onNodeMouseLeave={onNodeMouseLeave}
          />
-         <EdgeRenderer
+         <EdgeRenderer<EdgeType>
             rfId={rfId}
             edgeTypes={edgeTypes}
             noPanClassName={noPanClassName}
@@ -131,7 +140,7 @@ function DiagramView({
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
          />
-         <ConnectionLineRenderer
+         <ConnectionLineRenderer<EdgeType>
             edgeTypes={edgeTypes}
             containerStyle={ConnectionLineContainerStyle}
             component={ConnectionLineComponent}
@@ -142,4 +151,4 @@ function DiagramView({
 
 DiagramView.displayName = 'DiagramView';
 
-export default memo(DiagramView);
+export default memo(DiagramView) as typeof DiagramView;

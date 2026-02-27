@@ -18,26 +18,32 @@ import {
 } from 'cosmos-diagram';
 
 import { Node } from '../../components/Node/type';
-import { EdgeProps } from '../../components/Edges/type';
+import { Edge, EdgeProps } from '../../components/Edges/type';
 import { EdgeTypes, EdgeTypesWrapped } from './type';
 
-export const createEdgeTypes = (edgeTypes: EdgeTypes): EdgeTypesWrapped => {
-   const defaultTypes: EdgeTypesWrapped = {
+export const createEdgeTypes = <EdgeType extends Edge = Edge>(
+   edgeTypes: EdgeTypes<EdgeType>,
+): EdgeTypesWrapped<EdgeType> => {
+   const defaultTypes: EdgeTypesWrapped<EdgeType> = {
       default: wrapEdge(
-         (edgeTypes.straight || StraightEdge) as ComponentType<EdgeProps>,
+         (edgeTypes.straight || StraightEdge) as ComponentType<
+            EdgeProps<EdgeType>
+         >,
       ),
-      step: wrapEdge((edgeTypes.step || StepEdge) as ComponentType<EdgeProps>),
+      step: wrapEdge(
+         (edgeTypes.step || StepEdge) as ComponentType<EdgeProps<EdgeType>>,
+      ),
       bezier: wrapEdge(
-         (edgeTypes.bezier || BezierEdge) as ComponentType<EdgeProps>,
+         (edgeTypes.bezier || BezierEdge) as ComponentType<EdgeProps<EdgeType>>,
       ),
    };
 
-   const wrappedTypes = {} as EdgeTypesWrapped;
-   const customTypes: EdgeTypesWrapped = Object.keys(edgeTypes)
+   const wrappedTypes = {} as EdgeTypesWrapped<EdgeType>;
+   const customTypes: EdgeTypesWrapped<EdgeType> = Object.keys(edgeTypes)
       .filter((k) => !Object.keys(defaultTypes).includes(k))
       .reduce((res, key) => {
          res[key] = wrapEdge(
-            (edgeTypes[key] || StepEdge) as ComponentType<EdgeProps>,
+            (edgeTypes[key] || StepEdge) as ComponentType<EdgeProps<EdgeType>>,
          );
 
          return res;

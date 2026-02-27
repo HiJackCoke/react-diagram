@@ -7,7 +7,7 @@ import { useStore } from '../../hooks/useStore';
 import useVisibleNodes from '../../hooks/useVisibleNodes';
 
 import { internalsSymbol, Position } from 'cosmos-diagram';
-import { ReactDiagramProps } from '../../types';
+import { Node, ReactDiagramProps } from '../../types';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import { NodeWrapperProps } from '../../components/Node/NodeWrapper/type';
 import { NodeTypesWrapped } from './type';
@@ -24,8 +24,8 @@ type RequiredProps = Required<
    >
 >;
 
-type NodeRendererProps = Pick<
-   ReactDiagramProps,
+type NodeRendererProps<NodeType extends Node = Node> = Pick<
+   ReactDiagramProps<NodeType>,
    | 'onNodeClick'
    | 'onNodeDoubleClick'
    | 'onNodeMouseEnter'
@@ -34,7 +34,7 @@ type NodeRendererProps = Pick<
    | 'onNodeContextMenu'
 > &
    RequiredProps & {
-      nodeTypes: NodeTypesWrapped;
+      nodeTypes: NodeTypesWrapped<NodeType>;
       rfId: string;
    };
 
@@ -45,7 +45,7 @@ const selector = (s: ReactDiagramState) => ({
    onError: s.onError,
 });
 
-function NodeRenderer({
+function NodeRenderer<NodeType extends Node = Node>({
    nodeTypes,
    onNodeClick,
    onNodeMouseEnter,
@@ -54,7 +54,7 @@ function NodeRenderer({
    onNodeContextMenu,
    onNodeDoubleClick,
    ...props
-}: NodeRendererProps) {
+}: NodeRendererProps<NodeType>) {
    const { nodesDraggable, elementsSelectable, updateNodeDimensions, onError } =
       useStore(selector, shallow);
    const nodes = useVisibleNodes();
@@ -120,7 +120,7 @@ function NodeRenderer({
             }
 
             const NodeComponent = (nodeTypes[nodeType] ||
-               nodeTypes.default) as ComponentType<NodeWrapperProps>;
+               nodeTypes.default) as ComponentType<NodeWrapperProps<NodeType>>;
 
             const isDraggable = !!(
                draggable ||
@@ -187,4 +187,4 @@ function NodeRenderer({
 
 NodeRenderer.displayName = 'NodeRenderer';
 
-export default memo(NodeRenderer);
+export default memo(NodeRenderer) as typeof NodeRenderer;

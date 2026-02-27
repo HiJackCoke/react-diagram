@@ -21,6 +21,7 @@ import 'react-cosmos-diagram/dist/style.css';
 type NodeType = 'a' | 'c';
 
 type TestNode = Node<{ label: string }, NodeType>;
+type TestEdge = Edge<{ label?: string }, 'c' | 'step'>;
 
 const nodeTypes = {
    c: CustomNode,
@@ -78,7 +79,7 @@ const initialNodes: TestNode[] = [
    },
 ];
 
-const initialEdges = [
+const initialEdges: TestEdge[] = [
    {
       id: 'e-1-2',
       type: 'step',
@@ -117,12 +118,9 @@ function Index() {
    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
    const resetSelectedElements = useStore(
       (store) => store.resetSelectedElements,
    );
-
-   nodes[0].type;
 
    const addNode = () => {
       const newNode = {
@@ -146,7 +144,7 @@ function Index() {
    }, []);
 
    const onEdgeUpdate = useCallback(
-      (originEdge: Edge, newConnection: Connection) => {
+      (originEdge: (typeof edges)[0], newConnection: Connection) => {
          edgeUpdateSuccessful.current = true;
 
          setEdges((els) => updateEdge(originEdge, newConnection, els));
@@ -154,13 +152,21 @@ function Index() {
       [],
    );
 
-   const onEdgeUpdateEnd = useCallback((_c: any, edge: Edge) => {
+   const onEdgeUpdateEnd = useCallback((_c: any, edge: TestEdge) => {
       if (!edgeUpdateSuccessful.current) {
          setEdges((eds) => eds.filter((e) => e.id !== edge.id));
       }
 
       edgeUpdateSuccessful.current = true;
    }, []);
+
+   const handleNode = (_: Event, node: TestNode) => {
+      console.log(node);
+   };
+
+   const handleEdge = (edge: TestEdge) => {
+      console.log(edge);
+   };
 
    return (
       <>
@@ -198,14 +204,20 @@ function Index() {
             // onNodeMouseLeave={console.log}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            // onEdgeClick={console.log}
-            // onEdgeDoubleClick={console.log}
+            onEdgeClick={(_, edge) => {
+               handleEdge(edge);
+            }}
             // onEdgeContextMenu={console.log}
             // onEdgeMouseEnter={console.log}
             // onEdgeMouseMove={console.log}
+
             onEdgeUpdate={onEdgeUpdate}
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
+            onNodeDrag={(_, node) => {
+               handleNode(_, node);
+            }}
+
             // autoPanOnNodeDrag={false}
             // autoPanOnConnect={false}
             // onMove={console.log}

@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { ForwardedRef, forwardRef } from 'react';
 import { NodeOrigin, Viewport } from 'cosmos-diagram';
 
 import DiagramView from './DiagramView';
@@ -6,7 +6,7 @@ import StoreUpdater from '../../components/StoreUpdater';
 
 import { useNodeOrEdgeTypes } from '../../hooks/useNodeOrEdgeTypes';
 
-import Nodes from '../../components/Node';
+import NodeComponent from '../../components/Node';
 import StepEdge from '../../components/Edges/StepEdge';
 
 import { createNodeTypes } from '../../container/NodeRenderer/utils';
@@ -14,182 +14,193 @@ import { createEdgeTypes } from '../../container/EdgeRenderer/utils';
 
 import Wrapper from './Wrapper';
 
-import { ReactDiagramRefType, ReactDiagramProps } from '../../types';
-import { NodeTypes } from '../NodeRenderer/type';
-import { EdgeTypes } from '../EdgeRenderer/type';
+import {
+   ReactDiagramRefType,
+   ReactDiagramProps,
+   Edge,
+   Node,
+} from '../../types';
+
 import { infiniteExtent } from '../../store/initialState';
 
 const initViewport: Viewport = { x: 0, y: 0, zoom: 1 };
 const initNodeOrigin: NodeOrigin = [0, 0];
 
-const defaultNodeTypes: NodeTypes = {
-   default: Nodes,
+const defaultNodeTypes = {
+   default: NodeComponent,
 };
 
-const defaultEdgeTypes: EdgeTypes = {
+const defaultEdgeTypes = {
    step: StepEdge,
 };
 
-const ReactDiagram = forwardRef<ReactDiagramRefType, ReactDiagramProps>(
-   (
-      {
-         children,
-         id,
-         // DiagramView props
-         panning = true,
-         minZoom,
-         maxZoom,
-         translateExtent,
-         nodeExtent = infiniteExtent,
-         defaultViewport = initViewport,
+function ReactDiagram<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+>(
+   {
+      children,
+      id,
+      // DiagramView props
+      panning = true,
+      minZoom,
+      maxZoom,
+      translateExtent,
+      nodeExtent = infiniteExtent,
+      defaultViewport = initViewport,
 
-         multiSelectionKeyCode = 'Meta',
-         dragSelectionKeyCode = 'Shift',
+      multiSelectionKeyCode = 'Meta',
+      dragSelectionKeyCode = 'Shift',
 
-         onlyRenderVisibleElements = false,
-         disableKeyboardA11y = false,
-         noDragClassName = 'nodrag',
-         noPanClassName = 'nopan',
-         nodeOrigin = initNodeOrigin,
-         nodeTypes = defaultNodeTypes,
-         onNodeClick,
-         onNodeDoubleClick,
-         onNodeContextMenu,
-         onNodeMouseEnter,
-         onNodeMouseMove,
-         onNodeMouseLeave,
+      onlyRenderVisibleElements = false,
+      disableKeyboardA11y = false,
+      noDragClassName = 'nodrag',
+      noPanClassName = 'nopan',
+      nodeOrigin = initNodeOrigin,
+      nodeTypes = defaultNodeTypes,
+      onNodeClick,
+      onNodeDoubleClick,
+      onNodeContextMenu,
+      onNodeMouseEnter,
+      onNodeMouseMove,
+      onNodeMouseLeave,
 
-         edgeTypes = defaultEdgeTypes,
-         edgeUpdaterRadius,
-         onEdgeClick,
-         onEdgeDoubleClick,
-         onEdgeContextMenu,
-         onEdgeMouseEnter,
-         onEdgeMouseMove,
-         onEdgeMouseLeave,
-         onEdgeUpdate,
-         onEdgeUpdateStart,
-         onEdgeUpdateEnd,
+      edgeTypes = defaultEdgeTypes,
+      edgeUpdaterRadius,
+      onEdgeClick,
+      onEdgeDoubleClick,
+      onEdgeContextMenu,
+      onEdgeMouseEnter,
+      onEdgeMouseMove,
+      onEdgeMouseLeave,
+      onEdgeUpdate,
+      onEdgeUpdateStart,
+      onEdgeUpdateEnd,
 
-         ConnectionLineContainerStyle,
-         ConnectionLineComponent,
+      ConnectionLineContainerStyle,
+      ConnectionLineComponent,
 
-         // StoreUpdater props
-         nodes,
-         edges,
-         nodesDraggable,
-         elevateNodesOnSelect,
-         autoPanOnNodeDrag,
-         autoPanOnConnect,
-         connectionRadius,
-         smoothStep,
-         centerStep,
-         gridStep,
-         onNodesChange,
-         onNodeDrag,
-         onNodeDragStart,
-         onNodeDragEnd,
+      // StoreUpdater props
+      nodes,
+      edges,
+      nodesDraggable,
+      elevateNodesOnSelect,
+      autoPanOnNodeDrag,
+      autoPanOnConnect,
+      connectionRadius,
+      smoothStep,
+      centerStep,
+      gridStep,
+      onNodesChange,
+      onNodeDrag,
+      onNodeDragStart,
+      onNodeDragEnd,
 
-         onEdgesChange,
+      onEdgesChange,
 
-         onConnect,
-         onConnectStart,
-         onConnectEnd,
+      onConnect,
+      onConnectStart,
+      onConnectEnd,
 
-         onMove,
-         onMoveStart,
-         onMoveEnd,
-         onPaneClick,
-         onPaneMouseEnter,
-         onPaneMouseMove,
-         onPaneMouseLeave,
+      onMove,
+      onMoveStart,
+      onMoveEnd,
+      onPaneClick,
+      onPaneMouseEnter,
+      onPaneMouseMove,
+      onPaneMouseLeave,
 
-         onError,
-         ...rest
-      },
-      ref,
-   ) => {
-      const rfId = id || '1';
-      const nodeTypesWrapped = useNodeOrEdgeTypes(nodeTypes, createNodeTypes);
-      const edgeTypesWrapped = useNodeOrEdgeTypes(edgeTypes, createEdgeTypes);
+      onError,
+      ...rest
+   }: ReactDiagramProps<NodeType, EdgeType>,
+   ref: ForwardedRef<ReactDiagramRefType>,
+) {
+   const rfId = id || '1';
+   const nodeTypesWrapped = useNodeOrEdgeTypes<NodeType>(
+      nodeTypes,
+      createNodeTypes,
+   );
+   const edgeTypesWrapped = useNodeOrEdgeTypes<EdgeType>(
+      edgeTypes,
+      createEdgeTypes,
+   );
 
-      return (
-         <div {...rest} ref={ref} className="react-diagram">
-            <Wrapper>
-               <DiagramView
-                  rfId={rfId}
-                  panning={panning}
-                  defaultViewport={defaultViewport}
-                  multiSelectionKeyCode={multiSelectionKeyCode}
-                  dragSelectionKeyCode={dragSelectionKeyCode}
-                  onlyRenderVisibleElements={onlyRenderVisibleElements}
-                  disableKeyboardA11y={disableKeyboardA11y}
-                  noDragClassName={noDragClassName}
-                  noPanClassName={noPanClassName}
-                  nodeOrigin={nodeOrigin}
-                  nodeExtent={nodeExtent}
-                  nodeTypes={nodeTypesWrapped}
-                  edgeTypes={edgeTypesWrapped}
-                  edgeUpdaterRadius={edgeUpdaterRadius}
-                  ConnectionLineContainerStyle={ConnectionLineContainerStyle}
-                  ConnectionLineComponent={ConnectionLineComponent}
-                  onNodeClick={onNodeClick}
-                  onNodeDoubleClick={onNodeDoubleClick}
-                  onNodeContextMenu={onNodeContextMenu}
-                  onNodeMouseEnter={onNodeMouseEnter}
-                  onNodeMouseMove={onNodeMouseMove}
-                  onNodeMouseLeave={onNodeMouseLeave}
-                  onEdgeClick={onEdgeClick}
-                  onEdgeDoubleClick={onEdgeDoubleClick}
-                  onEdgeContextMenu={onEdgeContextMenu}
-                  onEdgeMouseEnter={onEdgeMouseEnter}
-                  onEdgeMouseMove={onEdgeMouseMove}
-                  onEdgeMouseLeave={onEdgeMouseLeave}
-                  onEdgeUpdate={onEdgeUpdate}
-                  onEdgeUpdateStart={onEdgeUpdateStart}
-                  onEdgeUpdateEnd={onEdgeUpdateEnd}
-                  onMove={onMove}
-                  onMoveStart={onMoveStart}
-                  onMoveEnd={onMoveEnd}
-                  onPaneClick={onPaneClick}
-                  onPaneMouseEnter={onPaneMouseEnter}
-                  onPaneMouseMove={onPaneMouseMove}
-                  onPaneMouseLeave={onPaneMouseLeave}
-               />
-               <StoreUpdater
-                  rfId={rfId}
-                  nodes={nodes}
-                  edges={edges}
-                  nodesDraggable={nodesDraggable}
-                  elevateNodesOnSelect={elevateNodesOnSelect}
-                  autoPanOnNodeDrag={autoPanOnNodeDrag}
-                  autoPanOnConnect={autoPanOnConnect}
-                  connectionRadius={connectionRadius}
-                  nodeOrigin={nodeOrigin}
-                  nodeExtent={nodeExtent}
-                  translateExtent={translateExtent}
-                  minZoom={minZoom}
-                  maxZoom={maxZoom}
-                  smoothStep={smoothStep}
-                  centerStep={centerStep}
-                  gridStep={gridStep}
-                  onNodesChange={onNodesChange}
-                  onNodeDrag={onNodeDrag}
-                  onNodeDragStart={onNodeDragStart}
-                  onNodeDragEnd={onNodeDragEnd}
-                  onEdgesChange={onEdgesChange}
-                  onConnect={onConnect}
-                  onConnectStart={onConnectStart}
-                  onConnectEnd={onConnectEnd}
-                  onError={onError}
-               />
-               {children}
-            </Wrapper>
-         </div>
-      );
-   },
-);
+   return (
+      <div {...rest} ref={ref} className="react-diagram">
+         <Wrapper>
+            <DiagramView<NodeType, EdgeType>
+               rfId={rfId}
+               panning={panning}
+               defaultViewport={defaultViewport}
+               multiSelectionKeyCode={multiSelectionKeyCode}
+               dragSelectionKeyCode={dragSelectionKeyCode}
+               onlyRenderVisibleElements={onlyRenderVisibleElements}
+               disableKeyboardA11y={disableKeyboardA11y}
+               noDragClassName={noDragClassName}
+               noPanClassName={noPanClassName}
+               nodeOrigin={nodeOrigin}
+               nodeExtent={nodeExtent}
+               nodeTypes={nodeTypesWrapped}
+               edgeTypes={edgeTypesWrapped}
+               edgeUpdaterRadius={edgeUpdaterRadius}
+               ConnectionLineContainerStyle={ConnectionLineContainerStyle}
+               ConnectionLineComponent={ConnectionLineComponent}
+               onNodeClick={onNodeClick}
+               onNodeDoubleClick={onNodeDoubleClick}
+               onNodeContextMenu={onNodeContextMenu}
+               onNodeMouseEnter={onNodeMouseEnter}
+               onNodeMouseMove={onNodeMouseMove}
+               onNodeMouseLeave={onNodeMouseLeave}
+               onEdgeClick={onEdgeClick}
+               onEdgeDoubleClick={onEdgeDoubleClick}
+               onEdgeContextMenu={onEdgeContextMenu}
+               onEdgeMouseEnter={onEdgeMouseEnter}
+               onEdgeMouseMove={onEdgeMouseMove}
+               onEdgeMouseLeave={onEdgeMouseLeave}
+               onEdgeUpdate={onEdgeUpdate}
+               onEdgeUpdateStart={onEdgeUpdateStart}
+               onEdgeUpdateEnd={onEdgeUpdateEnd}
+               onMove={onMove}
+               onMoveStart={onMoveStart}
+               onMoveEnd={onMoveEnd}
+               onPaneClick={onPaneClick}
+               onPaneMouseEnter={onPaneMouseEnter}
+               onPaneMouseMove={onPaneMouseMove}
+               onPaneMouseLeave={onPaneMouseLeave}
+            />
+            <StoreUpdater<NodeType, EdgeType>
+               rfId={rfId}
+               nodes={nodes}
+               edges={edges}
+               nodesDraggable={nodesDraggable}
+               elevateNodesOnSelect={elevateNodesOnSelect}
+               autoPanOnNodeDrag={autoPanOnNodeDrag}
+               autoPanOnConnect={autoPanOnConnect}
+               connectionRadius={connectionRadius}
+               nodeOrigin={nodeOrigin}
+               nodeExtent={nodeExtent}
+               translateExtent={translateExtent}
+               minZoom={minZoom}
+               maxZoom={maxZoom}
+               smoothStep={smoothStep}
+               centerStep={centerStep}
+               gridStep={gridStep}
+               onNodesChange={onNodesChange}
+               onNodeDrag={onNodeDrag}
+               onNodeDragStart={onNodeDragStart}
+               onNodeDragEnd={onNodeDragEnd}
+               onEdgesChange={onEdgesChange}
+               onConnect={onConnect}
+               onConnectStart={onConnectStart}
+               onConnectEnd={onConnectEnd}
+               onError={onError}
+            />
+            {children}
+         </Wrapper>
+      </div>
+   );
+}
 
 ReactDiagram.displayName = 'ReactDiagram';
 
-export default ReactDiagram;
+export default forwardRef(ReactDiagram) as typeof ReactDiagram;

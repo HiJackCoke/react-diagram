@@ -1,10 +1,10 @@
 import Port from '../../components/Port';
 
-import { NodeProps } from './type';
+import { Node, NodeProps } from './type';
 
 import { Position } from 'cosmos-diagram';
 
-function Nodes({ data }: NodeProps) {
+function Nodes<NodeType extends Node = Node>({ data }: NodeProps<NodeType>) {
    return (
       <>
          <Port type="target" position={Position.Top} />

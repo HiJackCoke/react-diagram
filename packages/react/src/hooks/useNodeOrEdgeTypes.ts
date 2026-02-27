@@ -4,18 +4,23 @@ import { devWarn } from 'cosmos-diagram';
 
 import { EdgeTypes, EdgeTypesWrapped } from '../container/EdgeRenderer/type';
 import { NodeTypes, NodeTypesWrapped } from '../container/NodeRenderer/type';
+import { Edge, Node } from '../types';
 
-export type CreateNodeTypes = (nodeTypes: NodeTypes) => NodeTypesWrapped;
-export type CreateEdgeTypes = (edgeTypes: EdgeTypes) => EdgeTypesWrapped;
+export type CreateNodeTypes<NodeType extends Node = Node> = (
+   nodeTypes: NodeTypes<NodeType>,
+) => NodeTypesWrapped<NodeType>;
+export type CreateEdgeTypes<EdgeType extends Edge = Edge> = (
+   edgeTypes: EdgeTypes<EdgeType>,
+) => EdgeTypesWrapped<EdgeType>;
 
-export function useNodeOrEdgeTypes(
-   nodeOrEdgeTypes: NodeTypes,
-   createTypes: CreateNodeTypes,
-): NodeTypesWrapped;
-export function useNodeOrEdgeTypes(
-   nodeOrEdgeTypes: EdgeTypes,
-   createTypes: CreateEdgeTypes,
-): EdgeTypesWrapped;
+export function useNodeOrEdgeTypes<NodeType extends Node = Node>(
+   nodeOrEdgeTypes: NodeTypes<NodeType>,
+   createTypes: CreateNodeTypes<NodeType>,
+): NodeTypesWrapped<NodeType>;
+export function useNodeOrEdgeTypes<EdgeType extends Edge = Edge>(
+   nodeOrEdgeTypes: EdgeTypes<EdgeType>,
+   createTypes: CreateEdgeTypes<EdgeType>,
+): EdgeTypesWrapped<EdgeType>;
 
 export function useNodeOrEdgeTypes(
    nodeOrEdgeTypes: any,

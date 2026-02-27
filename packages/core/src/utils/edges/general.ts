@@ -42,10 +42,10 @@ const isExistsConnection = (edge: CoreEdge, edges: CoreEdge[]) =>
             (!el.targetPort && !edge.targetPort)),
    );
 
-export const addEdge = (
-   edgeParams: CoreEdge | Connection,
-   edges: CoreEdge[],
-): CoreEdge[] => {
+export const addEdge = <EdgeType extends CoreEdge = CoreEdge>(
+   edgeParams: EdgeType | Connection,
+   edges: EdgeType[],
+): EdgeType[] => {
    if (!isCoreEdge(edgeParams)) {
       devWarn('020');
 
@@ -56,7 +56,7 @@ export const addEdge = (
       return edges;
    }
 
-   let edge: CoreEdge;
+   let edge: EdgeType;
 
    if (edgeParams.sourcePort === null) {
       delete edgeParams.sourcePort;
@@ -76,17 +76,17 @@ export const addEdge = (
    return edges.concat(edge);
 };
 
-export const updateEdge = (
-   originEdge: CoreEdge,
+export const updateEdge = <EdgeType extends CoreEdge = CoreEdge>(
+   originEdge: EdgeType,
    newConnection: Connection,
-   edges: CoreEdge[],
+   edges: EdgeType[],
    options = { shouldReplaceId: true },
-): CoreEdge[] => {
+): EdgeType[] => {
    const { id: oldEdgeId, ...rest } = originEdge;
 
    if (!newConnection.source || !newConnection.target) devWarn('020');
 
-   const foundEdge = edges.find((e) => e.id === oldEdgeId) as CoreEdge;
+   const foundEdge = edges.find((e) => e.id === oldEdgeId) as EdgeType;
 
    if (!foundEdge) devWarn('021', oldEdgeId);
 
@@ -95,7 +95,7 @@ export const updateEdge = (
       id: options.shouldReplaceId ? getEdgeId(newConnection) : oldEdgeId,
       source: newConnection.source,
       target: newConnection.target,
-   } as CoreEdge;
+   } as EdgeType;
 
    return edges.filter((e) => e.id !== oldEdgeId).concat(edge);
 };

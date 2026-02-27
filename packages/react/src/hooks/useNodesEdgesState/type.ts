@@ -1,13 +1,12 @@
-import { CoreEdge, Dimensions, XYPosition } from 'cosmos-diagram';
-import { Node } from '../../components/Node/type';
-import { Edge } from '../../components/Edges/type';
+import { CoreEdge, CoreNode, Dimensions, XYPosition } from 'cosmos-diagram';
+
+
 
 export type NodeDimensionUpdate = {
    id: string;
    nodeElement: HTMLDivElement;
    forceUpdate?: boolean;
 };
-
 
 export type NodeDimensionChange = {
    id: string;
@@ -42,45 +41,45 @@ export type NodeRemoveChange = {
    type: 'remove';
 };
 
-export type NodeAddChange<
-   NodeData extends Record<string, unknown> = Record<string, unknown>,
-> = {
-   item: Node<NodeData>;
+export type NodeAddChange<NodeType extends CoreNode = CoreNode> = {
+   item: NodeType;
    type: 'add';
 };
 
-export type NodeResetChange<
-   NodeData extends Record<string, unknown> = Record<string, unknown>,
-> = {
-   item: Node<NodeData>;
+export type NodeResetChange<NodeType extends CoreNode = CoreNode> = {
+   item: NodeType;
    type: 'reset';
 };
 
-export type NodeChange =
+export type NodeChange<NodeType extends CoreNode = CoreNode> =
    | NodeDimensionChange
    | NodePositionChange
    | NodeSelectionChange
    | NodeIntersectionChange
    | NodeRemoveChange
-   | NodeAddChange
-   | NodeResetChange;
+   | NodeAddChange<NodeType>
+   | NodeResetChange<NodeType>;
 
 export type EdgeSelectionChange = NodeSelectionChange;
 export type EdgeRemoveChange = NodeRemoveChange;
 export type EdgeAddChange<EdgeType extends CoreEdge = CoreEdge> = {
-   item: Edge<EdgeType>;
+   item: EdgeType;
    type: 'add';
 };
 export type EdgeResetChange<EdgeType extends CoreEdge = CoreEdge> = {
-   item: Edge<EdgeType>;
+   item: EdgeType;
    type: 'reset';
 };
 
-export type EdgeChange =
+export type EdgeChange<EdgeType extends CoreEdge = CoreEdge> =
    | EdgeSelectionChange
    | EdgeRemoveChange
-   | EdgeAddChange
-   | EdgeResetChange;
+   | EdgeAddChange<EdgeType>
+   | EdgeResetChange<EdgeType>;
 
-export type OnNodesChange = (changes: NodeChange[]) => void;
-export type OnEdgesChange = (changes: EdgeChange[]) => void;
+export type OnNodesChange<NodeType extends CoreNode = CoreNode> = (
+   changes: NodeChange<NodeType>[],
+) => void;
+export type OnEdgesChange<EdgeType extends CoreEdge = CoreEdge> = (
+   changes: EdgeChange<EdgeType>[],
+) => void;

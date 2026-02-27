@@ -16,8 +16,11 @@ import {
    ReactDiagramState,
 } from '../../components/ReactDiagramProvider/type';
 
-export type StoreUpdaterProps = Pick<
-   ReactDiagramProps,
+export type StoreUpdaterProps<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+> = Pick<
+   ReactDiagramProps<NodeType, EdgeType>,
    | 'nodeOrigin'
    | 'nodes'
    | 'onNodesChange'
@@ -77,10 +80,13 @@ function useStoreUpdater<T>(
 }
 
 // updates with values in store that don't have a dedicated setter function
-function useDirectStoreUpdater(
+function useDirectStoreUpdater<
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+>(
    key: keyof ReactDiagramStore,
    value: unknown,
-   setState: StoreApi<ReactDiagramState>['setState'],
+   setState: StoreApi<ReactDiagramState<NodeType, EdgeType>>['setState'],
 ) {
    useEffect(() => {
       if (typeof value !== 'undefined') {
@@ -89,7 +95,10 @@ function useDirectStoreUpdater(
    }, [value]);
 }
 
-const StoreUpdater = ({
+const StoreUpdater = <
+   NodeType extends Node = Node,
+   EdgeType extends Edge = Edge,
+>({
    nodes,
    onNodesChange,
    onNodeDrag,
@@ -114,7 +123,7 @@ const StoreUpdater = ({
    translateExtent,
    minZoom,
    maxZoom,
-}: StoreUpdaterProps) => {
+}: StoreUpdaterProps<NodeType, EdgeType>) => {
    const {
       setNodes,
       setEdges,
@@ -123,10 +132,10 @@ const StoreUpdater = ({
       setMinZoom,
       setMaxZoom,
    } = useStore(selector, shallow);
-   const store = useStoreApi();
+   const store = useStoreApi<NodeType, EdgeType>();
 
-   useStoreUpdater<Node[]>(nodes, setNodes);
-   useStoreUpdater<Edge[]>(edges, setEdges);
+   useStoreUpdater<NodeType[]>(nodes, setNodes);
+   useStoreUpdater<EdgeType[]>(edges, setEdges);
    useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
 
    useStoreUpdater<CoordinateExtent>(nodeExtent, setNodeExtent);
@@ -134,38 +143,102 @@ const StoreUpdater = ({
    useStoreUpdater<number>(minZoom, setMinZoom);
    useStoreUpdater<number>(maxZoom, setMaxZoom);
 
-   useDirectStoreUpdater('nodeOrigin', nodeOrigin, store.setState);
-   useDirectStoreUpdater('smoothStep', smoothStep, store.setState);
-   useDirectStoreUpdater('centerStep', centerStep, store.setState);
-   useDirectStoreUpdater('gridStep', gridStep, store.setState);
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'nodeOrigin',
+      nodeOrigin,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'smoothStep',
+      smoothStep,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'centerStep',
+      centerStep,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'gridStep',
+      gridStep,
+      store.setState,
+   );
 
-   useDirectStoreUpdater(
+   useDirectStoreUpdater<NodeType, EdgeType>(
       'elevateNodesOnSelect',
       elevateNodesOnSelect,
       store.setState,
    );
 
-   useDirectStoreUpdater('nodesDraggable', nodesDraggable, store.setState);
-   useDirectStoreUpdater(
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'nodesDraggable',
+      nodesDraggable,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
       'autoPanOnNodeDrag',
       autoPanOnNodeDrag,
       store.setState,
    );
-   useDirectStoreUpdater('autoPanOnConnect', autoPanOnConnect, store.setState);
-   useDirectStoreUpdater('connectionRadius', connectionRadius, store.setState);
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'autoPanOnConnect',
+      autoPanOnConnect,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'connectionRadius',
+      connectionRadius,
+      store.setState,
+   );
 
-   useDirectStoreUpdater('onNodesChange', onNodesChange, store.setState);
-   useDirectStoreUpdater('onNodeDrag', onNodeDrag, store.setState);
-   useDirectStoreUpdater('onNodeDragStart', onNodeDragStart, store.setState);
-   useDirectStoreUpdater('onNodeDragEnd', onNodeDragEnd, store.setState);
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onNodesChange',
+      onNodesChange,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onNodeDrag',
+      onNodeDrag,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onNodeDragStart',
+      onNodeDragStart,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onNodeDragEnd',
+      onNodeDragEnd,
+      store.setState,
+   );
 
-   useDirectStoreUpdater('onEdgesChange', onEdgesChange, store.setState);
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onEdgesChange',
+      onEdgesChange,
+      store.setState,
+   );
 
-   useDirectStoreUpdater('onConnect', onConnect, store.setState);
-   useDirectStoreUpdater('onConnectStart', onConnectStart, store.setState);
-   useDirectStoreUpdater('onConnectEnd', onConnectEnd, store.setState);
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onConnect',
+      onConnect,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onConnectStart',
+      onConnectStart,
+      store.setState,
+   );
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onConnectEnd',
+      onConnectEnd,
+      store.setState,
+   );
 
-   useDirectStoreUpdater('onError', onErrorWrapper(onError), store.setState);
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onError',
+      onErrorWrapper(onError),
+      store.setState,
+   );
 
    return null;
 };

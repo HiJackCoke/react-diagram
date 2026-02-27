@@ -13,14 +13,15 @@ import { ReactDiagramState } from '../../ReactDiagramProvider/type';
 
 import { Edge, EdgeProps } from '../type';
 
-import { WrapEdgeProps } from '../EdgeWrapper/type';
+import { EdgeWrapperProps, WrapEdgeProps } from '../EdgeWrapper/type';
+import { Node } from '../../Node/type';
 
-export function getMouseHandler(
+export function getMouseHandler<EdgeType extends Edge = Edge>(
    id: string,
-   getState: StoreApi<ReactDiagramState>['getState'],
+   getState: StoreApi<ReactDiagramState<Node, EdgeType>>['getState'],
    handler?: (
       event: ReactMouseEvent<SVGGElement, MouseEvent>,
-      edge: Edge,
+      edge: EdgeType,
    ) => void,
 ) {
    return handler === undefined
@@ -34,8 +35,10 @@ export function getMouseHandler(
         };
 }
 
-const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
-   const EdgeWrapper = (props: WrapEdgeProps): JSX.Element | null => {
+const wrapEdge = <EdgeType extends Edge = Edge>(
+   EdgeComponent: ComponentType<EdgeProps<EdgeType>>,
+): EdgeWrapperProps<EdgeType> => {
+   const EdgeWrapper = (props: WrapEdgeProps<EdgeType>): JSX.Element | null => {
       const {
          id,
          className,
@@ -125,7 +128,7 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          );
       }
 
-      const store = useStoreApi();
+      const store = useStoreApi<Node, EdgeType>();
 
       const edgeRef = useRef<SVGGElement>(null);
       const [updating, setUpdating] = useState(false);
@@ -177,7 +180,11 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
 
             const handleEdgeUpdateEnd = (evt: MouseEvent | TouchEvent) => {
                setUpdating(false);
-               onEdgeUpdateEnd?.(evt, edge, fromPortType);
+               onEdgeUpdateEnd?.(
+                  evt as unknown as ReactMouseEvent,
+                  edge,
+                  fromPortType,
+               );
             };
 
             CosmosPort.onPointerDown({
@@ -324,9 +331,8 @@ const wrapEdge = (EdgeComponent: ComponentType<EdgeProps>) => {
          </g>
       );
    };
-
    EdgeWrapper.displayName = 'EdgeWrapper';
-   return memo(EdgeWrapper);
+   return memo(EdgeWrapper) as EdgeWrapperProps<EdgeType>;
 };
 
 export default wrapEdge;

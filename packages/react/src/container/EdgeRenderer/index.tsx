@@ -11,12 +11,15 @@ import { getEdgePositions, getPort, getNodeData } from './utils';
 import { Position } from 'cosmos-diagram';
 import { Edge } from '../../components/Edges/type';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
-import { ReactDiagramProps } from '../../types';
+import { Node, ReactDiagramProps } from '../../types';
 import { EdgeTypesWrapped } from './type';
 
-type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
+type GraphViewEdgeProps<EdgeType extends Edge = Edge> = Pick<
+   ReactDiagramState<Node, EdgeType>,
+   'rfId'
+> &
    Pick<
-      ReactDiagramProps,
+      ReactDiagramProps<Node, EdgeType>,
       | 'edgeUpdaterRadius'
       | 'onEdgeClick'
       | 'onEdgeDoubleClick'
@@ -31,10 +34,11 @@ type GraphViewEdgeProps = Pick<ReactDiagramState, 'rfId'> &
 
 type RequiredProps = Required<Pick<ReactDiagramProps, 'noPanClassName'>>;
 
-type EdgeRendererProps = GraphViewEdgeProps &
-   RequiredProps & {
-      edgeTypes: EdgeTypesWrapped;
-   };
+type EdgeRendererProps<EdgeType extends Edge = Edge> =
+   GraphViewEdgeProps<EdgeType> &
+      RequiredProps & {
+         edgeTypes: EdgeTypesWrapped<EdgeType>;
+      };
 
 const selector = (s: ReactDiagramState) => ({
    edges: s.edges,
@@ -44,7 +48,7 @@ const selector = (s: ReactDiagramState) => ({
    onError: s.onError,
 });
 
-function EdgeRenderer({
+function EdgeRenderer<EdgeType extends Edge = Edge>({
    rfId,
    edgeTypes,
    noPanClassName,
@@ -58,7 +62,7 @@ function EdgeRenderer({
    onEdgeUpdate,
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
-}: EdgeRendererProps) {
+}: EdgeRendererProps<EdgeType>) {
    const { edges, width, height, nodeInternals } = useStore(selector, shallow);
 
    return (
@@ -204,4 +208,4 @@ function EdgeRenderer({
 
 EdgeRenderer.displayName = 'EdgeRenderer';
 
-export default memo(EdgeRenderer);
+export default memo(EdgeRenderer) as typeof EdgeRenderer;
