@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, ForwardRefExoticComponent } from 'react';
 import { NodeOrigin, Viewport } from 'cosmos-diagram';
 
 import DiagramView from './DiagramView';
@@ -203,4 +203,9 @@ function ReactDiagram<
 
 ReactDiagram.displayName = 'ReactDiagram';
 
-export default forwardRef(ReactDiagram) as typeof ReactDiagram;
+export default forwardRef(ReactDiagram) as ReactDiagramComponent;
+
+type ReactDiagramComponent = <NodeType extends Node, EdgeType extends Edge>(
+   props: ReactDiagramProps<NodeType, EdgeType> &
+      React.RefAttributes<ReactDiagramRefType>,
+) => React.ReactElement | null;
