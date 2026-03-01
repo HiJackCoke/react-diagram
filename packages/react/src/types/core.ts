@@ -61,7 +61,7 @@ export type ReactDiagramProps<
    ConnectionLineComponent?: ConnectionLineComponent;
    connectionRadius?: number;
 
-   onNodesChange?: OnNodesChange;
+   onNodesChange?: OnNodesChange<NodeType>;
    onNodeClick?: NodeMouseHandler<NodeType>;
    onNodeDoubleClick?: NodeMouseHandler<NodeType>;
    onNodeContextMenu?: NodeMouseHandler<NodeType>;
@@ -72,7 +72,7 @@ export type ReactDiagramProps<
    onNodeDrag?: NodeDragHandler<NodeType>;
    onNodeDragEnd?: NodeDragHandler<NodeType>;
 
-   onEdgesChange?: OnEdgesChange;
+   onEdgesChange?: OnEdgesChange<EdgeType>;
    onEdgeClick?: (event: ReactMouseEvent, edge: EdgeType) => void;
    onEdgeDoubleClick?: EdgeMouseHandler<EdgeType>;
    onEdgeContextMenu?: EdgeMouseHandler<EdgeType>;
