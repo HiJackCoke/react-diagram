@@ -1,4 +1,4 @@
-import { NodeChange, EdgeChange } from '../hooks/useNodesEdgesState/type';
+import { NodeChange, EdgeChange } from '../types/general';
 import { Node } from '../components/Node/type';
 import { Edge } from '../components/Edges/type';
 

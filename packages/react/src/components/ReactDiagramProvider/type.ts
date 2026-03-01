@@ -22,7 +22,7 @@ import {
    OnNodesChange,
    OnEdgesChange,
    NodeDimensionUpdate,
-} from '../../hooks/useNodesEdgesState/type';
+} from '../../types/general';
 
 export type NodeDragHandler<NodeType extends Node = Node> = (
    event: MouseEvent | TouchEvent,

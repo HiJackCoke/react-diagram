@@ -23,7 +23,7 @@ import {
    NodeSelectionChange,
    NodeIntersectionChange,
    NodeDimensionUpdate,
-} from '../hooks/useNodesEdgesState/type';
+} from '../types/general';
 import { Node } from '../components/Node/type';
 
 import { Edge } from '../components/Edges/type';
