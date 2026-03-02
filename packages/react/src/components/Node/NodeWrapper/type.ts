@@ -12,7 +12,7 @@ export type NodeWrapperProps<
    NodeType extends Node = Node,
    // NodeData extends Record<string, unknown> = Record<string, unknown>,
 > = Pick<
-   Node,
+   NodeType,
    | 'id'
    | 'data'
    | 'style'

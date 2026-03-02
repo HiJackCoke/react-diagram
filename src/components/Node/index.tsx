@@ -1,11 +1,11 @@
-import { NodeProps, Port, Position } from 'react-cosmos-diagram';
+import { Node, NodeProps, Port, Position } from 'react-cosmos-diagram';
 import './style.css';
 import { ReactNode } from 'react';
 
-function Node({
+function CustomNode({
    data, // intersected,
 } // selected,
-: NodeProps<{ element: ReactNode }>) {
+: NodeProps<Node<{ element: ReactNode }>>) {
    return (
       <div className="custom-node__container">
          <Port position={Position.Left} type="target" />
@@ -15,4 +15,4 @@ function Node({
    );
 }
 
-export default Node;
+export default CustomNode;
