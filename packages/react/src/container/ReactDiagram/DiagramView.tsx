@@ -54,6 +54,7 @@ function DiagramView<
 
    multiSelectionKeyCode,
    dragSelectionKeyCode,
+   deleteKeyCode,
 
    // NodeRenderer props
    onlyRenderVisibleElements,
@@ -98,6 +99,7 @@ function DiagramView<
       <DiagramRenderer
          multiSelectionKeyCode={multiSelectionKeyCode}
          dragSelectionKeyCode={dragSelectionKeyCode}
+         deleteKeyCode={deleteKeyCode}
          noPanClassName={noPanClassName}
          panning={panning}
          defaultViewport={defaultViewport}

@@ -14,8 +14,18 @@ import type {
    NodeDragItem,
    NodeOrigin,
    ConnectingPort,
+   OnBeforeDelete,
+   OnDelete,
 } from 'cosmos-diagram';
-import { Node, Edge, DefaultEdgeOptions, OnError } from '../../types';
+import {
+   Node,
+   Edge,
+   DefaultEdgeOptions,
+   OnError,
+   OnNodesDelete,
+   OnEdgesDelete,
+   EdgeChange,
+} from '../../types';
 
 import {
    NodeChange,
@@ -23,6 +33,7 @@ import {
    OnEdgesChange,
    NodeDimensionUpdate,
 } from '../../types/general';
+import { TargetElementsOptions } from 'cosmos-diagram';
 
 export type NodeDragHandler<NodeType extends Node = Node> = (
    event: MouseEvent | TouchEvent,
@@ -34,6 +45,7 @@ export type UnSelectNodesParams<NodeType extends Node = Node> = {
    nodes?: NodeType[];
 };
 
+export type DeleteElementsOptions = TargetElementsOptions;
 export type ReactDiagramStore<
    NodeType extends Node = Node,
    EdgeType extends Edge = Edge,
@@ -64,14 +76,17 @@ export type ReactDiagramStore<
    maxZoom: number;
 
    onError?: OnError;
+   onBeforeDelete?: OnBeforeDelete<NodeType, EdgeType>;
+   onDelete?: OnDelete<NodeType, EdgeType>;
 
    onNodesChange: OnNodesChange<NodeType> | null;
    onNodeDragStart?: NodeDragHandler<NodeType>;
    onNodeDrag?: NodeDragHandler<NodeType>;
    onNodeDragEnd?: NodeDragHandler<NodeType>;
+   onNodesDelete?: OnNodesDelete<NodeType>;
 
    onEdgesChange?: OnEdgesChange<EdgeType>;
-
+   onEdgesDelete?: OnEdgesDelete<EdgeType>;
    connectionPosition: XYPosition;
 
    connectionStartPort: ConnectingPort | null;
@@ -99,6 +114,7 @@ export type ReactDiagramActions<
    addSelectedNodes: (nodeIds: string[]) => void;
    unselectNodes: (params?: UnSelectNodesParams<NodeType>) => void;
    resetSelectedElements: () => void;
+   deleteElements: (params: DeleteElementsOptions) => void;
 
    setEdges: (edges: EdgeType[]) => void;
 
@@ -110,6 +126,7 @@ export type ReactDiagramActions<
    ) => void; //
    updateNodesIntersection: () => void; //
    triggerNodeChanges: (changes: NodeChange<NodeType>[]) => void;
+   triggerEdgeChanges: (changes: EdgeChange<EdgeType>[]) => void;
 
    cancelConnection: () => void;
    updateConnection: UpdateConnection;

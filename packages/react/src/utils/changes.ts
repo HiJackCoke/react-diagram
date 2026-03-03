@@ -168,3 +168,12 @@ export function getSelectionChanges(items: any[], selectedIds: string[]) {
       return res;
    }, []);
 }
+
+export const getTypeChanges =
+   <Type extends string>(type: Type) =>
+   <T extends Node | Edge>(item: T): { id: string; type: Type } => {
+      return {
+         id: item.id,
+         type,
+      };
+   };

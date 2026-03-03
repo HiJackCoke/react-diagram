@@ -23,12 +23,7 @@ export type StoreUpdaterProps<
    ReactDiagramProps<NodeType, EdgeType>,
    | 'nodeOrigin'
    | 'nodes'
-   | 'onNodesChange'
-   | 'onNodeDrag'
-   | 'onNodeDragStart'
-   | 'onNodeDragEnd'
    | 'edges'
-   | 'onEdgesChange'
    | 'smoothStep'
    | 'centerStep'
    | 'gridStep'
@@ -36,15 +31,24 @@ export type StoreUpdaterProps<
    | 'nodesDraggable'
    | 'autoPanOnNodeDrag'
    | 'autoPanOnConnect'
-   | 'onConnect'
-   | 'onConnectStart'
-   | 'onConnectEnd'
    | 'connectionRadius'
-   | 'onError'
    | 'nodeExtent'
    | 'translateExtent'
    | 'minZoom'
    | 'maxZoom'
+   | 'onDelete'
+   | 'onBeforeDelete'
+   | 'onNodesDelete'
+   | 'onEdgesDelete'
+   | 'onNodesChange'
+   | 'onNodeDrag'
+   | 'onNodeDragStart'
+   | 'onNodeDragEnd'
+   | 'onEdgesChange'
+   | 'onConnect'
+   | 'onConnectStart'
+   | 'onConnectEnd'
+   | 'onError'
 > & {
    rfId: string;
 };
@@ -100,12 +104,7 @@ const StoreUpdater = <
    EdgeType extends Edge = Edge,
 >({
    nodes,
-   onNodesChange,
-   onNodeDrag,
-   onNodeDragStart,
-   onNodeDragEnd,
    edges,
-   onEdgesChange,
    nodeOrigin,
    smoothStep,
    centerStep,
@@ -115,14 +114,23 @@ const StoreUpdater = <
    autoPanOnNodeDrag,
    autoPanOnConnect,
    connectionRadius,
-   onConnect,
-   onConnectStart,
-   onConnectEnd,
-   onError,
    nodeExtent,
    translateExtent,
    minZoom,
    maxZoom,
+   onNodesChange,
+   onNodeDrag,
+   onNodeDragStart,
+   onNodeDragEnd,
+   onNodesDelete,
+   onEdgesChange,
+   onEdgesDelete,
+   onConnect,
+   onConnectStart,
+   onConnectEnd,
+   onError,
+   onBeforeDelete,
+   onDelete,
 }: StoreUpdaterProps<NodeType, EdgeType>) => {
    const {
       setNodes,
@@ -213,8 +221,20 @@ const StoreUpdater = <
    );
 
    useDirectStoreUpdater<NodeType, EdgeType>(
+      'onNodesDelete',
+      onNodesDelete,
+      store.setState,
+   );
+
+   useDirectStoreUpdater<NodeType, EdgeType>(
       'onEdgesChange',
       onEdgesChange,
+      store.setState,
+   );
+
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onEdgesDelete',
+      onEdgesDelete,
       store.setState,
    );
 
@@ -235,11 +255,22 @@ const StoreUpdater = <
    );
 
    useDirectStoreUpdater<NodeType, EdgeType>(
+      'onBeforeDelete',
+      onBeforeDelete,
+      store.setState,
+   );
+
+   useDirectStoreUpdater<NodeType, EdgeType>(
+      'onDelete',
+      onDelete,
+      store.setState,
+   );
+
+   useDirectStoreUpdater<NodeType, EdgeType>(
       'onError',
       onErrorWrapper(onError),
       store.setState,
    );
-
    return null;
 };
 

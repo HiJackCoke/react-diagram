@@ -51,6 +51,7 @@ function ReactDiagram<
 
       multiSelectionKeyCode = 'Meta',
       dragSelectionKeyCode = 'Shift',
+      deleteKeyCode = 'Backspace',
 
       onlyRenderVisibleElements = false,
       disableKeyboardA11y = false,
@@ -58,24 +59,9 @@ function ReactDiagram<
       noPanClassName = 'nopan',
       nodeOrigin = initNodeOrigin,
       nodeTypes = defaultNodeTypes,
-      onNodeClick,
-      onNodeDoubleClick,
-      onNodeContextMenu,
-      onNodeMouseEnter,
-      onNodeMouseMove,
-      onNodeMouseLeave,
 
       edgeTypes = defaultEdgeTypes,
       edgeUpdaterRadius,
-      onEdgeClick,
-      onEdgeDoubleClick,
-      onEdgeContextMenu,
-      onEdgeMouseEnter,
-      onEdgeMouseMove,
-      onEdgeMouseLeave,
-      onEdgeUpdate,
-      onEdgeUpdateStart,
-      onEdgeUpdateEnd,
 
       ConnectionLineContainerStyle,
       ConnectionLineComponent,
@@ -91,16 +77,36 @@ function ReactDiagram<
       smoothStep,
       centerStep,
       gridStep,
+
       onNodesChange,
       onNodeDrag,
       onNodeDragStart,
       onNodeDragEnd,
+      onNodeClick,
+      onNodeDoubleClick,
+      onNodeContextMenu,
+      onNodeMouseEnter,
+      onNodeMouseMove,
+      onNodeMouseLeave,
+      onNodesDelete,
 
       onEdgesChange,
+      onEdgeClick,
+      onEdgeDoubleClick,
+      onEdgeContextMenu,
+      onEdgeMouseEnter,
+      onEdgeMouseMove,
+      onEdgeMouseLeave,
+      onEdgeUpdate,
+      onEdgeUpdateStart,
+      onEdgeUpdateEnd,
+      onEdgesDelete,
 
       onConnect,
       onConnectStart,
       onConnectEnd,
+      onDelete,
+      onBeforeDelete,
 
       onMove,
       onMoveStart,
@@ -134,6 +140,7 @@ function ReactDiagram<
                defaultViewport={defaultViewport}
                multiSelectionKeyCode={multiSelectionKeyCode}
                dragSelectionKeyCode={dragSelectionKeyCode}
+               deleteKeyCode={deleteKeyCode}
                onlyRenderVisibleElements={onlyRenderVisibleElements}
                disableKeyboardA11y={disableKeyboardA11y}
                noDragClassName={noDragClassName}
@@ -189,11 +196,15 @@ function ReactDiagram<
                onNodeDrag={onNodeDrag}
                onNodeDragStart={onNodeDragStart}
                onNodeDragEnd={onNodeDragEnd}
+               onNodesDelete={onNodesDelete}
                onEdgesChange={onEdgesChange}
+               onEdgesDelete={onEdgesDelete}
                onConnect={onConnect}
                onConnectStart={onConnectStart}
                onConnectEnd={onConnectEnd}
                onError={onError}
+               onBeforeDelete={onBeforeDelete}
+               onDelete={onDelete}
             />
             {children}
          </Wrapper>

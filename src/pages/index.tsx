@@ -217,7 +217,6 @@ function Index() {
             onNodeDrag={(_, node) => {
                handleNode(_, node);
             }}
-
             // autoPanOnNodeDrag={false}
             // autoPanOnConnect={false}
             // onMove={console.log}
@@ -232,6 +231,12 @@ function Index() {
             // centerStep
             // smoothStep
             // gridStep={[150, 150]}
+
+            onDelete={({ nodes, edges }) => {
+               console.log('delete', nodes, edges);
+            }}
+            onNodesDelete={console.log}
+            onEdgesDelete={console.log}
          >
             <Background />
          </ReactDiagram>

@@ -1,5 +1,5 @@
 import { CoreEdge, CoreNode, Dimensions, ErrorMessageCode, XYPosition } from 'cosmos-diagram';
-import { Edge } from '.';
+import { Edge, Node } from '.';
 
 export type NodeDimensionUpdate = {
    id: string;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import {  useRef, useState } from 'react';
 import type { MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import {
    Rect,

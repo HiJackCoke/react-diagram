@@ -16,7 +16,15 @@ import type {
    NodeOrigin,
    NodeDragItem,
    CoordinateExtent,
+   OnBeforeDelete,
+   OnDelete,
+   TargetElementsOptions,
 } from '../types';
+
+type Elements<
+   NodeType extends CoreNode = CoreNode,
+   EdgeType extends CoreEdge = CoreEdge,
+> = { nodes: NodeType[]; edges: EdgeType[] };
 
 export const isCoreNode = (
    element: CoreNode | Connection | CoreEdge,
@@ -186,3 +194,142 @@ export const calcNextPosition = (
       positionAbsolute,
    };
 };
+
+export function getConnectedEdges<
+   NodeType extends CoreNode = CoreNode,
+   EdgeType extends CoreEdge = CoreEdge,
+>(nodes: Pick<NodeType, 'id'>[], edges: EdgeType[]): EdgeType[] {
+   const nodeIds = new Set();
+   nodes.forEach((node) => {
+      nodeIds.add(node.id);
+   });
+
+   return edges.filter(
+      (edge) => nodeIds.has(edge.source) || nodeIds.has(edge.target),
+   );
+}
+
+/**
+ * Pass in nodes to select, get arrays of nodes and edges that actually can be selected
+ * @internal
+ * @param param.elementsToDelete.nodes- The nodes to remove
+ * @param param.elementsToDelete.edges- The edges to remove
+ * @param param.elements.nodes - All nodes
+ * @param param.elements.edges - All edges
+ * @returns nodes: nodes that can be selected, edges: edges that can be selected
+ */
+export function getValidatedConnectedElements<
+   NodeType extends CoreNode = CoreNode,
+   EdgeType extends CoreEdge = CoreEdge,
+>(
+   targetElements: TargetElementsOptions<NodeType, EdgeType>,
+   elements: Elements<NodeType, EdgeType>,
+): Elements<NodeType, EdgeType> {
+   const { nodes: targetNodes, edges: targetEdges } = targetElements;
+   const { nodes, edges } = elements;
+
+   const matchingNodes: NodeType[] = [];
+   const nodeIds = new Set(targetNodes?.map((node) => node.id));
+
+   for (const node of nodes) {
+      if (node.deletable === false) {
+         continue;
+      }
+
+      const isIncluded = nodeIds.has(node.id);
+      const parentHit =
+         !isIncluded &&
+         node.parentNode &&
+         matchingNodes.find((n) => n.id === node.parentNode);
+
+      if (isIncluded || parentHit) {
+         matchingNodes.push(node);
+      }
+   }
+
+   const deletableEdges = edges.filter((edge) => edge.deletable !== false);
+   const connectedEdges = getConnectedEdges(matchingNodes, edges);
+   const matchingEdges: EdgeType[] = connectedEdges;
+   const edgeIds = new Set(targetEdges?.map((edge) => edge.id));
+
+   for (const edge of deletableEdges) {
+      const isAlreadyMatched = matchingEdges.some((e) => e.id === edge.id);
+      const isIncluded = edgeIds.has(edge.id);
+
+      const isValidated = targetEdges
+         ? isIncluded && !isAlreadyMatched
+         : !isAlreadyMatched;
+
+      if (isValidated) {
+         matchingEdges.push(edge);
+      }
+   }
+
+   return { nodes: matchingNodes, edges: matchingEdges };
+}
+
+/**
+ * Pass in nodes to delete, get arrays of nodes and edges that actually can be deleted
+ * @internal
+ * @param param.elementsToDelete.nodes- The nodes to remove
+ * @param param.elementsToDelete.edges- The edges to remove
+ * @param param.elements.nodes - All nodes
+ * @param param.elements.edges - All edges
+ * @param param.events.onBeforeDelete - Callback to check which nodes and edges can be deleted
+ * @param param.events.onDelete
+ * @returns nodes: nodes that can be deleted, edges: edges that can be deleted
+ */
+export async function validateBeforeDelete<
+   NodeType extends CoreNode = CoreNode,
+   EdgeType extends CoreEdge = CoreEdge,
+>(
+   elementsToDelete: TargetElementsOptions<NodeType, EdgeType>,
+   elements: Elements<NodeType, EdgeType>,
+   events?: {
+      onBeforeDelete?: OnBeforeDelete<NodeType, EdgeType>;
+      onDelete?: OnDelete<NodeType, EdgeType>;
+   },
+): Promise<{
+   nodes: NodeType[];
+   edges: EdgeType[];
+}> {
+   const { nodes, edges } = elements;
+   const { nodes: matchingNodes, edges: matchingEdges } =
+      getValidatedConnectedElements(elementsToDelete, { nodes, edges });
+
+   const hasMatchingNodes = matchingNodes.length > 0;
+   const hasMatchingEdges = matchingEdges.length > 0;
+
+   function deleteElements() {
+      const hasMatchingNodes = matchingNodes.length > 0;
+      const hasMatchingEdges = matchingEdges.length > 0;
+
+      if (hasMatchingNodes || hasMatchingEdges) {
+         events?.onDelete?.({ nodes: matchingNodes, edges: matchingEdges });
+      }
+   }
+
+   if (!events?.onBeforeDelete) {
+      deleteElements();
+      return {
+         edges: matchingEdges,
+         nodes: matchingNodes,
+      };
+   }
+
+   const onBeforeDeleteResult = await events?.onBeforeDelete?.({
+      nodes: matchingNodes,
+      edges: matchingEdges,
+   });
+
+   if (typeof onBeforeDeleteResult === 'boolean') {
+      if (onBeforeDeleteResult) {
+         deleteElements();
+      }
+      return onBeforeDeleteResult
+         ? { edges: matchingEdges, nodes: matchingNodes }
+         : { edges: [], nodes: [] };
+   }
+
+   return onBeforeDeleteResult;
+}

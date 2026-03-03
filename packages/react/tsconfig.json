@@ -1,6 +1,6 @@
 {
    "extends": "@diagram/tsconfig/react.json",
    "display": "react-cosmos-diagram",
-   "include": ["**/*.ts", "**/*.tsx"],
+   "include": ["**/*.ts", "**/*.tsx", "../../src/utils/deepEqual.ts"],
    "exclude": ["node_modules", "dist"]
 }

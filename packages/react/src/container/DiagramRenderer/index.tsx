@@ -17,7 +17,10 @@ export type DiagramRendererProps = Omit<
    PaneProps,
    'translateExtent' | 'minZoom' | 'maxZoom' | 'selection'
 > &
-   Pick<ReactDiagramProps, 'dragSelectionKeyCode' | 'multiSelectionKeyCode'>;
+   Pick<
+      ReactDiagramProps,
+      'dragSelectionKeyCode' | 'multiSelectionKeyCode' | 'deleteKeyCode'
+   >;
 
 const selector = (s: ReactDiagramState) => {
    const { minZoom, maxZoom, translateExtent } = s;
@@ -32,6 +35,7 @@ function DiagramRenderer({
    children,
    multiSelectionKeyCode,
    dragSelectionKeyCode,
+   deleteKeyCode,
    noPanClassName,
    panning,
    defaultViewport,
@@ -43,7 +47,7 @@ function DiagramRenderer({
    onPaneMouseMove,
    onPaneMouseLeave,
 }: DiagramRendererProps) {
-   useGlobalKeyHandler({ multiSelectionKeyCode });
+   useGlobalKeyHandler({ multiSelectionKeyCode, deleteKeyCode });
 
    const { minZoom, maxZoom, translateExtent } = useStore(selector);
 

@@ -8,11 +8,19 @@ import {
    createNodeInternals,
    isIntersected,
    internalsSymbol,
-   CoordinateExtent,
+   validateBeforeDelete,
 } from 'cosmos-diagram';
-import type { NodeDragItem, XYPosition } from 'cosmos-diagram';
+import type {
+   CoordinateExtent,
+   NodeDragItem,
+   XYPosition,
+} from 'cosmos-diagram';
 
-import { createSelectionChange, getSelectionChanges } from '../utils/changes';
+import {
+   createSelectionChange,
+   getSelectionChanges,
+   getTypeChanges,
+} from '../utils/changes';
 
 import initialState, { infiniteExtent } from './initialState';
 
@@ -23,6 +31,7 @@ import {
    NodeSelectionChange,
    NodeIntersectionChange,
    NodeDimensionUpdate,
+   EdgeChange,
 } from '../types/general';
 import { Node } from '../components/Node/type';
 
@@ -193,6 +202,14 @@ const createRCDStore = () =>
          }
       },
 
+      triggerEdgeChanges: (changes: EdgeChange[]) => {
+         const { onEdgesChange } = get();
+
+         if (changes?.length) {
+            onEdgesChange?.(changes);
+         }
+      },
+
       updateNodesIntersection: () => {
          const { nodeInternals, triggerNodeChanges } = get();
 
@@ -255,6 +272,46 @@ const createRCDStore = () =>
          triggerNodeChanges(nodesToUnselect);
       },
 
+      deleteElements: async (elementsToDelete) => {
+         const {
+            // nodes,
+            edges,
+            getNodes,
+            onBeforeDelete,
+            onDelete,
+            onNodesDelete,
+            onEdgesDelete,
+            triggerNodeChanges,
+            triggerEdgeChanges,
+         } = get();
+         const nodes = getNodes();
+
+         await validateBeforeDelete(
+            elementsToDelete,
+            { nodes, edges },
+            {
+               onBeforeDelete,
+               onDelete: ({ nodes, edges }) => {
+                  const hasMatchingNodes = nodes.length > 0;
+                  const hasMatchingEdges = edges.length > 0;
+
+                  if (hasMatchingNodes) {
+                     const nodeChanges = nodes.map(getTypeChanges('remove'));
+                     onNodesDelete?.(nodes);
+                     triggerNodeChanges(nodeChanges);
+                  }
+
+                  if (hasMatchingEdges) {
+                     const edgeChanges = edges.map(getTypeChanges('remove'));
+                     onEdgesDelete?.(edges);
+                     triggerEdgeChanges(edgeChanges);
+                  }
+
+                  onDelete?.({ nodes: nodes, edges: edges });
+               },
+            },
+         );
+      },
       cancelConnection: () =>
          set({
             connectionStartPort: null,

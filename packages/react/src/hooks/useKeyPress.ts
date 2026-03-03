@@ -24,12 +24,11 @@ function useKeyPress(key: KeyCode, options: KeyOptions = {}) {
          if (e.key === key) setIsPressed(false);
       };
 
-      // 포커스를 잃었을 때 상태를 초기화 (키를 떼지 않은 채 탭을 이동하는 경우 대비)
       const resetHandler = () => setIsPressed(false);
 
       target.addEventListener('keydown', downHandler as EventListener);
       target.addEventListener('keyup', upHandler as EventListener);
-      window.addEventListener('blur', resetHandler); // 윈도우 포커스 해제 대응
+      window.addEventListener('blur', resetHandler);
       window.addEventListener('contextmenu', resetHandler);
 
       return () => {

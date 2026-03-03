@@ -24,8 +24,6 @@ import {
    ConnectionLineComponent,
 } from '.';
 
-import { KeyCode } from '../hooks/useGlobalKeyHandler';
-
 import { NodeMouseHandler } from '../components/Node/NodeWrapper/type';
 import { NodeTypes } from '../container/NodeRenderer/type';
 import {
@@ -33,94 +31,105 @@ import {
    OnEdgeUpdateFunc,
 } from '../components/Edges/EdgeWrapper/type';
 import { EdgeTypes } from '../container/EdgeRenderer/type';
-import { NodeDragHandler } from '../components/ReactDiagramProvider/type';
+import {
+   NodeDragHandler,
+   ReactDiagramState,
+} from '../components/ReactDiagramProvider/type';
+import { KeyCode } from '../hooks/useKeyPress';
+import { UseGlobalKeyHandlerParams } from '../hooks/useGlobalKeyHandler';
 
 type NoInfer<T> = [T][T extends any ? 0 : never];
 
 export type ReactDiagramProps<
    NodeType extends Node = Node,
    EdgeType extends Edge = Edge,
-> = HTMLAttributes<HTMLDivElement> & {
-   onlyRenderVisibleElements?: boolean;
-   disableKeyboardA11y?: boolean;
+> = HTMLAttributes<HTMLDivElement> &
+   Pick<
+      ReactDiagramState,
+      'onBeforeDelete' | 'onDelete' | 'onNodesDelete' | 'onEdgesDelete'
+   > &
+   UseGlobalKeyHandlerParams & {
+      onlyRenderVisibleElements?: boolean;
+      disableKeyboardA11y?: boolean;
 
-   nodeExtent?: CoordinateExtent;
-   nodeOrigin?: NodeOrigin;
-   smoothStep?: boolean;
-   centerStep?: boolean;
-   gridStep?: GridStep;
+      nodeExtent?: CoordinateExtent;
+      nodeOrigin?: NodeOrigin;
+      smoothStep?: boolean;
+      centerStep?: boolean;
+      gridStep?: GridStep;
 
-   elevateNodesOnSelect?: boolean;
+      elevateNodesOnSelect?: boolean;
 
-   nodes?: NodeType[];
-   nodeTypes?: NodeTypes<NodeType>;
-   edges?: EdgeType[];
-   edgeTypes?: EdgeTypes<EdgeType>;
-   edgeUpdaterRadius?: number;
-   ConnectionLineContainerStyle?: CSSProperties;
-   ConnectionLineComponent?: ConnectionLineComponent;
-   connectionRadius?: number;
+      nodes?: NodeType[];
+      nodeTypes?: NodeTypes<NodeType>;
+      edges?: EdgeType[];
+      edgeTypes?: EdgeTypes<EdgeType>;
+      edgeUpdaterRadius?: number;
+      ConnectionLineContainerStyle?: CSSProperties;
+      ConnectionLineComponent?: ConnectionLineComponent;
+      connectionRadius?: number;
 
-   onNodesChange?: OnNodesChange<NodeType>;
-   onNodeClick?: NodeMouseHandler<NodeType>;
-   onNodeDoubleClick?: NodeMouseHandler<NodeType>;
-   onNodeContextMenu?: NodeMouseHandler<NodeType>;
-   onNodeMouseEnter?: NodeMouseHandler<NodeType>;
-   onNodeMouseMove?: NodeMouseHandler<NodeType>;
-   onNodeMouseLeave?: NodeMouseHandler<NodeType>;
-   onNodeDragStart?: NodeDragHandler<NodeType>;
-   onNodeDrag?: NodeDragHandler<NodeType>;
-   onNodeDragEnd?: NodeDragHandler<NodeType>;
+      onNodesChange?: OnNodesChange<NodeType>;
+      onNodeClick?: NodeMouseHandler<NodeType>;
+      onNodeDoubleClick?: NodeMouseHandler<NodeType>;
+      onNodeContextMenu?: NodeMouseHandler<NodeType>;
+      onNodeMouseEnter?: NodeMouseHandler<NodeType>;
+      onNodeMouseMove?: NodeMouseHandler<NodeType>;
+      onNodeMouseLeave?: NodeMouseHandler<NodeType>;
+      onNodeDragStart?: NodeDragHandler<NodeType>;
+      onNodeDrag?: NodeDragHandler<NodeType>;
+      onNodeDragEnd?: NodeDragHandler<NodeType>;
 
-   onEdgesChange?: OnEdgesChange<EdgeType>;
-   onEdgeClick?: (event: ReactMouseEvent, edge: EdgeType) => void;
-   onEdgeDoubleClick?: EdgeMouseHandler<EdgeType>;
-   onEdgeContextMenu?: EdgeMouseHandler<EdgeType>;
-   onEdgeMouseEnter?: EdgeMouseHandler<EdgeType>;
-   onEdgeMouseMove?: EdgeMouseHandler<EdgeType>;
-   onEdgeMouseLeave?: EdgeMouseHandler<EdgeType>;
+      onEdgesChange?: OnEdgesChange<EdgeType>;
+      onEdgeClick?: (event: ReactMouseEvent, edge: EdgeType) => void;
+      onEdgeDoubleClick?: EdgeMouseHandler<EdgeType>;
+      onEdgeContextMenu?: EdgeMouseHandler<EdgeType>;
+      onEdgeMouseEnter?: EdgeMouseHandler<EdgeType>;
+      onEdgeMouseMove?: EdgeMouseHandler<EdgeType>;
+      onEdgeMouseLeave?: EdgeMouseHandler<EdgeType>;
 
-   onEdgeUpdate?: OnEdgeUpdateFunc<EdgeType>;
-   onEdgeUpdateStart?: (
-      event: ReactMouseEvent,
-      edge: EdgeType,
-      portType: PortType,
-   ) => void;
-   onEdgeUpdateEnd?: (
-      event: ReactMouseEvent,
-      edge: NoInfer<EdgeType>,
-      portType: PortType,
-   ) => void;
+      onEdgeUpdate?: OnEdgeUpdateFunc<EdgeType>;
+      onEdgeUpdateStart?: (
+         event: ReactMouseEvent,
+         edge: EdgeType,
+         portType: PortType,
+      ) => void;
+      onEdgeUpdateEnd?: (
+         event: ReactMouseEvent,
+         edge: NoInfer<EdgeType>,
+         portType: PortType,
+      ) => void;
 
-   onConnect?: OnConnect;
-   onConnectStart?: OnConnectStart;
-   onConnectEnd?: OnConnectEnd;
+      onConnect?: OnConnect;
+      onConnectStart?: OnConnectStart;
+      onConnectEnd?: OnConnectEnd;
 
-   onMove?: OnMove;
-   onMoveStart?: OnMove;
-   onMoveEnd?: OnMove;
-   onPaneClick?: OnMove;
+      onMove?: OnMove;
+      onMoveStart?: OnMove;
+      onMoveEnd?: OnMove;
+      onPaneClick?: OnMove;
 
-   onPaneMouseEnter?: (event: ReactMouseEvent) => void;
-   onPaneMouseMove?: (event: ReactMouseEvent) => void;
-   onPaneMouseLeave?: (event: ReactMouseEvent) => void;
+      onPaneMouseEnter?: (event: ReactMouseEvent) => void;
+      onPaneMouseMove?: (event: ReactMouseEvent) => void;
+      onPaneMouseLeave?: (event: ReactMouseEvent) => void;
 
-   onError?: OnError;
+      onError?: OnError;
 
-   minZoom?: number;
-   maxZoom?: number;
-   defaultViewport?: Viewport;
-   translateExtent?: CoordinateExtent;
+      minZoom?: number;
+      maxZoom?: number;
+      defaultViewport?: Viewport;
+      translateExtent?: CoordinateExtent;
 
-   multiSelectionKeyCode?: KeyCode;
-   dragSelectionKeyCode?: KeyCode;
+      // multiSelectionKeyCode?: KeyCode;
+      // deleteKeyCode?: KeyCode;
+      dragSelectionKeyCode?: KeyCode;
 
-   nodesDraggable?: boolean;
-   noDragClassName?: string;
-   noPanClassName?: string;
-   panning?: boolean;
-   autoPanOnNodeDrag?: boolean;
-   autoPanOnConnect?: boolean;
-};
+      nodesDraggable?: boolean;
+      noDragClassName?: string;
+      noPanClassName?: string;
+      panning?: boolean;
+      autoPanOnNodeDrag?: boolean;
+      autoPanOnConnect?: boolean;
+   };
 
 export type ReactDiagramRefType = HTMLDivElement;

@@ -1,38 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useStoreApi } from './useStore';
+import useKeyPress, { KeyCode } from './useKeyPress';
 
-export type KeyCode = string | Array<string> | null;
+const win = typeof window !== 'undefined' ? window : undefined;
 
-const useGlobalKeyHandler = (multiSelectionKeyCode: KeyCode = 'Meta') => {
+export type UseGlobalKeyHandlerParams = {
+   deleteKeyCode?: KeyCode | null;
+   multiSelectionKeyCode?: KeyCode | null;
+};
+
+const useGlobalKeyHandler = ({
+   deleteKeyCode = 'Backspace',
+   multiSelectionKeyCode = 'Meta',
+}: UseGlobalKeyHandlerParams) => {
    const store = useStoreApi();
 
-   const [multiSelectionActivate, setMultiSelectionActivate] = useState(false);
-
-   const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === multiSelectionKeyCode) {
-         setMultiSelectionActivate(true);
-      }
-   };
-
-   const handleKeyUp = () => {
-      setMultiSelectionActivate(false);
-   };
+   const multiSelectionKeyPressed = useKeyPress(multiSelectionKeyCode, {
+      target: win,
+   });
+   const deleteKeyPressed = useKeyPress(deleteKeyCode);
 
    useEffect(() => {
-      document.addEventListener('keydown', handleKeyDown);
-      document.addEventListener('keyup', handleKeyUp);
-
-      return () => {
-         document.removeEventListener('keydown', handleKeyDown);
-         document.removeEventListener('keyup', handleKeyUp);
-      };
-   }, []);
+      if (deleteKeyPressed) {
+         const { edges, getNodes, deleteElements, resetSelectedElements } =
+            store.getState();
+         const nodes = getNodes();
+         resetSelectedElements();
+         deleteElements({
+            nodes: nodes.filter((n) => n.selected),
+            edges: edges.filter((e) => e.selected),
+         });
+      }
+   }, [deleteKeyPressed]);
 
    useEffect(() => {
       store.setState({
-         multiSelectionActive: multiSelectionActivate,
+         multiSelectionActive: multiSelectionKeyPressed,
       });
-   }, [multiSelectionActivate]);
+   }, [multiSelectionKeyPressed]);
 };
 
 export default useGlobalKeyHandler;
