@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { useStore } from '../../hooks/useStore';
-import useGlobalKeyHandler, { KeyCode } from '../../hooks/useGlobalKeyHandler';
+import useGlobalKeyHandler from '../../hooks/useGlobalKeyHandler';
 
 import Pane from '../Pane';
 import Viewport from '../../container/Viewport';
@@ -9,15 +9,15 @@ import Viewport from '../../container/Viewport';
 import { PaneProps } from '../Pane';
 import { ReactDiagramState } from '../../components/ReactDiagramProvider/type';
 import DragSelection from '../DragSelection';
-import useDragSelectionKeyPress from '../../hooks/useDragSelectionKeyPress';
+// import useDragSelectionKeyPress from '../../hooks/useDragSelectionKeyPress';
+import useKeyPress from '../../hooks/useKeyPress';
+import { ReactDiagramProps } from '../../types';
 
 export type DiagramRendererProps = Omit<
    PaneProps,
    'translateExtent' | 'minZoom' | 'maxZoom' | 'selection'
-> & {
-   multiSelectionKeyCode?: KeyCode;
-   dragSelectionKeyCode?: KeyCode;
-};
+> &
+   Pick<ReactDiagramProps, 'dragSelectionKeyCode' | 'multiSelectionKeyCode'>;
 
 const selector = (s: ReactDiagramState) => {
    const { minZoom, maxZoom, translateExtent } = s;
@@ -43,12 +43,11 @@ function DiagramRenderer({
    onPaneMouseMove,
    onPaneMouseLeave,
 }: DiagramRendererProps) {
+   useGlobalKeyHandler({ multiSelectionKeyCode });
+
    const { minZoom, maxZoom, translateExtent } = useStore(selector);
 
-   useGlobalKeyHandler(multiSelectionKeyCode);
-
-   const dragSelectionKeyPressed =
-      useDragSelectionKeyPress(dragSelectionKeyCode);
+   const dragSelectionKeyPressed = useKeyPress(dragSelectionKeyCode || 'Shift');
 
    // useKeyPress
    const isSelecting = dragSelectionKeyPressed;
