@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/taehunlim/react-diagram/compare/core@0.4.0...core@0.5.0) (2026-03-03)
+
+
+### Features
+
+* add node and connected edge deletion via deleteKeyCode ([7cb1ae7](https://github.com/taehunlim/react-diagram/commit/7cb1ae71a96175ccb86dc93e6bf453767ea90a19))
+* support select and unselect for edges ([e85947f](https://github.com/taehunlim/react-diagram/commit/e85947f22d2adc2bff48cfc1d3e68c1aeb74fff1))
+* useKeyPress hook ([3f9f844](https://github.com/taehunlim/react-diagram/commit/3f9f844f0d94fb9f14c314cd4b0f5aee67a4e129))
+
+
+### Bug Fixes
+
+* ReactDiagram cannot be used as a JSX component. Its type 'typeof ReactDiagram' is not a valid JSX element type ([16d81f7](https://github.com/taehunlim/react-diagram/commit/16d81f7442fd64c3c88484a48f9aa68ec596d0ec))
+
+
+### Docs
+
+* update README ([4f002a3](https://github.com/taehunlim/react-diagram/commit/4f002a3b2c98905849fe687a5cc97288dd715f65))
+
 ## [0.4.0](https://github.com/taehunlim/react-diagram/compare/core@0.3.0...core@0.4.0) (2026-03-01)
 
 ## [0.3.0](https://github.com/taehunlim/react-diagram/compare/core@0.2.1...core@0.3.0) (2026-02-25)
