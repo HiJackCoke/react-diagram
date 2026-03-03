@@ -39,7 +39,7 @@ export type CoreNode<
    position: XYPosition;
    positionAbsolute?: XYPosition;
    ariaLabel?: string;
-   focusable?: boolean;
+   // focusable?: boolean;
    resizing?: boolean;
    [internalsSymbol]?: InternalCoreNode;
 };

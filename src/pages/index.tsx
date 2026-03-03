@@ -66,6 +66,8 @@ const initialNodes: TestNode[] = [
       id: '5',
       width: 100,
       height: 100,
+      selectable: false,
+
       data: { label: 'Node5' },
       position: { x: 550, y: 400 },
    },
@@ -102,6 +104,8 @@ const initialEdges: TestEdge[] = [
    {
       id: 'e-3-4',
       type: 'c',
+      // selectable: false,
+      focusable: false,
       source: '3',
       target: '4',
       markerEnd: {
@@ -231,12 +235,6 @@ function Index() {
             // centerStep
             // smoothStep
             // gridStep={[150, 150]}
-
-            onDelete={({ nodes, edges }) => {
-               console.log('delete', nodes, edges);
-            }}
-            onNodesDelete={console.log}
-            onEdgesDelete={console.log}
          >
             <Background />
          </ReactDiagram>

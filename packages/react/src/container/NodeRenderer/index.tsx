@@ -102,12 +102,13 @@ function NodeRenderer<NodeType extends Node = Node>({
                height,
                ariaLabel,
 
+               selectable,
+               draggable,
                positionAbsolute,
 
                hidden,
                selected,
-               selectable,
-               draggable,
+
                intersected,
             } = node;
 
@@ -122,14 +123,14 @@ function NodeRenderer<NodeType extends Node = Node>({
             const NodeComponent = (nodeTypes[nodeType] ||
                nodeTypes.default) as ComponentType<NodeWrapperProps<NodeType>>;
 
-            const isDraggable = !!(
-               draggable ||
-               (nodesDraggable && typeof draggable === 'undefined')
-            );
-            const isSelectable = !!(
-               selectable ||
-               (elementsSelectable && typeof selectable === 'undefined')
-            );
+            // const isDraggable = !!(
+            //    draggable ||
+            //    (nodesDraggable && typeof draggable === 'undefined')
+            // );
+            // const isSelectable = !!(
+            //    selectable ||
+            //    (elementsSelectable && typeof selectable === 'undefined')
+            // );
 
             const elProps = {
                id,
@@ -159,8 +160,8 @@ function NodeRenderer<NodeType extends Node = Node>({
             const booleanProps = {
                selected: !!selected,
                intersected: !!intersected,
-               isSelectable,
-               isDraggable,
+               // isSelectable,
+               // isDraggable,
                hidden,
                isParent: !!node[internalsSymbol]?.isParent,
                initialized: !!node.width && !!node.height,
@@ -178,6 +179,10 @@ function NodeRenderer<NodeType extends Node = Node>({
                   type={nodeType}
                   data={data}
                   resizeObserver={resizeObserver}
+                  nodesDraggable={nodesDraggable}
+                  elementsSelectable={elementsSelectable}
+                  selectable={selectable}
+                  draggable={draggable}
                />
             );
          })}

@@ -45,6 +45,8 @@ const selector = (s: ReactDiagramState) => ({
    width: s.width,
    height: s.height,
    nodeInternals: s.nodeInternals,
+   elementsSelectable: s.elementsSelectable,
+
    onError: s.onError,
 });
 
@@ -63,7 +65,10 @@ function EdgeRenderer<EdgeType extends Edge = Edge>({
    onEdgeUpdateStart,
    onEdgeUpdateEnd,
 }: EdgeRendererProps<EdgeType>) {
-   const { edges, width, height, nodeInternals } = useStore(selector, shallow);
+   const { edges, width, height, elementsSelectable, nodeInternals } = useStore(
+      selector,
+      shallow,
+   );
 
    return (
       <svg
@@ -75,7 +80,6 @@ function EdgeRenderer<EdgeType extends Edge = Edge>({
          <g>
             {edges.map((edge: Edge) => {
                const {
-                  data,
                   type,
                   // elProps
                   id,
@@ -100,6 +104,7 @@ function EdgeRenderer<EdgeType extends Edge = Edge>({
                   labelBgStyle,
                   labelBgPadding,
                   labelBgBorderRadius,
+                  ...props
                } = edge;
 
                const [sourceNodeRect, sourcePortBounds, sourceIsValid] =
@@ -123,7 +128,6 @@ function EdgeRenderer<EdgeType extends Edge = Edge>({
                const sourcePosition =
                   sourcePortInfo?.position || Position.Bottom;
                const targetPosition = targetPortInfo?.position || Position.Top;
-               const isFocusable = !!edge.focusable;
 
                if (!sourcePortInfo || !targetPortInfo) {
                   return null;
@@ -187,6 +191,7 @@ function EdgeRenderer<EdgeType extends Edge = Edge>({
                return (
                   <EdgeComponent
                      key={id}
+                     {...props}
                      {...elProps}
                      {...sourceAndTargetIds}
                      {...marker}
@@ -195,8 +200,7 @@ function EdgeRenderer<EdgeType extends Edge = Edge>({
                      {...events}
                      rfId={rfId}
                      type={edgeType}
-                     data={data}
-                     isFocusable={isFocusable}
+                     elementsSelectable={elementsSelectable}
                      edgeUpdaterRadius={edgeUpdaterRadius}
                   />
                );

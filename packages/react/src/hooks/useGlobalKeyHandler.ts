@@ -22,10 +22,9 @@ const useGlobalKeyHandler = ({
 
    useEffect(() => {
       if (deleteKeyPressed) {
-         const { edges, getNodes, deleteElements, resetSelectedElements } =
-            store.getState();
+         const { edges, getNodes, deleteElements } = store.getState();
          const nodes = getNodes();
-         resetSelectedElements();
+
          deleteElements({
             nodes: nodes.filter((n) => n.selected),
             edges: edges.filter((e) => e.selected),

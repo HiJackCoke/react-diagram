@@ -50,13 +50,15 @@ const wrapNode = <NodeType extends Node = Node>(
       height,
       className,
       selected,
-      isSelectable,
-      isDraggable,
+      // isSelectable,
+      // isDraggable,
       intersected,
 
       // nodeOrigin,
       // nodeExtent,
       hidden,
+      draggable = true,
+      selectable = true,
 
       resizeObserver,
 
@@ -69,6 +71,9 @@ const wrapNode = <NodeType extends Node = Node>(
       ariaLabel,
       rfId,
 
+      nodesDraggable,
+      elementsSelectable,
+
       noDragClassName,
       noPanClassName,
    }: NodeWrapperProps<NodeType>) {
@@ -79,6 +84,16 @@ const wrapNode = <NodeType extends Node = Node>(
       const prevSourcePosition = useRef(sourcePosition);
       const prevTargetPosition = useRef(targetPosition);
       const prevType = useRef(type);
+
+      const isDraggable = !!(
+         draggable ||
+         (nodesDraggable && typeof draggable === 'undefined')
+      );
+      const isSelectable = !!(
+         selectable ||
+         (elementsSelectable && typeof selectable === 'undefined')
+      );
+
       const hasPointerEvents =
          isDraggable || onClick || onMouseEnter || onMouseMove || onMouseLeave;
 

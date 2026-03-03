@@ -38,6 +38,7 @@ import { Node } from '../components/Node/type';
 import { Edge } from '../components/Edges/type';
 import {
    ReactDiagramState,
+   UnSelectEdgesParams,
    UnSelectNodesParams,
 } from '../components/ReactDiagramProvider/type';
 
@@ -239,7 +240,7 @@ const createRCDStore = () =>
          if (multiSelectionActive) {
             changedNodes = selectedNodeIds.map((nodeId) =>
                createSelectionChange(nodeId, true),
-            ) as NodeSelectionChange[];
+            );
          } else {
             changedNodes = getSelectionChanges(getNodes(), selectedNodeIds);
          }
@@ -254,22 +255,60 @@ const createRCDStore = () =>
          const changedNodes = nodesToUnselect.map((n) => {
             n.selected = false;
             return createSelectionChange(n.id, false);
-         }) as NodeSelectionChange[];
+         });
 
          triggerNodeChanges(changedNodes);
       },
 
+      addSelectedEdges: (selectedEdgeIds) => {
+         const {
+            multiSelectionActive,
+            getNodes,
+            edges,
+            triggerNodeChanges,
+            triggerEdgeChanges,
+         } = get();
+
+         const nodes = getNodes();
+         if (multiSelectionActive) {
+            const changedEdges = selectedEdgeIds.map((edgeId) =>
+               createSelectionChange(edgeId, true),
+            );
+            triggerEdgeChanges(changedEdges);
+            return;
+         }
+
+         triggerEdgeChanges(getSelectionChanges(edges, selectedEdgeIds));
+         triggerNodeChanges(getSelectionChanges(nodes, []));
+      },
+
+      unselectEdges: ({ edges }: UnSelectEdgesParams = {}) => {
+         const { edges: allEdges, triggerEdgeChanges } = get();
+         const edgesToUnselect = edges ? edges : allEdges;
+
+         const changedEdges = edgesToUnselect.map((n) => {
+            n.selected = false;
+            return createSelectionChange(n.id, false);
+         });
+
+         triggerEdgeChanges(changedEdges);
+      },
+
       resetSelectedElements: () => {
-         const { getNodes, triggerNodeChanges } = get();
+         const { edges, getNodes, triggerNodeChanges, triggerEdgeChanges } =
+            get();
          const nodes = getNodes();
 
          const nodesToUnselect = nodes
             .filter((e) => e.selected)
-            .map((n) =>
-               createSelectionChange(n.id, false),
-            ) as NodeSelectionChange[];
+            .map((n) => createSelectionChange(n.id, false));
+
+         const edgesToUnselect = edges
+            .filter((e) => e.selected)
+            .map((n) => createSelectionChange(n.id, false));
 
          triggerNodeChanges(nodesToUnselect);
+         triggerEdgeChanges(edgesToUnselect);
       },
 
       deleteElements: async (elementsToDelete) => {

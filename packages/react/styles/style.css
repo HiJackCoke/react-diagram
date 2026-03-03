@@ -25,7 +25,6 @@
    box-sizing: border-box;
 
    &:focus-visible {
-      outline: none;
       border: 1px solid #555;
    }
 }
@@ -113,7 +112,7 @@
 }
 
 .react-diagram__edge {
-   pointer-events: visibleStroke;
+   pointer-events: visiblePainted;
    cursor: pointer;
 }
 
@@ -149,6 +148,21 @@
 .react-diagram__edge-updater:hover {
    transition: 0.2s;
    fill: #000000;
+}
+
+@keyframes edge-selected {
+   from {
+      stroke-dashoffset: 20;
+   }
+   to {
+      stroke-dashoffset: 0;
+   }
+}
+
+.react-diagram__edge.selected .react-diagram__edge-path {
+   stroke: #555;
+   stroke-dasharray: 5 3;
+   animation: edge-selected 0.4s linear infinite;
 }
 
 .react-diagram__viewport {
@@ -202,6 +216,10 @@
    border: 1px dotted rgba(47, 79, 79, 0.8);
 }
 
+.react-diagram__node-default,
+.react-diagram__node-default:focus-visible,
+.react-diagram__edge,
+.react-diagram__edge:focus-visible,
 .react-diagram__drag-box:focus,
 .react-diagram__drag-box:focus-visible,
 .react-diagram__selection-box-rect:focus,

@@ -2,6 +2,7 @@ import { MouseEvent } from 'react';
 
 import { Node } from '../type';
 import { CoordinateExtent, NodeOrigin } from 'cosmos-diagram';
+import { ReactDiagramStore } from '../../ReactDiagramProvider/type';
 
 export type NodeMouseHandler<NodeType extends Node = Node> = (
    event: MouseEvent,
@@ -26,14 +27,21 @@ export type NodeWrapperProps<
    | 'ariaLabel'
    | 'width'
    | 'height'
+   | 'selectable'
+   | 'draggable'
 > &
+   Pick<
+      ReactDiagramStore<NodeType>,
+      'rfId' | 'elementsSelectable' | 'nodesDraggable'
+   > &
    Required<Pick<NodeType, 'type' | 'zIndex'>> & {
       positionX: number;
       positionY: number;
 
       initialized: boolean;
-      isSelectable: boolean;
-      isDraggable: boolean;
+
+      // isSelectable: boolean;
+      // isDraggable: boolean;
 
       onClick?: NodeMouseHandler<NodeType>;
       onDoubleClick?: NodeMouseHandler<NodeType>;
@@ -43,7 +51,7 @@ export type NodeWrapperProps<
       onContextMenu?: NodeMouseHandler<NodeType>;
       resizeObserver: ResizeObserver | null;
       isParent: boolean;
-      rfId: string;
+
       disableKeyboardA11y: boolean;
       noDragClassName: string;
       noPanClassName: string;

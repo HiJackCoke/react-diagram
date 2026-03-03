@@ -39,6 +39,7 @@ export type CoreEdge<
    //    focusable?: boolean;
    hidden?: boolean;
    deletable?: boolean;
+   selectable?: boolean;
 };
 
 export type DefaultCoreEdgeOptions<EdgeType extends CoreEdge> = Omit<

@@ -44,6 +44,9 @@ export type NodeDragHandler<NodeType extends Node = Node> = (
 export type UnSelectNodesParams<NodeType extends Node = Node> = {
    nodes?: NodeType[];
 };
+export type UnSelectEdgesParams<EdgeType extends Edge = Edge> = {
+   edges?: EdgeType[];
+};
 
 export type DeleteElementsOptions = TargetElementsOptions;
 export type ReactDiagramStore<
@@ -113,6 +116,10 @@ export type ReactDiagramActions<
    getNodes: () => NodeType[];
    addSelectedNodes: (nodeIds: string[]) => void;
    unselectNodes: (params?: UnSelectNodesParams<NodeType>) => void;
+
+   addSelectedEdges: (edgeIds: string[]) => void;
+   unselectEdges: (params?: UnSelectEdgesParams<EdgeType>) => void;
+
    resetSelectedElements: () => void;
    deleteElements: (params: DeleteElementsOptions) => void;
 

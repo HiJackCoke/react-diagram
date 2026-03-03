@@ -1,4 +1,9 @@
-import { NodeChange, EdgeChange } from '../types/general';
+import {
+   NodeChange,
+   EdgeChange,
+   NodeSelectionChange,
+   EdgeSelectionChange,
+} from '../types/general';
 import { Node } from '../components/Node/type';
 import { Edge } from '../components/Edges/type';
 
@@ -147,7 +152,10 @@ export function applyEdgeChanges<EdgeType extends Edge = Edge>(
    return applyChanges(changes, edges);
 }
 
-export const createSelectionChange = (id: string, selected: boolean) => ({
+export const createSelectionChange = (
+   id: string,
+   selected: boolean,
+): NodeSelectionChange | EdgeSelectionChange => ({
    id,
    type: 'select',
    selected,

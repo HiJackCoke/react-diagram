@@ -4,7 +4,7 @@ import {
    MouseEvent as ReactMouseEvent,
 } from 'react';
 
-import {  Connection, EdgePosition } from 'cosmos-diagram';
+import { Connection, EdgePosition } from 'cosmos-diagram';
 
 import { Edge } from '../type';
 import { Node, ReactDiagramProps } from '../../../types';
@@ -20,40 +20,9 @@ export type OnEdgeUpdateFunc<EdgeType extends Edge = Edge> = (
    newConnection: Connection,
 ) => void;
 
-// export type WrapEdgeProps<EdgeType extends Edge = Edge> = Edge &
-//    EdgePosition & {
-//       elementsSelectable?: boolean;
-
-//       rfId?: string;
-//       isFocusable: boolean;
-
-//       edgeUpdaterRadius?: number;
-
-//       onClick?: EdgeMouseHandler<EdgeType>;
-//       onDoubleClick?: EdgeMouseHandler<EdgeType>;
-//       onContextMenu?: EdgeMouseHandler<EdgeType>;
-//       onMouseEnter?: EdgeMouseHandler<EdgeType>;
-//       onMouseMove?: EdgeMouseHandler<EdgeType>;
-//       onMouseLeave?: EdgeMouseHandler<EdgeType>;
-
-//       onEdgeUpdate?: OnEdgeUpdateFunc<EdgeType>;
-//       onEdgeUpdateStart?: (
-//          event: ReactMouseEvent,
-//          edge: EdgeType,
-//          portType: PortType,
-//       ) => void;
-//       onEdgeUpdateEnd?: (
-//          event: ReactMouseEvent,
-//          edge: EdgeType,
-//          portType: PortType,
-//       ) => void;
-//    };
-
 export type WrapEdgeProps<EdgeType extends Edge = Edge> = Edge &
    EdgePosition &
-   Partial<
-      Pick<ReactDiagramStore<Node, EdgeType>, 'rfId' | 'elementsSelectable'>
-   > &
+   Pick<ReactDiagramStore<Node, EdgeType>, 'elementsSelectable'> &
    Pick<
       ReactDiagramProps<Node, EdgeType>,
       | 'edgeUpdaterRadius'
@@ -61,8 +30,7 @@ export type WrapEdgeProps<EdgeType extends Edge = Edge> = Edge &
       | 'onEdgeUpdateStart'
       | 'onEdgeUpdateEnd'
    > & {
-      isFocusable: boolean;
-
+      rfId?: string;
       onClick?: EdgeMouseHandler<EdgeType>;
       onDoubleClick?: EdgeMouseHandler<EdgeType>;
       onContextMenu?: EdgeMouseHandler<EdgeType>;

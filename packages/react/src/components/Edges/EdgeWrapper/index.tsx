@@ -77,10 +77,13 @@ const wrapEdge = <EdgeType extends Edge = Edge>(
          sourcePosition,
          targetPosition,
 
-         selected,
-         elementsSelectable,
          hidden,
-         isFocusable,
+         selected,
+         // isFocusable,
+         // isSelectable,
+         focusable = true,
+         selectable = true,
+         elementsSelectable,
 
          onClick,
          onDoubleClick,
@@ -108,6 +111,11 @@ const wrapEdge = <EdgeType extends Edge = Edge>(
          target,
          targetPort,
       };
+
+      const isSelectable = !!(
+         selectable ||
+         (elementsSelectable && typeof selectable === 'undefined')
+      );
 
       const isConnecting = className === 'react-diagram__connection';
 
@@ -211,7 +219,24 @@ const wrapEdge = <EdgeType extends Edge = Edge>(
       const onEdgeClick = (
          event: React.MouseEvent<SVGGElement, MouseEvent>,
       ): void => {
-         const { edges } = store.getState();
+         const {
+            edges,
+            multiSelectionActive,
+            addSelectedEdges,
+            unselectEdges,
+         } = store.getState();
+
+         if (isSelectable) {
+            const selectedEdge = edges.filter((edge) => edge.id === id);
+
+            if (!selected) {
+               addSelectedEdges([id]);
+            } else if (selected && multiSelectionActive) {
+               unselectEdges({ edges: [...selectedEdge] });
+
+               edgeRef.current?.blur();
+            }
+         }
 
          if (onClick) {
             const edge = edges.find((e) => e.id === id)!;
@@ -279,8 +304,8 @@ const wrapEdge = <EdgeType extends Edge = Edge>(
             {...events}
             ref={edgeRef}
             className={wrapperClassName}
-            tabIndex={isFocusable ? 0 : undefined}
-            role={isFocusable ? 'button' : undefined}
+            tabIndex={focusable ? 0 : undefined}
+            role={focusable ? 'button' : undefined}
             aria-label={
                ariaLabel === null
                   ? undefined
@@ -289,7 +314,7 @@ const wrapEdge = <EdgeType extends Edge = Edge>(
                   : `Edge from ${source} to ${target}`
             }
             aria-describedby={
-               isFocusable ? `${ARIA_EDGE_DESC_KEY}-${rfId}` : undefined
+               focusable ? `${ARIA_EDGE_DESC_KEY}-${rfId}` : undefined
             }
          >
             {!updating && (
