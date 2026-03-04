@@ -1,4 +1,4 @@
-import {  useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import type { MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import {
    Rect,
@@ -215,14 +215,19 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
          className={cc([
             'react-diagram__container react-diagram__drag-selection',
             {
-               active: isPossibleDragSelection || selectionBoxActive,
+               active:
+                  isPossibleDragSelection ||
+                  dragBoxActive ||
+                  selectionBoxActive,
             },
          ])}
-         onClick={onClick}
+         onClick={isPossibleDragSelection ? onClick : undefined}
          onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
-         onMouseMove={isPossibleDragSelection ? onMouseMove : undefined}
+         onMouseMove={
+            isPossibleDragSelection || dragBoxActive ? onMouseMove : undefined
+         }
          onMouseUp={elementsSelectable ? onMouseUp : undefined}
-         onMouseLeave={isPossibleDragSelection ? onMouseLeave : undefined}
+         onMouseLeave={elementsSelectable ? onMouseLeave : undefined}
       >
          {children}
          {dragBoxActive && <DragBox rect={dragBoxRect} />}
