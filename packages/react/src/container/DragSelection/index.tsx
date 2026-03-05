@@ -147,9 +147,11 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
          return;
       }
 
-      store.setState({
-         selectionBoxActive: false,
-      });
+      if (selectionBoxActive) {
+         store.setState({
+            selectionBoxActive: false,
+         });
+      }
 
       setDragBoxActive(true);
 
@@ -221,7 +223,9 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
                   selectionBoxActive,
             },
          ])}
-         onClick={isPossibleDragSelection ? onClick : undefined}
+         onClick={
+            isPossibleDragSelection && dragBoxActive ? onClick : undefined
+         }
          onMouseDown={isPossibleDragSelection ? onMouseDown : undefined}
          onMouseMove={
             isPossibleDragSelection || dragBoxActive ? onMouseMove : undefined
