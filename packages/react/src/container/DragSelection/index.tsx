@@ -53,12 +53,9 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
       selectionBoxActive,
    } = useStore(selector, shallow);
 
-   const [dragBoxStartPosition, setDragBoxStartPosition] = useState<XYPosition>(
-      {
-         x: 0,
-         y: 0,
-      },
-   );
+   const dragBoxStartPosition = useRef<XYPosition>({ x: 0, y: 0 });
+   const isDragging = useRef<boolean>(false);
+
    const [dragBoxRect, setDragBoxRect] = useState<Rect>({
       width: 0,
       height: 0,
@@ -73,10 +70,9 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
          selectionBoxActive: prevSelectedNodesCount.current > 0,
       });
 
-      setDragBoxStartPosition({
-         x: 0,
-         y: 0,
-      });
+      dragBoxStartPosition.current = { x: 0, y: 0 };
+      isDragging.current = false;
+
       setDragBoxRect({
          width: 0,
          height: 0,
@@ -125,24 +121,20 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
          y,
       });
 
-      setDragBoxStartPosition({
-         x,
-         y,
-      });
+      dragBoxStartPosition.current = { x, y };
+      isDragging.current = true;
    };
 
    const onMouseMove = (event: ReactMouseEvent): void => {
       const { nodeInternals, transform, nodeOrigin, getNodes, onNodesChange } =
          store.getState();
 
-      const hasDragBoxStartPosition =
-         dragBoxStartPosition.x > 0 && dragBoxStartPosition.y > 0;
-
       if (
+         !isDragging.current ||
+         !containerBounds.current
+
          // !hasDragBoxPosition ||
          // !isSelecting ||
-         !hasDragBoxStartPosition ||
-         !containerBounds.current
       ) {
          return;
       }
@@ -159,8 +151,8 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
          event.nativeEvent,
          containerBounds.current,
       );
-      const startX = dragBoxStartPosition.x ?? 0;
-      const startY = dragBoxStartPosition.y ?? 0;
+      const startX = dragBoxStartPosition.current.x;
+      const startY = dragBoxStartPosition.current.y;
 
       const rect = {
          x: mousePos.x < startX ? mousePos.x : startX,
