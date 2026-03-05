@@ -8,7 +8,7 @@ export type KeyCode = string | Array<string> | null;
 
 const defaultTarget = typeof document !== 'undefined' ? document : null;
 
-function useKeyPress(key: KeyCode, options: KeyOptions = {}) {
+function useKeyPress(key?: KeyCode, options: KeyOptions = {}) {
    const target = options.target !== undefined ? options.target : defaultTarget;
 
    const [isPressed, setIsPressed] = useState(false);

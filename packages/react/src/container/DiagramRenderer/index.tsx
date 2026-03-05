@@ -51,7 +51,7 @@ function DiagramRenderer({
 
    const { minZoom, maxZoom, translateExtent } = useStore(selector);
 
-   const dragSelectionKeyPressed = useKeyPress(dragSelectionKeyCode || 'Shift');
+   const dragSelectionKeyPressed = useKeyPress(dragSelectionKeyCode);
 
    // useKeyPress
    const isSelecting = dragSelectionKeyPressed;
