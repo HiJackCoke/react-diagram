@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.2](https://github.com/taehunlim/react-diagram/compare/react@0.11.1...react@0.11.2) (2026-03-06)
+
+
+### Bug Fixes
+
+* drag selection failing for certain drag directions ([f47b7db](https://github.com/taehunlim/react-diagram/commit/f47b7dbab22929031d24d78b97d927fcf2afca3f))
+* drag selection failing for certain drag directions [#2](https://github.com/taehunlim/react-diagram/issues/2) ([eb9629b](https://github.com/taehunlim/react-diagram/commit/eb9629b88282394b0018642aab93da5b7428c405))
+* dragSelectionKeyPressed incorrectly true when dragSelectionKeyCode is null ([4758fdd](https://github.com/taehunlim/react-diagram/commit/4758fddc4dad7be3ba2a6f4c729de64fb8dae31b))
+
+
+### Code Refactoring
+
+* replace drag selection state with refs to avoid unnecessary re-renders ([ac60071](https://github.com/taehunlim/react-diagram/commit/ac60071e5da2e4500e8d4d72cbf4b9d3c160f33d))
+
 ### [0.11.1](https://github.com/taehunlim/react-diagram/compare/react@0.11.0...react@0.11.1) (2026-03-05)
 
 
