@@ -194,6 +194,17 @@ function DragSelection({ isSelecting, children }: DragSelectionProps) {
          return;
       }
 
+      // 드래그 중이었다면, 이후 발생할 click 이벤트가 Pane(d3 click.zoom)으로
+      // 버블링되지 않도록 capture phase에서 한 번만 차단
+      if (isDragging.current && dragSelection.current) {
+         const container = dragSelection.current;
+         const stopClick = (e: Event) => {
+            e.stopPropagation();
+            container.removeEventListener('click', stopClick, true);
+         };
+         container.addEventListener('click', stopClick, true);
+      }
+
       resetDragBox();
    };
 
